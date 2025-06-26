@@ -4,6 +4,8 @@ const BASE_PATHS = [
   "/asesoria-trabajadores",
   "/blog",
   "/contacto",
+  "/habla-con-nosotros",
+  "/aviso-legal",
 ];
 
 async function fetchPostRoutes() {
