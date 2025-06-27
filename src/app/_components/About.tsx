@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 export const AboutSection = () => {
   return (
@@ -37,13 +37,13 @@ export const AboutSection = () => {
           </div>
           <div className="relative">
             <div className="bg-gray-100 rounded-lg p-8">
-              <Image
+              {/* <Image
                 src="/placeholder.svg?height=500&width=600"
                 alt="Equipo RYO Asociados"
                 width={600}
                 height={500}
                 className="rounded-lg object-cover w-full"
-              />
+              /> */}
             </div>
           </div>
         </div>

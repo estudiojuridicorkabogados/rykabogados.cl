@@ -1,0 +1,84 @@
+import { gql } from "@apollo/client";
+import { getApolloServerClient } from "../getApolloServerClient";
+
+import { Post as PostGraphQL } from "@/types/generated/graphql";
+import { ShortPost } from "@/types/global";
+import { generatePostHref } from "@/utils/hrefs";
+import { extractImageDataFromContentfulAsset } from "@/utils/images";
+import { URLS } from "@/utils/constants";
+
+interface GetAllPostsParams {
+  limit: number;
+  isPreview?: boolean;
+}
+
+type ShortPostGraphQL = Pick<PostGraphQL, "slug" | "title" | "date" | "mainImage">;
+
+interface AllPostsgQueryResposne {
+  postCollection: {
+    items: ShortPostGraphQL[];
+  };
+}
+
+interface GetAllPostsResponse {
+  posts: ShortPost[];
+}
+
+const GET_ALL_POSTS_QUERY = gql`
+  query ($locale: String!, $preview: Boolean!, $limit: Int!) {
+    postCollection(
+      order: sys_firstPublishedAt_DESC
+      preview: $preview
+      limit: $limit
+      locale: $locale
+    ) {
+      items {
+        slug
+        title
+        date
+        mainImage {
+          title
+          description
+          width
+          height
+          url
+        }
+      }
+    }
+  }
+`;
+
+export async function getAllPosts({
+  limit,
+  isPreview = false,
+}: GetAllPostsParams): Promise<GetAllPostsResponse> {
+  try {
+    const apolloClient = getApolloServerClient({ isPreview });
+
+    const data = await apolloClient.query<AllPostsgQueryResposne>({
+      query: GET_ALL_POSTS_QUERY,
+      variables: { limit, preview: isPreview },
+      context: {
+        fetchOptions: {
+          next: {
+            revalidate:
+              isPreview || process.env.DISABLE_CACHE === "true" ? 0 : 3600,
+          },
+        },
+      },
+    });
+
+    return {
+      posts: data.data.postCollection.items
+        .filter(({ slug }) => !!slug)
+        .map((post) => ({
+          ...post,
+          href: URLS.blogPost(post.slug!),
+          mainImage: post.mainImage ? extractImageDataFromContentfulAsset(post.mainImage) : undefined,
+        })),
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch post");
+  }
+}

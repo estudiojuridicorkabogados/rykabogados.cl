@@ -10,16 +10,23 @@
     "lint:fix": "next lint --fix",
     "format:check": "prettier --check src",
     "format": "prettier --write src",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "engines": {
     "npm": ">=11.3.0",
     "node": ">=22.9.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
+    "@apollo/client-integration-nextjs": "^0.12.2",
+    "@contentful/rich-text-plain-text-renderer": "^17.0.1",
+    "@contentful/rich-text-react-renderer": "^16.0.2",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "contentful": "^11.7.3",
+    "lodash.words": "^4.2.0",
     "lucide-react": "^0.523.0",
     "next": "15.3.4",
     "react": "^19.1.0",
@@ -28,7 +35,11 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/client-preset": "^4.8.3",
+    "@graphql-codegen/typescript": "^4.1.6",
     "@tailwindcss/postcss": "^4.1.11",
+    "@types/lodash.words": "^4.2.9",
     "@types/node": "^22.15.33",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
