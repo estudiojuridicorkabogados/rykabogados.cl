@@ -43,3 +43,8 @@ export type ShortPost = Pick<
   Post,
   "slug" | "title" | "excerpt" | "href" | "mainImage" | "date"
 >;
+
+export interface ApiPost {
+  lastModified: string;
+  slug: string;
+}

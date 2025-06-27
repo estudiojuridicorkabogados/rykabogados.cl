@@ -4,9 +4,74 @@ import { getPost } from "@/graphql/queries/get-post.query";
 import { draftMode } from "next/headers";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { Metadata } from "next";
+import { ApiPost } from "@/types/global";
 
 interface BlogPostPageParams {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+      next: { revalidate: 3600 },
+    });
+
+    const { posts } = (await res.json()) as { posts: ApiPost[] };
+
+    return posts.map(({ slug }) => ({ params: { slug } }));
+  } catch (error) {
+    console.log("Could pre generate blog posts pages due to");
+    console.error(error);
+    return [];
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: BlogPostPageParams): Promise<Metadata> {
+  const { slug } = await params;
+
+  try {
+    const { isEnabled: isPreview } = await draftMode();
+    const post = await getPost({ slug, isPreview });
+
+    if (!post) {
+      return {};
+    }
+
+    // @TODO Add metaTitle and metaDescription to the Post type
+    const title = post.title || "R&K Abogados - Blog Post";
+    const description = "post.smallIntro";
+    // const title = post.metaTitle;
+    // const description = post.smallIntro;
+    const images = post.mainImage?.url
+      ? [
+          {
+            url: new URL(post.mainImage.url),
+            height: post.mainImage?.details.height || 569,
+            width: post.mainImage?.details.width || 853,
+          },
+        ]
+      : [];
+
+    return {
+      title,
+      description,
+      creator: "R&K Abogados",
+      openGraph: {
+        title,
+        description,
+        siteName: "R&K Abogados",
+        images,
+        locale: "es-CL",
+        url: new URL(`/blog/${slug}`, process.env.NEXT_PUBLIC_BASE_URL),
+      },
+      twitter: { card: "summary_large_image", title, description, images },
+    };
+  } catch (error) {
+    return {};
+  }
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageParams) {

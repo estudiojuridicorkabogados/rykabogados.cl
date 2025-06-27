@@ -1,3 +1,5 @@
+import { ApiPost } from "@/types/global";
+
 const BASE_PATHS = [
   "",
   "/asesoria-empresas",
