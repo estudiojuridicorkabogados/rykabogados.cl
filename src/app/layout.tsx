@@ -9,6 +9,7 @@ import "./globals.css";
 
 const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 
+// @TODO Improve metadata
 export const metadata: Metadata = {
   title: "RyK Abogados | Excelencia, Lealtad y Integridad",
   keywords: [
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     "abogados r&k",
   ],
   description:
-    "Estudio jurídico especializado en derecho laboral con servicios en todo Chile. Ofrecemos excelencia, lealtad e integridad en cada caso.",
+    "R&O ABOGADOS es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
 };
 
 export default function RootLayout({

@@ -1,4 +1,5 @@
 import { Maybe } from "./generated/graphql";
+import { Document } from "@contentful/rich-text-types";
 
 export interface Image {
   url?: Maybe<string>;
