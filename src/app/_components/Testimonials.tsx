@@ -44,7 +44,9 @@ export const TestimonialsSection = () => {
                 ))}
               </div>
               <blockquote className="text-lg italic mb-8 leading-relaxed">
-                {'"'}{testimonial.quote}{'"'}
+                {'"'}
+                {testimonial.quote}
+                {'"'}
               </blockquote>
               <div>
                 <div className="font-semibold text-white">

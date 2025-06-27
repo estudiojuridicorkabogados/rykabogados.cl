@@ -13,7 +13,10 @@ interface GetAllPostsParams {
   isPreview?: boolean;
 }
 
-type ShortPostGraphQL = Pick<PostGraphQL, "slug" | "title" | "date" | "mainImage">;
+type ShortPostGraphQL = Pick<
+  PostGraphQL,
+  "slug" | "title" | "date" | "mainImage"
+>;
 
 interface AllPostsgQueryResposne {
   blogPostCollection: {
@@ -75,7 +78,9 @@ export async function getAllPosts({
         .map((post) => ({
           ...post,
           href: URLS.blogPost(post.slug!),
-          mainImage: post.mainImage ? extractImageDataFromContentfulAsset(post.mainImage) : undefined,
+          mainImage: post.mainImage
+            ? extractImageDataFromContentfulAsset(post.mainImage)
+            : undefined,
         })),
     };
   } catch (error) {

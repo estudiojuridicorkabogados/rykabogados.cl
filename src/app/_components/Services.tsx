@@ -1,4 +1,4 @@
-import { FileText, Gavel,Shield, Users } from "lucide-react";
+import { FileText, Gavel, Shield, Users } from "lucide-react";
 
 export const ServicesSection = () => {
   return (

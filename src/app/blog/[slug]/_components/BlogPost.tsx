@@ -3,6 +3,7 @@ import { es } from "date-fns/locale";
 import Image from "next/image";
 
 import { Post } from "@/types/global";
+
 import { RichText } from "./RichText/RichText";
 
 interface BlogPostProps {

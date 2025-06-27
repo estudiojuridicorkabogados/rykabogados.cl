@@ -1,5 +1,6 @@
-import { Maybe } from "./generated/graphql";
 import { Document } from "@contentful/rich-text-types";
+
+import { Maybe } from "./generated/graphql";
 
 export interface Image {
   url?: Maybe<string>;

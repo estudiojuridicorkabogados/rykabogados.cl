@@ -19,11 +19,7 @@ interface PostQueryResposne {
 
 const GET_POST_QUERY = gql`
   query ($slug: String!, $preview: Boolean!) {
-    blogPostCollection(
-      where: { slug: $slug }
-      preview: $preview
-      limit: 1
-    ) {
+    blogPostCollection(where: { slug: $slug }, preview: $preview, limit: 1) {
       items {
         title
         # metaTitle

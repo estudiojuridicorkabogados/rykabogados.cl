@@ -30,6 +30,7 @@
     "html-react-parser": "^5.2.5",
     "lodash.words": "^4.2.0",
     "lucide-react": "^0.523.0",
+    "motion": "^12.19.2",
     "next": "15.3.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

@@ -6,4 +6,4 @@ export default function BlogPostPageLoading() {
       <p className="ml-4 text-gray-700">Cargando...</p>
     </div>
   );
-};
+}
