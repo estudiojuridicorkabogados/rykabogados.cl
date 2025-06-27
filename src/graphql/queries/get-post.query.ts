@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
-import { getApolloServerClient } from "../getApolloServerClient";
 
 import { Post as PostGraphQL } from "@/types/generated/graphql";
 import { Post } from "@/types/global";
 
+import { getApolloServerClient } from "../getApolloServerClient";
 import { parseGraphQLPost } from "../parsers/posts";
 
 interface GetPostParams {

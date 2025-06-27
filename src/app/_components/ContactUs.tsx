@@ -1,4 +1,5 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin,Phone } from "lucide-react";
+
 import { Button } from "@/components/ui/Button";
 
 export const ContactUsSection = () => {

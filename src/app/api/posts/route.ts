@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { getContentfulClient } from "@/utils/contentful-client";
 import { ApiPost } from "@/types/global";
+import { getContentfulClient } from "@/utils/contentful-client";
 
 export const revalidate = 0;
 

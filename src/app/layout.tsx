@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { Footer } from "@/components/Footer";
 import Script from "next/script";
-import { poppins } from "@/utils/fonts";
+
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { poppins } from "@/utils/fonts";
+
+import "./globals.css";
 
 const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 

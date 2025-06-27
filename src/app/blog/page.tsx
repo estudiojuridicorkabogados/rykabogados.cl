@@ -1,6 +1,8 @@
-import { getAllPosts } from "@/graphql/queries/get-all-posts.query";
-import { BlogPostEntry } from "./_components/BlogPostEntry";
 import { draftMode } from "next/headers";
+
+import { getAllPosts } from "@/graphql/queries/get-all-posts.query";
+
+import { BlogPostEntry } from "./_components/BlogPostEntry";
 
 export default async function BlogPage() {
   const { isEnabled: isPreview } = await draftMode();

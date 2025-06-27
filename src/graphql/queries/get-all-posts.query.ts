@@ -1,11 +1,12 @@
 import { gql } from "@apollo/client";
-import { getApolloServerClient } from "../getApolloServerClient";
 
 import { Post as PostGraphQL } from "@/types/generated/graphql";
 import { ShortPost } from "@/types/global";
+import { URLS } from "@/utils/constants";
 import { generatePostHref } from "@/utils/hrefs";
 import { extractImageDataFromContentfulAsset } from "@/utils/images";
-import { URLS } from "@/utils/constants";
+
+import { getApolloServerClient } from "../getApolloServerClient";
 
 interface GetAllPostsParams {
   limit: number;

@@ -1,6 +1,5 @@
+import { ArrowRight,Building2, Users } from "lucide-react";
 import Link from "next/link";
-
-import { Users, Building2, ArrowRight } from "lucide-react";
 
 export const PracticeAreasSection = () => {
   return (

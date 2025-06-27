@@ -1,6 +1,6 @@
+import { Menu, Phone, Search } from "lucide-react";
 import Link from "next/link";
 
-import { Phone, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { URLS } from "@/utils/constants";
 

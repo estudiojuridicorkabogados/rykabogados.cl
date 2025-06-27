@@ -1,9 +1,9 @@
-import { HeroSection } from "./_components/Hero";
 import { AboutSection } from "./_components/About";
+import { ContactUsSection } from "./_components/ContactUs";
+import { HeroSection } from "./_components/Hero";
 import { PracticeAreasSection } from "./_components/PracticeAreas";
 import { ServicesSection } from "./_components/Services";
 import { TestimonialsSection } from "./_components/Testimonials";
-import { ContactUsSection } from "./_components/ContactUs";
 
 export default function Home() {
   return (
