@@ -33,15 +33,15 @@ export function parseGraphQLPost(graphQLPost: PostGraphQL): Post {
     ? extractImageDataFromContentfulAsset(graphQLPost.mainImage as any) // Contentful new types are fucking awful, so I had to hack around a bit
     : undefined;
 
-  const plainTextString = graphQLPost.richtext
-    ? documentToPlainTextString(graphQLPost.richtext.json)
+  const plainTextString = graphQLPost.content
+    ? documentToPlainTextString(graphQLPost.content.json)
     : "";
 
   return {
     ...graphQLPost,
-    richtext: {
-      json: graphQLPost.richtext?.json,
-      assets: graphQLPost.richtext?.links.assets.block
+    content: {
+      json: graphQLPost.content?.json,
+      assets: graphQLPost.content?.links.assets.block
         .filter((asset) => !!asset)
         .map(parseLinkToAsset),
     },

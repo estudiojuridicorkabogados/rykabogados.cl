@@ -2,10 +2,11 @@ import Link from "next/link";
 
 import { Phone, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { URLS } from "@/utils/constants";
 
 export const Navbar = () => {
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-transparent">
+    <header className="absolute top-0 left-0 right-0 z-50 bg-gray-900">
       <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           {/* Logo Section */}
@@ -52,10 +53,10 @@ export const Navbar = () => {
               Servicios
             </Link>
             <Link
-              href="#testimonios"
+              href={URLS.blog()}
               className="hover:text-[#AE8D54] transition-colors font-medium"
             >
-              Historia
+              Blog
             </Link>
             <Link
               href="#contacto"

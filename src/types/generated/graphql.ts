@@ -48,9 +48,10 @@ export type Entry = {
 
 export type Post = Entry & {
   __typename?: 'Post';
+  content?: Maybe<PostRichtext>;
   date?: Maybe<Scalars['DateTime']['output']>;
+  excerpt?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Asset>;
-  richtext?: Maybe<PostRichtext>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };

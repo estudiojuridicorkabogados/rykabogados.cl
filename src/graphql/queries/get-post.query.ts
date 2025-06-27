@@ -12,17 +12,16 @@ interface GetPostParams {
 }
 
 interface PostQueryResposne {
-  postCollection: {
+  blogPostCollection: {
     items: PostGraphQL[];
   };
 }
 
 const GET_POST_QUERY = gql`
-  query ($slug: String!, $locale: String!, $preview: Boolean!) {
-    postCollection(
+  query ($slug: String!, $preview: Boolean!) {
+    blogPostCollection(
       where: { slug: $slug }
       preview: $preview
-      locale: $locale
       limit: 1
     ) {
       items {
@@ -30,8 +29,9 @@ const GET_POST_QUERY = gql`
         # metaTitle
         # metaDescription
         slug
+        excerpt
         date
-        richtext {
+        content {
           json
           links {
             entries {
@@ -88,7 +88,7 @@ export async function getPost({
       },
     });
 
-    const post = data.data.postCollection.items[0];
+    const post = data.data.blogPostCollection.items[0];
 
     return parseGraphQLPost(post);
   } catch (error) {

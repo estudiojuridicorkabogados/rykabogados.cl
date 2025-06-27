@@ -1,20 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import Script from "next/script";
+import { poppins } from "@/utils/fonts";
+import { Navbar } from "@/components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const ZAPIER_CHATBOT_ID = "cmccfrrp7003wj4mb8rbq0jed";
+const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 
 export const metadata: Metadata = {
   title: "RyK Abogados | Excelencia, Lealtad y Integridad",
@@ -39,10 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${poppins.variable}  antialiased bg-white`}>
+        <Navbar />
+
+        <div className="bg-white">{children}</div>
 
         <Footer />
 
@@ -56,7 +47,7 @@ export default function RootLayout({
 
         <div
           dangerouslySetInnerHTML={{
-            __html: `<zapier-interfaces-chatbot-embed is-popup="true" chatbot-id="${ZAPIER_CHATBOT_ID}"></zapier-interfaces-chatbot-embed>`
+            __html: `<zapier-interfaces-chatbot-embed is-popup="true" chatbot-id="${ZAPIER_CHATBOT_ID}"></zapier-interfaces-chatbot-embed>`,
           }}
         />
       </body>

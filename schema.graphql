@@ -50,10 +50,11 @@ type Post implements Entry {
   # metaTitle: String
   # metaDescription: String
   slug: String
+  excerpt: String
   date: DateTime
   # category: String
   mainImage: Asset
-  richtext: PostRichtext
+  content: PostRichtext
 }
 
 type PostRichtext {

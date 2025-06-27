@@ -30,12 +30,16 @@ export interface Post {
   //   metaTitle?: Maybe<string>;
   //   metaDescription?: Maybe<string>;
   slug?: Maybe<string>;
+  excerpt?: Maybe<string>;
   mainImage?: Image;
   category?: Maybe<string>;
-  richtext: RichText;
-  date?: Date;
+  content: RichText;
+  date?: string;
   href?: Maybe<string>;
   timeToRead?: number;
 }
 
-export type ShortPost = Pick<Post, "slug" | "title" | "href" | "date">;
+export type ShortPost = Pick<
+  Post,
+  "slug" | "title" | "excerpt" | "href" | "mainImage" | "date"
+>;

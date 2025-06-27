@@ -18,6 +18,9 @@ export function getApolloServerClient(
     ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
     : process.env.CONTENTFUL_ACCESS_TOKEN;
 
+  console.log("Using Contentful token:", token);
+  console.log("URL:", GRAPHQL_ENDPOINT);
+
   const { getClient } = registerApolloClient(() => {
     return new ApolloClient({
       cache: new InMemoryCache(),
@@ -32,4 +35,3 @@ export function getApolloServerClient(
 
   return getClient();
 }
-

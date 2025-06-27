@@ -15,7 +15,7 @@ interface GetAllPostsParams {
 type ShortPostGraphQL = Pick<PostGraphQL, "slug" | "title" | "date" | "mainImage">;
 
 interface AllPostsgQueryResposne {
-  postCollection: {
+  blogPostCollection: {
     items: ShortPostGraphQL[];
   };
 }
@@ -25,17 +25,17 @@ interface GetAllPostsResponse {
 }
 
 const GET_ALL_POSTS_QUERY = gql`
-  query ($locale: String!, $preview: Boolean!, $limit: Int!) {
-    postCollection(
+  query ($preview: Boolean!, $limit: Int!) {
+    blogPostCollection(
       order: sys_firstPublishedAt_DESC
       preview: $preview
       limit: $limit
-      locale: $locale
     ) {
       items {
         slug
         title
         date
+        excerpt
         mainImage {
           title
           description
@@ -69,7 +69,7 @@ export async function getAllPosts({
     });
 
     return {
-      posts: data.data.postCollection.items
+      posts: data.data.blogPostCollection.items
         .filter(({ slug }) => !!slug)
         .map((post) => ({
           ...post,
