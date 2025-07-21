@@ -37,16 +37,13 @@ export const Text: React.FC<PropsWithChildren> = ({ children }) => {
 };
 
 export const UnorderedList: React.FC<PropsWithChildren> = ({ children }) => (
-  <div className="text-lg">
-    <ul className="list-disc ml-8 mt-3 text-gray-600">{children}</ul>
-  </div>
+  <ul className="list-disc ml-8 mt-3 text-gray-600">{children}</ul>
 );
 
-export const OrderedList: React.FC<PropsWithChildren> = ({ children }) => (
-  <div className="text-lg">
-    <ol className="list-decimal ml-8 mt-3 text-gray-600">{children}</ol>
-  </div>
-);
+export const OrderedList: React.FC<PropsWithChildren> = ({ children }) => {
+  console.log(": OrderedList rendered", children);
+  return <ol className="list-decimal ml-8 mt-3 text-gray-600">{children}</ol>;
+};
 
 export const ListItem: React.FC<PropsWithChildren> = ({ children }) => (
   <li className="mb-2 text-lg">{children}</li>

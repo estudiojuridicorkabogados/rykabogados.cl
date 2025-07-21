@@ -99,12 +99,57 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
         <UnorderedList>{children}</UnorderedList>
       ),
       [BLOCKS.LIST_ITEM]: (node) => {
+        console.log(": ListItem rendered", node);
         const UnTaggedChildren = documentToReactComponents(
           node as unknown as any,
           {
             renderNode: {
               [BLOCKS.PARAGRAPH]: (_, children) => children,
               [BLOCKS.LIST_ITEM]: (_, children) => children,
+              [BLOCKS.OL_LIST]: (nestedListNode) => {
+                const UnTaggedChildren = documentToReactComponents(
+                  nestedListNode as unknown as any,
+                  {
+                    renderNode: {
+                      [BLOCKS.PARAGRAPH]: (_, children) => children,
+                      [BLOCKS.LIST_ITEM]: (_, children) => (
+                        <ListItem>{children}</ListItem>
+                      ),
+                      [BLOCKS.OL_LIST]: (_, children) => (
+                        <OrderedList>{children}</OrderedList>
+                      ),
+                      [BLOCKS.UL_LIST]: (_, children) => (
+                        <UnorderedList>{children}</UnorderedList>
+                      ),
+                      [INLINES.HYPERLINK]: ({ data }, children) => (
+                        <Hyperlink uri={data.uri}>{children}</Hyperlink>
+                      ),
+                    },
+                  }
+                );
+
+                return <OrderedList>{UnTaggedChildren}</OrderedList>;
+              },
+              [BLOCKS.UL_LIST]: (nestedListNode) => {
+                const UnTaggedChildren = documentToReactComponents(
+                  nestedListNode as unknown as any,
+                  {
+                    renderNode: {
+                      [BLOCKS.PARAGRAPH]: (_, children) => children,
+                      [BLOCKS.LIST_ITEM]: (_, children) => (
+                        <ListItem>{children}</ListItem>
+                      ),
+                      [BLOCKS.OL_LIST]: (_, children) => children,
+                      [BLOCKS.UL_LIST]: (_, children) => children,
+                      [INLINES.HYPERLINK]: ({ data }, children) => (
+                        <Hyperlink uri={data.uri}>{children}</Hyperlink>
+                      ),
+                    },
+                  }
+                );
+
+                return <UnorderedList>{UnTaggedChildren}</UnorderedList>;
+              },
               [INLINES.HYPERLINK]: ({ data }, children) => (
                 <Hyperlink uri={data.uri}>{children}</Hyperlink>
               ),

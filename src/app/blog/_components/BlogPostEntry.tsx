@@ -51,7 +51,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
       <div className="max-w-xl">
         <motion.div
           variants={variants}
-          className="mt-8 flex items-center gap-x-4 text-xs"
+          className="mt-6 flex items-center gap-x-4 text-xs"
         >
           <time
             dateTime={blogPost.date || new Date().toISOString()}
