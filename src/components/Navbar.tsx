@@ -1,4 +1,4 @@
-import { Menu, Phone, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
@@ -13,23 +13,15 @@ export const Navbar = () => {
           <div className="flex items-center space-x-3">
             <div className="border-l-4 border-[#AE8D54] pl-4">
               <div className="text-white">
-                <div className="text-2xl font-bold tracking-wide">RyK</div>
                 <div className="text-2xl font-bold tracking-wide">
-                  ASOCIADOS
+                  Retamales
                 </div>
+                <div className="text-2xl font-bold tracking-wide">Kowalski</div>
                 <div className="text-sm font-light tracking-widest opacity-90">
-                  ABOGADOS & CONSULTORES
+                  ABOGADOS
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Phone Number */}
-          <div className="hidden md:flex items-center text-white">
-            <Phone className="h-4 w-4 mr-2" />
-            <span className="text-lg font-semibold tracking-wide">
-              +56 2 2345 6789
-            </span>
           </div>
 
           {/* Navigation */}
@@ -64,13 +56,6 @@ export const Navbar = () => {
             >
               Contacto
             </Link>
-            <Button
-              variant="default"
-              size="icon"
-              className="text-white hover:text-[#AE8D54]"
-            >
-              <Search className="h-5 w-5" />
-            </Button>
           </nav>
 
           <Button
