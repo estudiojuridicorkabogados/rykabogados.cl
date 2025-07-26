@@ -77,7 +77,7 @@ export const Footer = () => {
             </h4>
             <ul className="space-y-3 text-gray-400">
               <li>+56 2 2345 6789</li>
-              <li>contacto@ryoasociados.cl</li>
+              <li>contacto@RyKasociados.cl</li>
               <li>Av. Providencia 1234, Providencia, Santiago</li>
             </ul>
           </div>
@@ -85,7 +85,7 @@ export const Footer = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
           <p>
-            &copy; {new Date().getFullYear()} RyO Asociados. Todos los derechos
+            &copy; {new Date().getFullYear()} RyK Asociados. Todos los derechos
             reservados.
           </p>
         </div>

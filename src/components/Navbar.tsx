@@ -13,7 +13,7 @@ export const Navbar = () => {
           <div className="flex items-center space-x-3">
             <div className="border-l-4 border-[#AE8D54] pl-4">
               <div className="text-white">
-                <div className="text-2xl font-bold tracking-wide">RYO</div>
+                <div className="text-2xl font-bold tracking-wide">RyK</div>
                 <div className="text-2xl font-bold tracking-wide">
                   ASOCIADOS
                 </div>

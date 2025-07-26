@@ -9,7 +9,7 @@ export const ServicesSection = () => {
             NUESTRAS FORTALEZAS
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-[#0B142D] mb-8">
-            ¿Por qué RYO Asociados?
+            ¿Por qué RyK Asociados?
           </h2>
         </div>
 

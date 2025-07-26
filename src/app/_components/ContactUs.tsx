@@ -36,7 +36,7 @@ export const ContactUsSection = () => {
                   <div>
                     <div className="font-semibold text-[#0B142D]">Email</div>
                     <div className="text-gray-600">
-                      contacto@ryoasociados.cl
+                      contacto@RyKasociados.cl
                     </div>
                   </div>
                 </div>

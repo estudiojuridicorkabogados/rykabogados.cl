@@ -15,7 +15,7 @@ export const AboutSection = () => {
               </h2>
             </div>
             <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              En RYO Asociados, combinamos la tradición jurídica con la
+              En RyK Asociados, combinamos la tradición jurídica con la
               innovación legal para ofrecer soluciones integrales a nuestros
               clientes. Nuestro compromiso con la excelencia nos ha posicionado
               como uno de los estudios más respetados de Chile.
@@ -39,7 +39,7 @@ export const AboutSection = () => {
             <div className="bg-gray-100 rounded-lg p-8">
               {/* <Image
                 src="/placeholder.svg?height=500&width=600"
-                alt="Equipo RYO Asociados"
+                alt="Equipo RyK Asociados"
                 width={600}
                 height={500}
                 className="rounded-lg object-cover w-full"
