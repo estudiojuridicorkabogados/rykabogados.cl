@@ -32,10 +32,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
   const mainImage = blogPost.mainImage;
 
   return (
-    <motion.article
-      variants={variants}
-      className="flex flex-col items-start justify-between"
-    >
+    <motion.article variants={variants} className="flex flex-col items-start">
       <div className="relative w-full">
         <div className="aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-2/1 lg:aspect-3/2">
           <Image
@@ -98,5 +95,28 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
         </div> */}
       </div>
     </motion.article>
+  );
+};
+
+export const BlogPostEntrySkeleton: React.FC = () => {
+  return (
+    <div className="flex flex-col items-start">
+      <div className="w-full">
+        <div className="loading-background-animation aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-2/1 lg:aspect-3/2" />
+      </div>
+
+      <div className="max-w-xl w-full mt-6 ">
+        <div className="loading-background-animation h-4 w-2/3" />
+
+        <div className="flex flex-col gap-3 mt-3">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={index}
+              className="loading-background-animation h-3 w-full"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };

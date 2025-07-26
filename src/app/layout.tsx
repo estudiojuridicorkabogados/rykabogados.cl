@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "abogados r&k",
   ],
   description:
-    "R&O ABOGADOS es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
+    "RyK ABOGADOS es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
 };
 
 export default function RootLayout({

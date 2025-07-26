@@ -31,7 +31,7 @@ interface GetAllPostsResponse {
 const GET_ALL_POSTS_QUERY = gql`
   query ($preview: Boolean!, $limit: Int!) {
     blogPostCollection(
-      order: sys_firstPublishedAt_DESC
+      order: date_DESC
       preview: $preview
       limit: $limit
     ) {

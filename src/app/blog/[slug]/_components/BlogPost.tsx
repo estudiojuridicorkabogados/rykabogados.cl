@@ -47,7 +47,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
         <blockquote className="border-slate-300 border-t pt-10 mt-10 text-xl/8 font-semibold tracking-tight text-gray-700 sm:text-xl">
           <p>
-            En R&O Abogados, somos especialistas en derecho laboral y estamos
+            En RyK Abogados, somos especialistas en derecho laboral y estamos
             comprometidos en brindar asesoría tanto a empresas como a
             trabajadores en materia de inclusión laboral y cumplimiento
             normativo. Si tu empresa busca implementar políticas inclusivas o si

@@ -13,6 +13,7 @@ export default async function BlogPage() {
     limit: 40,
     isPreview,
   });
+  
 
   return (
     <div className="bg-white">
