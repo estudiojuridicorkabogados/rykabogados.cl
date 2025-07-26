@@ -23,7 +23,7 @@ export const TestimonialsSection = () => {
             },
             {
               quote:
-                "Como empresa, necesitábamos asesoría legal confiable. RyK Asociados nos ha acompañado en nuestro crecimiento.",
+                "Como empresa, necesitábamos asesoría legal confiable. RyK Abogados nos ha acompañado en nuestro crecimiento.",
               name: "Jorge Silva",
               role: "CEO, TechStart",
             },
