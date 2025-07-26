@@ -43,7 +43,7 @@ export async function generateMetadata({
     }
 
     // @TODO Add metaTitle and metaDescription to the Post type
-    const title = post.title || "R&K Abogados - Blog Post";
+    const title = post.title || "RyK Abogados - Blog Post";
     const description = "post.smallIntro";
     // const title = post.metaTitle;
     // const description = post.smallIntro;
@@ -60,11 +60,11 @@ export async function generateMetadata({
     return {
       title,
       description,
-      creator: "R&K Abogados",
+      creator: "RyK Abogados",
       openGraph: {
         title,
         description,
-        siteName: "R&K Abogados",
+        siteName: "RyK Abogados",
         images,
         locale: "es-CL",
         url: new URL(`/blog/${slug}`, process.env.NEXT_PUBLIC_BASE_URL),
@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "@id": `${url}/#BlogPosting`,
-    name: post.title || "R&K Abogados - Blog Post",
+    name: post.title || "RyK Abogados - Blog Post",
     description: "post.metaDescription",
     // description: post.metaDescription,
     datePublished: post.date
