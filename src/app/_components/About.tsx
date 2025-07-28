@@ -1,8 +1,6 @@
-// import Image from "next/image";
-
 export const AboutSection = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-48 bg-white">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>

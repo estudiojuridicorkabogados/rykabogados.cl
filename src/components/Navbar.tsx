@@ -1,22 +1,45 @@
+"use client";
+
 import { Menu } from "lucide-react";
 import Link from "next/link";
-
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { URLS } from "@/utils/constants";
 
 export const Navbar = () => {
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0;
+    if (latest > previous && latest > 650) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-gray-900">
+     <motion.header
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+      className="fixed top-0 left-0 right-0 z-50 bg-gray-900"
+    >
       <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
             <div className="border-l-4 border-[#AE8D54] pl-4">
               <div className="text-white">
-                <div className="text-2xl font-bold tracking-wide">
+                <div className="text-xl font-bold tracking-wide">
                   Retamales
                 </div>
-                <div className="text-2xl font-bold tracking-wide">Kowalski</div>
+                <div className="text-xl font-bold tracking-wide">Kowalski</div>
                 <div className="text-sm font-light tracking-widest opacity-90">
                   ABOGADOS
                 </div>
@@ -67,6 +90,6 @@ export const Navbar = () => {
           </Button>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };
