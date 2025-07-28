@@ -41,7 +41,6 @@ export const UnorderedList: React.FC<PropsWithChildren> = ({ children }) => (
 );
 
 export const OrderedList: React.FC<PropsWithChildren> = ({ children }) => {
-  console.log(": OrderedList rendered", children);
   return <ol className="list-decimal ml-8 mt-3 text-gray-600">{children}</ol>;
 };
 

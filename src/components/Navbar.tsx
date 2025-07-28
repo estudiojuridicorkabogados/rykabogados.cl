@@ -33,7 +33,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           {/* Logo Section */}
-          <div className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3">
             <div className="border-l-4 border-[#AE8D54] pl-4">
               <div className="text-white">
                 <div className="text-xl font-bold tracking-wide">
@@ -45,7 +45,7 @@ export const Navbar = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Navigation */}
           <nav className="hidden lg:flex items-center space-x-8 text-white">

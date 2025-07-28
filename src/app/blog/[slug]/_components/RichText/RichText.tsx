@@ -99,7 +99,6 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
         <UnorderedList>{children}</UnorderedList>
       ),
       [BLOCKS.LIST_ITEM]: (node) => {
-        console.log(": ListItem rendered", node);
         const UnTaggedChildren = documentToReactComponents(
           node as unknown as any,
           {
