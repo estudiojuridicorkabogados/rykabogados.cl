@@ -4,6 +4,7 @@ import { TeamSection } from "./_components/TeamSection/TeamSection";
 import { HeroSection } from "./_components/HeroSection/HeroSection";
 import { PracticeAreasSection } from "./_components/PracticeAreasSection/PracticeAreasSection";
 import { TestimonialsSection } from "./_components/Testimonials/TestimonialsSection";
+import { ContactSection } from "./_components/ContactSection/ContactSection";
 
 // This funtion could be used to fetch data from Contentful
 async function fetchHomePageData() {
@@ -49,6 +50,8 @@ export default async function Home() {
       <TestimonialsSection testimonials={homePageData.testimonials} />
 
       <TeamSection />
+
+      <ContactSection />
     </div>
   );
 }

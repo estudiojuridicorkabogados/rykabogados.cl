@@ -1,24 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { containerVariants, itemVariants } from "@/utils/animations";
-import { useRef } from "react";
+
+// @TODO I feel like here there's room for improvment by splitting SSR and CSR
 
 export const HeroSection = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-
   return (
-    <section
-      ref={ref}
-      className="relative h-screen flex items-center justify-center overflow-hidden"
-    >
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
 
       <Image
