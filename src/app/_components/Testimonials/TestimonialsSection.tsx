@@ -18,9 +18,8 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
       <Image
         src="/images/santiago.webp"
         alt="Santiago del Chile"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center top"
+        fill
+        className="object-cover object-top"
       />
 
       <div className="absolute h-[450px] bottom-0 left-0 right-0 backdrop-blur-[3px] flex items-center">

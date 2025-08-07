@@ -1,9 +1,8 @@
-import { AboutSection } from "./_components/About/About";
-import { ContactUsSection } from "./_components/ContactUs";
-import { HeroSection } from "./_components/Hero";
-import { Parallax } from "./_components/Parallax";
-import { PracticeAreasSection } from "./_components/PracticeAreas";
-import { ServicesSection } from "./_components/Services";
+import { AboutSection } from "./_components/AboutSection/AboutSection";
+import { BlogSection } from "./_components/BlogSection/BlogSection";
+import { TeamSection } from "./_components/TeamSection/TeamSection";
+import { HeroSection } from "./_components/HeroSection/HeroSection";
+import { PracticeAreasSection } from "./_components/PracticeAreasSection/PracticeAreasSection";
 import { TestimonialsSection } from "./_components/Testimonials/TestimonialsSection";
 
 // This funtion could be used to fetch data from Contentful
@@ -39,36 +38,17 @@ export default async function Home() {
 
   return (
     <div style={{ overflow: "hidden" }}>
-      {/* <Parallax
-        yRange={[0, 1200]}
-        scaleRange={[1, 2]}
-        style={{
-          position: "relative",
-          zIndex: 1,
-          transformOrigin: "center top",
-        }}
-      > */}
-        <HeroSection />
-      {/* </Parallax> */}
+      <HeroSection />
 
-      {/* <Parallax
-        yRange={[0, -250]}
-        style={{
-          position: "relative",
-          zIndex: 2,
-          // backgroundColor: "white",
-        }}
-      > */}
-        <AboutSection />
-      {/* </Parallax> */}
+      <AboutSection />
 
       <PracticeAreasSection />
 
-      <ServicesSection />
+      <BlogSection />
 
       <TestimonialsSection testimonials={homePageData.testimonials} />
 
-      <ContactUsSection />
+      <TeamSection />
     </div>
   );
 }

@@ -23,7 +23,7 @@ export const AboutSection = () => {
             variants={itemVariants}
             className="text-4xl lg:text-5xl font-bold text-[#0B142D] leading-tight"
           >
-            Nuestra Misión
+            RyK Abogados
           </motion.h2>
 
           <motion.p
