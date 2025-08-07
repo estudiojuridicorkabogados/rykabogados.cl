@@ -14,7 +14,7 @@ const COLLEAGUES = [
 
 export const TeamSection = () => {
   return (
-    <section className="py-20 bg-primary">
+    <section className="py-28 bg-primary">
       <div className="flex flex-col lg:flex-row lg:gap-16 mx-auto px-6 max-w-6xl">
         <div className="w-full lg:w-1/2 relative">
           <Image
