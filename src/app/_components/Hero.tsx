@@ -1,14 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { containerVariants, itemVariants } from "@/utils/animations";
+import { useRef } from "react";
 
 export const HeroSection = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <motion.div 
+        className="absolute inset-0"
+        style={{ y }}
+      >
         <Image
           src="/images/hero-library.webp"
           alt="Library background"
@@ -19,7 +31,7 @@ export const HeroSection = () => {
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/70" />
-      </div>
+      </motion.div>
 
       {/* Content */}
       <motion.div

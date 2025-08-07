@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence, delay } from "framer-motion";
+import { forwardRef, PropsWithChildren, useMemo, useState } from "react";
+import { motion, AnimatePresence, wrap, usePresenceData } from "motion/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Testimonial } from "./types";
 
@@ -14,40 +14,24 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
   title,
   testimonials,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [direction, setDirection] = useState<1 | -1>(1);
 
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-    }),
-  };
+  const items = useMemo(
+    () =>
+      testimonials.map((testimonial, index) => ({
+        ...testimonial,
+        index,
+      })),
+    [testimonials]
+  );
 
-  const swipeConfidenceThreshold = 5000;
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-  };
+  const [selectedItem, setSelectedItem] = useState(items[0]);
 
-  const paginate = (newDirection: number) => {
+  const setSlide = (newDirection: 1 | -1) => {
+    const nextItem = wrap(1, items.length, selectedItem.index + newDirection);
+
+    setSelectedItem(items[nextItem]);
     setDirection(newDirection);
-    setCurrentIndex((prevIndex) => {
-      if (newDirection === 1) {
-        return prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1;
-      } else {
-        return prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1;
-      }
-    });
   };
 
   return (
@@ -58,105 +42,88 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
         </div>
 
         <div className="relative h-[420px] w-full">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                // opacity: { duration: 0.5, ease: "easeInOut" },
-                opacity: {
-                  duration: 0.3,
-                  ease: "easeInOut",
-                  when: "beforeChildren",
-                },
-              }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={1}
-              onDragEnd={(e, { offset, velocity }) => {
-                const swipe = swipePower(offset.x, velocity.x);
-
-                if (swipe < -swipeConfidenceThreshold) {
-                  paginate(1);
-                } else if (swipe > swipeConfidenceThreshold) {
-                  paginate(-1);
-                }
-              }}
-              className="flex absolute inset-0"
-            >
-              <p className=" text-3xl lg:text-3xl font-medium mb-8 cursor-grab active:cursor-grabbing">
-                "{testimonials[currentIndex].quote}"
+          <AnimatePresence custom={direction} initial={false} mode="popLayout">
+            <Slide key={selectedItem.index}>
+              <p className="text-3xl lg:text-3xl font-medium mb-8">
+                "{selectedItem.quote}"
               </p>
-            </motion.div>
+            </Slide>
           </AnimatePresence>
         </div>
       </div>
 
       <div className="w-full flex items-center justify-between mt-16">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={`author-${currentIndex}`}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
-            }}
-            className="flex flex-col absolute"
-          >
-            <span className="font-semibold">
-              {testimonials[currentIndex].name}
-            </span>
-            <p className="text-xs text-gray-300">
-              {testimonials[currentIndex].role}
-            </p>
-          </motion.div>
+        <AnimatePresence custom={direction} initial={false} mode="popLayout">
+          <Slide key={selectedItem.index}>
+            <div>
+              <span className="font-semibold">{selectedItem.name}</span>
+              <p className="text-xs text-gray-300">{selectedItem.role}</p>
+            </div>
+          </Slide>
         </AnimatePresence>
 
         <div className="flex gap-2 ml-auto">
-          <button
-            onClick={() => paginate(-1)}
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-10"
-            aria-label="Testimonio anterior"
-          >
+          <RoundButton onClick={() => setSlide(-1)}>
             <ChevronLeftIcon className="w-5 h-5" />
-          </button>
+          </RoundButton>
 
-          <button
-            onClick={() => paginate(1)}
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-10"
-            aria-label="Siguiente testimonio"
-          >
+          <RoundButton onClick={() => setSlide(1)}>
             <ChevronRightIcon className="w-5 h-5" />
-          </button>
+          </RoundButton>
         </div>
       </div>
-
-      {/* Dot indicators */}
-      <div className="flex justify-center gap-2 mt-4">
-        {testimonials.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              const newDirection = index > currentIndex ? 1 : -1;
-              setDirection(newDirection);
-              setCurrentIndex(index);
-            }}
-            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-              index === currentIndex ? "bg-white" : "bg-white/30"
-            }`}
-            aria-label={`Ir al testimonio ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
+  );
+};
+
+interface SlideProps {
+  children: React.ReactNode;
+}
+
+const Slide = forwardRef(
+  ({ children }: SlideProps, ref: React.Ref<HTMLDivElement>) => {
+    const direction = usePresenceData();
+
+    return (
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, x: direction * 60 }}
+        animate={{
+          opacity: 1,
+          x: 0,
+          transition: {
+            delay: 0,
+            type: "spring",
+            visualDuration: 0.5,
+            bounce: 0,
+          },
+        }}
+        exit={{ opacity: 0, x: direction * -60 }}
+      >
+        {children}
+      </motion.div>
+    );
+  }
+);
+
+interface RoundButtonProps {
+  onClick: () => void;
+}
+
+const RoundButton: React.FC<PropsWithChildren<RoundButtonProps>> = ({
+  children,
+  onClick,
+}) => {
+  return (
+    <motion.button
+      initial={false}
+      className="cursor-pointer p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-10"
+      aria-label="Siguiente"
+      whileFocus={{ outline: `2px solid red` }}
+      whileTap={{ scale: 0.9 }}
+      onClick={onClick}
+    >
+      {children}
+    </motion.button>
   );
 };

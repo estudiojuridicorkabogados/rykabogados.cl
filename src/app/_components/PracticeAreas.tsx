@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { motion } from "motion/react";
 
  /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 
@@ -21,7 +22,7 @@ export const PracticeAreasSection = () => {
         objectPosition="center top"
       />
 
-      <div className="absolute h-[460px] bottom-0 left-0 right-0 w-full bg-crazy-gradient/70 backdrop-blur-[120px] flex flex-col justify-center">
+      <motion.div className="absolute h-[460px] bottom-0 left-0 right-0 w-full bg-crazy-gradient/70 backdrop-blur-[120px] flex flex-col justify-center">
         <div className="w-6xl mx-auto flex flex-col gap-8 p-8">
           <span className="w-full uppercase text-sm text-accent font-bold">
             SECTOR DE TRABAJO
@@ -48,7 +49,7 @@ export const PracticeAreasSection = () => {
             />
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

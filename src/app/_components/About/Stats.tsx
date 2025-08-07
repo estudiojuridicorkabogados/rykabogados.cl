@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useMotionValue, useTransform, animate, motion } from "framer-motion";
+import { useMotionValue, useTransform, animate, motion } from "motion/react";
 
 interface StatsProps {
   title: string;
