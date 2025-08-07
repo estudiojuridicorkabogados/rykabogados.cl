@@ -1,8 +1,9 @@
-import { LongArrowRight } from "@/components/icons/LongArrowRight";
-import Link from "next/link";
-import { Button } from "@/components/ui/Button";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { LongArrowRight } from "@/components/icons/LongArrowRight";
+import { Button } from "@/components/ui/Button";
 
 const COLLEAGUES = [
   { name: "Camila Retamales", role: "Head lawyer" },

@@ -1,10 +1,10 @@
 import { AboutSection } from "./_components/AboutSection/AboutSection";
 import { BlogSection } from "./_components/BlogSection/BlogSection";
-import { TeamSection } from "./_components/TeamSection/TeamSection";
+import { ContactSection } from "./_components/ContactSection/ContactSection";
 import { HeroSection } from "./_components/HeroSection/HeroSection";
 import { PracticeAreasSection } from "./_components/PracticeAreasSection/PracticeAreasSection";
+import { TeamSection } from "./_components/TeamSection/TeamSection";
 import { TestimonialsSection } from "./_components/Testimonials/TestimonialsSection";
-import { ContactSection } from "./_components/ContactSection/ContactSection";
 
 // This funtion could be used to fetch data from Contentful
 async function fetchHomePageData() {

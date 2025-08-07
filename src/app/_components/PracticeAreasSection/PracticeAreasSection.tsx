@@ -1,11 +1,12 @@
 "use client";
 
-import { URLS } from "@/utils/constants";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import { motion, Variants } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
+import { URLS } from "@/utils/constants";
 
 const containerVariants: Variants = {
   hidden: { y: 400 },

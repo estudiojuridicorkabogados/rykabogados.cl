@@ -1,7 +1,8 @@
-import { LongArrowRight } from "@/components/icons/LongArrowRight";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+
+import { LongArrowRight } from "@/components/icons/LongArrowRight";
 
 export const BlogSection = () => {
   return (

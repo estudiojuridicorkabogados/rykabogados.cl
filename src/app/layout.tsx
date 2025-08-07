@@ -5,7 +5,6 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { inter } from "@/utils/fonts";
 
-
 import "./globals.css";
 
 const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;

@@ -1,8 +1,8 @@
 
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
 import { PropsWithChildren } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 
 interface ParallaxProps {
   yRange: [number, number];

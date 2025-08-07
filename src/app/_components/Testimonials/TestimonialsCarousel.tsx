@@ -1,8 +1,9 @@
 "use client";
 
 import { forwardRef, PropsWithChildren, useMemo, useState } from "react";
-import { motion, AnimatePresence, wrap, usePresenceData } from "motion/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react";
+
 import { Testimonial } from "./types";
 
 interface TestimonalsCarouselProps {
@@ -45,7 +46,7 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
           <AnimatePresence custom={direction} initial={false} mode="popLayout">
             <Slide key={selectedItem.index}>
               <p className="text-3xl lg:text-3xl font-medium mb-8">
-                "{selectedItem.quote}"
+                &ldquo;{selectedItem.quote}&rdquo;
               </p>
             </Slide>
           </AnimatePresence>
@@ -105,6 +106,8 @@ const Slide = forwardRef(
     );
   }
 );
+
+Slide.displayName = "Slide";
 
 interface RoundButtonProps {
   onClick: () => void;
