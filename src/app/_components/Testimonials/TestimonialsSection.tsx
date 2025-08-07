@@ -13,15 +13,17 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   return (
     <section
       id="testimonios"
-      className="relative w-screen h-[650px] bg-[#0B142D] text-white overflow-hidden"
+      className="relative w-screen h-[690px] bg-[#0B142D] text-white overflow-hidden"
     >
       <Image
-        src="/images/santiago-mountains.jpg"
-        alt="Santiago del Childe"
+        src="/images/santiago.webp"
+        alt="Santiago del Chile"
         layout="fill"
         objectFit="cover"
+        objectPosition="center top"
       />
-      <div className="absolute inset-0 backdrop-blur-[3px] flex items-center">
+
+      <div className="absolute h-[450px] bottom-0 left-0 right-0 backdrop-blur-[3px] flex items-center">
         <TestimonalsCarousel
           title="Lo que dicen nuestro clientes"
           testimonials={testimonials}

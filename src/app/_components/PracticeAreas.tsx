@@ -1,85 +1,78 @@
-import { ArrowRight, Building2, Users } from "lucide-react";
+import { URLS } from "@/utils/constants";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+
+ /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+
 
 export const PracticeAreasSection = () => {
   return (
-    <section id="areas" className="py-24 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
-          <div className="text-[#AE8D54] font-semibold tracking-widest text-sm mb-4">
-            NUESTRAS ESPECIALIDADES
-          </div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-[#0B142D] mb-8">
-            Áreas de Práctica
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Ofrecemos servicios jurídicos especializados con un enfoque integral
-            y personalizado.
-          </p>
-        </div>
+    <section
+      id="areas-de-practica"
+      className="relative w-screen h-[590px] overflow-hidden"
+    >
+      <Image
+        src="/images/documents.webp"
+        alt="Some docu,ents"
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center top"
+      />
 
-        <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-          {/* Para Trabajadores */}
-          <div className="group">
-            <div className="bg-white p-12 hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center mb-8">
-                <div className="bg-[#AE8D54] p-3 rounded-sm mr-6">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-[#0B142D] mb-2">
-                    Para Trabajadores
-                  </h3>
-                  <div className="w-12 h-0.5 bg-[#AE8D54]"></div>
-                </div>
-              </div>
-              <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                Defendemos los derechos laborales con dedicación y experiencia.
-                Nos especializamos en despidos injustificados, acoso laboral,
-                accidentes del trabajo, cobro de prestaciones y protección del
-                fuero maternal y sindical.
-              </p>
-              <Link
-                href="#"
-                className="inline-flex items-center text-[#AE8D54] font-semibold hover:text-[#0B142D] transition-colors"
-              >
-                Consultar Caso
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-          </div>
+      <div className="absolute h-[460px] bottom-0 left-0 right-0 w-full bg-crazy-gradient/70 backdrop-blur-[120px] flex flex-col justify-center">
+        <div className="w-6xl mx-auto flex flex-col gap-8 p-8">
+          <span className="w-full uppercase text-sm text-accent font-bold">
+            SECTOR DE TRABAJO
+          </span>
+          <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-16">
+            <PracticeArea
+              title="Trabajadores"
+              description="En R&O ABOGADOS contamos con un equipo de profesionales
+                calificados, comprometidos y dispuestos a entregar una asesoría
+                integral que le permita dar cumplimiento a la normativa laboral
+                y previsional vigente, prevenir infracciones y/o defenderlo ante
+                sanciones, demandas o multas generadas con ocasión del trabajo"
+              link={URLS.asesoriaTrabajadores()}
+            />
 
-          {/* Para Empresas */}
-          <div className="group">
-            <div className="bg-white p-12 hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center mb-8">
-                <div className="bg-[#0B142D] p-3 rounded-sm mr-6">
-                  <Building2 className="h-8 w-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-[#0B142D] mb-2">
-                    Para Empresas
-                  </h3>
-                  <div className="w-12 h-0.5 bg-[#AE8D54]"></div>
-                </div>
-              </div>
-              <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                Asesoría integral empresarial para el crecimiento seguro de su
-                negocio. Especialistas en constitución de sociedades, contratos
-                laborales, compliance, fusiones, adquisiciones y propiedad
-                intelectual.
-              </p>
-              <Link
-                href="#"
-                className="inline-flex items-center text-[#AE8D54] font-semibold hover:text-[#0B142D] transition-colors"
-              >
-                Asesoría Empresarial
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
+            <PracticeArea
+              title="Empresas"
+              description="En R&O ABOGADOS contamos con un equipo de profesionales
+                calificados, comprometidos y dispuestos a entregar una asesoría
+                integral que le permita dar cumplimiento a la normativa laboral
+                y previsional vigente, prevenir infracciones y/o defenderlo ante
+                sanciones, demandas o multas generadas con ocasión del trabajo"
+              link={URLS.asesoriaEmpresas()}
+            />
           </div>
         </div>
       </div>
     </section>
   );
 };
+
+interface PracticeAreaProps {
+  title: string;
+  description: string;
+  link: string;
+}
+
+const PracticeArea: React.FC<PracticeAreaProps> = ({
+  title,
+  description,
+  link,
+}) => (
+  <div className="flex-1 flex flex-col gap-4">
+    <h2 className="text-3xl lg:text-4xl font-bold text-white">{title}</h2>
+    <p className="text-lg text-white">{description}</p>
+
+    <Link
+      className="flex items-center font-semibold mt-4 text-accent"
+      href={link}
+    >
+      Ver más <ArrowRight className="ml-2 stroke-accent" />
+    </Link>
+  </div>
+);

@@ -1,4 +1,4 @@
-import { AboutSection } from "./_components/About";
+import { AboutSection } from "./_components/About/About";
 import { ContactUsSection } from "./_components/ContactUs";
 import { HeroSection } from "./_components/Hero";
 import { Parallax } from "./_components/Parallax";
@@ -39,7 +39,7 @@ export default async function Home() {
 
   return (
     <div style={{ overflow: "hidden" }}>
-      <Parallax
+      {/* <Parallax
         yRange={[0, 1200]}
         scaleRange={[1, 2]}
         style={{
@@ -47,20 +47,20 @@ export default async function Home() {
           zIndex: 1,
           transformOrigin: "center top",
         }}
-      >
+      > */}
         <HeroSection />
-      </Parallax>
+      {/* </Parallax> */}
 
-      <Parallax
+      {/* <Parallax
         yRange={[0, -250]}
         style={{
           position: "relative",
           zIndex: 2,
           // backgroundColor: "white",
         }}
-      >
+      > */}
         <AboutSection />
-      </Parallax>
+      {/* </Parallax> */}
 
       <PracticeAreasSection />
 

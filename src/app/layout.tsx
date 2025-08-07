@@ -3,7 +3,8 @@ import Script from "next/script";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { poppins } from "@/utils/fonts";
+import { inter } from "@/utils/fonts";
+
 
 import "./globals.css";
 
@@ -33,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${poppins.variable}  antialiased bg-white`}>
+      <body className={`${inter.variable} antialiased bg-white`}>
         <Navbar />
 
         <div className="bg-white">{children}</div>

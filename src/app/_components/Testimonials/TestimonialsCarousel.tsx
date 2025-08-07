@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, delay } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Testimonial } from "./types";
 
@@ -34,7 +34,7 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
     }),
   };
 
-  const swipeConfidenceThreshold = 10000;
+  const swipeConfidenceThreshold = 5000;
   const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
   };
@@ -57,37 +57,44 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
           {title}
         </div>
 
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={currentIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
-            }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x);
+        <div className="relative h-[420px] w-full">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                // opacity: { duration: 0.5, ease: "easeInOut" },
+                opacity: {
+                  duration: 0.3,
+                  ease: "easeInOut",
+                  when: "beforeChildren",
+                },
+              }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={1}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = swipePower(offset.x, velocity.x);
 
-              if (swipe < -swipeConfidenceThreshold) {
-                paginate(1);
-              } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1);
-              }
-            }}
-            className="flex absolut h-[420px] w-full"
-          >
-            <p className=" text-3xl lg:text-3xl font-medium mb-8 cursor-grab active:cursor-grabbing">
-              "{testimonials[currentIndex].quote}"
-            </p>
-          </motion.div>
-        </AnimatePresence>
+                if (swipe < -swipeConfidenceThreshold) {
+                  paginate(1);
+                } else if (swipe > swipeConfidenceThreshold) {
+                  paginate(-1);
+                }
+              }}
+              className="flex absolute inset-0"
+            >
+              <p className=" text-3xl lg:text-3xl font-medium mb-8 cursor-grab active:cursor-grabbing">
+                "{testimonials[currentIndex].quote}"
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
       <div className="w-full flex items-center justify-between mt-16">
