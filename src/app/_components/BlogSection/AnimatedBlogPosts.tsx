@@ -26,9 +26,9 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col container mx-auto px-6 max-w-6xl"
+      className="flex flex-col container mx-auto px-6 w-full lg:w-6xl lg:max-w-6xl gap-y-12 lg:gap-y-8"
     >
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:flex-row gap-y-4 lg:justify-between lg:items-center">
         <div className="flex flex-col gap-4">
           <motion.span
             variants={itemVariants}
@@ -38,7 +38,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
           </motion.span>
           <motion.h2
             variants={itemVariants}
-            className="text-5xl font-bold mb-8 text-black"
+            className="text-5xl font-bold text-black"
           >
             Excelencia
           </motion.h2>
@@ -59,13 +59,13 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
         </motion.div>
       </div>
 
-      <div className="flex flex-col lg:flex-row lg:gap-8">
-        <motion.div variants={itemVariants} className="w-2/3">
+      <div className="flex flex-col lg:flex-row gap-8">
+        <motion.div variants={itemVariants} className="w-full lg:w-2/3">
           <Link
             href={`/blog/${mainPost.slug}`}
             className="w-full flex flex-col"
           >
-            <div className="relative w-full lg:h-[360px] aspect-video rounded-lg shadow-[0px_2px_2px_0px_#00000040]">
+            <div className="relative w-full lg:h-[360px] aspect-square lg:aspect-video rounded-lg shadow-[0px_2px_2px_0px_#00000040]">
               <Image
                 fill
                 src={mainPost.mainImage?.url || "/images/default-image.jpg"}
@@ -74,7 +74,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
               />
             </div>
 
-            <h3 className="mt-6 text-3xl text-black truncate">
+            <h3 className="mt-6 text-xl lg:text-3xl text-black truncate">
               {mainPost.title}
             </h3>
 
@@ -84,7 +84,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
           </Link>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="w-1/3">
+        <motion.div variants={itemVariants} className="w-full lg:w-1/3">
           <Link
             href={`/blog/${secondaryPost.slug}`}
             className="w-full flex flex-col"
@@ -100,7 +100,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
               />
             </div>
 
-            <h3 className="mt-6 text-3xl text-black truncate">
+            <h3 className="mt-6 text-xl lg:text-3xl text-black truncate">
               {secondaryPost.title}
             </h3>
 

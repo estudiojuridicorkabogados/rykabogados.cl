@@ -12,7 +12,7 @@ import { Stats } from "./Stats";
 export const AboutSection = () => {
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-24 items-start">
+      <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-y-12 gap-x-24 items-start">
         <motion.div
           className="flex flex-col gap-6 flex-1"
           initial="hidden"
@@ -30,7 +30,7 @@ export const AboutSection = () => {
 
           <motion.p
             variants={itemVariants}
-            className="text-lg text-gray-600 leading-relaxed mb-8"
+            className="text-lg text-gray-600 leading-relaxed mb-4 lg:mb-8"
           >
             Retamales Kowalsky Abogados es un estudio jurídico que ofrece sus
             servicios a lo largo de todo Chile, conformado por un equipo de
@@ -49,7 +49,7 @@ export const AboutSection = () => {
         </motion.div>
 
         <motion.div
-          className="flex h-full flex-1 pt-4"
+          className="flex flex-col items-center lg:flex-row lg:h-full w-full lg:flex-1 lg:pt-4"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
