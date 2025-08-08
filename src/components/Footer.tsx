@@ -10,10 +10,10 @@ export const Footer = () => {
             <div className="flex items-center space-x-3 mb-6">
               <div className="border-l-4 border-[#AE8D54] pl-4">
                 <div className="text-2xl font-bold tracking-wide">
-                  RyK Abogados
+                  Retamales y Kowalsky
                 </div>
                 <div className="text-sm font-light tracking-widest opacity-90">
-                  ABOGADOS & CONSULTORES
+                  ABOGADOS
                 </div>
               </div>
             </div>

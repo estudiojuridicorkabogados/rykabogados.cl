@@ -16,8 +16,6 @@ export const BlogSection = async () => {
     isPreview,
   });
 
-  console.log("POST", posts);
-
   if (!posts || posts.length === 0) {
     return null;
   }
