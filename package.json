@@ -22,6 +22,7 @@
     "@apollo/client-integration-nextjs": "^0.12.3",
     "@contentful/rich-text-plain-text-renderer": "^17.1.0",
     "@contentful/rich-text-react-renderer": "^16.1.0",
+    "@headlessui/react": "^2.2.7",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
