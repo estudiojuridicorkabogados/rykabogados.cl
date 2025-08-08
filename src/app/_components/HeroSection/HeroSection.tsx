@@ -41,7 +41,7 @@ export const HeroSection = () => {
 
         <motion.h1
           variants={itemVariants}
-          className="max-w-3xl text-6xl lg:text-7xl mb-8"
+          className="max-w-3xl text-6xl lg:text-7xl mb-8 text-gray-60"
         >
           Excelencia, Lealtad <br />y Integridad
         </motion.h1>

@@ -21,7 +21,7 @@ export const ContactSection = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto max-w-6xl px-6 flex flex-col lg:flex-row gap-16">
         <div className="w-full lg:w-1/2 flex">
-          <h3 className="text-4xl">Agenda una llamada de evaluación gratis</h3>
+          <h3 className="text-4xl text-gray-60">Agenda una llamada de evaluación gratis</h3>
         </div>
 
         <div className="w-full lg:w-1/2 flex flex-col gap-4">
