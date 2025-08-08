@@ -11,17 +11,21 @@ const BASE_PATHS = [
 ];
 
 async function fetchPostRoutes() {
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, {
-  //   next: { revalidate: 30 },
-  // });
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+      next: { revalidate: 30 },
+    });
 
-  // const { posts } = await res.json();
+    const { posts } = await res.json();
 
-  // return posts.map((post: { slug: string; lastModified: Date }) => ({
-  //   url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${post.slug}`,
-  //   lastModified: post.lastModified,
-  // }));
-  return []
+    return posts.map((post: { slug: string; lastModified: Date }) => ({
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${post.slug}`,
+      lastModified: post.lastModified,
+    }));
+  } catch (error) {
+    console.error("Error fetching post routes:", error);
+    return [];
+  }
 }
 
 export default async function sitemap() {
