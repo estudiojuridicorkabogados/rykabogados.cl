@@ -1,12 +1,13 @@
 import React from "react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { draftMode } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
-import { draftMode } from "next/headers";
 import { getAllPosts } from "@/graphql/queries/get-all-posts.query";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
+
 import { AnimatedBlogPosts } from "./AnimatedBlogPosts";
 
 export const BlogSection = async () => {

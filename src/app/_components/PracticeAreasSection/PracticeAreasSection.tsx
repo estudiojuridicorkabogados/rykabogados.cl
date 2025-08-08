@@ -41,7 +41,7 @@ export const PracticeAreasSection = () => {
       id="areas-de-practica"
       initial="hidden"
       whileInView="visible"
-      className="relative w-screen h-[590px] overflow-hidden"
+      className="relative w-screen h-[690px] lg:h-[590px] overflow-hidden"
       viewport={{ once: true, amount: 0.8 }}
     >
       <Image
@@ -53,13 +53,13 @@ export const PracticeAreasSection = () => {
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[460px] bottom-0 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
+        className="absolute h-[580px] lg:h-[460px] bottom-0 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
       >
-        <div className="w-6xl mx-auto flex flex-col gap-8 p-8">
-          <span className="uppercase text-sm text-accent font-bold mb-4 tracking-[3px]">
+        <div className="w-full lg:w-6xl lg:max-w-6xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:p-8">
+          <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
             Sector de trabajo
           </span>
-          <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-48">
+          <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-48">
             <PracticeArea
               title="Trabajadores"
               description="Si eres trabajador, tomamos tu caso a resultados, lo que significa que nuestros honorarios se cobrarán exclusivamente sobre la ganancia efectivamente percibida, ¡Sin gastos!"
@@ -90,11 +90,11 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
   link,
 }) => (
   <motion.div variants={itemVariants} className="flex-1 flex flex-col gap-4">
-    <h2 className="text-3xl lg:text-5xl font-bold text-white">{title}</h2>
-    <p className="text-base text-white">{description}</p>
+    <h2 className="text-2xl lg:text-5xl font-bold text-white">{title}</h2>
+    <p className="text-sm lg:text-base text-white">{description}</p>
 
     <Link
-      className="uppercase flex items-center font-semibold mt-4 text-accent text-sm gap-3 group"
+      className="uppercase flex items-center font-semibold mt-1 lg:mt-4 text-accent text-xs lg:text-sm gap-3 group"
       href={link}
     >
       Ver más <LongArrowRight className="ml-2 stroke-accent group-hover:animate-wiggle" />

@@ -2,12 +2,12 @@
 
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-
 import { motion } from "framer-motion";
-import { ShortPost } from "@/types/global";
-import Link from "next/link";
-import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import Image from "next/image";
+import Link from "next/link";
+
+import { LongArrowRight } from "@/components/icons/LongArrowRight";
+import { ShortPost } from "@/types/global";
 import { containerVariants, itemVariants } from "@/utils/animations";
 
 interface AnimatedBlogPostsProps {

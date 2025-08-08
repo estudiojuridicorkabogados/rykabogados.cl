@@ -38,7 +38,7 @@ export const ContactSection = () => {
           </p>
 
           <Button
-            className="w-fit"
+            className="w-full lg:w-fit"
             variant="white-outline-on-primary"
             animateOnClick
           >

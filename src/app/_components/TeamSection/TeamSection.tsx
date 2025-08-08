@@ -40,7 +40,7 @@ export const TeamSection = () => {
             laboral y previsional vigente, prevenir infracciones.
           </p>
 
-          <div className="grid grid-cols-2 gap-2 mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-6">
             {COLLEAGUES.map(({ role, name }, index) => (
               <p key={index} className="font-semibold text-gray-60">
                 {role}: <span className="font-normal">{name}</span>
@@ -48,7 +48,7 @@ export const TeamSection = () => {
             ))}
           </div>
 
-          <Button className="w-fit" variant="white-outline-on-primary" animateOnClick>
+          <Button className="w-full lg:w-fit" variant="white-outline-on-primary" animateOnClick>
             Mas info
           </Button>
         </div>

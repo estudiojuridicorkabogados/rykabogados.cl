@@ -42,14 +42,14 @@ export const AboutSection = () => {
           </motion.p>
 
           <motion.div variants={itemVariants}>
-            <Button className="w-fit" variant="default" size="lg" animateOnClick>
+            <Button className="w-full lg:w-fit" variant="default" size="lg" animateOnClick>
               Contáctanos
             </Button>
           </motion.div>
         </motion.div>
 
         <motion.div
-          className="flex flex-col items-center lg:flex-row lg:h-full w-full lg:flex-1 lg:pt-4"
+          className="flex items-center lg:h-full w-full lg:flex-1 lg:pt-4 gap-6"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
