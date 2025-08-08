@@ -30,7 +30,7 @@ export const HeroSection = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         transition={{ staggerChildren: 0.3 }}
-        className="relative z-10 container mx-auto w-4/5 px-6 flex flex-col"
+        className="relative z-10 mx-auto w-6xl max-w-6xl px-6 flex flex-col"
       >
         <motion.span
           className="uppercase text-sm text-accent font-bold mb-4 tracking-[3px]"

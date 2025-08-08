@@ -12,7 +12,7 @@ import { Stats } from "./Stats";
 export const AboutSection = () => {
   return (
     <section className="py-24 bg-white">
-      <div className="container mx-auto px-6 flex flex-col lg:flex-row gap-24 items-start">
+      <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-24 items-start">
         <motion.div
           className="flex flex-col gap-6 flex-1"
           initial="hidden"
