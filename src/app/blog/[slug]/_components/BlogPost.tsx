@@ -28,7 +28,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           <div className="mt-8 mb-4">
             <time
               dateTime={post.date || new Date().toISOString()}
-              className="text-base/7 font-semibold text-indigo-600"
+              className="text-base/7 font-semibold text-accent-dark"
             >
               {format(post.date, "d 'de' MMMM yyyy", { locale: es })}
             </time>

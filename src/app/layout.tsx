@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es-CL">
       <body className={`${inter.variable} antialiased bg-white`}>
         <Navbar />
 
