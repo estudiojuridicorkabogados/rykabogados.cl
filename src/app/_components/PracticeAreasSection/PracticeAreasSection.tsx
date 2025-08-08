@@ -94,10 +94,10 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
     <p className="text-base text-white">{description}</p>
 
     <Link
-      className="uppercase flex items-center font-semibold mt-4 text-accent text-sm gap-3"
+      className="uppercase flex items-center font-semibold mt-4 text-accent text-sm gap-3 group"
       href={link}
     >
-      Ver más <LongArrowRight className="ml-2 stroke-accent" />
+      Ver más <LongArrowRight className="ml-2 stroke-accent group-hover:animate-wiggle" />
     </Link>
   </motion.div>
 );

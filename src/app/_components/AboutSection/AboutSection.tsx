@@ -42,7 +42,7 @@ export const AboutSection = () => {
           </motion.p>
 
           <motion.div variants={itemVariants}>
-            <Button className="w-fit" variant="default" size="lg">
+            <Button className="w-fit" variant="default" size="lg" animateOnClick>
               Contáctanos
             </Button>
           </motion.div>
