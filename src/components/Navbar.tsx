@@ -7,7 +7,7 @@ import { Menu as MenuIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { URLS } from "@/utils/constants";
+import { URLS } from "@/lib/utils/constants";
 
 const LINKS = [
   {

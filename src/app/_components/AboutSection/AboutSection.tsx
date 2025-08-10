@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 
 import { Button } from "@/components/ui/Button";
-import { containerVariants, itemVariants } from "@/utils/animations";
+import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 import { Stats } from "./Stats";
 

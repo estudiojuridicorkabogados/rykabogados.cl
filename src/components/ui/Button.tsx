@@ -5,7 +5,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "motion/react";
 
-import { classNames } from "@/utils/classNames";
+import { classNames } from "@/lib/utils/classNames";
 
 const buttonStyles = cva(
   [

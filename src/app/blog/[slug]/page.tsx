@@ -5,7 +5,7 @@ import { BlogPosting, WithContext } from "schema-dts";
 
 import { getPost } from "@/graphql/queries/get-post.query";
 import { ApiPost } from "@/types/global";
-import { URLS } from "@/utils/constants";
+import { URLS } from "@/lib/utils/constants";
 
 import { BlogPost } from "./_components/BlogPost";
 

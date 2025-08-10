@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ShortPost } from "@/types/global";
-import { containerVariants, itemVariants } from "@/utils/animations";
+import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 interface BlogPostEntryProps {
   blogPost: ShortPost;

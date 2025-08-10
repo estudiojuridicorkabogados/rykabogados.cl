@@ -8,7 +8,7 @@ import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { ShortPost } from "@/types/global";
-import { containerVariants, itemVariants } from "@/utils/animations";
+import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 interface AnimatedBlogPostsProps {
   mainPost: ShortPost;

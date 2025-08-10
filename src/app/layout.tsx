@@ -3,11 +3,12 @@ import Script from "next/script";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { inter } from "@/utils/fonts";
+import { inter } from "@/lib/utils/fonts";
+import dynamic from "next/dynamic";
 
 import "./globals.css";
 
-const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
+// const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 
 // @TODO Improve metadata
 export const metadata: Metadata = {
@@ -26,6 +27,16 @@ export const metadata: Metadata = {
     "RyK ABOGADOS es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
 };
 
+const SupportChatbot = dynamic(
+  () =>
+    import("@/components/SupportChatbot/SupportChatbot").then(
+      (m) => m.SupportChatbot
+    ),
+  {
+    loading: () => <div className="sr-only">Loading chat…</div>,
+  }
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,7 +47,9 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased bg-white`}>
         <Navbar />
 
-        <div className="bg-white">{children}</div>
+        {/* <div className="bg-white">{children}</div> */}
+
+        <SupportChatbot />
 
         <Footer />
 
@@ -48,11 +61,11 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        <div
+        {/* <div
           dangerouslySetInnerHTML={{
             __html: `<zapier-interfaces-chatbot-embed is-popup="true" chatbot-id="${ZAPIER_CHATBOT_ID}"></zapier-interfaces-chatbot-embed>`,
           }}
-        />
+        /> */}
       </body>
     </html>
   );

@@ -2,9 +2,9 @@ import { gql } from "@apollo/client";
 
 import { Post as PostGraphQL } from "@/types/generated/graphql";
 import { ShortPost } from "@/types/global";
-import { URLS } from "@/utils/constants";
-import { generatePostHref } from "@/utils/hrefs";
-import { extractImageDataFromContentfulAsset } from "@/utils/images";
+import { URLS } from "@/lib/utils/constants";
+import { generatePostHref } from "@/lib/utils/hrefs";
+import { extractImageDataFromContentfulAsset } from "@/lib/utils/images";
 
 import { getApolloServerClient } from "../getApolloServerClient";
 

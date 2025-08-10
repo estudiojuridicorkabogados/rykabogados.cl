@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 
-import { itemVariants } from "@/utils/animations";
+import { itemVariants } from "@/lib/utils/animations";
 
 export const AnimatedTitle = () => {
   return (

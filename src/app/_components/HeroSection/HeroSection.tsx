@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 
-import { containerVariants, itemVariants } from "@/utils/animations";
+import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 // @TODO I feel like here there's room for improvment by splitting SSR and CSR
 

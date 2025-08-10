@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
-import { URLS } from "@/utils/constants";
+import { URLS } from "@/lib/utils/constants";
 
 const containerVariants: Variants = {
   hidden: { y: 400 },
@@ -57,6 +57,7 @@ export const PracticeAreasSection = () => {
       >
         <div className="w-full lg:w-6xl lg:max-w-6xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:p-8">
           <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
+            
             Áreas de desempeño
           </span>
           <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-48">
@@ -97,8 +98,7 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
       className="uppercase flex items-center font-semibold mt-1 lg:mt-4 text-accent text-xs lg:text-sm gap-3 group"
       href={link}
     >
-      Ver más{" "}
-      <LongArrowRight className="ml-2 stroke-accent group-hover:animate-wiggle" />
+      Ver más <LongArrowRight className="ml-2 stroke-accent group-hover:animate-wiggle" />
     </Link>
   </motion.div>
 );

@@ -6,9 +6,9 @@ import {
   Post as PostGraphQL,
 } from "@/types/generated/graphql";
 import { Post, RichTextAsset } from "@/types/global";
-import { URLS } from "@/utils/constants";
-import { timeToRead } from "@/utils/content";
-import { extractImageDataFromContentfulAsset } from "@/utils/images";
+import { URLS } from "@/lib/utils/constants";
+import { timeToRead } from "@/lib/utils/content";
+import { extractImageDataFromContentfulAsset } from "@/lib/utils/images";
 
 function parseLinkToAsset(
   graphQLLink: AssetGraphQL | undefined
