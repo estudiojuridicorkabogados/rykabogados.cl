@@ -2,20 +2,21 @@ import { classNames } from "@/utils/classNames";
 
 export default function BlogPostPageLoading() {
   return (
-    <div className="px-6 lg:px-8">
-      <div className="mx-auto max-w-3xl flex flex-col">
-        <div className="w-full aspect-video rounded-xl loading-background-animation" />
+    <div className="mx-auto max-w-6xl text-base/7 text-gray-700">
+      <div className="flex flex-col items-start justify-center gap-8">
+        <div className="loading-background-animation h-14 w-full lg:w-xl" />
 
-        <div className="mt-8 mb-4 loading-background-animation h-4 w-20" />
+        <div className="loading-background-animation w-full lg:h-[450px] rounded-2xl" />
+      </div>
 
-        <div className="flex flex-col gap-3">
-          {Array.from({ length: 2 }).map((_, index) => (
+      <div className="flex gap-16 mt-8">
+        <div className="flex-1 flex flex-col gap-3">
+          {Array.from({ length: 10 }).map((_, index) => (
             <RandomLineLengthSkeleton key={index} />
           ))}
         </div>
-        <div className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl" />
 
-        <div className="mt-6 text-xl/8" />
+        <div className="loading-background-animation p-8 w-[340px] h-[340px] sticky top-12" />
       </div>
     </div>
   );
@@ -29,7 +30,7 @@ const RandomLineLengthSkeleton = () => {
 
   return (
     <div
-      className={classNames("loading-background-animation h-12", randomLength)}
+      className={classNames("loading-background-animation h-6", randomLength)}
     />
   );
 };

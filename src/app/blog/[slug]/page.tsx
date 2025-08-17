@@ -96,8 +96,8 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
       : undefined,
     author: {
       "@type": "Person",
-      "@id": `R&KAbogados/#Person`,
-      name: "R&KAbogados",
+      "@id": `RyKAbogados/#Person`,
+      name: "RyKAbogados",
     },
     image: {
       "@type": "ImageObject",

@@ -23,11 +23,11 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col items-start w-full"
+      className="flex flex-col w-full"
     >
       <motion.div
         variants={itemVariants}
-        className="relative w-full aspect-video sm:aspect-2/1 lg:aspect-3/2 rounded-2xl bg-gray-100 object-cover "
+        className="relative w-full aspect-video sm:aspect-2/1 lg:aspect-square rounded-2xl bg-gray-100"
       >
         <Image
           fill
@@ -40,14 +40,14 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
       <div className="w-full lg:max-w-xl">
         <motion.div
           variants={itemVariants}
-          className="mt-6 flex items-center gap-x-4 text-xs"
+          className="mt-4 flex items-center gap-x-4 text-xs"
         >
           <time
             dateTime={blogPost.date || new Date().toISOString()}
-            className="text-gray-500"
+            className="text-black/40 font-semibold text-lg"
           >
             {blogPost.date
-              ? format(blogPost.date, "d 'de' MMMM yyyy", { locale: es })
+              ? format(blogPost.date, "dd.MM.yyyy", { locale: es })
               : ""}
           </time>
         </motion.div>
@@ -55,7 +55,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
         <div className="group relative">
           <motion.h3
             variants={itemVariants}
-            className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600"
+            className="mt-2 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 font-sans!"
           >
             <Link href={blogPost.href || "#"}>
               <span className="absolute inset-0" />
@@ -64,7 +64,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
           </motion.h3>
           <motion.p
             variants={itemVariants}
-            className="mt-5 line-clamp-3 text-sm/6 text-gray-600"
+            className="mt-3 line-clamp-2 text-sm/6 text-gray-600"
           >
             {blogPost.excerpt}
           </motion.p>
@@ -76,9 +76,9 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
 
 export const BlogPostEntrySkeleton: React.FC = () => {
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col w-full">
       <div className="w-full">
-        <div className="loading-background-animation aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-2/1 lg:aspect-3/2" />
+        <div className="loading-background-animation w-full aspect-video sm:aspect-2/1 lg:aspect-square rounded-2xl" />
       </div>
 
       <div className="max-w-xl w-full mt-6 ">

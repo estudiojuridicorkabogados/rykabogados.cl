@@ -50,7 +50,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
         >
           <Link
             href="/blog"
-            className="text-black  uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200"
+            className="text-black uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200"
           >
             Ver mas
           </Link>

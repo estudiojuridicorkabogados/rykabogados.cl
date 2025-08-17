@@ -3,7 +3,7 @@ import Script from "next/script";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { inter } from "@/utils/fonts";
+import { dmSans } from "@/utils/fonts";
 
 import "./globals.css";
 
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es-CL">
-      <body className={`${inter.variable} antialiased bg-white`}>
+      <body className={`${dmSans.variable} antialiased bg-white`}>
         <Navbar />
 
         <div className="bg-white">{children}</div>
