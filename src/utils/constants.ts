@@ -7,4 +7,7 @@ export const URLS = {
   privacyPolicy: () => "/aviso-legal",
   blog: () => "/blog",
   blogPost: (slug: string) => `/blog/${slug}`,
+  facebook: () => "https://facebook.com",
+  instagram: () => "https://instagram.com",
+  linkedin: () => "https://linkedin.com",
 };

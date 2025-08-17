@@ -1,7 +1,18 @@
+"use client";
+
 import { Facebook, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const Footer = () => {
+  const pathname = usePathname();
+
+  console.log(pathname)
+
+  if (pathname === "/contacto") {
+    return null;
+  }
+
   return (
     <footer className="bg-[#252525] text-white py-16">
       <div className="container mx-auto px-6">
