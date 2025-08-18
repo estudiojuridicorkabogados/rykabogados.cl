@@ -27,7 +27,7 @@ export const ContactSection = () => {
             Tienes Preguntas?
           </span>
 
-          <h2 className="text-5xl font-bold text-gray-60">Contactanos</h2>
+          <h2 className="text-5xl font-bold text-gray-60">Contáctanos</h2>
 
           <p className="text-gray-60 mb-6">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt

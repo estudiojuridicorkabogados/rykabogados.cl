@@ -50,7 +50,7 @@ export const HeroSection = () => {
           variants={itemVariants}
           className="text-lg text-white/90 font-light tracking-wide max-w-2xl"
         >
-          Retamales y Kowalsky Abogados es un estudio jurídico que ofrece sus
+          Retamales y Kowalski Abogados es un estudio jurídico que ofrece sus
           servicios a lo largo de todo Chile, conformado por un equipo de
           abogados especializados.
         </motion.p>

@@ -34,7 +34,7 @@ export const TeamSection = () => {
           <h2 className="text-5xl font-bold text-gray-60">Nosostros</h2>
 
           <p className="text-gray-60">
-            En Retamales Kowalsky Abogados contamos con un equipo de
+            En Retamales Kowalski Abogados contamos con un equipo de
             profesionales calificados, comprometidos y dispuestos a entregar una
             asesoría integral que le permita dar cumplimiento a la normativa
             laboral y previsional vigente, prevenir infracciones.

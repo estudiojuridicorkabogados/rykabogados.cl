@@ -21,7 +21,7 @@ export const Footer = () => {
             <div className="flex items-center space-x-3 mb-6">
               <div className="border-l-4 border-[#AE8D54] pl-4">
                 <div className="text-2xl font-bold tracking-wide">
-                  Retamales y Kowalsky
+                  Retamales y Kowalski
                 </div>
                 <div className="text-sm font-light tracking-widest opacity-90">
                   ABOGADOS

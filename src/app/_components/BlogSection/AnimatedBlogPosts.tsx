@@ -74,7 +74,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
               />
             </div>
 
-            <h3 className="mt-6 text-xl lg:text-3xl text-black truncate">
+            <h3 className="mt-6 text-xl lg:text-3xl text-black line-clamp-2">
               {mainPost.title}
             </h3>
 
@@ -100,7 +100,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
               />
             </div>
 
-            <h3 className="mt-6 text-xl lg:text-3xl text-black truncate">
+            <h3 className="mt-6 text-xl lg:text-3xl text-black line-clamp-2">
               {secondaryPost.title}
             </h3>
 
