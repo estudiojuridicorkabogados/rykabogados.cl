@@ -19,7 +19,7 @@ const buttonStyles = cva(
       variant: {
         default:
           "bg-white text-black hover:bg-gray-900 hover:text-white border-2 border-gray-900",
-        dark: "bg-gray-900 text-white hover:bg-white hover:text-gray-900 border-2 border-gray-900",
+        dark: "bg-gray-900 text-white hover:bg-white hover:text-white border-2 border-gray-900",
         outline:
           "border border-gray-900 text-dark-900 bg-white hover:bg-gray-900 hover:text-white",
         ["white-outline-on-primary"]:

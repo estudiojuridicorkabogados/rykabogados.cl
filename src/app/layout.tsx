@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { dmSans } from "@/utils/fonts";
 
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 
@@ -36,7 +37,11 @@ export default function RootLayout({
       <body className={`${dmSans.variable} antialiased bg-white`}>
         <Navbar />
 
-        <div className="bg-white">{children}</div>
+        <div className="bg-white">
+          <Toaster position="bottom-center" />
+
+          {children}
+        </div>
 
         <Footer />
 
