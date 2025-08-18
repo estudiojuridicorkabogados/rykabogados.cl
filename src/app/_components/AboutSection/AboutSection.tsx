@@ -1,15 +1,19 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
 import { containerVariants, itemVariants } from "@/utils/animations";
+import { URLS } from "@/utils/constants";
 
 import { Stats } from "./Stats";
 
-
-
 export const AboutSection = () => {
+  const router = useRouter();
+
+  const navigateToContacto = () => router.push(URLS.contacts());
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-y-12 gap-x-24 items-start">
@@ -32,17 +36,23 @@ export const AboutSection = () => {
             variants={itemVariants}
             className="text-lg text-gray-600 leading-relaxed mb-4 lg:mb-8"
           >
-            Retamales Kowalsky Abogados es un estudio jurídico que ofrece sus
+            Retamales Kowalski Abogados es un estudio jurídico que ofrece sus
             servicios a lo largo de todo Chile, conformado por un equipo de
             abogados especializados que resuelven asuntos jurídicos
             principalmente en el área del derecho laboral y cuyas estrategias
             son discutidas y analizadas en conjunto, combinando las habilidades,
             experiencia y competencias de cada uno de sus profesionales, con
-            excelentes y comprobables resultados..
+            excelentes y comprobables resultados.
           </motion.p>
 
           <motion.div variants={itemVariants}>
-            <Button className="w-full lg:w-fit" variant="default" size="lg" animateOnClick>
+            <Button
+              className="w-full lg:w-fit"
+              variant="default"
+              size="lg"
+              animateOnClick
+              onClick={navigateToContacto}
+            >
               Contáctanos
             </Button>
           </motion.div>

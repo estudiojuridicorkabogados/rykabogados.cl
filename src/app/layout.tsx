@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Toaster } from "sonner";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { dmSans } from "@/utils/fonts";
 
 import "./globals.css";
-import { Toaster } from "sonner";
 
 const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 

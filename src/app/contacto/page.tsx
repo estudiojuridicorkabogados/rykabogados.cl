@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { ContactForm } from "./_components/ContactForm/ContactForm";
-import { URLS } from "@/utils/constants";
-import { LinkedinIcon } from "@/components/icons/Linkedin";
+
 import { FacebookIcon } from "@/components/icons/Facebook";
+import { LinkedinIcon } from "@/components/icons/Linkedin";
+import { URLS } from "@/utils/constants";
+
+import { ContactForm } from "./_components/ContactForm/ContactForm";
 
 export default function Contacto() {
   return (

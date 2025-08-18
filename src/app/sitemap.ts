@@ -7,7 +7,6 @@ const BASE_PATHS = [
   "/blog",
   "/contacto",
   "/habla-con-nosotros",
-  "/aviso-legal",
 ];
 
 async function fetchPostRoutes() {

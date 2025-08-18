@@ -1,13 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
-import { FloatingLabelInput } from "./FloatingLabelInput";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
+
 import {
   type ActionResponse,
   submitContactForm,
 } from "@/actions/submitContactForm";
-import { useActionState, useEffect } from "react";
-import { toast } from "sonner";
+import { Button } from "@/components/ui/Button";
+
+import { FloatingLabelInput } from "./FloatingLabelInput";
 
 const initialState: ActionResponse = {
   success: false,

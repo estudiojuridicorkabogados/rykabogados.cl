@@ -1,12 +1,10 @@
 import Image from "next/image";
 
-import { Button } from "@/components/ui/Button";
+import { ContactButton } from "./ContactButton";
 
 export const ContactSection = () => {
   return (
     <section className="relative h-[540px] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-
       <Image
         src="/images/contactanos.webp"
         alt="Una senora que trabaja al compuderador"
@@ -15,13 +13,13 @@ export const ContactSection = () => {
         priority
       />
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/37" />
 
-      {/* Content */}
       <div className="relative z-10 container mx-auto max-w-6xl px-6 flex flex-col lg:flex-row gap-16">
         <div className="w-full lg:w-1/2 flex">
-          <h3 className="text-4xl text-gray-60">Agenda una llamada de evaluación gratis</h3>
+          <h3 className="text-4xl text-gray-60">
+            Agenda una llamada de evaluación gratis
+          </h3>
         </div>
 
         <div className="w-full lg:w-1/2 flex flex-col gap-4">
@@ -37,13 +35,7 @@ export const ContactSection = () => {
             fugiat, ipsam aliquid
           </p>
 
-          <Button
-            className="w-full lg:w-fit"
-            variant="white-outline-on-primary"
-            animateOnClick
-          >
-            Mas info
-          </Button>
+          <ContactButton />
         </div>
       </div>
     </section>
