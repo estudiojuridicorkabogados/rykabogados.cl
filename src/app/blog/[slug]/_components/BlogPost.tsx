@@ -25,18 +25,18 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="mx-auto max-w-6xl text-base/7 text-gray-700"
+      className="mx-auto px-6 lg:px-8 max-w-6xl text-base/7 text-gray-700"
     >
       <motion.h1
         variants={itemVariants}
-        className="relative text-5xl font-bold text-black z-10 mb-8"
+        className="relative text-3xl lg:text-5xl text-black z-10 mb-8"
       >
         {post.title}
       </motion.h1>
 
       <motion.div
         variants={itemVariants}
-        className="relative w-full lg:h-[450px] rounded-2xl"
+        className="relative w-full aspect-square lg:aspect-auto lg:h-[450px] rounded-2xl"
       >
         <Image
           src={post.mainImage?.url || ""}
@@ -47,7 +47,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         />
       </motion.div>
 
-      <div className="flex gap-16 mt-8">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 mt-8">
         <div className="flex-1">
           <div className="text-black font-semibold">
             <span>Camila Retamales | </span>

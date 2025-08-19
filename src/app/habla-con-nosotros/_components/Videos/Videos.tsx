@@ -1,8 +1,9 @@
 "use client";
 
+import { motion, stagger } from "motion/react";
+
 import { itemVariants } from "@/utils/animations";
 import { classNames } from "@/utils/classNames";
-import { motion, stagger } from "motion/react";
 
 const VIDEOS = [
   {
@@ -73,6 +74,7 @@ export const Videos = () => {
             {VIDEOS.map(({ title, video }, i) => (
               <div
                 data-card
+                key={i}
                 className={classNames(
                   "shrink-0 w-[260px] md:w-[600px]",
                   "bg-white/5 border border-white/10 rounded-lg overflow-hidden ml-12"

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { LinkedinSquareIcon } from "@/components/icons/LinkedinSquare";
-import { containerVariants, itemVariants } from "@/utils/animations";
+import { itemVariants } from "@/utils/animations";
 import { classNames } from "@/utils/classNames";
 
 type TeamMember = {

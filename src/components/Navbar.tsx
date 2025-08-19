@@ -55,7 +55,10 @@ export const Navbar = () => {
           <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:outline-accent-dark">
             <span className="absolute -inset-0.5" />
             <span className="sr-only">Abrir el menú principal</span>
-            <MenuIcon aria-hidden="true" className="block size-6 group-data-open:hidden" />
+            <MenuIcon
+              aria-hidden="true"
+              className="block size-6 group-data-open:hidden"
+            />
             <XIcon
               aria-hidden="true"
               className="hidden size-6 group-data-open:block"
@@ -64,20 +67,19 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <DisclosurePanel className="lg:hidden">
+      <DisclosurePanel
+        transition
+        className="origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
+      >
         <div className="bg-white space-y-1 px-2 pt-2 pb-3">
           {LINKS.map((link) => (
             <DisclosureButton
-              as="div"
               key={link.href}
-              className="block rounded-md px-3 py-2 text-base font-medium text-white"
+              as={Link}
+              href={link.href}
+              className="block rounded-md px-3 py-2 text-base font-medium text-black"
             >
-              <Link
-                href={link.href}
-                className="text-black hover:text-[#AE8D54] transition-colors"
-              >
-                {link.label}
-              </Link>
+              {link.label}
             </DisclosureButton>
           ))}
         </div>

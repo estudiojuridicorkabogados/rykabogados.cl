@@ -2,11 +2,11 @@ import { classNames } from "@/utils/classNames";
 
 export default function BlogPostPageLoading() {
   return (
-    <div className="mx-auto max-w-6xl text-base/7 text-gray-700">
+    <div className="mx-auto max-w-6xl text-base/7 text-gray-700 px-6 lg:px-0">
       <div className="flex flex-col items-start justify-center gap-8">
         <div className="loading-background-animation h-14 w-full lg:w-xl" />
 
-        <div className="loading-background-animation w-full lg:h-[450px] rounded-2xl" />
+        <div className="loading-background-animation w-full aspect-square lg:aspect-auto lg:h-[450px] rounded-2xl" />
       </div>
 
       <div className="flex gap-16 mt-8">
@@ -16,7 +16,7 @@ export default function BlogPostPageLoading() {
           ))}
         </div>
 
-        <div className="loading-background-animation p-8 w-[340px] h-[340px] sticky top-12" />
+        <div className="hidden lg:block loading-background-animation p-8 w-[340px] h-[340px] sticky top-12" />
       </div>
     </div>
   );

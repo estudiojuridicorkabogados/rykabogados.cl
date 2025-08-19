@@ -44,7 +44,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
         >
           <time
             dateTime={blogPost.date || new Date().toISOString()}
-            className="text-black/40 font-semibold text-lg"
+            className="text-black/40 font-semibold text-sm lg:text-lg"
           >
             {blogPost.date
               ? format(blogPost.date, "dd.MM.yyyy", { locale: es })
