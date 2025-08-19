@@ -1,7 +1,12 @@
+import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
+import { AsesoriaTrabajadoresHero } from "./_components/Hero/Hero";
+
 export default function AsesoriaTrabajadores() {
   return (
     <div>
-      <p>Para los trabajadores</p>
+      <AsesoriaTrabajadoresHero />
+
+      <ContactSectionLight />
     </div>
   );
 }
