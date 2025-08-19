@@ -1,7 +1,7 @@
-import { HeroContent } from "./HeroContent";
 import Image from "next/image";
+import { HeroContent } from "./HeroContent";
 
-export const AsesoriaTrabajadoresHero = () => {
+export const AsesoriaEmpresasHero = () => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <Image
