@@ -5,6 +5,7 @@ import { Hero } from "./_components/Hero/Hero";
 import { OurTeam } from "./_components/OurTeam/OurTeam";
 import { Press } from "./_components/Press/Press";
 import { Slogan } from "./_components/Slogan/Slogan";
+import { Videos } from "./_components/Videos/Videos";
 
 export default function HablaConNosotros() {
   return (
@@ -12,6 +13,8 @@ export default function HablaConNosotros() {
       <Hero />
 
       <Areas />
+
+      <Videos />
 
       <Slogan />
 
