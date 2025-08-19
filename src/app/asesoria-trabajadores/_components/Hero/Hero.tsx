@@ -1,5 +1,6 @@
-import { HeroContent } from "./HeroContent";
 import Image from "next/image";
+
+import { HeroContent } from "./HeroContent";
 
 export const AsesoriaTrabajadoresHero = () => {
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+
 import { containerVariants, itemVariants } from "@/utils/animations";
 
 export const HeroContent = () => {
