@@ -4,7 +4,7 @@ import { motion, stagger } from "motion/react";
 
 import { itemVariants } from "@/utils/animations";
 
-import { Calendar } from "./Calendar";
+import { CalendarFrame } from "./CalendarFrame";
 
 export const Hero = () => {
   return (
@@ -20,7 +20,7 @@ export const Hero = () => {
     >
       <div className="mx-auto max-w-7xl flex gap-8 h-full items-center">
         <div className="flex-1 flex items-center h-full">
-          <Calendar />
+          <CalendarFrame />
         </div>
 
         <div className="flex-1">
