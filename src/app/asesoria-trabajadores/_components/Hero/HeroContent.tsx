@@ -12,7 +12,7 @@ export const HeroContent = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       transition={{ staggerChildren: 0.3 }}
-      className="relative z-10 mx-auto w-6xl max-w-6xl px-6 flex flex-col"
+      className="relative z-10 mx-auto w-7xl max-w-7xl px-8 flex flex-col"
     >
       <motion.h1
         variants={itemVariants}
