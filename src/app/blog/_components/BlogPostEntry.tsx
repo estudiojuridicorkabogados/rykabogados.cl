@@ -3,6 +3,7 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { motion } from "motion/react";
+import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -57,7 +58,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
             variants={itemVariants}
             className="mt-2 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 font-sans!"
           >
-            <Link href={blogPost.href || "#"}>
+            <Link href={(blogPost.href || "#") as Route}>
               <span className="absolute inset-0" />
               {blogPost.title}
             </Link>

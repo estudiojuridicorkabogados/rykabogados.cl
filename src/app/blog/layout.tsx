@@ -1,10 +1,6 @@
 import { ContactSection } from "@/components/ContactSection/ContactSection";
 
-export default function BlogLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function BlogLayout({ children }: LayoutProps<"/blog">) {
   return (
     <div>
       <div className="relative bg-white pt-16 pb-32">

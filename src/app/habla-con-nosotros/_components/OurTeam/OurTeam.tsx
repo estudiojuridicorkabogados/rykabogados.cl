@@ -155,14 +155,14 @@ export const OurTeam = () => {
                   </div>
 
                   {m.linkedin ? (
-                    <Link
+                    <a
                       href={m.linkedin}
                       target="_blank"
                       className="pt-2"
                       rel="noopener noreferrer"
                     >
                       <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
-                    </Link>
+                    </a>
                   ) : null}
                 </div>
               </article>

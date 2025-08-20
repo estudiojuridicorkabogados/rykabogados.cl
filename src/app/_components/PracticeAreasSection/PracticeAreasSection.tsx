@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "motion/react";
+import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -95,7 +96,7 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
 
     <Link
       className="uppercase flex items-center font-semibold mt-1 lg:mt-4 text-accent text-xs lg:text-sm gap-3 group"
-      href={link}
+      href={link as Route}
     >
       Ver más{" "}
       <LongArrowRight className="ml-2 stroke-accent group-hover:animate-wiggle" />
