@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 import {
@@ -11,12 +11,17 @@ import { Button } from "@/components/ui/Button";
 
 import { FloatingLabelInput } from "./FloatingLabelInput";
 
+import "./contact-form.css";
+
 const initialState: ActionResponse = {
   success: false,
   message: "",
 };
 
 export const ContactForm = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const tokenRef = useRef<HTMLInputElement>(null);
+
   const [state, action, isPending] = useActionState(
     submitContactForm,
     initialState
@@ -32,6 +37,16 @@ export const ContactForm = () => {
     }
   }, [state.success]);
 
+  const handleClick = async () => {
+    const token = await getCaptchaToken();
+
+    if (token && tokenRef.current) {
+      tokenRef.current.value = token;
+    }
+
+    formRef.current?.requestSubmit();
+  };
+
   return (
     <div className="flex-1 flex flex-col justify-end h-full">
       <div className="flex flex-col gap-8">
@@ -41,7 +56,23 @@ export const ContactForm = () => {
           previsional chileno, la nueva{" "}
         </p>
 
-        <form action={action} className="max-w-[450px] flex flex-col gap-6">
+        <form
+          ref={formRef}
+          action={action}
+          className="max-w-[450px] flex flex-col gap-6"
+        >
+          {/* Honeypot for bots */}
+          <input
+            type="text"
+            name="company"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="hidden"
+          />
+
+          <input type="hidden" name="token" ref={tokenRef} />
+
           <FloatingLabelInput
             id="name"
             label="Nombre"
@@ -74,8 +105,9 @@ export const ContactForm = () => {
           <Button
             disabled={isPending || state.success}
             animateOnClick
+            onClick={handleClick}
             className="w-full lg:w-fit mt-4"
-            type="submit"
+            type="button"
             variant="white-outline-on-primary"
           >
             Enviar
@@ -85,3 +117,22 @@ export const ContactForm = () => {
     </div>
   );
 };
+
+async function getCaptchaToken() {
+  return new Promise<string | null>((resolve) => {
+    grecaptcha.ready(async () => {
+      const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+      if (!siteKey) {
+        resolve(null);
+        return;
+      }
+
+      const token = await grecaptcha.execute(siteKey, {
+        action: "contact_us",
+      });
+
+      resolve(token);
+    });
+  });
+}

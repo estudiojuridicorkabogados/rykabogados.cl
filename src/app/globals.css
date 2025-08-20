@@ -73,5 +73,9 @@ h5,
 h6 {
   font-weight: 400;
   font-family: "Georgia", serif;
-  /* font-family: var(--font-dm-serif), Georgia, serif; */
+}
+
+/* Hide the badge all over the website, this is only visible on the contact page */
+.grecaptcha-badge {
+  visibility: hidden;
 }

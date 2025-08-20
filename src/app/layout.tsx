@@ -47,6 +47,12 @@ export default function RootLayout({
 
         <Script
           async
+          strategy="afterInteractive"
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+        />
+
+        <Script
+          async
           type="module"
           src="https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js"
           crossOrigin="anonymous"
