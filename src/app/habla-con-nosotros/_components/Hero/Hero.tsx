@@ -12,20 +12,20 @@ export const Hero = () => {
       id="hero"
       initial="hidden"
       whileInView="visible"
-      className="w-full bg-[#252525] text-white py-32"
+      className="w-full bg-[#252525] text-white py-20 lg:py-32"
       transition={{
         delayChildren: stagger(0.3),
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="mx-auto max-w-7xl flex gap-8 h-full items-center">
+      <div className="w-full px-6 xl:px-0 lg:mx-auto lg:max-w-7xl flex flex-col-reverse lg:flex-row lg:items-center gap-8 h-full">
         <div className="flex-1 flex items-center h-full">
           <CalendarFrame />
         </div>
 
         <div className="flex-1">
           <motion.span
-            className="uppercase text-sm text-accent font-bold mb-8 tracking-[3px]"
+            className="uppercase text-sm text-accent font-bold mb-4 tracking-[3px]"
             variants={itemVariants}
           >
             Nuestra Misión
@@ -33,7 +33,7 @@ export const Hero = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="max-w-3xl text-6xl lg:text-6xl mb-4 text-gray-60"
+            className="max-w-3xl text-3xl lg:text-6xl mb-4 text-gray-60"
           >
             ¿Despido Injustificado? Asesoría legal gratuita. <br />
             Te representamos legalmente.

@@ -36,13 +36,13 @@ export const Videos = () => {
     >
       <style>{`.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
 
-      <div className="py-32">
+      <div className="py-20 lg:py-32">
         <motion.div className="relative" variants={itemVariants}>
           <div
             role="region"
             aria-label="Miembros del equipo"
             className={classNames([
-              "flex gap-8 overflow-x-auto pb-4",
+              "flex flex-col lg:flex-row gap-8 overflow-x-auto pb-4 px-6 lg:px-0",
               "scroll-smooth",
               "[scrollbar-width:none] [-ms-overflow-style:none]",
               "scroll-pl-6 md:scroll-pl-6",
@@ -55,15 +55,17 @@ export const Videos = () => {
             <div
               data-card
               className={classNames(
-                "snap-start shrink-0 w-[260px] md:w-[400px] bg-[red]",
+                "snap-start shrink-0 w-full md:w-[260px] lg:w-[400px] bg-[red]",
                 "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
-                "ml-48"
+                "lg:px-0 lg:ml-48"
               )}
             >
-              <div className="flex flex-col gap-8">
-                <h2 className="text-4xl">Videos que hemos preparado para ti</h2>
+              <div className="flex flex-col gap-4 lg:gap-8">
+                <h2 className="text-2xl lg:text-4xl">
+                  Videos que hemos preparado para ti
+                </h2>
 
-                <p className="text-lg text-black/70 leading-relaxed">
+                <p className="lg:text-lg text-black/70 leading-relaxed">
                   Conoce más de nuestro servicio a través de estos videos
                   informativos donde te explicamos cómo podemos ayudarte con tus
                   necesidades legales.
@@ -76,8 +78,8 @@ export const Videos = () => {
                 data-card
                 key={i}
                 className={classNames(
-                  "shrink-0 w-[260px] md:w-[600px]",
-                  "bg-white/5 border border-white/10 rounded-lg overflow-hidden ml-12"
+                  "shrink-0 w-full md:w-[600px]",
+                  "bg-white/5 border border-white/10 rounded-lg overflow-hidden lg:ml-12"
                 )}
               >
                 <div className="flex flex-col gap-4">
@@ -92,49 +94,10 @@ export const Videos = () => {
                       allowFullScreen
                     />
                   </div>
-                  <p className="text-xl">{title}</p>
+                  <p className="lg:text-xl">{title}</p>
                 </div>
               </div>
             ))}
-
-            {/* {team.map((m) => (
-              <article
-                key={m.name}
-                data-card
-                className={classNames(
-                  "snap-start shrink-0 w-[260px] md:w-[300px]",
-                  "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
-                  "first:ml-12 last:mr-6"
-                )}
-              >
-                <div className="relative aspect-[3/4] bg-white/5">
-                  <Image
-                    src={m.photo}
-                    alt={`${m.name} - ${m.role}`}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                    fill
-                  />
-                </div>
-                <div className="p-4 flex justify-between items-start">
-                  <div>
-                    <h3 className="text-xl font-semibold">{m.name}</h3>
-                    <p className="text-white/80">{m.role}</p>
-                  </div>
-
-                  {m.linkedin ? (
-                    <Link
-                      href={m.linkedin}
-                      target="_blank"
-                      className="pt-2"
-                      rel="noopener noreferrer"
-                    >
-                      <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
-                    </Link>
-                  ) : null}
-                </div>
-              </article>
-            ))} */}
           </div>
         </motion.div>
       </div>

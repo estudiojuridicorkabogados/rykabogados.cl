@@ -35,7 +35,7 @@ export const Slogan = () => {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      className="relative w-screen h-[690px] lg:h-[490px] overflow-hidden"
+      className="relative w-screen h-[590px] lg:h-[490px] overflow-hidden"
       
       viewport={{ once: true, amount: 0.8 }}
     >
@@ -48,7 +48,7 @@ export const Slogan = () => {
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[580px] lg:h-[360px] bottom-0 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
+        className="absolute h-[400px] lg:h-[360px] bottom-0 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
       >
         <div className="w-full lg:w-6xl lg:max-w-6xl mx-auto flex flex-col gap-4 lg:gap-4 p-6 lg:p-8">
           <motion.span
@@ -57,7 +57,7 @@ export const Slogan = () => {
           >
             Listo para evaluar tu caso
           </motion.span>
-          <motion.h2 variants={itemVariants} className="text-5xl text-white">
+          <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl text-white">
             Defendemos tu derechos <br /> come si fueran nuestros.
           </motion.h2>
           <motion.span variants={itemVariants} className="text-white">

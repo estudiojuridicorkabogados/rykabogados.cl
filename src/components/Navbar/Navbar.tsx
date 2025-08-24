@@ -48,9 +48,9 @@ const SERVICIOS_LINKS = [
 
 export const Navbar = () => {
   return (
-    <Disclosure as="nav" className="relative z-50 bg-white h-[100px] py-2">
+    <Disclosure as="nav" className="relative z-50 bg-white h-[80px] lg:h-[100px] py-2">
       <div className="container mx-auto px-6 flex items-center justify-between h-full">
-        <Link href="/" className="relative flex items-center h-full w-[243px]">
+        <Link href="/" className="relative flex items-center h-full w-[160px] lg:w-[243px]">
           <Image
             src="/images/logo.png"
             alt="RyK Abogados Logo"

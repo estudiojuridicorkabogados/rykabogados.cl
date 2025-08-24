@@ -21,12 +21,12 @@ export const Press = () => {
       id="press"
       initial="hidden"
       whileInView="visible"
-      className="bg-[#F7F6F6] py-32"
+      className="bg-[#F7F6F6] py-20 lg:py-32"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.4 }}
     >
-      <div className="mx-auto min-w-6xl max-w-6xl flex flex-col gap-8">
-        <motion.h2 variants={itemVariants} className="text-black text-5xl">
+      <div className="px-6 lg:px-0 lg:mx-auto lg:min-w-6xl lg:max-w-6xl flex flex-col gap-8">
+        <motion.h2 variants={itemVariants} className="text-black text-3xl lg:text-5xl">
           Lo que hemos conseguido con nuestros clientes
         </motion.h2>
 

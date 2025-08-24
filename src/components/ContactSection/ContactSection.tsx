@@ -17,7 +17,7 @@ export const ContactSection = () => {
 
       <div className="relative z-10 container mx-auto max-w-6xl px-6 flex flex-col lg:flex-row gap-16">
         <div className="w-full lg:w-1/2 flex">
-          <h3 className="text-4xl text-gray-60">
+          <h3 className="text-3xl lg:text-5xl text-gray-60">
             Agenda una llamada de evaluación gratis
           </h3>
         </div>
@@ -27,7 +27,7 @@ export const ContactSection = () => {
             Tienes Preguntas?
           </span>
 
-          <h2 className="text-5xl font-bold text-gray-60">Contáctanos</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-60">Contáctanos</h2>
 
           <p className="text-gray-60 mb-6">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt

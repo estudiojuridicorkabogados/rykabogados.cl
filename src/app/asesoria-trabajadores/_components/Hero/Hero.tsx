@@ -4,7 +4,7 @@ import { HeroContent } from "./HeroContent";
 
 export const AsesoriaTrabajadoresHero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-[590px] lg:h-screen flex items-center justify-center overflow-hidden">
       <Image
         src="/images/hero-studio-working.jpg"
         alt="Library background"

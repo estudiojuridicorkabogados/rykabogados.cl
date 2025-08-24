@@ -2,15 +2,14 @@
 
 import { motion } from "motion/react";
 
-import { containerVariants, itemVariants } from "@/utils/animations";
+import { itemVariants } from "@/utils/animations";
 
 export const HeroContent = () => {
   return (
     <motion.div
-      variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
       className="relative z-10 mx-auto w-6xl max-w-6xl px-6 flex flex-col"
     >

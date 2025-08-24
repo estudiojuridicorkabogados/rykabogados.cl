@@ -91,12 +91,12 @@ export const OurTeam = () => {
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="py-32">
-        <div className="mx-auto max-w-6xl mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div className="py-20 lg:py-32">
+        <div className="px-6 lg:px-0 lg:mx-auto lg:max-w-6xl mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <motion.h2
               variants={itemVariants}
-              className="text-4xl md:text-5xl font-semibold"
+              className="text-3xl lg:text-4xl md:text-5xl font-semibold"
             >
               Nuestro Team
             </motion.h2>

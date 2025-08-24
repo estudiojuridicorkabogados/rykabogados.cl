@@ -2,18 +2,23 @@
 
 import { motion } from "motion/react";
 
-import { containerVariants, itemVariants } from "@/utils/animations";
+import { itemVariants } from "@/utils/animations";
 
 export const HeroContent = () => {
   return (
     <motion.div
-      variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
       className="relative z-10 mx-auto w-7xl max-w-7xl px-8 flex flex-col"
     >
+      <motion.span
+        variants={itemVariants}
+        className="uppercase text-sm text-accent font-bold mb-4 tracking-[3px]"
+      >
+        Nuestro servicios
+      </motion.span>
       <motion.h1
         variants={itemVariants}
         className="max-w-3xl text-4xl lg:text-5xl mb-8 text-white"

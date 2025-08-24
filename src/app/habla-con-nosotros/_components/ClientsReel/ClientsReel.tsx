@@ -1,8 +1,13 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
-import { motion, useAnimationFrame, useMotionValue, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useReducedMotion,
+} from "motion/react";
+import Image, { StaticImageData } from "next/image";
 
 import artimatebImage from "../../../../../public/images/clients/artimateb.webp";
 import capitalvivoImage from "../../../../../public/images/clients/capitalvivo.webp";
@@ -41,7 +46,13 @@ const logos: LogoItem[] = [
   { src: hol3Image, alt: "Cliente Hol3" },
 ];
 
-export const ClientsReel = ({ speed = 60, direction = "left" }: { speed?: number; direction?: "left" | "right" }) => {
+export const ClientsReel = ({
+  speed = 60,
+  direction = "left",
+}: {
+  speed?: number;
+  direction?: "left" | "right";
+}) => {
   const prefersReducedMotion = useReducedMotion();
   const trackRef = useRef<HTMLDivElement | null>(null);
   const cycleRef = useRef<HTMLDivElement | null>(null);
@@ -69,7 +80,7 @@ export const ClientsReel = ({ speed = 60, direction = "left" }: { speed?: number
   useAnimationFrame((_, delta) => {
     if (paused || prefersReducedMotion || cycleWidth === 0) return;
     const dir = direction === "left" ? -1 : 1;
-    const deltaPx = (speed * delta) / 1000 * dir; // px this frame
+    const deltaPx = ((speed * delta) / 1000) * dir; // px this frame
     const current = x.get();
     let next = current + deltaPx;
     // Use modulo wrap to avoid frame overshoot induced jump.
@@ -77,7 +88,7 @@ export const ClientsReel = ({ speed = 60, direction = "left" }: { speed?: number
       // Keep next in [-cycleWidth, 0)
       if (next <= -cycleWidth) {
         // modulo accounting for large deltas (unlikely but safe)
-        next = ((next % cycleWidth) + cycleWidth) % cycleWidth - cycleWidth; // ensures negative range
+        next = (((next % cycleWidth) + cycleWidth) % cycleWidth) - cycleWidth; // ensures negative range
       }
     } else {
       // right direction: keep in (0, cycleWidth]
@@ -107,12 +118,6 @@ export const ClientsReel = ({ speed = 60, direction = "left" }: { speed?: number
             <Logo key={`logo-a-${i}`} {...logo} />
           ))}
         </div>
-        {/* Clone cycle (must be identical width) */}
-        {/* <div className="flex gap-12 md:gap-32 items-center" aria-hidden>
-          {logos.map((logo, i) => (
-            <Logo key={`logo-b-${i}`} {...logo} ariaHidden />
-          ))}
-        </div> */}
       </motion.div>
     </div>
   );
@@ -127,7 +132,7 @@ const Logo: React.FC<LogoItem & { ariaHidden?: boolean }> = ({
     <Image
       src={src}
       alt={alt}
-      className="h-12 w-auto md:h-18 object-contain"
+      className="h-16 w-auto md:h-18 object-contain"
       // Provide sizes hint; track width is unbounded but logo height small.
       sizes="(min-width:1024px) 150px, 120px"
       aria-hidden={ariaHidden}
