@@ -3,13 +3,16 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { Menu as MenuIcon, XIcon } from "lucide-react";
+import { Menu as MenuIcon, Users, Wrench, XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { URLS } from "@/utils/constants";
 
-const LINKS = [
+import { ClientLink } from "./ClientLink";
+import { HoverPopover } from "./HoverPopover";
+
+const MOBILE_LINKS = [
   {
     href: URLS.asesoriaTrabajadores(),
     label: "Asesoría Trabajadores",
@@ -21,6 +24,25 @@ const LINKS = [
   {
     href: URLS.blog(),
     label: "Blog",
+  },
+  {
+    href: URLS.contacts(),
+    label: "Contacto",
+  },
+];
+
+const SERVICIOS_LINKS = [
+  {
+    href: URLS.asesoriaTrabajadores(),
+    label: "Asesoría Trabajadores",
+    description: "Para aiutarte",
+    icon: <Users className="size-4 stroke-white" />,
+  },
+  {
+    href: URLS.asesoriaEmpresas(),
+    label: "Asesoría Empresas",
+    description: "Tiene empresas y pregunta",
+    icon: <Wrench className="size-4 stroke-white" />,
   },
 ];
 
@@ -37,17 +59,26 @@ export const Navbar = () => {
           />
         </Link>
 
-        {/* Navigation */}
         <div className="hidden lg:flex items-center space-x-8 text-white font-light">
-          {LINKS.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-black hover:text-[#AE8D54] transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          <HoverPopover label="Servicios" links={SERVICIOS_LINKS} />
+
+          <Link
+            href={URLS.blog()}
+            className="text-black hover:text-accent-dark transition-colors"
+          >
+            Blog
+          </Link>
+
+          <Link
+            href={URLS.contacts()}
+            className="text-black hover:text-accent-dark transition-colors"
+          >
+            Contacto
+          </Link>
+        </div>
+
+        <div className="hidden lg:flex">
+          <ClientLink />
         </div>
 
         {/* Mobile menu button */}
@@ -71,17 +102,19 @@ export const Navbar = () => {
         transition
         className="origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
       >
-        <div className="bg-white space-y-1 px-2 pt-2 pb-3">
-          {LINKS.map((link) => (
+        <div className="bg-white space-y-1 px-6 pt-2 pb-6">
+          {MOBILE_LINKS.map((link) => (
             <DisclosureButton
               key={link.href}
               as={Link}
               href={link.href}
-              className="block rounded-md px-3 py-2 text-base font-medium text-black"
+              className="block rounded-md py-2 text-base font-medium text-black"
             >
               {link.label}
             </DisclosureButton>
           ))}
+
+          <ClientLink />
         </div>
       </DisclosurePanel>
     </Disclosure>

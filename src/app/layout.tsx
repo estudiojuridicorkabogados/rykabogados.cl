@@ -3,7 +3,7 @@ import Script from "next/script";
 import { Toaster } from "sonner";
 
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
 import { dmSans } from "@/utils/fonts";
 
 import "./globals.css";
