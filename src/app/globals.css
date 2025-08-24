@@ -24,6 +24,7 @@
   --font-serif: var(--font-georgia);
 
   --animate-wiggle: wiggle 0.7s linear infinite;
+  --animate-clients-marquee-right: clients-marquee-right 45s linear infinite;
 
   @keyframes wiggle {
     0% {
@@ -41,6 +42,11 @@
     100% {
       transform: translateX(0);
     }
+  }
+
+  @keyframes clients-marquee-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
   }
 }
 

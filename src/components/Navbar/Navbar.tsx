@@ -3,7 +3,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { Menu as MenuIcon, Users, Wrench, XIcon } from "lucide-react";
+import { HardHat, Landmark, Menu as MenuIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -36,13 +36,13 @@ const SERVICIOS_LINKS = [
     href: URLS.asesoriaTrabajadores(),
     label: "Asesoría Trabajadores",
     description: "Para aiutarte",
-    icon: <Users className="size-4 stroke-white" />,
+    icon: <HardHat className="size-4 stroke-white" />,
   },
   {
     href: URLS.asesoriaEmpresas(),
     label: "Asesoría Empresas",
     description: "Tiene empresas y pregunta",
-    icon: <Wrench className="size-4 stroke-white" />,
+    icon: <Landmark className="size-4 stroke-white" />,
   },
 ];
 

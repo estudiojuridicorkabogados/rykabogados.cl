@@ -1,104 +1,88 @@
 "use client";
 
+import { URLS } from "@/utils/constants";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import logoWhite from "../../public/images/logo-white.png";
+import Image from "next/image";
+
+const LINKS = [
+  {
+    href: URLS.asesoriaTrabajadores(),
+    label: "Asesoría Trabajadores",
+  },
+  {
+    href: URLS.asesoriaEmpresas(),
+    label: "Asesoría Empresas",
+  },
+  {
+    href: URLS.blog(),
+    label: "Blog",
+  },
+  {
+    href: URLS.contacts(),
+    label: "Contacto",
+  },
+];
+
 export const Footer = () => {
   const pathname = usePathname();
-
-  console.log(pathname)
 
   if (pathname === "/contacto") {
     return null;
   }
 
   return (
-    <footer className="bg-[#252525] text-white py-16">
+    <footer className="bg-[#252525] text-white pt-16 pb-8">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-12">
           <div className="md:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="border-l-4 border-[#AE8D54] pl-4">
-                <div className="text-2xl font-bold tracking-wide">
-                  Retamales y Kowalski
-                </div>
-                <div className="text-sm font-light tracking-widest opacity-90">
-                  ABOGADOS
-                </div>
-              </div>
-            </div>
-            <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
-              Estudio jurídico especializado en derecho laboral y corporativo.
-              Más de 15 años protegiendo tus derechos en Chile.
-            </p>
-            <div className="flex space-x-4">
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-[#AE8D54] transition-colors"
-              >
-                <Facebook className="h-6 w-6" />
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-[#AE8D54] transition-colors"
-              >
-                <Linkedin className="h-6 w-6" />
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-[#AE8D54] transition-colors"
-              >
-                <Twitter className="h-6 w-6" />
-              </Link>
+            <div className="relative w-full h-[50px] md:w-[320px] md:h-[64px] mb-8">
+              <Image
+                src={logoWhite}
+                alt="logo"
+                fill
+                className="object-contain"
+              />
             </div>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-6 text-[#AE8D54]">
-              Servicios
-            </h4>
-            <ul className="space-y-3 text-gray-400">
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Derecho Laboral
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Derecho Corporativo
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Derecho Civil
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Litigios
-                </Link>
-              </li>
+            <ul className="hidden lg:block space-y-3 text-center md:text-left">
+              {LINKS.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-white transition-colors hover:text-accent font-[500]"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-6 text-[#AE8D54]">
-              Contacto
-            </h4>
-            <ul className="space-y-3 text-gray-400">
-              <li>+56 2 2345 6789</li>
-              <li>contacto@RyKasociados.cl</li>
-              <li>Av. Providencia 1234, Providencia, Santiago</li>
-            </ul>
+          <div className="flex flex-col text-white font-[500] gap-8 text-center md:text-left">
+            <span>Isidora Goyenechea 3000, piso 23, Las Condes, Santiago</span>
+            <div className="flex flex-col gap-2">
+              <span>Tel 2 23644258</span>
+              <a
+                className="hover:text-accent"
+                href="mailto:estudio.juridico@ryoasociados.cl"
+                target="_blank"
+              >
+                estudio.juridico@ryoasociados.cl
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>
-            &copy; {new Date().getFullYear()} RyK Abogados. Todos los derechos
-            reservados.
-          </p>
+        <div className="mt-12 md:mt-32 flex flex-col gap-y-4 gap-x-8 items-center justify-between text-xs text-white">
+          <p>&copy; {new Date().getFullYear()} RyK Abogados</p>
+
+          <p>Todos los derechos reservados</p>
         </div>
       </div>
     </footer>

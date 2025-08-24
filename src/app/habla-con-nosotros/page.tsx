@@ -1,6 +1,7 @@
 import { ContactSection } from "@/components/ContactSection/ContactSection";
 
 import { Areas } from "./_components/Areas/Areas";
+import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
 import { Hero } from "./_components/Hero/Hero";
 import { OurTeam } from "./_components/OurTeam/OurTeam";
 import { Press } from "./_components/Press/Press";
@@ -21,6 +22,8 @@ export default function HablaConNosotros() {
       <OurTeam />
 
       <Press />
+
+      <ClientsReel />
 
       <ContactSection />
     </div>
