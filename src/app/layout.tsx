@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Toaster } from "sonner";
@@ -8,7 +10,7 @@ import { dmSans } from "@/utils/fonts";
 
 import "./globals.css";
 
-const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
+// const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 
 // @TODO Improve metadata
 export const metadata: Metadata = {
@@ -51,7 +53,7 @@ export default function RootLayout({
           src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         />
 
-        <Script
+        {/* <Script
           async
           type="module"
           src="https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js"
@@ -63,7 +65,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `<zapier-interfaces-chatbot-embed is-popup="true" chatbot-id="${ZAPIER_CHATBOT_ID}"></zapier-interfaces-chatbot-embed>`,
           }}
-        />
+        /> */}
+
+        <Analytics />
+
+        <SpeedInsights />
       </body>
     </html>
   );
