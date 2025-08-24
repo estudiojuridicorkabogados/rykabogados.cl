@@ -84,7 +84,11 @@ export async function getPost({
       },
     });
 
-    const post = data.data.blogPostCollection.items[0];
+    const post = data.data?.blogPostCollection.items[0];
+
+    if (!post) {
+      throw new Error("Post not found");
+    }
 
     return parseGraphQLPost(post);
   } catch (error) {

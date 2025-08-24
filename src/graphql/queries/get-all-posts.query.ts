@@ -68,7 +68,7 @@ export async function getAllPosts({
     });
 
     return {
-      posts: data.data.blogPostCollection.items
+      posts: data.data?.blogPostCollection.items
         .filter(({ slug }) => !!slug)
         .map((post) => ({
           ...post,
@@ -76,7 +76,7 @@ export async function getAllPosts({
           mainImage: post.mainImage
             ? extractImageDataFromContentfulAsset(post.mainImage)
             : undefined,
-        })),
+        })) || [],
     };
   } catch (error) {
     console.error(error);
