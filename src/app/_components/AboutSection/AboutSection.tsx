@@ -15,8 +15,8 @@ export const AboutSection = () => {
   const navigateToContacto = () => router.push(URLS.contacts());
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-y-12 gap-x-24 items-start">
+    <section className="py-16 lg:py-24 bg-white">
+      <div className="lg:max-w-6xl xl:max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-y-8 gap-x-24 items-start">
         <motion.div
           className="flex flex-col gap-6 flex-1"
           initial="hidden"
@@ -29,12 +29,12 @@ export const AboutSection = () => {
             variants={itemVariants}
             className="text-4xl lg:text-5xl font-bold text-[#0B142D] leading-tight"
           >
-            RyK Abogados
+            Nuestra Misión
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
-            className="text-lg text-gray-600 leading-relaxed mb-4 lg:mb-8"
+            className="text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8"
           >
             Retamales Kowalski Abogados es un estudio jurídico que ofrece sus
             servicios a lo largo de todo Chile, conformado por un equipo de
@@ -45,9 +45,9 @@ export const AboutSection = () => {
             excelentes y comprobables resultados.
           </motion.p>
 
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} className="hidden lg:block">
             <Button
-              className="w-full lg:w-fit"
+              className="w-fit"
               variant="default"
               size="lg"
               animateOnClick
@@ -68,6 +68,18 @@ export const AboutSection = () => {
           <Stats title="Trabajadores" value={500} />
           <Stats title="Empresas" value={120} />
         </motion.div>
+
+        <motion.div variants={itemVariants} className="w-full flex mt-4 lg:hidden">
+            <Button
+              className="w-full"
+              variant="default"
+              size="lg"
+              animateOnClick
+              onClick={navigateToContacto}
+            >
+              Contáctanos
+            </Button>
+          </motion.div>
       </div>
     </section>
   );

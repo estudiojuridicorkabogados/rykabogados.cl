@@ -1,22 +1,20 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
-import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { Button } from "@/components/ui/Button";
 
 const COLLEAGUES = [
-  { name: "Camila Retamales", role: "Head lawyer" },
-  { name: "Camila Retamales", role: "Lawyer" },
-  { name: "Camila Retamales", role: "Lawyer" },
-  { name: "Camila Retamales", role: "Head lawyer" },
-  { name: "Camila Retamales", role: "Lawyer" },
+  { name: "Camila Retamales", role: "Abogada Fundadora" },
+  { name: "Luciano Ascui", role: "Abogado Derecho Laboral" },
+  { name: "Javiera Fredes", role: "Abogado Derecho Laboral" },
+  { name: "Bastian Morales", role: "Abogado Derecho Laboral" },
+  { name: "Camila Retamales", role: "Abogado Derecho Laboral" },
 ] as const;
 
 export const TeamSection = () => {
   return (
-    <section className="py-28 bg-primary">
-      <div className="flex flex-col lg:flex-row lg:gap-16 mx-auto px-6 max-w-6xl">
+    <section className="py-16 lg:py-24 bg-primary">
+      <div className="flex flex-col lg:flex-row lg:gap-16 mx-auto px-6 lg:max-w-6xl xl:max-w-7xl">
         <div className="w-full lg:w-1/2 relative">
           <Image
             src="/images/team.webp"
@@ -31,7 +29,7 @@ export const TeamSection = () => {
             Encuentra el equipo
           </span>
 
-          <h2 className="text-5xl font-bold text-gray-60">Nosostros</h2>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-60">Nosostros</h2>
 
           <p className="text-gray-60">
             En Retamales Kowalski Abogados contamos con un equipo de
@@ -48,7 +46,11 @@ export const TeamSection = () => {
             ))}
           </div>
 
-          <Button className="w-full lg:w-fit" variant="white-outline-on-primary" animateOnClick>
+          <Button
+            className="w-full lg:w-fit"
+            variant="white-outline-on-primary"
+            animateOnClick
+          >
             Mas info
           </Button>
         </div>

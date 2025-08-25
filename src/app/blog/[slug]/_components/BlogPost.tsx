@@ -25,7 +25,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="mx-auto px-6 lg:px-8 max-w-6xl text-base/7 text-gray-700"
+      className="mx-auto px-6 lg:px-8 lg:max-w-6xl xl:max-w-7xl text-base/7 text-gray-700"
     >
       <motion.h1
         variants={itemVariants}

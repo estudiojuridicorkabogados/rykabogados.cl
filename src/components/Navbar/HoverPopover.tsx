@@ -33,21 +33,21 @@ export const HoverPopover: React.FC<HoverPopoverProps> = ({ label, links }) => {
 
           <PopoverPanel
             transition
-            anchor="bottom"
-            className="flex flex-col justify-center gap-4 bg-white z-50 top-5 p-4 rounded-lg border-black/10 border-1 data-closed:-translate-y-1 data-closed:opacity-0 transition duration-200 ease-in-out"
+            anchor="bottom start"
+            className="mt-2 flex flex-col justify-center bg-white z-50 top-5 py-2 px-4 rounded-sm border-black/10 border-1 data-closed:-translate-y-1 data-closed:opacity-0 transition duration-200 ease-in-out"
           >
             {links.map(({ href, label, description, icon: Icon }) => (
               <Link
                 key={label}
                 href={href}
-                className="text-black hover:text-accent-dark transition-all flex items-center gap-3"
+                className="text-black hover:text-accent-dark transition-all flex items-center gap-3 first:border-b first:border-black/10 py-3 first:pb-5 last:pt-4"
               >
-                <div className="flex items-center justify-center bg-accent-dark h-9 w-9 rounded-lg">
+                <div className="flex items-center justify-center rounded-sm">
                   {Icon}
                 </div>
                 <div className="flex flex-col gap-x justify-center">
-                  <span className="font-bold text-sm">{label}</span>
-                  <span className="text-xs">{description}</span>
+                  <span className="text-sm">{label}</span>
+                  {/* <span className="text-xs">{description}</span> */}
                 </div>
               </Link>
             ))}

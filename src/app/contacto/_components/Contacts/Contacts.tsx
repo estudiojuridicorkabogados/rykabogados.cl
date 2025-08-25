@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import { FacebookIcon } from "@/components/icons/Facebook";
+import { InstagramIcon } from "@/components/icons/Instagram";
 import { LinkedinIcon } from "@/components/icons/Linkedin";
 import { URLS } from "@/utils/constants";
 
@@ -10,25 +9,33 @@ export const Contacts = () => {
       <div className="flex flex-col lg:max-w-[320px]">
         <span className="font-bold">Visita nosotros</span>
         <span>
-          Isidora Goyenechea 3000, piso 23, <br /> Las Condes, Santiago
+          Antonio Bellet 143, Providencia <br /> Isidora Goyenechea 3000, Las
+          Condes
         </span>
       </div>
 
       <div className="flex flex-col">
         <span className="font-bold">Habla con nosotros</span>
         <span>Tel 2 23644258</span>
-        <Link href="mailto:estudio.juridico@ryoasociados.cl" target="_blank">
+        <a href="mailto:estudio.juridico@ryoasociados.cl" target="_blank">
           estudio.juridico@ryoasociados.cl
-        </Link>
+        </a>
       </div>
 
-      <div className="flex gap-2 items-center">
-        <Link href={URLS.instagram()} target="_blank">
-          <FacebookIcon width={30} height={30} />
-        </Link>
-        <Link href={URLS.linkedin()} target="_blank">
-          <LinkedinIcon width={30} height={30} />
-        </Link>
+      <div className="flex gap-3 items-center">
+        <a
+          href={URLS.instagram()}
+          target="_blank"
+          className="bg-white size-6 lg:size-8 rounded-full flex items-center justify-center"
+        >
+          <InstagramIcon className="size-4 lg:size-5 fill-[#252525]" />
+        </a>
+        <a href={URLS.facebook()} target="_blank">
+          <FacebookIcon className="size-6 lg:size-8 fill-white" />
+        </a>
+        <a href={URLS.linkedin()} target="_blank">
+          <LinkedinIcon className="size-6 lg:size-8 fill-white" />
+        </a>
       </div>
     </div>
   );

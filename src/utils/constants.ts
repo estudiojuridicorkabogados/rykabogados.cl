@@ -12,7 +12,7 @@ export const URLS: UrlsMap = {
   speakWithUs: () => "/habla-con-nosotros",
   blog: () => "/blog",
   blogPost: (slug: string) => `/blog/${slug}` as unknown as Route,
-  facebook: () => "https://facebook.com",
-  instagram: () => "https://instagram.com",
+  facebook: () => "https://www.facebook.com/p/RO-Abogados-Chile-100066607063186",
+  instagram: () => "https://www.instagram.com/ryoabogadoschile",
   linkedin: () => "https://linkedin.com",
 };

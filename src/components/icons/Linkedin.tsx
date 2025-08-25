@@ -7,15 +7,11 @@ interface IconProps {
 }
 
 export const LinkedinIcon: React.FC<IconProps> = ({
-  width = 30,
-  height = 30,
   className = "fill-white",
 }) => {
   return (
     <svg
       className={className}
-      width={width}
-      height={height}
       viewBox="0 0 30 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -13,17 +13,17 @@ export const ContactSection = () => {
         priority
       />
 
-      <div className="absolute inset-0 bg-black/37" />
+      <div className="absolute inset-0 bg-black/57 lg:bg-black/37" />
 
-      <div className="relative z-10 container mx-auto max-w-6xl px-6 flex flex-col lg:flex-row gap-16">
+      <div className="relative z-10 container mx-auto lg:max-w-6xl xl:max-w-7xl px-6 flex flex-col lg:flex-row gap-16">
         <div className="w-full lg:w-1/2 flex">
           <h3 className="text-3xl lg:text-5xl text-gray-60">
             Agenda una llamada de evaluación gratis
           </h3>
         </div>
 
-        <div className="w-full lg:w-1/2 flex flex-col gap-4">
-          <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
+        <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:gap-4">
+          <span className="uppercase text-sm text-accent font-bold tracking-[2px]">
             Tienes Preguntas?
           </span>
 

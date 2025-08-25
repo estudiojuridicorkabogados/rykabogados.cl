@@ -18,8 +18,8 @@ const buttonStyles = cva(
     variants: {
       variant: {
         default:
-          "bg-white text-black hover:bg-gray-900 hover:text-white border-2 border-gray-900",
-        dark: "bg-gray-900 text-white hover:bg-white hover:text-white border-2 border-gray-900",
+          "bg-white text-black hover:bg-gray-900 hover:text-white border border-gray-900",
+        dark: "bg-gray-900 text-white hover:bg-white hover:text-white border border-gray-900",
         outline:
           "border border-gray-900 text-dark-900 bg-transparent hover:bg-gray-900 hover:text-white",
         ["white-outline-on-primary"]:
@@ -27,7 +27,7 @@ const buttonStyles = cva(
       },
       size: {
         default: "h-10 px-8 py-2 text-xs",
-        sm: "h-9 px-3",
+        sm: "h-9 px-3 text-xs",
         lg: "h-11 px-8",
         icon: "h-10 w-10",
       },

@@ -5,11 +5,11 @@ import Image from "next/image";
 
 import { itemVariants } from "@/utils/animations";
 
-import asesoriaTrabajadoresImage from "../../../../../public/images/asesoria-trabajadores.webp";
+import asesoriaEmpresasImage from "../../../../../public/images/assoria-empresas.webp";
 
 import { SERVICES } from "./services";
 
-export const TrabajadoresServices = () => {
+export const EmpresasServices = () => {
   return (
     <motion.section
       id="hero"
@@ -29,20 +29,22 @@ export const TrabajadoresServices = () => {
                 variants={itemVariants}
                 className="mt-2 text-xl lg:text-4xl font-semibold tracking-tight text-pretty text-black sm:text-5xl"
               >
-                01. Tutela laboral
+                01. Contestación de demandas laborales
               </motion.h1>
               <motion.p
                 variants={itemVariants}
                 className="mt-1 lg:mt-6 lg:text-lg/8 text-gray-600"
               >
-                El Código del Trabajo y la Constitución protegen tus derechos
-                fundamentales como trabajador, mereces ser tratado con respeto,
-                dignidad y a no ser víctima de acoso o represalias. Para ello la
-                ley establece derechos a tu favor que permiten impedir las
-                vulneraciones y ser compensado económicamente hasta con 11
-                remuneraciones en caso de que dicha vulneración se hubiera
-                provocado con ocasión de tu despido, además de tus años de
-                servicio.
+                Es habitual que durante el desarrollo de la actividad de una
+                empresa surjan conflictos jurídico-laborales con los
+                trabajadores o incluso con la Dirección del Trabajo, que hacen
+                necesario contar con asesoría jurídica oportuna y eficaz.
+                Nuestro equipo se hará cargo de todo el proceso, desde la
+                notificación de la acción, implementación de la estrategia y
+                seguimiento del proceso hasta la sentencia, respetando
+                estrictamente los plazos judiciales y ejerciendo todos los
+                derechos que la ley confiere para obtener los resultados
+                esperados.
               </motion.p>
             </div>
           </div>
@@ -53,14 +55,14 @@ export const TrabajadoresServices = () => {
           >
             <Image
               alt="Buildings"
-              src={asesoriaTrabajadoresImage}
+              src={asesoriaEmpresasImage}
               fill
               className="w-3xl object-cover rounded-xl shadow-xl"
             />
           </motion.div>
         </div>
 
-        <dl className="mx-auto lg:mt-16 grid max-w-2xl grid-cols-1 gap-12 lg:gap-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <dl className="mx-auto lg:mt-16 grid max-w-2xl grid-cols-1 gap-12 lg:gap-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           {SERVICES.map((service, i) => (
             <motion.div variants={itemVariants} key={service.title}>
               <h5 className="font-semibold text-black text-xl">

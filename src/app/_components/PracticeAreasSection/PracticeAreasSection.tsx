@@ -56,7 +56,7 @@ export const PracticeAreasSection = () => {
         variants={containerVariants}
         className="absolute h-[580px] lg:h-[460px] bottom-0 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
       >
-        <div className="w-full lg:w-6xl lg:max-w-6xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:p-8">
+        <div className="w-full lg:w-6xl lg:max-w-6xl xl:max-w-7xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:p-8">
           <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
             Áreas de desempeño
           </span>

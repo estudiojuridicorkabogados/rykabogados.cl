@@ -36,23 +36,23 @@ const SERVICIOS_LINKS = [
     href: URLS.asesoriaTrabajadores(),
     label: "Asesoría Trabajadores",
     description: "Para aiutarte",
-    icon: <HardHat className="size-4 stroke-white" />,
+    icon: <HardHat className="size-4 stroke-primary" />,
   },
   {
     href: URLS.asesoriaEmpresas(),
     label: "Asesoría Empresas",
     description: "Tiene empresas y pregunta",
-    icon: <Landmark className="size-4 stroke-white" />,
+    icon: <Landmark className="size-4 stroke-primary" />,
   },
 ];
 
 export const Navbar = () => {
   return (
     <Disclosure as="nav" className="relative z-50 bg-white h-[80px] lg:h-[100px] py-2">
-      <div className="container mx-auto px-6 flex items-center justify-between h-full">
-        <Link href="/" className="relative flex items-center h-full w-[160px] lg:w-[243px]">
+      <div className="container mx-auto px-6 lg:px-0 flex items-center justify-between h-full">
+        <Link href="/" className="relative flex items-center h-full w-[160px] lg:w-[220px]">
           <Image
-            src="/images/logo.png"
+            src="/images/logo-black.png"
             alt="RyK Abogados Logo"
             fill
             className="object-contain"
@@ -77,7 +77,7 @@ export const Navbar = () => {
           </Link>
         </div>
 
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex lg:items-center lg:justify-center h-full lg:w-[220px]">
           <ClientLink />
         </div>
 

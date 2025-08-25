@@ -6,7 +6,7 @@ export const AsesoriaTrabajadoresHero = () => {
   return (
     <section className="relative h-[590px] lg:h-screen flex items-center justify-center overflow-hidden">
       <Image
-        src="/images/hero-studio-working.jpg"
+        src="/images/team-trabajando.jpg"
         alt="Library background"
         fill
         className="object-cover"

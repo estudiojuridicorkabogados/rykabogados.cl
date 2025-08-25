@@ -17,6 +17,12 @@ type TeamMember = {
 
 const team: TeamMember[] = [
   {
+    name: "Camila Retamales",
+    role: "Abogada Fundadora",
+    photo: "/images/team/camila.jpg",
+    linkedin: "https://www.linkedin.com/",
+  },
+  {
     name: "Luciano Ascui",
     role: "Abogado Derecho Laboral",
     photo: "/images/team/luciano.jpg",
@@ -26,12 +32,6 @@ const team: TeamMember[] = [
     name: "Javiera Fredes",
     role: "Abogada Derecho Laboral",
     photo: "/images/team/javiera.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Camila Retamales",
-    role: "Abogada Fundadora",
-    photo: "/images/team/camila.jpg",
     linkedin: "https://www.linkedin.com/",
   },
   {
@@ -92,7 +92,7 @@ export const OurTeam = () => {
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="py-20 lg:py-32">
-        <div className="px-6 lg:px-0 lg:mx-auto lg:max-w-6xl mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="px-6 lg:px-0 lg:mx-auto lg:max-w-6xl xl:max-w-7xl mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <motion.h2
               variants={itemVariants}

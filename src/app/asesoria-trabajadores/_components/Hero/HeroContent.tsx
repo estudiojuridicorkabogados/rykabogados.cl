@@ -19,6 +19,7 @@ export const HeroContent = () => {
       >
         Nuestro servicios
       </motion.span>
+
       <motion.h1
         variants={itemVariants}
         className="max-w-3xl text-4xl lg:text-5xl mb-8 text-white"

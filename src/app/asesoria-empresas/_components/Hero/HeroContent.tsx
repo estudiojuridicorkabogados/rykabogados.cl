@@ -11,8 +11,15 @@ export const HeroContent = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
-      className="relative z-10 mx-auto w-6xl max-w-6xl px-6 flex flex-col"
+      className="relative z-10 mx-auto w-6xl lg:max-w-6xl xl:max-w-7xl px-6 flex flex-col"
     >
+      <motion.span
+        variants={itemVariants}
+        className="uppercase text-sm text-accent font-bold mb-4 tracking-[3px]"
+      >
+        Nuestro servicios
+      </motion.span>
+
       <motion.h1
         variants={itemVariants}
         className="max-w-3xl text-4xl lg:text-5xl mb-8 text-white"

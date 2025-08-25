@@ -2,7 +2,7 @@ import { BlogPostEntrySkeleton } from "./_components/BlogPostEntry";
 
 export default function BlogPageLoading() {
   return (
-    <div className="lg:mx-auto lg:min-w-6xl lg:max-w-6xl px-6 lg:px-8 flex flex-col gap-8">
+    <div className="lg:mx-auto lg:min-w-6xl lg:max-w-6xl xl:max-w-7xl px-6 lg:px-8 flex flex-col gap-8">
       <div className="flex flex-col items-start justify-center gap-8">
         <div className="loading-background-animation h-14 w-full lg:w-xl" />
 
