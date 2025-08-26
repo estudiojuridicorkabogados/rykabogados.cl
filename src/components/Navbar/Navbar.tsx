@@ -60,7 +60,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-6 lg:px-0 flex items-center justify-between h-full">
         <Link href="/" className="relative flex items-center h-full w-[160px] lg:w-[220px]">
           <Image
-            src="/images/logo-black.png"
+            src="/images/logos/logo-black.png"
             alt="RyK Abogados Logo"
             fill
             className="object-contain"

@@ -11,7 +11,7 @@ export const AsesoriaTrabajadoresHero = () => {
         todo el transcurso del juicio, incluyendo inspecciones del trabajo, ya
         sea que necesites representación jurídica en las areas siguientes.`}
       image={{
-        src: "/images/team-trabajando.webp",
+        src: "/images/heros/team-trabajando.webp",
         alt: "Nuestro equipo trabajando",
       }}
     />

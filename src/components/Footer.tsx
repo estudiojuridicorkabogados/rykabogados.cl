@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { URLS } from "@/utils/constants";
 
-import logoWhite from "../../public/images/logo-white.png";
+import logoWhite from "../../public/images/logos/logo-white.png";
 
 import { FacebookIcon } from "./icons/Facebook";
 import { InstagramIcon } from "./icons/Instagram";

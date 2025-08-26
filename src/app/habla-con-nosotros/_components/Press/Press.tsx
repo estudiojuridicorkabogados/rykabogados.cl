@@ -5,9 +5,9 @@ import Image from "next/image";
 
 import { containerVariants, itemVariants } from "@/utils/animations";
 
-import andacosinoImage from "../../../../../public/images/andacosino.webp";
-import bbclImage from "../../../../../public/images/bbcl.webp";
-import meganoticiaImage from "../../../../../public/images/meganoticia.webp";
+import andacosinoImage from "../../../../../public/images/noticias/andacosino.webp";
+import bbclImage from "../../../../../public/images/noticias/bbcl.webp";
+import meganoticiaImage from "../../../../../public/images/noticias/meganoticia.webp";
 
 const BLOCKS = [
   { color: "#222F3F", image: bbclImage },
