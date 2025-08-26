@@ -51,9 +51,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "Luciano Ascui",
+    name: "Paolo Castiglione",
     role: "Abogado Derecho Laboral",
-    photo: "/images/team/luciano.jpg",
+    photo: "/images/team/paolo.webp",
     linkedin: "https://www.linkedin.com/",
   },
   {
@@ -63,15 +63,15 @@ export const TEAM_MEMBERS: TeamMember[] = [
     linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "Camila Retamales",
-    role: "Abogada Fundadora",
-    photo: "/images/team/camila.jpg",
+    name: "Sebastian Kowalski",
+    role: "Chief Executive Officer",
+    photo: "/images/team/bastian.jpg",
     linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "Bastian Morales",
-    role: "Abogado Derecho Laboral",
-    photo: "/images/team/bastian.jpg",
+    name: "Camila Retamales",
+    role: "Abogada Fundadora",
+    photo: "/images/team/camila.jpg",
     linkedin: "https://www.linkedin.com/",
   },
 ];

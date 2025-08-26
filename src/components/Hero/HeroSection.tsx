@@ -24,7 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         src={image.src}
         alt={image.alt}
         fill
-        className="object-cover"
+        className="object-cover object-bottom-left"
         priority
       />
 

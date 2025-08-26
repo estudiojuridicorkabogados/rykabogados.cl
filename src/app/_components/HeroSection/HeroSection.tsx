@@ -13,8 +13,8 @@ export const HomeHero = () => {
         servicios a lo largo de todo Chile, conformado por un equipo de abogados
         especializados.`}
       image={{
-        src: "/images/heros/library.webp",
-        alt: "Library background",
+        src: "/images/heros/columns.webp",
+        alt: "Columns background",
       }}
     />
   );

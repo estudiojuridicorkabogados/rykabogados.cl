@@ -1,7 +1,7 @@
 "use client";
 
-import { SendIcon } from "lucide-react";
 import React, { useState } from "react";
+import { SendIcon } from "lucide-react";
 
 interface ChatbotSupportInputProps {
   onSubmit: (query: string) => void;

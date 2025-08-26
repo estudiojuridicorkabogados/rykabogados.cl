@@ -1,5 +1,6 @@
-import { classNames } from "@/lib/utils/classNames";
 import { UIMessage } from "ai";
+
+import { classNames } from "@/lib/utils/classNames";
 
 interface MessageProps {
   message: UIMessage;
