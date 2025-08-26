@@ -32,14 +32,14 @@ export const OurTeam = () => {
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="py-20 lg:py-32">
+      <div className="py-16 lg:py-28">
         <div className="px-6 lg:px-0 lg:mx-auto lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <motion.h2
               variants={itemVariants}
               className="text-3xl lg:text-4xl md:text-5xl font-semibold"
             >
-              Nuestro Team
+              Nuestro Equipo
             </motion.h2>
             <motion.p
               variants={itemVariants}
@@ -61,7 +61,8 @@ export const OurTeam = () => {
             aria-label="Miembros del equipo"
             className={classNames([
               "flex gap-8 overflow-x-auto pb-4",
-              "snap-x snap-proximity scroll-smooth snap-always",
+              "scroll-smooth",
+              // "snap-x snap-proximity scroll-smooth snap-always",
               "[scrollbar-width:none] [-ms-overflow-style:none]",
               "scroll-pl-6 md:scroll-pl-6",
             ])}
@@ -70,29 +71,29 @@ export const OurTeam = () => {
               WebkitOverflowScrolling: "touch",
             }}
           >
-            {TEAM_MEMBERS.map((m) => (
+            {TEAM_MEMBERS.map((m,i) => (
               <article
-                key={m.name}
+                key={i}
                 data-card
                 className={classNames(
                   "snap-start shrink-0 w-[260px] md:w-[300px]",
                   "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
-                  "first:ml-12 last:mr-6"
+                  "first:ml-40 last:mr-6"
                 )}
               >
-                <div className="relative aspect-[3/4] bg-white/5">
+                <div className="relative lg:h-[320px] bg-white/5">
                   <Image
                     src={m.photo}
                     alt={`${m.name} - ${m.role}`}
-                    className="h-full w-full object-cover"
+                    className="object-cover"
                     loading="lazy"
                     fill
                   />
                 </div>
                 <div className="p-4 flex justify-between items-start">
                   <div>
-                    <h3 className="text-xl font-semibold">{m.name}</h3>
-                    <p className="text-white/80">{m.role}</p>
+                    <h3 className="!font-sans text-base !font-semibold">{m.name}</h3>
+                    <p className="text-white/80 text-sm">{m.role}</p>
                   </div>
 
                   {m.linkedin ? (
