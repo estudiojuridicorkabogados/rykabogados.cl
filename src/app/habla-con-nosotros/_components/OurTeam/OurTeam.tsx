@@ -2,70 +2,11 @@
 
 import { motion, stagger, Variants } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
 
 import { LinkedinSquareIcon } from "@/components/icons/LinkedinSquare";
 import { itemVariants } from "@/utils/animations";
 import { classNames } from "@/utils/classNames";
-
-type TeamMember = {
-  name: string;
-  role: string;
-  photo: string;
-  linkedin?: string;
-};
-
-const team: TeamMember[] = [
-  {
-    name: "Camila Retamales",
-    role: "Abogada Fundadora",
-    photo: "/images/team/camila.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Luciano Ascui",
-    role: "Abogado Derecho Laboral",
-    photo: "/images/team/luciano.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Javiera Fredes",
-    role: "Abogada Derecho Laboral",
-    photo: "/images/team/javiera.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Bastian Morales",
-    role: "Abogado Derecho Laboral",
-    photo: "/images/team/bastian.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Luciano Ascui",
-    role: "Abogado Derecho Laboral",
-    photo: "/images/team/luciano.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Javiera Fredes",
-    role: "Abogada Derecho Laboral",
-    photo: "/images/team/javiera.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Camila Retamales",
-    role: "Abogada Fundadora",
-    photo: "/images/team/camila.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Bastian Morales",
-    role: "Abogado Derecho Laboral",
-    photo: "/images/team/bastian.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  // agrega más miembros si es necesario
-];
+import { TEAM_MEMBERS } from "@/utils/constants";
 
 const imageVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
@@ -129,7 +70,7 @@ export const OurTeam = () => {
               WebkitOverflowScrolling: "touch",
             }}
           >
-            {team.map((m) => (
+            {TEAM_MEMBERS.map((m) => (
               <article
                 key={m.name}
                 data-card

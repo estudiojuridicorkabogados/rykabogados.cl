@@ -22,6 +22,10 @@ const MOBILE_LINKS = [
     label: "Asesoría Empresas",
   },
   {
+    href: URLS.nosotros(),
+    label: "Nosotros",
+  },
+  {
     href: URLS.blog(),
     label: "Blog",
   },
@@ -65,6 +69,13 @@ export const Navbar = () => {
 
         <div className="hidden lg:flex items-center space-x-8 text-white font-light">
           <HoverPopover label="Servicios" links={SERVICIOS_LINKS} />
+
+          <Link
+            href={URLS.nosotros()}
+            className="text-black hover:text-accent-dark transition-colors"
+          >
+            Nosotros
+          </Link>
 
           <Link
             href={URLS.blog()}
