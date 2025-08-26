@@ -1,5 +1,6 @@
 "use client";
 
+import { SendIcon } from "lucide-react";
 import React, { useState } from "react";
 
 interface ChatbotSupportInputProps {
@@ -43,22 +44,22 @@ export const ChatbotInput: React.FC<ChatbotSupportInputProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="border-t border-gray-200 px-2 py-4 bg-[red]"
+      className="border-t border-primary-dark px-2 py-4"
     >
       <div className="flex items-center gap-2">
         <input
-          className="flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm outline-none text-gray-900 placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          className="flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm outline-none text-gray-900 placeholder:text-gray-500 focus:ring-1 focus:ring-primary"
           value={input}
-          placeholder="Type your message…"
+          placeholder="Escribe tu mensaje…"
           onChange={onChange}
           onKeyDown={onKeyDown}
         />
         <button
           type="submit"
-          className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-          aria-label="Send message"
+          className="flex items-center justify-center bg-primary h-9 w-9 rounded-full text-sm font-medium shadow-sm outline-none"
+          aria-label="Enviar mensaje"
         >
-          Send
+          <SendIcon className="size-4 stroke-accent" />
         </button>
       </div>
     </form>

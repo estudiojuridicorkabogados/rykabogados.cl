@@ -101,7 +101,7 @@ export const ClientsReel = ({
 
   return (
     <div
-      className="relative w-full overflow-hidden py-12"
+      className="relative w-full overflow-hidden py-6"
       aria-label="Clientes"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

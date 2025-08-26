@@ -78,7 +78,7 @@ export const OurTeam = () => {
                 className={classNames(
                   "snap-start shrink-0 w-[260px] md:w-[300px]",
                   "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
-                  "first:ml-40 last:mr-6"
+                  "first:ml-6 lg:first:ml-40 last:mr-6"
                 )}
               >
                 <div className="relative lg:h-[320px] bg-white/5">

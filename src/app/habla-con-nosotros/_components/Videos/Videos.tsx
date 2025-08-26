@@ -36,7 +36,7 @@ export const Videos = () => {
     >
       <style>{`.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
 
-      <div className="py-20 lg:py-32">
+      <div className="py-16 lg:py-32">
         <motion.div className="relative" variants={itemVariants}>
           <div
             role="region"
@@ -57,13 +57,18 @@ export const Videos = () => {
               className={classNames(
                 "snap-start shrink-0 w-full md:w-[260px] lg:w-[400px] bg-[red]",
                 "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
-                "lg:px-0 lg:ml-48"
+                "lg:px-0 lg:ml-40"
               )}
             >
-              <div className="flex flex-col gap-4 lg:gap-8">
-                <h2 className="text-2xl lg:text-4xl">
-                  Videos que hemos preparado para ti
-                </h2>
+              <div className="flex flex-col gap-4 lg:gap-4">
+                <div className="flex flex-col gap-2">
+                  <span className="uppercase text-xs lg:text-sm text-accent-dark font-bold tracking-[3px]">
+                    El nuestro canal
+                  </span>
+                  <h2 className="text-3xl lg:text-4xl">
+                    Videos que hemos preparado para ti
+                  </h2>
+                </div>
 
                 <p className="lg:text-lg text-black/70 leading-relaxed">
                   Conoce más de nuestro servicio a través de estos videos
@@ -83,7 +88,13 @@ export const Videos = () => {
                 )}
               >
                 <div className="flex flex-col gap-4">
-                  <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                  {/* <div className="flex flex-col gap-1">
+                    <p className="lg:text-xl font-semibold">{title}</p>
+                    <span className="italic text-black/60 text-sm font-light">
+                      Duration: 0:30
+                    </span>
+                  </div> */}
+                  <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden last:mr-6">
                     <iframe
                       src={video
                         .replace("shorts/", "embed/")
@@ -94,7 +105,13 @@ export const Videos = () => {
                       allowFullScreen
                     />
                   </div>
-                  <p className="lg:text-xl">{title}</p>
+
+                  <div className="flex flex-col gap-0">
+                    <p className="lg:text-xl font-semibold">{title}</p>
+                    <span className="italic text-black/60 text-sm font-light">
+                      Duración: 0:30
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}

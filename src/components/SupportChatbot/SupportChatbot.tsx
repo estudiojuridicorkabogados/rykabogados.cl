@@ -7,6 +7,7 @@ import { classNames } from "@/lib/utils/classNames";
 
 import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
 import { ChatbotInput } from "./ChatbotInput";
+import { Message } from "./Message";
 
 export const SupportChatbot = () => {
   const { messages, sendMessage } = useChat();
@@ -19,6 +20,7 @@ export const SupportChatbot = () => {
     () => [...messages].reverse().find((m) => m.role === "assistant")?.id,
     [messages]
   );
+
   useEffect(() => {
     if (!open && lastAssistantMsgId) setUnread((c) => c + 1);
   }, [lastAssistantMsgId, open]);
@@ -26,6 +28,7 @@ export const SupportChatbot = () => {
   // Auto-scroll to latest message when open
   useEffect(() => {
     if (!open) return;
+
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, open]);
 
@@ -58,7 +61,7 @@ export const SupportChatbot = () => {
         aria-label="Support chat"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-indigo-600 text-white">
+        <div className="flex items-center justify-between px-4 py-3 bg-primary text-white">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
               {/* Chat icon */}
@@ -73,9 +76,9 @@ export const SupportChatbot = () => {
               </svg>
             </span>
             <div className="leading-tight">
-              <div className="font-semibold">Support</div>
+              <div className="font-semibold">Soporte RyK Abogados</div>
               <div className="text-xs opacity-80">
-                We typically reply in minutes
+                Solemos responder en minutos
               </div>
             </div>
           </div>
@@ -108,35 +111,10 @@ export const SupportChatbot = () => {
             aria-live="polite"
             aria-relevant="additions"
           >
-            {messages.map((m) => {
-              // Determine bubble alignment by role
-              const isUser = m.role === "user";
-              // Render text parts only
-              const text = m.parts
-                .map((p) => (p.type === "text" ? p.text : ""))
-                .join("")
-                .trim();
+            {messages.map((message) => (
+              <Message key={message.id} message={message} />
+            ))}
 
-              if (!text) return null;
-
-              return (
-                <div
-                  key={m.id}
-                  className={`flex ${isUser ? "justify-end" : "justify-start"}`}
-                >
-                  <div
-                    className={[
-                      "max-w-[85%] rounded-2xl px-3 py-2 text-sm shadow-sm",
-                      isUser
-                        ? "bg-indigo-600 text-white rounded-br-md"
-                        : "bg-white text-gray-900 border border-gray-200 rounded-bl-md",
-                    ].join(" ")}
-                  >
-                    {text}
-                  </div>
-                </div>
-              );
-            })}
             <div ref={endRef} />
           </div>
         </div>

@@ -21,14 +21,26 @@ export const Press = () => {
       id="press"
       initial="hidden"
       whileInView="visible"
-      className="bg-[#F7F6F6] py-20 lg:py-32"
+      className="bg-white py-16 lg:py-28"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.4 }}
     >
       <div className="px-6 lg:px-0 lg:mx-auto lg:min-w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl flex flex-col gap-8">
-        <motion.h2 variants={itemVariants} className="text-black text-3xl lg:text-5xl">
-          Lo que hemos conseguido con nuestros clientes
-        </motion.h2>
+        <div className="flex flex-col">
+          <motion.span
+            variants={itemVariants}
+            className="uppercase text-xs lg:text-sm text-accent-dark font-bold mb-2 tracking-[3px]"
+          >
+            Noticias y Opiniones
+          </motion.span>
+
+          <motion.h2
+            variants={itemVariants}
+            className="text-black text-3xl lg:text-4xl"
+          >
+            Lo que hemos conseguido con nuestros clientes
+          </motion.h2>
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {BLOCKS.map(({ color, image }, i) => (

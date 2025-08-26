@@ -36,11 +36,10 @@ export const Slogan = () => {
       initial="hidden"
       whileInView="visible"
       className="relative w-screen h-[590px] lg:h-[490px] overflow-hidden"
-      
       viewport={{ once: true, amount: 0.8 }}
     >
       <Image
-        src="/images/hero-library.webp"
+        src="/images/heros/library.webp"
         alt="Some documents"
         fill
         className="object-cover"
@@ -48,20 +47,27 @@ export const Slogan = () => {
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[400px] lg:h-[360px] bottom-0 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
+        className="absolute h-[400px] lg:h-[360px] -bottom-1 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
       >
-        <div className="w-full lg:w-6xl xl:w-7xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-4 p-6 lg:p-8">
+        <div className="w-full lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-4 p-6 lg:p-0">
           <motion.span
             variants={itemVariants}
             className="uppercase text-sm text-accent font-bold tracking-[3px]"
           >
             Listo para evaluar tu caso
           </motion.span>
-          <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl text-white">
-            Defendemos tu derechos <br /> come si fueran nuestros.
+          <motion.h2
+            variants={itemVariants}
+            className="text-3xl lg:text-4xl text-white"
+          >
+            Defendemos tu derechos come si fueran nuestros.
           </motion.h2>
-          <motion.span variants={itemVariants} className="text-white">
-            Agenda tu sesión o háblanos por WhatsApp
+          <motion.span
+            variants={itemVariants}
+            className="text-white lg:text-xl"
+          >
+            Agenda tu sesión de consulta gratuita o contáctanos directamente por
+            WhatsApp para una atención inmediata.
           </motion.span>
         </div>
       </motion.div>

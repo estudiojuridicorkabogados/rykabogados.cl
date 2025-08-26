@@ -23,9 +23,9 @@ export const Hero = () => {
           <CalendarFrame />
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col gap-3">
           <motion.span
-            className="uppercase text-sm text-accent font-bold mb-4 tracking-[3px]"
+            className="uppercase text-sm text-accent font-bold tracking-[3px]"
             variants={itemVariants}
           >
             Nuestra Misión
@@ -33,7 +33,7 @@ export const Hero = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="max-w-3xl text-3xl lg:text-6xl mb-4 text-gray-60"
+            className="max-w-3xl text-3xl lg:text-5xl mb-4 text-gray-60"
           >
             ¿Despido Injustificado? Asesoría legal gratuita. <br />
             Te representamos legalmente.

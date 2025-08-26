@@ -22,7 +22,7 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       type="button"
       onClick={onToggleOpen}
       className={classNames([
-        "fixed bottom-4 right-4 h-14 w-14 rounded-full bg-indigo-600 text-white shadow-lg ring-1 ring-black/5 transition-all duration-200 ease-out",
+        "cursor-pointer fixed bottom-4 right-4 h-14 w-14 rounded-full bg-accent-dark text-white shadow-lg ring-1 ring-black/5 transition-all duration-200 ease-out",
         {
           "opacity-0 scale-95 pointer-events-none": open,
           "opacity-100 scale-100": !open,
@@ -32,7 +32,7 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       aria-label={open ? "Hide chat" : "Open chat"}
     >
       {/* Chat icon */}
-      <MessageSquareIcon className="h-6 w-6" />
+      <MessageSquareIcon className="h-6 w-6 stroke-white/90" />
 
       {/* Unread badge */}
       {unread > 0 && (
