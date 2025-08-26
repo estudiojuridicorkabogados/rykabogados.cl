@@ -5,6 +5,7 @@ const BASE_PATHS = [
   "/asesoria-empresas",
   "/asesoria-trabajadores",
   "/blog",
+  "/nosotros",
   "/contacto",
   "/habla-con-nosotros",
 ];
