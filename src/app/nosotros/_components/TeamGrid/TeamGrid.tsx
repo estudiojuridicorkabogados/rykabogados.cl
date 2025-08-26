@@ -31,10 +31,10 @@ export const TeamGrid = () => {
                 />
               </div>
 
-              <h3 className="!font-sans !font-bold mt-6 text-lg/8 tracking-tight text-gray-900 dark:text-white">
+              <h3 className="!font-sans !font-bold mt-6 text-lg/8 tracking-tight text-white">
                 {person.name}
               </h3>
-              <p className="text-base/7 text-gray-600 dark:text-gray-300">
+              <p className="text-base/7 text-white/80">
                 {person.role}
               </p>
             </motion.li>
