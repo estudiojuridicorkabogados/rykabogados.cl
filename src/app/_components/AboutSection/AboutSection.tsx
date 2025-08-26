@@ -34,7 +34,7 @@ export const AboutSection = () => {
 
           <motion.p
             variants={itemVariants}
-            className="text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8"
+            className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8"
           >
             Retamales Kowalski Abogados es un estudio jurídico que ofrece sus
             servicios a lo largo de todo Chile, conformado por un equipo de

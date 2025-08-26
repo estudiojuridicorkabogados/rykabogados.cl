@@ -1,22 +1,21 @@
-import Image from "next/image";
+import { HeroSection } from "@/components/Hero/HeroSection";
 
-import { HeroContent } from "./HeroContent";
-
-export const HeroSection = () => {
+export const HomeHero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <Image
-        src="/images/hero-library.webp"
-        alt="Library background"
-        fill
-        className="object-cover"
-        priority
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/70" />
-
-      <HeroContent />
-    </section>
+    <HeroSection
+      label="RyK Abogados"
+      title={
+        <>
+          Excelencia, Lealtad <br />y Integridad
+        </>
+      }
+      description={`Retamales y Kowalski Abogados es un estudio jurídico que ofrece sus
+        servicios a lo largo de todo Chile, conformado por un equipo de abogados
+        especializados.`}
+      image={{
+        src: "/images/hero-library.webp",
+        alt: "Library background",
+      }}
+    />
   );
 };

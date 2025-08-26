@@ -21,7 +21,7 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col gap-8"
+      className="flex flex-col gap-6 lg:gap-8"
     >
       <motion.h1
         variants={itemVariants}
@@ -32,7 +32,7 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
 
       <motion.div
         variants={itemVariants}
-        className="relative w-full aspect-square lg:aspect-auto lg:h-[450px] rounded-2xl"
+        className="relative w-full aspect-4/5 lg:aspect-auto lg:h-[450px] rounded-2xl"
       >
         <Link href={`/blog/${post.slug}`}>
           <div className="absolute inset-0 bg-black/30 rounded-2xl z-1" />
@@ -47,27 +47,24 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
           <div className="absolute inset-0 flex flex-col justify-end items-start gap-4 p-4 lg:p-8 z-10">
             <motion.h2
               variants={itemVariants}
-              className="text-2xl lg:text-3xl font-bold text-white line-clamp-4"
+              className="text-xl lg:text-3xl font-bold text-white line-clamp-4 leading-6"
             >
               {post.title}
             </motion.h2>
             <motion.p
               variants={itemVariants}
-              className="text-white line-clamp-3 text-sm lg:text-medium"
+              className="hidden md:flex text-white line-clamp-3 text-sm lg:text-medium"
             >
               {post.excerpt}
             </motion.p>
 
             <motion.div variants={itemVariants}>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="flex items-center gap-2 group hover:cursor-pointer"
-              >
-                <span className="text-white uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200">
-                  Ver mas
+              <div className="flex items-center gap-2 group hover:cursor-pointer">
+                <span className="text-white uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200 tracking-[3px]">
+                  Leer más
                 </span>
                 <LongArrowRight className="ml-2 inline-block stroke-white group-hover:stroke-accent-dark group-hover:animate-wiggle transition-colors duration-200" />
-              </Link>
+              </div>
             </motion.div>
           </div>
         </Link>

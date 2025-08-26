@@ -1,22 +1,19 @@
-import Image from "next/image";
 
-import { HeroContent } from "./HeroContent";
+import { HeroSection } from "@/components/Hero/HeroSection";
 
 export const AsesoriaEmpresasHero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <Image
-        src="/images/hero-studio-working.jpg"
-        alt="Library background"
-        fill
-        className="object-cover"
-        priority
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/70" />
-
-      <HeroContent />
-    </section>
+    <HeroSection
+      label="Nuestro servicios"
+      title="Asesoría Empresas"
+      description={` Ofrecemos asesoría jurídica de alta calidad con profesionalismo y 
+        compromiso. Brindamos respaldo integral en procesos jurídicos 
+        empresariales con trato confidencial y personalizado, manteniendo 
+        comunicación directa y adaptando nuestro servicio al perfil de su Compañía.`}
+      image={{
+        src: "/images/hero-studio-working.jpg",
+        alt: "Nuestro equipo trabajando",
+      }}
+    />
   );
 };

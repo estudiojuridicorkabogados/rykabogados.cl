@@ -2,7 +2,7 @@ import { ContactSection } from "../components/ContactSection/ContactSection";
 
 import { AboutSection } from "./_components/AboutSection/AboutSection";
 import { BlogSection } from "./_components/BlogSection/BlogSection";
-import { HeroSection } from "./_components/HeroSection/HeroSection";
+import { HomeHero } from "./_components/HeroSection/HeroSection";
 import { PracticeAreasSection } from "./_components/PracticeAreasSection/PracticeAreasSection";
 import { TeamSection } from "./_components/TeamSection/TeamSection";
 import { TestimonialsSection } from "./_components/Testimonials/TestimonialsSection";
@@ -40,7 +40,7 @@ export default async function Home() {
 
   return (
     <div style={{ overflow: "hidden" }}>
-      <HeroSection />
+      <HomeHero />
 
       <AboutSection />
 

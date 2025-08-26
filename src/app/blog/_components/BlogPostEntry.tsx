@@ -45,7 +45,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
         >
           <time
             dateTime={blogPost.date || new Date().toISOString()}
-            className="text-black/40 font-semibold text-sm lg:text-lg"
+            className="text-black/40 text-sm lg:text-lg"
           >
             {blogPost.date
               ? format(blogPost.date, "dd.MM.yyyy", { locale: es })
@@ -56,7 +56,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
         <div className="group relative">
           <motion.h3
             variants={itemVariants}
-            className="mt-2 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 font-sans!"
+            className="mt-1 lg:mt-2 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 font-sans!"
           >
             <Link href={(blogPost.href || "#") as Route}>
               <span className="absolute inset-0" />
@@ -65,7 +65,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
           </motion.h3>
           <motion.p
             variants={itemVariants}
-            className="mt-3 line-clamp-2 text-sm/6 text-gray-600"
+            className="mt-1 lg:mt-3 line-clamp-2 text-sm/6 text-gray-600 leading-5"
           >
             {blogPost.excerpt}
           </motion.p>

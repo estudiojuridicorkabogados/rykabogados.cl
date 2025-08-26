@@ -1,22 +1,19 @@
-import Image from "next/image";
-
-import { HeroContent } from "./HeroContent";
+import { HeroSection } from "@/components/Hero/HeroSection";
 
 export const AsesoriaTrabajadoresHero = () => {
   return (
-    <section className="relative h-[590px] lg:h-screen flex items-center justify-center overflow-hidden">
-      <Image
-        src="/images/team-trabajando.jpg"
-        alt="Library background"
-        fill
-        className="object-cover"
-        priority
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/70" />
-
-      <HeroContent />
-    </section>
+    <HeroSection
+      label="Nuestro servicios"
+      title="Asesoría Trabajador"
+      description={`Si eres trabajador, tomamos tu caso a resultados, lo que significa que
+        nuestros honorarios se cobrarán exclusivamente sobre la ganancia
+        efectivamente percibida, ¡Sin gastos! Nuestros abogados te asesorarán en
+        todo el transcurso del juicio, incluyendo inspecciones del trabajo, ya
+        sea que necesites representación jurídica en las areas siguientes.`}
+      image={{
+        src: "/images/team-trabajando.webp",
+        alt: "Nuestro equipo trabajando",
+      }}
+    />
   );
 };
