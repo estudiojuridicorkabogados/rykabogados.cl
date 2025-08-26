@@ -8,10 +8,9 @@ import {
   submitContactForm,
 } from "@/actions/submitContactForm";
 import { Button } from "@/components/ui/Button";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 import { FloatingLabelInput } from "./FloatingLabelInput";
-
-import "./contact-form.css";
 
 const initialState: ActionResponse = {
   success: false,
@@ -48,10 +47,10 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col justify-end h-full">
+    <div className="flex-2 flex flex-col justify-end h-full">
       <div className="flex flex-col gap-8 text-white">
         <h1 className="text-5xl">Contáctanos</h1>
-        <p>
+        <p className="lg:max-w-2/3">
           Tras más de cuatro décadas sin una modificación estructural al sistema
           previsional chileno, la nueva{" "}
         </p>
@@ -75,7 +74,7 @@ export const ContactForm = () => {
 
           <FloatingLabelInput
             id="name"
-            label="Nombre"
+            label="Nombre y Apellido"
             autoComplete="name"
             defaultValue={state.inputs?.name}
             error={state.errors?.name?.[0]}
@@ -102,15 +101,32 @@ export const ContactForm = () => {
             defaultValue={state.inputs?.phone}
           />
 
+          <div className="flex flex-col gap-2">
+            <label
+              className="font-bold text-white/80 text-xs"
+              htmlFor="mensaje"
+            >
+              Mensaje
+            </label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0"
+              rows={5}
+              placeholder="Cuéntanos sobre tu requierimento"
+            />
+          </div>
+
+          {/* TODO Add loading state */}
           <Button
             disabled={isPending || state.success}
             animateOnClick
             onClick={handleClick}
-            className="w-full lg:w-fit mt-4"
+            className="w-full lg:w-40 mt-4"
             type="button"
             variant="white-outline-on-primary"
           >
-            Enviar
+            {!isPending ? "Enviar" : <LoadingSpinner />}
           </Button>
         </form>
       </div>

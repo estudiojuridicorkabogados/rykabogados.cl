@@ -9,12 +9,14 @@ export interface ActionResponse {
     name?: string[];
     email?: string[];
     phone?: string[];
+    mensaje?: string[];
     token?: string[];
   };
   inputs?: {
     name: string;
     email: string;
     phone: string;
+    mensaje?: string;
   };
 }
 
@@ -22,12 +24,14 @@ interface ContactFormData {
   name: string;
   email: string;
   phone: string;
+  mensaje?: string;
   token?: string;
 }
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Nombre es necessario"),
   email: z.email("Correo es incorrecto"),
+  mensaje: z.string("").optional(),
   phone: z
     .string()
     .trim()
@@ -48,7 +52,11 @@ export async function submitContactForm(
     name: formData.get("name") as string,
     email: formData.get("email") as string,
     phone: formData.get("phone") as string,
+    mensaje: formData.get("mensaje") as string,
   };
+
+
+  console.log(rawData)
 
   const validatedData = contactSchema.safeParse(rawData);
 
