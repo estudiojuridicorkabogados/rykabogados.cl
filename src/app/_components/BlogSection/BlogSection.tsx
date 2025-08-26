@@ -1,11 +1,5 @@
-import React from "react";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { draftMode } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
 
-import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { getAllPosts } from "@/graphql/queries/get-all-posts.query";
 
 import { AnimatedBlogPosts } from "./AnimatedBlogPosts";
@@ -23,12 +17,8 @@ export const BlogSection = async () => {
   }
 
   return (
-    <section className="py-28 bg-gray-50">
+    <section className="py-16 lg:py-24 bg-gray-50">
       <AnimatedBlogPosts mainPost={posts[0]} secondaryPost={posts[1]} />
     </section>
   );
 };
-
-function formatDate(date: string): string {
-  return format(new Date(date), "dd.MM.yyyy", { locale: es });
-}

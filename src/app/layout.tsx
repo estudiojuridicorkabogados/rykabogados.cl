@@ -1,14 +1,16 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Script from "next/script";
+import { Toaster } from "sonner";
 
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
-import { inter } from "@/lib/utils/fonts";
-import dynamic from "next/dynamic";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { env } from "@/lib/env";
+import { dmSans } from "@/lib/utils/fonts";
 
 import "./globals.css";
-
-// const ZAPIER_CHATBOT_ID = process.env.NEXT_PUBLIC_ZAPIER_CHATBOT_ID;
 
 // @TODO Improve metadata
 export const metadata: Metadata = {
@@ -44,28 +46,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es-CL">
-      <body className={`${inter.variable} antialiased bg-white`}>
+      <body className={`${dmSans.variable} antialiased bg-white`}>
         <Navbar />
 
         {/* <div className="bg-white">{children}</div> */}
 
-        <SupportChatbot />
+        <div className="bg-white">
+          <Toaster position="bottom-center" />
+
+          {children}
+        </div>
 
         <Footer />
 
         <Script
           async
-          type="module"
-          src="https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js"
-          crossOrigin="anonymous"
           strategy="afterInteractive"
+          src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         />
 
-        {/* <div
-          dangerouslySetInnerHTML={{
-            __html: `<zapier-interfaces-chatbot-embed is-popup="true" chatbot-id="${ZAPIER_CHATBOT_ID}"></zapier-interfaces-chatbot-embed>`,
-          }}
-        /> */}
+        <SupportChatbot />
+
+        <Analytics />
+
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -1,5 +1,7 @@
-import { nanoid } from '@/lib/utils/nanoid';
 import { index, pgTable, text, varchar, vector } from 'drizzle-orm/pg-core';
+
+import { nanoid } from '@/lib/utils/nanoid';
+
 import { resources } from './resources';
 
 export const embeddings = pgTable(

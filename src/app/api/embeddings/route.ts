@@ -1,5 +1,6 @@
-import { ingestFromPdf, ingestFromUrl } from "@/lib/ai/embeddings";
 import { NextResponse } from "next/server";
+
+import { ingestFromPdf, ingestFromUrl } from "@/lib/ai/embeddings";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;

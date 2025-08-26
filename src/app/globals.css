@@ -9,6 +9,8 @@
   --primary: #222f3f;
   --accent: #fed9a5;
   --accent-dark: #dda558;
+
+  --font-georgia: "Georgia", serif;
 }
 
 @theme inline {
@@ -20,10 +22,11 @@
 
   --color-gray-60: var(--gray-60);
 
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-dm-sans);
   --font-serif: var(--font-georgia);
 
   --animate-wiggle: wiggle 0.7s linear infinite;
+  --animate-clients-marquee-right: clients-marquee-right 45s linear infinite;
 
   @keyframes wiggle {
     0% {
@@ -42,6 +45,11 @@
       transform: translateX(0);
     }
   }
+
+  @keyframes clients-marquee-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,7 +66,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
 }
 
 .loading-background-animation {
@@ -73,5 +81,9 @@ h5,
 h6 {
   font-weight: 400;
   font-family: "Georgia", serif;
-  /* font-family: var(--font-dm-serif), Georgia, serif; */
+}
+
+/* Hide the badge all over the website, this is only visible on the contact page */
+.grecaptcha-badge {
+  visibility: hidden;
 }

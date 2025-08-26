@@ -1,5 +1,7 @@
-import { env } from "@/lib/env";
 import { notFound } from "next/navigation";
+
+import { env } from "@/lib/env";
+
 import UrlIngestForm from "./_components/UrlIngestForm";
 
 export default async function Home() {

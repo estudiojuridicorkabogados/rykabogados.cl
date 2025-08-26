@@ -1,25 +1,25 @@
-// import { ApiPost } from "@/types/global";
+import { env } from "@/lib/env";
 
 const BASE_PATHS = [
   "",
   "/asesoria-empresas",
   "/asesoria-trabajadores",
   "/blog",
+  "/nosotros",
   "/contacto",
   "/habla-con-nosotros",
-  "/aviso-legal",
 ];
 
 async function fetchPostRoutes() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+    const res = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
       next: { revalidate: 30 },
     });
 
     const { posts } = await res.json();
 
     return posts.map((post: { slug: string; lastModified: Date }) => ({
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${post.slug}`,
+      url: `${env.NEXT_PUBLIC_BASE_URL}/blog/${post.slug}`,
       lastModified: post.lastModified,
     }));
   } catch (error) {
@@ -30,7 +30,7 @@ async function fetchPostRoutes() {
 
 export default async function sitemap() {
   const baseRoutes = BASE_PATHS.map((path) => ({
-    url: `${process.env.NEXT_PUBLIC_BASE_URL}${path}`,
+    url: `${env.NEXT_PUBLIC_BASE_URL}${path}`,
     lastModified: new Date().toISOString(),
   }));
 

@@ -7,8 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
-import { ShortPost } from "@/types/global";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { ShortPost } from "@/types/global";
 
 interface AnimatedBlogPostsProps {
   mainPost: ShortPost;
@@ -26,33 +26,34 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col container mx-auto px-6 w-full lg:w-6xl lg:max-w-6xl gap-y-12 lg:gap-y-8"
+      className="flex flex-col container mx-auto px-6 w-full lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl gap-y-6 lg:gap-y-8"
     >
-      <div className="flex flex-col lg:flex-row gap-y-4 lg:justify-between lg:items-center">
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+        <div className="flex flex-col gap-0 lg:gap-4">
           <motion.span
             variants={itemVariants}
-            className="uppercase text-sm text-accent-dark font-bold tracking-[3px]"
+            className="uppercase text-sm text-accent-dark font-bold tracking-[3px] pl-1"
           >
-            Nuestro Articulos
+            Más información
           </motion.span>
+
           <motion.h2
             variants={itemVariants}
-            className="text-5xl font-bold text-black"
+            className="text-4xl lg:text-5xl font-bold text-[#0B142D] leading-tight"
           >
-            Excelencia
+            Nuestro Articulos
           </motion.h2>
         </div>
 
         <motion.div
           variants={itemVariants}
-          className="flex items-center gap-2 group"
+          className="hidden lg:flex items-center gap-2 group"
         >
           <Link
             href="/blog"
-            className="text-black  uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200"
+            className="text-black uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200"
           >
-            Ver mas
+            Ver mas articulos
           </Link>
 
           <LongArrowRight className="ml-2 inline-block stroke-black group-hover:stroke-accent-dark group-hover:animate-wiggle transition-colors duration-200" />
@@ -74,7 +75,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
               />
             </div>
 
-            <h3 className="mt-6 text-xl lg:text-3xl text-black truncate">
+            <h3 className="mt-6 text-xl lg:text-3xl text-black line-clamp-2">
               {mainPost.title}
             </h3>
 
@@ -100,7 +101,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
               />
             </div>
 
-            <h3 className="mt-6 text-xl lg:text-3xl text-black truncate">
+            <h3 className="mt-6 text-xl lg:text-3xl text-black line-clamp-2">
               {secondaryPost.title}
             </h3>
 
@@ -110,6 +111,17 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
           </Link>
         </motion.div>
       </div>
+
+      <motion.div
+        variants={itemVariants}
+        className="flex lg:hidden items-center gap-2 w-full"
+      >
+        <Link href="/blog" className="text-black uppercase text-xs font-bold">
+          Ver mas articulos
+        </Link>
+
+        <LongArrowRight className="ml-2 inline-block stroke-black" />
+      </motion.div>
     </motion.div>
   );
 };

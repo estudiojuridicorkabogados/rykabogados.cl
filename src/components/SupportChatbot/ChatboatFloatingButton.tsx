@@ -1,9 +1,10 @@
 "use client";
 
-import { classNames } from "@/lib/utils/classNames";
-import { useChat } from "@ai-sdk/react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useChat } from "@ai-sdk/react";
 import { MessageSquareIcon } from "lucide-react";
+
+import { classNames } from "@/lib/utils/classNames";
 
 interface ChatboatFloatingButtonProps {
   onToggleOpen: () => void;

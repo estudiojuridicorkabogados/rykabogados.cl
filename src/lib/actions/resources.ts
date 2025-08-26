@@ -1,12 +1,13 @@
 'use server';
 
 import {
-  NewResourceParams,
   insertResourceSchema,
+  NewResourceParams,
   resources,
 } from '@/lib/db/schema/resources';
-import { db } from '../db';
+
 import { generateEmbeddings } from '../ai/embeddings';
+import { db } from '../db';
 import { embeddings as embeddingsTable } from '../db/schema/embeddings';
 
 // @TODO Here resources should be stored in a reasonable way so that we can point resources to what the actual source is (pdf, URL, etc...)

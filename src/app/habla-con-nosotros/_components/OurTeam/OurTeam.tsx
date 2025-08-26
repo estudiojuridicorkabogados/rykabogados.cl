@@ -1,0 +1,117 @@
+"use client";
+
+import { motion, stagger, Variants } from "motion/react";
+import Image from "next/image";
+
+import { LinkedinSquareIcon } from "@/components/icons/LinkedinSquare";
+import { itemVariants } from "@/lib/utils/animations";
+import { classNames } from "@/lib/utils/classNames";
+import { TEAM_MEMBERS } from "@/lib/utils/constants";
+
+const imageVariants: Variants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+export const OurTeam = () => {
+  return (
+    <motion.section
+      id="nuestro-team"
+      initial="hidden"
+      whileInView="visible"
+      className="w-full bg-primary text-white"
+      transition={{
+        delayChildren: stagger(0.3),
+      }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <div className="py-16 lg:py-28">
+        <div className="px-6 lg:px-0 lg:mx-auto lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <motion.h2
+              variants={itemVariants}
+              className="text-3xl lg:text-4xl md:text-5xl font-semibold"
+            >
+              Nuestro Equipo
+            </motion.h2>
+            <motion.p
+              variants={itemVariants}
+              className="mt-4 max-w-2xl text-white/80"
+            >
+              Retamales Kowalsky Abogados es un estudio jurídico que ofrece sus
+              servicios a lo largo de todo Chile, conformado por un equipo de
+              abogados.
+            </motion.p>
+          </div>
+        </div>
+
+        {/* hide scrollbar for WebKit */}
+        <style>{`.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
+
+        <motion.div className="relative" variants={imageVariants}>
+          <div
+            role="region"
+            aria-label="Miembros del equipo"
+            className={classNames([
+              "flex gap-8 overflow-x-auto pb-4",
+              "scroll-smooth",
+              // "snap-x snap-proximity scroll-smooth snap-always",
+              "[scrollbar-width:none] [-ms-overflow-style:none]",
+              "scroll-pl-6 md:scroll-pl-6",
+            ])}
+            style={{
+              // hide scrollbar for WebKit
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            {TEAM_MEMBERS.map((m,i) => (
+              <article
+                key={i}
+                data-card
+                className={classNames(
+                  "snap-start shrink-0 w-[260px] md:w-[300px]",
+                  "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
+                  "first:ml-40 last:mr-6"
+                )}
+              >
+                <div className="relative lg:h-[320px] bg-white/5">
+                  <Image
+                    src={m.photo}
+                    alt={`${m.name} - ${m.role}`}
+                    className="object-cover"
+                    loading="lazy"
+                    fill
+                  />
+                </div>
+                <div className="p-4 flex justify-between items-start">
+                  <div>
+                    <h3 className="!font-sans text-base !font-semibold">{m.name}</h3>
+                    <p className="text-white/80 text-sm">{m.role}</p>
+                  </div>
+
+                  {m.linkedin ? (
+                    <a
+                      href={m.linkedin}
+                      target="_blank"
+                      className="pt-2"
+                      rel="noopener noreferrer"
+                    >
+                      <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};

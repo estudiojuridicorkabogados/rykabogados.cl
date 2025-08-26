@@ -1,9 +1,9 @@
-import { defineConfig, globalIgnores } from "eslint/config";
+import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +15,12 @@ const compat = new FlatCompat({
 
 export default defineConfig([
   {
+    // optional: ignore common output dirs
+    ignores: ["./node_modules/**", ".next/**", "dist/**"],
+  },
+  {
+    // files: ["src/**/*.{js,jsx,ts,tsx}"],
+
     extends: compat.extends("next/core-web-vitals", "prettier"),
 
     plugins: {

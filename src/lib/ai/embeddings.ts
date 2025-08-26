@@ -1,13 +1,14 @@
+import { openai } from "@ai-sdk/openai";
+import { Readability } from "@mozilla/readability";
+import { embed, embedMany } from "ai";
+import { cosineDistance, desc, gt, inArray, sql } from "drizzle-orm";
+import { JSDOM } from "jsdom";
+import pdfParse from "pdf-parse";
+
 import "server-only";
 
-import { embed, embedMany } from "ai";
-import { openai } from "@ai-sdk/openai";
 import { db } from "../db";
-import { cosineDistance, desc, gt, inArray, sql } from "drizzle-orm";
 import { embeddings } from "../db/schema/embeddings";
-import { JSDOM } from "jsdom";
-import { Readability } from "@mozilla/readability";
-import pdfParse from "pdf-parse";
 
 const embeddingModel = openai.embedding("text-embedding-ada-002");
 

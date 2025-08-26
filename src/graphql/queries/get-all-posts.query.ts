@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client";
 
-import { Post as PostGraphQL } from "@/types/generated/graphql";
-import { ShortPost } from "@/types/global";
 import { URLS } from "@/lib/utils/constants";
 import { generatePostHref } from "@/lib/utils/hrefs";
 import { extractImageDataFromContentfulAsset } from "@/lib/utils/images";
+import { Post as PostGraphQL } from "@/types/generated/graphql";
+import { ShortPost } from "@/types/global";
 
 import { getApolloServerClient } from "../getApolloServerClient";
 
@@ -30,11 +30,7 @@ interface GetAllPostsResponse {
 
 const GET_ALL_POSTS_QUERY = gql`
   query ($preview: Boolean!, $limit: Int!) {
-    blogPostCollection(
-      order: date_DESC
-      preview: $preview
-      limit: $limit
-    ) {
+    blogPostCollection(order: date_DESC, preview: $preview, limit: $limit) {
       items {
         slug
         title
@@ -65,15 +61,14 @@ export async function getAllPosts({
       context: {
         fetchOptions: {
           next: {
-            revalidate:
-              isPreview || process.env.DISABLE_CACHE === "true" ? 0 : 3600,
+            revalidate: 3600,
           },
         },
       },
     });
 
     return {
-      posts: data.data.blogPostCollection.items
+      posts: data.data?.blogPostCollection.items
         .filter(({ slug }) => !!slug)
         .map((post) => ({
           ...post,
@@ -81,7 +76,7 @@ export async function getAllPosts({
           mainImage: post.mainImage
             ? extractImageDataFromContentfulAsset(post.mainImage)
             : undefined,
-        })),
+        })) || [],
     };
   } catch (error) {
     console.error(error);

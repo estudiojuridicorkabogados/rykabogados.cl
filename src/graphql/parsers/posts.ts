@@ -1,14 +1,14 @@
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 import { Document } from "@contentful/rich-text-types";
 
+import { URLS } from "@/lib/utils/constants";
+import { timeToRead } from "@/lib/utils/content";
+import { extractImageDataFromContentfulAsset } from "@/lib/utils/images";
 import {
   Asset as AssetGraphQL,
   Post as PostGraphQL,
 } from "@/types/generated/graphql";
 import { Post, RichTextAsset } from "@/types/global";
-import { URLS } from "@/lib/utils/constants";
-import { timeToRead } from "@/lib/utils/content";
-import { extractImageDataFromContentfulAsset } from "@/lib/utils/images";
 
 function parseLinkToAsset(
   graphQLLink: AssetGraphQL | undefined

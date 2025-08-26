@@ -1,93 +1,107 @@
-import { Facebook, Linkedin, Twitter } from "lucide-react";
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { URLS } from "@/lib/utils/constants";
+
+import logoWhite from "../../public/images/logos/logo-white.png";
+
+import { FacebookIcon } from "./icons/Facebook";
+import { InstagramIcon } from "./icons/Instagram";
+import { LinkedinIcon } from "./icons/Linkedin";
+
+const LINKS = [
+  {
+    href: URLS.asesoriaTrabajadores(),
+    label: "Asesoría Trabajadores",
+  },
+  {
+    href: URLS.asesoriaEmpresas(),
+    label: "Asesoría Empresas",
+  },
+  {
+    href: URLS.blog(),
+    label: "Blog",
+  },
+  {
+    href: URLS.contacts(),
+    label: "Contacto",
+  },
+];
 
 export const Footer = () => {
+  const pathname = usePathname();
+
+  if (pathname === "/contacto") {
+    return null;
+  }
+
   return (
-    <footer className="bg-[#252525] text-white py-16">
+    <footer className="bg-[#252525] text-white pt-16 pb-8">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12">
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="border-l-4 border-[#AE8D54] pl-4">
-                <div className="text-2xl font-bold tracking-wide">
-                  Retamales y Kowalsky
-                </div>
-                <div className="text-sm font-light tracking-widest opacity-90">
-                  ABOGADOS
-                </div>
-              </div>
-            </div>
-            <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
-              Estudio jurídico especializado en derecho laboral y corporativo.
-              Más de 15 años protegiendo tus derechos en Chile.
-            </p>
-            <div className="flex space-x-4">
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-[#AE8D54] transition-colors"
-              >
-                <Facebook className="h-6 w-6" />
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-[#AE8D54] transition-colors"
-              >
-                <Linkedin className="h-6 w-6" />
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-[#AE8D54] transition-colors"
-              >
-                <Twitter className="h-6 w-6" />
-              </Link>
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-12">
+          <div className="md:col-span-2 flex">
+            <div className="relative w-full h-[40px] md:w-[320px] md:h-[64px] lg:mb-8">
+              <Image
+                src={logoWhite}
+                alt="logo"
+                fill
+                className="object-contain"
+              />
             </div>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-6 text-[#AE8D54]">
-              Servicios
-            </h4>
-            <ul className="space-y-3 text-gray-400">
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Derecho Laboral
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Derecho Corporativo
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Derecho Civil
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Litigios
-                </Link>
-              </li>
+            <ul className="hidden lg:block space-y-3 text-center md:text-left">
+              {LINKS.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-white transition-colors hover:text-accent font-[500]"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-6 text-[#AE8D54]">
-              Contacto
-            </h4>
-            <ul className="space-y-3 text-gray-400">
-              <li>+56 2 2345 6789</li>
-              <li>contacto@RyKasociados.cl</li>
-              <li>Av. Providencia 1234, Providencia, Santiago</li>
-            </ul>
+          <div className="flex flex-col text-white font-[500] gap-8 text-center md:text-left text-sm lg:text-base">
+            <span>
+              Antonio Bellet 143, Providencia <br /> Isidora Goyenechea 3000,
+              Las Condes
+            </span>
+            <div className="flex flex-col gap-2">
+              <span>Tel 2 23644258</span>
+              <a
+                className="hover:text-accent"
+                href="mailto:estudio.juridico@ryoasociados.cl"
+                target="_blank"
+              >
+                estudio.juridico@ryoasociados.cl
+              </a>
+            </div>
+
+            <div className="flex gap-3 items-center justify-center lg:justify-start">
+              <a href={URLS.instagram()} target="_blank" className="bg-white size-6 lg:size-8 rounded-full flex items-center justify-center">
+                <InstagramIcon className="size-4 lg:size-5 fill-[#252525]" />
+              </a>
+              <a href={URLS.facebook()} target="_blank">
+                <FacebookIcon className="size-6 lg:size-8 fill-white" />
+              </a>
+              <a href={URLS.linkedin()} target="_blank">
+                <LinkedinIcon className="size-6 lg:size-8 fill-white" />
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>
-            &copy; {new Date().getFullYear()} RyK Abogados. Todos los derechos
-            reservados.
-          </p>
+        <div className="mt-12 md:mt-32 flex flex-col lg:flex-row gap-y-0 gap-x-8 lg:items-center lg:justify-between text-xs text-white/50">
+          <p>&copy; {new Date().getFullYear()} RyK Abogados</p>
+
+          <p>Todos los derechos reservados</p>
         </div>
       </div>
     </footer>

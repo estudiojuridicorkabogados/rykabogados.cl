@@ -1,10 +1,12 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChatbotInput } from "./ChatbotInput";
-import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
+import { useChat } from "@ai-sdk/react";
+
 import { classNames } from "@/lib/utils/classNames";
+
+import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
+import { ChatbotInput } from "./ChatbotInput";
 
 export const SupportChatbot = () => {
   const { messages, sendMessage } = useChat();

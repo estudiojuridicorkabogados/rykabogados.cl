@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+import { env } from "@/lib/env";
 import { Post as PostGraphQL } from "@/types/generated/graphql";
 import { Post } from "@/types/global";
 
@@ -78,13 +79,17 @@ export async function getPost({
         fetchOptions: {
           next: {
             revalidate:
-              isPreview || process.env.DISABLE_CACHE === "true" ? 0 : 3600,
+              isPreview || env.DISABLE_CACHE === "true" ? 0 : 3600,
           },
         },
       },
     });
 
-    const post = data.data.blogPostCollection.items[0];
+    const post = data.data?.blogPostCollection.items[0];
+
+    if (!post) {
+      throw new Error("Post not found");
+    }
 
     return parseGraphQLPost(post);
   } catch (error) {

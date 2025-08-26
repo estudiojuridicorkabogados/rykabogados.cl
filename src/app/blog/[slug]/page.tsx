@@ -4,8 +4,9 @@ import { draftMode } from "next/headers";
 import { BlogPosting, WithContext } from "schema-dts";
 
 import { getPost } from "@/graphql/queries/get-post.query";
-import { ApiPost } from "@/types/global";
+import { env } from "@/lib/env";
 import { URLS } from "@/lib/utils/constants";
+import { ApiPost } from "@/types/global";
 
 import { BlogPost } from "./_components/BlogPost";
 
@@ -15,7 +16,7 @@ interface BlogPostPageParams {
 
 export async function generateStaticParams() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+    const res = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
       next: { revalidate: 3600 },
     });
 
@@ -67,7 +68,7 @@ export async function generateMetadata({
         siteName: "RyK Abogados",
         images,
         locale: "es-CL",
-        url: new URL(`/blog/${slug}`, process.env.NEXT_PUBLIC_BASE_URL),
+        url: new URL(`/blog/${slug}`, env.NEXT_PUBLIC_BASE_URL),
       },
       twitter: { card: "summary_large_image", title, description, images },
     };
@@ -83,7 +84,7 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
 
   const post = await getPost({ slug, isPreview });
 
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}${URLS.blogPost(post.slug || "")}`;
+  const url = `${env.NEXT_PUBLIC_BASE_URL}${URLS.blogPost(post.slug || "")}`;
   const jsonLd: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -96,8 +97,8 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
       : undefined,
     author: {
       "@type": "Person",
-      "@id": `R&KAbogados/#Person`,
-      name: "R&KAbogados",
+      "@id": `RyKAbogados/#Person`,
+      name: "RyKAbogados",
     },
     image: {
       "@type": "ImageObject",

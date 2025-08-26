@@ -1,7 +1,8 @@
-import { findRelevantContent } from "@/lib/ai/embeddings";
 import { openai } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, tool, UIMessage } from "ai";
 import { z } from "zod";
+
+import { findRelevantContent } from "@/lib/ai/embeddings";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
