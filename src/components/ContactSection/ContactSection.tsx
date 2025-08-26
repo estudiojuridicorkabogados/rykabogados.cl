@@ -15,7 +15,7 @@ export const ContactSection = () => {
 
       <div className="absolute inset-0 bg-black/57 lg:bg-black/37" />
 
-      <div className="relative z-10 container mx-auto lg:max-w-6xl xl:max-w-7xl px-6 flex flex-col lg:flex-row gap-16">
+      <div className="relative z-10 container mx-auto lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl px-6 flex flex-col lg:flex-row gap-16">
         <div className="w-full lg:w-1/2 flex">
           <h3 className="text-3xl lg:text-5xl text-gray-60">
             Agenda una llamada de evaluación gratis

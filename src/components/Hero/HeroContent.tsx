@@ -21,7 +21,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
-      className="relative z-10 mx-auto lg:w-6xl lg:max-w-6xl xl:max-w-7xl px-6 flex flex-col"
+      className="relative z-10 mx-auto lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl px-6 flex flex-col"
     >
       <motion.span
         variants={itemVariants}

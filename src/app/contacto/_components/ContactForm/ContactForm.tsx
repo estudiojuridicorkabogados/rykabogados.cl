@@ -49,8 +49,8 @@ export const ContactForm = () => {
 
   return (
     <div className="flex-1 flex flex-col justify-end h-full">
-      <div className="flex flex-col gap-8">
-        <h1 className="text-5xl text-white">Contáctanos</h1>
+      <div className="flex flex-col gap-8 text-white">
+        <h1 className="text-5xl">Contáctanos</h1>
         <p>
           Tras más de cuatro décadas sin una modificación estructural al sistema
           previsional chileno, la nueva{" "}

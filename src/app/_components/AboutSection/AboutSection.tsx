@@ -16,7 +16,7 @@ export const AboutSection = () => {
 
   return (
     <section className="py-16 lg:py-24 bg-white">
-      <div className="lg:max-w-6xl xl:max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-y-8 gap-x-24 items-start">
+      <div className="lg:max-w-6xl 2xl:max-w-7xl xl:w-7xl  mx-auto px-6 flex flex-col lg:flex-row gap-y-8 gap-x-24 items-start">
         <motion.div
           className="flex flex-col gap-6 flex-1"
           initial="hidden"

@@ -26,7 +26,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col container mx-auto px-6 w-full lg:w-6xl lg:max-w-6xl xl:max-w-7xl gap-y-6 lg:gap-y-8"
+      className="flex flex-col container mx-auto px-6 w-full lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl gap-y-6 lg:gap-y-8"
     >
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
         <div className="flex flex-col gap-0 lg:gap-4">

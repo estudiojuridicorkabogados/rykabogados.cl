@@ -25,7 +25,7 @@ export const Press = () => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0.4 }}
     >
-      <div className="px-6 lg:px-0 lg:mx-auto lg:min-w-6xl lg:max-w-6xl xl:max-w-7xl flex flex-col gap-8">
+      <div className="px-6 lg:px-0 lg:mx-auto lg:min-w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl flex flex-col gap-8">
         <motion.h2 variants={itemVariants} className="text-black text-3xl lg:text-5xl">
           Lo que hemos conseguido con nuestros clientes
         </motion.h2>

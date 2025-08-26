@@ -5,7 +5,7 @@ import { URLS } from "@/utils/constants";
 
 export const Contacts = () => {
   return (
-    <div className="flex-1 flex flex-col gap-12 lg:h-full lg:justify-end">
+    <div className="flex-1 flex flex-col gap-12 lg:h-full lg:justify-end text-white">
       <div className="flex flex-col lg:max-w-[320px]">
         <span className="font-bold">Visita nosotros</span>
         <span>

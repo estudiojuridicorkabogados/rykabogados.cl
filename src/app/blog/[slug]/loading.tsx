@@ -2,7 +2,7 @@ import { classNames } from "@/utils/classNames";
 
 export default function BlogPostPageLoading() {
   return (
-    <div className="mx-auto lg:max-w-6xl xl:max-w-7xl text-base/7 text-gray-700 px-6 lg:px-0">
+    <div className="mx-auto lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl px-6 lg:px-0">
       <div className="flex flex-col items-start justify-center gap-8">
         <div className="loading-background-animation h-14 w-full lg:w-xl" />
 
