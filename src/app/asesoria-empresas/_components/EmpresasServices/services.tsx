@@ -1,5 +1,26 @@
 export const SERVICES = [
   {
+    title: "Contestación de demandas laborales",
+    description: (
+      <div className="flex flex-col gap-3">
+        <p>
+          Es habitual que durante el desarrollo de la actividad de una empresa
+          surjan conflictos jurídico-laborales con los trabajadores o incluso
+          con la Dirección del Trabajo, que hacen necesario contar con asesoría
+          jurídica oportuna y eficaz.
+        </p>
+        <p>
+          Nuestro equipo se hará cargo de todo el proceso, desde la notificación
+          de la acción, implementación de la estrategia y seguimiento del
+          proceso hasta la sentencia, respetando estrictamente los plazos
+          judiciales y ejerciendo todos los derechos que la ley confiere para
+          obtener los resultados esperados.
+        </p>
+      </div>
+    ),
+  },
+
+  {
     title:
       "Fiscalizaciones, citaciones, comparendos y multas de la Dirección del Trabajo",
     description: (
@@ -56,9 +77,7 @@ export const SERVICES = [
             Confección o revisión de contratos de trabajo o anexos. Asesoría
             para la desvinculación de trabajadores
           </li>
-          <li>
-            Análisis de causales de término, redacción cartas de término
-          </li>
+          <li>Análisis de causales de término, redacción cartas de término</li>
           <li>
             Finiquitos y estimación de las indemnizaciones a pagarse por término
             de contrato
