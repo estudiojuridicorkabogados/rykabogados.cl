@@ -45,11 +45,11 @@ export const SupportChatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <>
       {/* Chat Panel */}
       <div
         className={classNames([
-          "origin-bottom-right transition-all duration-200 ease-out",
+          "fixed bottom-4 right-4 z-50 origin-bottom-right transition-all duration-200 ease-out",
           {
             "opacity-100 translate-y-0 scale-100 pointer-events-auto": open,
             "opacity-0 translate-y-2 scale-95 pointer-events-none": !open,
@@ -128,6 +128,6 @@ export const SupportChatbot = () => {
         open={open}
         unread={unread}
       />
-    </div>
+    </>
   );
 };

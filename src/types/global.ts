@@ -27,14 +27,19 @@ export interface RichText {
   assets?: Array<RichTextAsset | undefined>;
 }
 
+export interface Author {
+  name?: Maybe<string>;
+  photo: Maybe<Image>;
+}
+
 export interface Post {
   title?: Maybe<string>;
-  //   metaTitle?: Maybe<string>;
-  //   metaDescription?: Maybe<string>;
+  metaTitle?: Maybe<string>;
+  metaDescription?: Maybe<string>;
   slug?: Maybe<string>;
   excerpt?: Maybe<string>;
+  author?: Maybe<Author>;
   mainImage?: Image;
-  category?: Maybe<string>;
   content: RichText;
   date?: string;
   href?: Maybe<string>;
@@ -43,7 +48,7 @@ export interface Post {
 
 export type ShortPost = Pick<
   Post,
-  "slug" | "title" | "excerpt" | "href" | "mainImage" | "date"
+  "slug" | "title" | "excerpt" | "href" | "mainImage" | "date" | "author"
 >;
 
 export interface ApiPost {

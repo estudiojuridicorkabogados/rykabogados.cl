@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 
 import { URLS } from "@/lib/utils/constants";
-import { generatePostHref } from "@/lib/utils/hrefs";
 import { extractImageDataFromContentfulAsset } from "@/lib/utils/images";
 import { Post as PostGraphQL } from "@/types/generated/graphql";
 import { ShortPost } from "@/types/global";
@@ -15,7 +14,7 @@ interface GetAllPostsParams {
 
 type ShortPostGraphQL = Pick<
   PostGraphQL,
-  "slug" | "title" | "date" | "mainImage"
+  "slug" | "title" | "date" | "mainImage" | "author"
 >;
 
 interface AllPostsgQueryResposne {
@@ -43,6 +42,16 @@ const GET_ALL_POSTS_QUERY = gql`
           height
           url
         }
+        author {
+          nombreYApellido
+          photo(preview: $preview) {
+            title
+            description
+            width
+            height
+            url
+          }
+        }
       }
     }
   }
@@ -68,15 +77,30 @@ export async function getAllPosts({
     });
 
     return {
-      posts: data.data?.blogPostCollection.items
-        .filter(({ slug }) => !!slug)
-        .map((post) => ({
-          ...post,
-          href: URLS.blogPost(post.slug!),
-          mainImage: post.mainImage
-            ? extractImageDataFromContentfulAsset(post.mainImage)
-            : undefined,
-        })) || [],
+      posts:
+        data.data?.blogPostCollection.items
+          .filter(({ slug }) => !!slug)
+          .map((post) => ({
+            ...post,
+            href: URLS.blogPost(post.slug!),
+            author: {
+              name: post.author?.nombreYApellido,
+              photo: post.author?.photo
+                ? {
+                    url: post.author.photo.url,
+                    title: post.author.photo.title,
+                    description: post.author.photo.description,
+                    details: {
+                      height: post.author.photo.height,
+                      width: post.author.photo.width,
+                    },
+                  }
+                : null,
+            },
+            mainImage: post.mainImage
+              ? extractImageDataFromContentfulAsset(post.mainImage)
+              : undefined,
+          })) || [],
     };
   } catch (error) {
     console.error(error);

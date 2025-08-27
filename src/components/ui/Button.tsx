@@ -11,7 +11,7 @@ const buttonStyles = cva(
   [
     "whitespace-nowrap cursor-pointer uppercase",
     "inline-flex items-center justify-center",
-    "text-sm font-medium transition-colors duration-300",
+    "text-sm font-medium transition-all duration-300",
     "disabled:pointer-events-none disabled:opacity-50",
   ],
   {
@@ -19,7 +19,7 @@ const buttonStyles = cva(
       variant: {
         default:
           "bg-white text-black hover:bg-gray-900 hover:text-white border border-gray-900",
-        dark: "bg-gray-900 text-white hover:bg-white hover:text-white border border-gray-900",
+        dark: "bg-gray-900 text-white hover:bg-white hover:text-gray-900 border border-gray-900",
         outline:
           "border border-gray-900 text-dark-900 bg-transparent hover:bg-gray-900 hover:text-white",
         ["white-outline-on-primary"]:

@@ -35,7 +35,7 @@ const MOBILE_LINKS = [
   },
   {
     href: URLS.speakWithUs(),
-    label: "Client Page",
+    label: "Reserva una Llamada",
   },
 ];
 

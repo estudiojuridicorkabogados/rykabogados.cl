@@ -9,7 +9,7 @@ import { Button } from "../ui/Button";
 export const ClientLink = () => {
   const router = useRouter();
 
-  const navigateToContacto = () => router.push(URLS.speakWithUs());
+  const navigateToHablaConNosotros = () => router.push(URLS.speakWithUs());
 
   return (
     <Button
@@ -17,9 +17,9 @@ export const ClientLink = () => {
       variant="default"
       size="sm"
       animateOnClick
-      onClick={navigateToContacto}
+      onClick={navigateToHablaConNosotros}
     >
-      Client Page
+      Reserva una Llamada
     </Button>
   );
 };

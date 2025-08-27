@@ -41,11 +41,15 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
       <div className="w-full lg:max-w-xl">
         <motion.div
           variants={itemVariants}
-          className="mt-4 flex items-center gap-x-4 text-xs"
+          className="mt-4 flex items-center gap-x-2 text-sm lg:text-lg"
         >
+          <span className="text-black/60">{blogPost.author?.name}</span>
+
+          <span className="text-black">|</span>
+
           <time
             dateTime={blogPost.date || new Date().toISOString()}
-            className="text-black/40 text-sm lg:text-lg"
+            className="text-black/40"
           >
             {blogPost.date
               ? format(blogPost.date, "dd.MM.yyyy", { locale: es })

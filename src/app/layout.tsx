@@ -29,15 +29,15 @@ export const metadata: Metadata = {
     "RyK ABOGADOS es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
 };
 
-// const SupportChatbot = dynamic(
-//   () =>
-//     import("@/components/SupportChatbot/SupportChatbot").then(
-//       (m) => m.SupportChatbot
-//     ),
-//   {
-//     loading: () => <div className="sr-only">Loading chat…</div>,
-//   }
-// );
+const SupportChatbot = dynamic(
+  () =>
+    import("@/components/SupportChatbot/SupportChatbot").then(
+      (m) => m.SupportChatbot
+    ),
+  {
+    loading: () => <div className="sr-only">Loading chat…</div>,
+  }
+);
 
 export default function RootLayout({
   children,
@@ -48,8 +48,6 @@ export default function RootLayout({
     <html lang="es-CL">
       <body className={`${dmSans.variable} antialiased bg-white`}>
         <Navbar />
-
-        {/* <div className="bg-white">{children}</div> */}
 
         <div className="bg-white">
           <Toaster position="bottom-center" />
@@ -65,7 +63,7 @@ export default function RootLayout({
           src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         />
 
-        {/* <SupportChatbot /> */}
+        <SupportChatbot />
 
         <Analytics />
 

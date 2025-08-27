@@ -37,6 +37,8 @@ export function parseGraphQLPost(graphQLPost: PostGraphQL): Post {
     ? documentToPlainTextString(graphQLPost.content.json)
     : "";
 
+  console.log("graphQLPost", graphQLPost)
+
   return {
     ...graphQLPost,
     content: {
@@ -44,6 +46,18 @@ export function parseGraphQLPost(graphQLPost: PostGraphQL): Post {
       assets: graphQLPost.content?.links.assets.block
         .filter((asset) => !!asset)
         .map(parseLinkToAsset),
+    },
+    author: {
+      name: graphQLPost.author?.nombreYApellido,
+      photo: graphQLPost.author?.photo ? {
+        url: graphQLPost.author.photo.url,
+        title: graphQLPost.author.photo.title,
+        description: graphQLPost.author.photo.description,
+        details: {
+          height: graphQLPost.author.photo.height,
+          width: graphQLPost.author.photo.width,
+        },
+      } : null,
     },
     timeToRead: timeToRead(plainTextString),
     href: graphQLPost.slug ? URLS.blogPost(graphQLPost.slug) : undefined,

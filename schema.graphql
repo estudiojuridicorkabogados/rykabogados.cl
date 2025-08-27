@@ -45,14 +45,20 @@ type Video implements Entry {
   video(locale: String): JSON
 }
 
+type Author implements Entry {
+  nombreYApellido: String
+  photo: Asset
+}
+
 type Post implements Entry {
   title: String
-  # metaTitle: String
-  # metaDescription: String
+  metaTitle: String
+  metaDescription: String
   slug: String
   excerpt: String
   date: DateTime
   # category: String
+  author: Author
   mainImage: Asset
   content: PostRichtext
 }

@@ -43,11 +43,9 @@ export async function generateMetadata({
       return {};
     }
 
-    // @TODO Add metaTitle and metaDescription to the Post type
-    const title = post.title || "RyK Abogados - Blog Post";
-    const description = "post.smallIntro";
-    // const title = post.metaTitle;
-    // const description = post.smallIntro;
+    const title = post.metaTitle || post.title || "RyK Abogados - Blog Post";
+    const description = post.metaDescription || post.excerpt || "RyK Abogados - Blog Post";
+
     const images = post.mainImage?.url
       ? [
           {
@@ -89,16 +87,15 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "@id": `${url}/#BlogPosting`,
-    name: post.title || "RyK Abogados - Blog Post",
-    description: "post.metaDescription",
-    // description: post.metaDescription,
+    name: post.metaTitle || post.title || "RyK Abogados - Blog Post",
+    description: post.metaDescription || post.excerpt || "RyK Abogados - Blog Post",
     datePublished: post.date
       ? format(new Date(post.date), "yyyy-MM-dd")
       : undefined,
     author: {
       "@type": "Person",
-      "@id": `RyKAbogados/#Person`,
-      name: "RyKAbogados",
+      "@id": `${post.author?.name}/#Person`,
+      name: post.author?.name || "RyK Abogados",
     },
     image: {
       "@type": "ImageObject",

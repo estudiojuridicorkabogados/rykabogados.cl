@@ -9,6 +9,7 @@ import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { Post } from "@/types/global";
 
 import { RichText } from "./RichText/RichText";
+import { AuthorAndDate } from "./AuthorAndDate";
 import { HablaConNosotros } from "./HablaConNosostros";
 
 interface BlogPostProps {
@@ -41,26 +42,14 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         <Image
           src={post.mainImage?.url || ""}
           alt={post.mainImage?.description || post.title || ""}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-xl"
+          fill
+          className="rounded-xl object-cover"
         />
       </motion.div>
 
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 mt-8">
         <div className="flex-1">
-          <div className="text-black font-semibold">
-            <span>Camila Retamales | </span>
-
-            {post.date ? (
-              <time
-                dateTime={post.date || new Date().toISOString()}
-                className="text-base/7 font-semibold capitalize"
-              >
-                {format(post.date, "MMM d, yyyy", { locale: es })}
-              </time>
-            ) : null}
-          </div>
+          <AuthorAndDate author={post.author} date={post.date} timeToRead={post.timeToRead} />
 
           <div className="flex gap-3 mt-4 mb-12">
             {Tags.map((tag) => (

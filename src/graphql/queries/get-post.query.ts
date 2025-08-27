@@ -23,8 +23,8 @@ const GET_POST_QUERY = gql`
     blogPostCollection(where: { slug: $slug }, preview: $preview, limit: 1) {
       items {
         title
-        # metaTitle
-        # metaDescription
+        metaTitle
+        metaDescription
         slug
         excerpt
         date
@@ -60,6 +60,16 @@ const GET_POST_QUERY = gql`
           height
           url
         }
+        author {
+          nombreYApellido
+          photo(preview: $preview) {
+            title
+            description
+            width
+            height
+            url
+          }
+        }
       }
     }
   }
@@ -78,8 +88,7 @@ export async function getPost({
       context: {
         fetchOptions: {
           next: {
-            revalidate:
-              isPreview || env.DISABLE_CACHE === "true" ? 0 : 3600,
+            revalidate: isPreview || env.DISABLE_CACHE === "true" ? 0 : 3600,
           },
         },
       },
