@@ -3,8 +3,9 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { MinusIcon, PlusIcon } from "lucide-react";
 import { motion } from "motion/react";
+import { PlusIcon } from "../icons/Plus";
+import { MinusIcon } from "../icons/Minus";
 
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
@@ -40,14 +41,14 @@ export const Accordion: React.FC<AccordionProps> = ({ entries }) => {
                     >
                       {`0${i + 1}.`} {faq.title}
                     </span>
-                    <span className="flex h-7 items-center mr-4">
+                    <span className="flex h-7 justify-center items-center mr-4">
                       <PlusIcon
                         aria-hidden="true"
-                        className="size-6 group-data-open:hidden"
+                        className="size-4 group-data-open:hidden"
                       />
                       <MinusIcon
                         aria-hidden="true"
-                        className="size-6 group-not-data-open:hidden"
+                        className="w-4 h-2 group-not-data-open:hidden"
                       />
                     </span>
                   </DisclosureButton>
