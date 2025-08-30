@@ -4,11 +4,12 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 import { motion } from "motion/react";
-import { PlusIcon } from "../icons/Plus";
-import { MinusIcon } from "../icons/Minus";
 
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
+
+import { MinusIcon } from "../icons/Minus";
+import { PlusIcon } from "../icons/Plus";
 
 interface Entry {
   title: string;
