@@ -1,5 +1,10 @@
 export const SERVICES = [
   {
+    title: "Tutela laboral",
+    description:
+      " El Código del Trabajo y la Constitución protegen tus derechos fundamentales como trabajador, mereces ser tratado con respeto, dignidad y a no ser víctima de acoso o represalias. Para ello la ley establece derechos a tu favor que permiten impedir las vulneraciones y ser compensado económicamente hasta con 11 remuneraciones en caso de que dicha vulneración se hubiera provocado con ocasión de tu despido, además de tus años de servicio.",
+  },
+  {
     title: "Despidos injustificados",
     description:
       "Si te despidieron injustamente, puedes ser indemnizado económicamente por ello, compensación que dependerá de la causal invocada por tu empleador.",
