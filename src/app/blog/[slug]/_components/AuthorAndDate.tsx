@@ -16,8 +16,6 @@ export const AuthorAndDate: React.FC<AuthorAndDateProps> = ({
   date,
   timeToRead,
 }) => {
-  console.log("author");
-  console.log(author);
   return (
     <div className="flex flex-row gap-4">
       <div className="h-13 w-13 bg-gray-300 relative rounded-full">

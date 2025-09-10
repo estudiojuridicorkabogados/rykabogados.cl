@@ -1,36 +1,49 @@
+import ReactMarkdown from "react-markdown";
 import { UIMessage } from "ai";
 
 import { classNames } from "@/lib/utils/classNames";
 
 interface MessageProps {
-  message: UIMessage;
+  message?: UIMessage;
+  loading?: boolean;
 }
 
-export const Message: React.FC<MessageProps> = ({ message }) => {
-  const isUser = message.role === "user";
-  const text = message.parts
+export const Message: React.FC<MessageProps> = ({ message, loading }) => {
+  const isUser = message?.role === "user";
+  const text = message?.parts
     .map((p) => (p.type === "text" ? p.text : ""))
     .join("")
     .trim();
 
-  if (!text) return null;
+  if (!text) {
+    return null;
+  }
 
   return (
     <div
-      key={message.id}
-      className={`flex ${isUser ? "justify-end" : "justify-start"}`}
+      className={classNames("flex", {
+        "justify-end": isUser,
+        "justify-start": !isUser,
+      })}
     >
       <div
-        className={classNames(
-          "max-w-[85%] rounded-2xl px-3 py-2 text-sm shadow-sm",
-          {
-            "bg-primary text-white rounded-br-md": isUser,
-            "bg-white text-gray-900 border border-gray-200 rounded-bl-md":
-              !isUser,
-          }
-        )}
+        className={classNames("chatbot-msg", {
+          "user-msg": isUser,
+          "agent-msg": !isUser,
+        })}
       >
-        {text}
+        <ReactMarkdown
+          components={{
+            h1: ({ node, ...props }) => <h1 className="font-sans" {...props} />,
+            h2: ({ node, ...props }) => <h2 className="font-sans" {...props} />,
+            h3: ({ node, ...props }) => <h3 className="font-sans" {...props} />,
+            h4: ({ node, ...props }) => <h4 className="font-sans" {...props} />,
+            h5: ({ node, ...props }) => <h5 className="font-sans" {...props} />,
+            h6: ({ node, ...props }) => <h6 className="font-sans" {...props} />,
+          }}
+        >
+          {text}
+        </ReactMarkdown>
       </div>
     </div>
   );

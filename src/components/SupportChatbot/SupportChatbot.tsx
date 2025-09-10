@@ -5,13 +5,19 @@ import { useChat } from "@ai-sdk/react";
 
 import { classNames } from "@/lib/utils/classNames";
 
+import { ChatIcon } from "../icons/Chat";
+import { XIcon } from "../icons/X";
+
 import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
 import { ChatbotInput } from "./ChatbotInput";
+import { InitialBotMessage } from "./InitialBotMessage";
 import { Message } from "./Message";
+import { MessageLoading } from "./MessageLoading";
 
 export const SupportChatbot = () => {
-  const { messages, sendMessage } = useChat();
+  const { messages, status, sendMessage } = useChat();
   const [open, setOpen] = useState(false);
+
   const [unread, setUnread] = useState(0);
   const endRef = useRef<HTMLDivElement | null>(null);
 
@@ -44,17 +50,22 @@ export const SupportChatbot = () => {
     if (!open) setUnread(0);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    setUnread(0);
+  };
+
   return (
     <>
       {/* Chat Panel */}
       <div
         className={classNames([
           "fixed bottom-4 right-4 z-50 origin-bottom-right transition-all duration-200 ease-out",
+          "w-[22rem] sm:w-[24rem] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col",
           {
             "opacity-100 translate-y-0 scale-100 pointer-events-auto": open,
             "opacity-0 translate-y-2 scale-95 pointer-events-none": !open,
           },
-          "w-[22rem] sm:w-[24rem] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col",
         ])}
         aria-hidden={!open}
         role="dialog"
@@ -64,43 +75,23 @@ export const SupportChatbot = () => {
         <div className="flex items-center justify-between px-4 py-3 bg-primary text-white">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
-              {/* Chat icon */}
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.5-4.5A4 4 0 0 1 4 15V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z" />
-              </svg>
+              <ChatIcon />
             </span>
             <div className="leading-tight">
-              <div className="font-semibold">Soporte RyK Abogados</div>
+              <div className="font-semibold">RyK Abogados</div>
               <div className="text-xs opacity-80">
                 Solemos responder en minutos
               </div>
             </div>
           </div>
+
           <button
             type="button"
-            onClick={() => {
-              setOpen(false);
-              setUnread(0);
-            }}
+            onClick={handleClose}
             className="inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/40"
             aria-label="Close chat"
           >
-            {/* X icon */}
-            <svg
-              viewBox="0 0 24 24"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M6 6l12 12M6 18L18 6" />
-            </svg>
+            <XIcon />
           </button>
         </div>
 
@@ -111,9 +102,13 @@ export const SupportChatbot = () => {
             aria-live="polite"
             aria-relevant="additions"
           >
+            <InitialBotMessage open={open} />
+
             {messages.map((message) => (
               <Message key={message.id} message={message} />
             ))}
+
+            {status === "submitted" && <MessageLoading />}
 
             <div ref={endRef} />
           </div>

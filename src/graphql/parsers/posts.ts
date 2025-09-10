@@ -37,8 +37,6 @@ export function parseGraphQLPost(graphQLPost: PostGraphQL): Post {
     ? documentToPlainTextString(graphQLPost.content.json)
     : "";
 
-  console.log("graphQLPost", graphQLPost)
-
   return {
     ...graphQLPost,
     content: {

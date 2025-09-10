@@ -33,7 +33,7 @@ export const Stats: React.FC<StatsProps> = ({ title, value }) => {
     <div ref={ref} className="flex flex-col flex-1 text-black">
       <h5 className="text-base font-bold">{title}</h5>
       <span className="flex gap-1 items-center">
-        <motion.pre initial="hidden" whileInView="visible" className="text-6xl lg:text-8xl lg:min-w-[153px] font-serif">
+        <motion.pre initial="hidden" whileInView="visible" className="tabular-nums text-6xl lg:text-8xl lg:min-w-[153px] font-serif">
           {rounded}
         </motion.pre>
         

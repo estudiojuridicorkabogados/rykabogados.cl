@@ -47,8 +47,12 @@
   }
 
   @keyframes clients-marquee-right {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 }
 
@@ -71,6 +75,18 @@ body {
 
 .loading-background-animation {
   @apply bg-gray-300 animate-pulse;
+}
+
+.chatbot-msg {
+  @apply max-w-[85%] rounded-2xl px-3 py-2 text-sm shadow-sm;
+}
+
+.chatbot-msg.agent-msg {
+  @apply bg-white text-gray-900 border border-gray-200 rounded-bl-md;
+}
+
+.chatbot-msg.user-msg {
+  @apply bg-primary text-white rounded-br-md;
 }
 
 h1,

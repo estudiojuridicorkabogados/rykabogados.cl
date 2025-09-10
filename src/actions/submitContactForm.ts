@@ -58,8 +58,6 @@ export async function submitContactForm(
   };
 
 
-  console.log(rawData)
-
   const validatedData = contactSchema.safeParse(rawData);
 
   if (!validatedData.success) {

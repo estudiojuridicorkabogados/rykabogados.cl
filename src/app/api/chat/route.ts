@@ -4,34 +4,75 @@ import { z } from "zod";
 
 import { findRelevantContent } from "@/lib/ai/embeddings";
 
-// Allow streaming responses up to 30 seconds
-export const maxDuration = 30;
+// Allow streaming responses up to 45 seconds
+export const maxDuration = 45;
 
-const SYSTEM_PROMPT = `You are a helpful assistant of the RyK Abogados law firm. 
-Check your knowledge base before answering any questions.
-When possible, respond to questions using information from tool calls.
-If you can not retrieve information from the tool calls, then you should ask the user for their details, specifically: 
+// EXMAMPLE: https://github.com/vercel-labs/ai-sdk-preview-rag/blob/main/app/(preview)/api/chat/route.ts
+
+const SYSTEM_PROMPT = `
+You are a helpful assistant of the RyK Abogados law firm. 
+ONLY ANSWER IN SPANISH. NEVER ANSWER IN ENGLISH.
+ONLY ANSWER QUESTIONS RELATED TO LEGAL ADVICE or the RyK Abogados law firm. 
+If the user asks something not related to legal advice or RyK Abogados, politely refuse to answer.
+If the question is too generic, ask the user to clarify. 
+Keep responses short and concise.
+Use your abilities as a reasoning machine to answer questions based on the information you do have.
+If you can not retrieve information and need to ask for more information, you should ask the user for their details, specifically:
 their full name, email and phone number.
+
 Once they have provided this information, use the processUserInfo tool to process them; if the user provided it, include the reason for contacting us as well.
-DO NOT try to get the information straightaway. If the customer mentions they have a generic question, first make sure to get what the question is and try to reply
-with the knowledge you have from the context. Try to get deeper into the issue if it's too generic. If you find that it is not possible to help through the knowledge,
-then go ahead and ask the suer contact's details.
+DO NOT try to get the information straightaway.
+If the customer mentions they have a generic question, first make sure to get what the question is and try to reply
+with the knowledge you have from the context.
+Try to get deeper into the issue if it's too generic. If you find that it is not possible to help through the knowledge, then go ahead and ask the user's contact details.
 `;
 
 export async function POST(req: Request) {
-  const { messages, conversationId }: { messages: UIMessage[]; conversationId: string } = await req.json();
+  const { messages }: { messages: UIMessage[]; conversationId: string } =
+    await req.json();
 
+  // find last user message to query the KB
+  const lastUserMessage = [...messages]
+    .reverse()
+    .find((m) => m.role === "user");
+
+  const messageContent = (lastUserMessage?.parts ?? []).find(
+    ({ type }) => type === "text"
+  );
+
+  // This check is redundant but it is necessary to keep TS happy
+  const question =
+    messageContent?.type === "text" ? (messageContent.text ?? "").trim() : "";
+
+  // Server-side RAG: fetch relevant content BEFORE calling the model
+  const kbResults = question ? await findRelevantContent(question) : [];
+  const kbSummary = kbResults.length
+    ? kbResults.map((item, idx) => `${idx + 1}. ${item.content}`).join("\n")
+    : "";
+
+  // Hidden/internal summary to inject into the model context
+  const kbNote = kbSummary
+    ? `INTERNAL_KB_SUMMARY:\n${kbSummary}`
+    : `INTERNAL_KB_SUMMARY:\n<NO_RELEVANT_RESULTS_FOUND>`;
+
+  // Slightly stronger system instruction to synthesize and not mention tool invocation
+  const systemWithNoToolMention = [
+    SYSTEM_PROMPT,
+    "\n\nIMPORTANT: Synthesize and summarize KB content concisely in Spanish.",
+  ].join(" ");
+
+  // Convert messages and append the hidden KB summary as a system message
+  const modelMessages = convertToModelMessages([
+    ...messages,
+    { role: "system", parts: [{ type: "text", text: kbNote }] },
+  ]);
+
+  // Call the model WITHOUT exposing the getInformation tool so it won't stream tool-invocation text.
+  // Keep processUserInfo only if you need to persist contact details via a tool.
   const result = streamText({
     model: openai("gpt-4o-mini"),
-    system: SYSTEM_PROMPT,
+    system: systemWithNoToolMention,
     tools: {
-      getInformation: tool({
-        description: `get information from your knowledge base to answer questions.`,
-        inputSchema: z.object({
-          question: z.string().describe("the users question"),
-        }),
-        execute: async ({ question }) => findRelevantContent(question),
-      }),
       processUserInfo: tool({
         description: `process user information by storing it in the database.`,
         inputSchema: z.object({
@@ -50,35 +91,11 @@ export async function POST(req: Request) {
             phoneNumber,
             legalIssue
           );
-
-          // @TODO, add to ManyChat
-          // Store user information in the database
-          // await db.insert(userInformationTable).values({
-          //   fullName,
-          //   email,
-          //   phoneNumber,
-          //   legalIssue,
-          // });
+          // persist as needed
         },
       }),
     },
-    messages: convertToModelMessages(messages),
-    // onFinish: async ({ text, toolResults }) => {
-    //   try {
-    //     await saveTurn({
-    //       conversationId,
-    //       userText: lastUserText,
-    //       assistantText: text, // full assistant text
-    //       tools: (toolResults ?? []).map((tr) => ({
-    //         name: tr.toolName,
-    //         input: tr.args,
-    //         result: tr.result,
-    //       })),
-    //     });
-    //   } catch (e) {
-    //     console.error("Failed to save chat turn:", e);
-    //   }
-    // },
+    messages: modelMessages,
   });
 
   return result.toUIMessageStreamResponse();
