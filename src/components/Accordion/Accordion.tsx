@@ -37,7 +37,7 @@ export const Accordion: React.FC<AccordionProps> = ({ entries }) => {
                   <DisclosureButton className="group flex w-full items-start justify-between text-left text-gray-900 cursor-pointer pl-1 py-6">
                     <span
                       className={classNames(
-                        "transition-all delay-300 duration-75 text-lg"
+                        "transition-all delay-300 duration-75 md:text-lg"
                       )}
                     >
                       {`0${i + 1}.`} {faq.title}
@@ -63,10 +63,10 @@ export const Accordion: React.FC<AccordionProps> = ({ entries }) => {
                     open: { height: "auto", opacity: 1 },
                     collapsed: { height: 0, opacity: 0 },
                   }}
-                  className="overflow-hidden pr-12 border-t border-gray-900"
+                  className="overflow-hidden md:pr-12 border-t border-gray-900"
                 >
                   <div className="py-0 lg:w-3/4">
-                    <div className="pl-7 pb-12 pt-12 text-base/7 text-black/50 leading-6">
+                    <div className="md:pl-7 pb-12 pt-12 text-base/7 text-black/50 leading-6">
                       {faq.description}
                     </div>
                   </div>

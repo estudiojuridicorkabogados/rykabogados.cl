@@ -1,4 +1,4 @@
-import { ContactSection } from "../components/ContactSection/ContactSection";
+import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
 
 import { AboutSection } from "./_components/AboutSection/AboutSection";
 import { BlogSection } from "./_components/BlogSection/BlogSection";
@@ -52,7 +52,7 @@ export default async function Home() {
 
       <TeamSection />
 
-      <ContactSection />
+      <ContactSectionLight />
     </div>
   );
 }
