@@ -3,16 +3,21 @@
 import React from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
+
 import { itemVariants } from "@/lib/utils/animations";
-import { PressItem } from "./constants";
 import { classNames } from "@/lib/utils/classNames";
+
+import { PressItem } from "./constants";
 
 interface PressImageProps {
   item: PressItem;
   highlighted: boolean;
 }
 
-export const PressImage: React.FC<PressImageProps> = ({ item, highlighted }) => {
+export const PressImage: React.FC<PressImageProps> = ({
+  item,
+  highlighted,
+}) => {
   return (
     <motion.div
       variants={itemVariants}
@@ -23,16 +28,21 @@ export const PressImage: React.FC<PressImageProps> = ({ item, highlighted }) => 
         zIndex: 3,
       }}
     >
-      <div className={classNames("relative w-full h-full bg-white overflow-hidden transition-all duration-150", {
-          'border border-accent scale-105': highlighted,
-      })}>
+      <div
+        className={classNames(
+          "relative w-full h-full bg-white overflow-hidden transition-all duration-150",
+          {
+            "border border-accent scale-105": highlighted,
+          }
+        )}
+      >
         <Image
           src={item.image}
           alt={`${item.publication} article`}
           fill
           className={classNames("object-cover transition-all duration-150", {
-             'grayscale': !highlighted,
-             "scale-105": highlighted,
+            grayscale: !highlighted,
+            "scale-105": highlighted,
           })}
         />
       </div>

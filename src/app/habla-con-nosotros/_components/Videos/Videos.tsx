@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, stagger } from "motion/react";
+
+import { itemVariants } from "@/lib/utils/animations";
+
+import { Video, VIDEOS } from "./constants";
 import { VideoCard } from "./VideoCard";
 import { VideoModal } from "./VideoModal";
-import { Video, VIDEOS } from "./constants";
-import { motion, stagger } from "motion/react";
-import { itemVariants } from "@/lib/utils/animations";
 
 export const Videos = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);

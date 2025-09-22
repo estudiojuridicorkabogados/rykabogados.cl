@@ -2,7 +2,9 @@
 
 import React from "react";
 import { motion } from "motion/react";
+
 import { itemVariants } from "@/lib/utils/animations";
+
 import { Video } from "./constants";
 
 interface VideoCardProps {

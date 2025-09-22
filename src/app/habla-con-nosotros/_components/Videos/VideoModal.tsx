@@ -2,8 +2,10 @@
 
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence,motion } from "motion/react";
+
 import { XIcon } from "@/components/icons/X";
+
 import { Video } from "./constants";
 
 interface VideoModalProps {

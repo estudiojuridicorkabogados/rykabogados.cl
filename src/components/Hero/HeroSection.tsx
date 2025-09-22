@@ -1,7 +1,8 @@
 import Image from "next/image";
 
-import { HeroContent } from "./HeroContent";
 import { classNames } from "@/lib/utils/classNames";
+
+import { HeroContent } from "./HeroContent";
 
 interface HeroSectionProps {
   label: string;

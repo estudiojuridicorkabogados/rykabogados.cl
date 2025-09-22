@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";
+
 import { PressItem as IPressItem } from "./constants";
 
 interface PressItemProps {
@@ -15,7 +16,7 @@ export const PressItem: React.FC<PressItemProps> = ({ item, index, onHighlight }
   return (
     <motion.div
       variants={itemVariants}
-      className="flex flex-col space-y-2 border-b border-black py-8 last:border-0"
+      className="flex flex-col space-y-2 border-black py-8 border-t last:border-b"
       onMouseEnter={() => onHighlight(index)}
       onMouseLeave={() => onHighlight(null)}
     >
