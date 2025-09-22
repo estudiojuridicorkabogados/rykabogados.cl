@@ -1,54 +1,18 @@
 "use client";
 
-import { motion, stagger } from "motion/react";
-
-import { itemVariants } from "@/lib/utils/animations";
-
-import { CalendarFrame } from "./CalendarFrame";
+import { HeroSection } from "@/components/Hero/HeroSection";
 
 export const Hero = () => {
   return (
-    <motion.section
-      id="hero"
-      initial="hidden"
-      whileInView="visible"
-      className="w-full bg-[#252525] text-white py-20 lg:py-32"
-      transition={{
-        delayChildren: stagger(0.3),
+    <HeroSection
+      className="h-auto lg:h-auto py-32"
+      label="Habla con nosotros"
+      title="¿Despido Injustificado? Asesoría legal gratuita. Te representamos legalmente."
+      description="Si requiere asistencia jurídica especializada, nuestro bufete ofrece una amplia gama de servicios legales para proteger sus derechos laborales. Desde asesoramiento en despidos injustificados hasta representación en procesos judiciales, estamos comprometidos con la defensa de sus intereses. Para una consulta inicial sin costo, simplemente programe una cita completando el formulario que encontrará a continuación. Nuestro equipo de abogados especializados evaluará su caso y le proporcionará la orientación legal que necesita."
+      image={{
+        src: "/images/heros/studio-working.jpg",
+        alt: "Nuestro equipo trabajando",
       }}
-      viewport={{ once: true, amount: 0.3 }}
-    >
-      <div className="w-full px-6 xl:px-0 lg:mx-auto lg:max-w-7xl flex flex-col-reverse lg:flex-row lg:items-center gap-8 h-full">
-        <div className="flex-1 flex items-center h-full">
-          <CalendarFrame />
-        </div>
-
-        <div className="flex-1 flex flex-col gap-3">
-          <motion.span
-            className="uppercase text-sm text-accent font-bold tracking-[3px]"
-            variants={itemVariants}
-          >
-            Nuestra Misión
-          </motion.span>
-
-          <motion.h1
-            variants={itemVariants}
-            className="max-w-3xl text-3xl lg:text-5xl mb-4 text-gray-60"
-          >
-            ¿Despido Injustificado? Asesoría legal gratuita. <br />
-            Te representamos legalmente.
-          </motion.h1>
-
-          <motion.p className="text-white" variants={itemVariants}>
-            Ganamos sólo si tú ganas, pues nuestros honorarios dependen del
-            resultado que obtengas. Te asesoramos sin costo, desde el primer
-            momento, para interponer tu demanda por despido injustificado,
-            autodespido, tutela de derechos fundamentales, cobro de
-            prestaciones, cálculo de tu finiquito, accidente del trabajo, entre
-            otras.
-          </motion.p>
-        </div>
-      </div>
-    </motion.section>
+    />
   );
 };

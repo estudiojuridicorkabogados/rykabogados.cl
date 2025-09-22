@@ -26,16 +26,14 @@ export const Videos = () => {
       >
         <div className="py-16 lg:py-28">
           <div className="lg:mx-auto lg:min-w-6xl lg:max-w-6xl 2xl:min-w-7xl 2xl:max-w-7xl 2xl:w-7xl flex flex-col gap-8 px-6 lg:px-0">
-            <div className="mb-12">
-              <motion.h2
-                variants={itemVariants}
-                className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black max-w-[440px]"
-              >
-                Videos que hemos preparado para ti
-              </motion.h2>
-            </div>
+            <motion.h2
+              variants={itemVariants}
+              className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black max-w-[440px] mb-8 lg:mb-12"
+            >
+              Videos que hemos preparado para ti
+            </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-y-8 lg:gap-x-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-y-8 lg:gap-x-20">
               {VIDEOS.slice(0, 5).map((video, index) => (
                 <VideoCard
                   key={video.id || index}

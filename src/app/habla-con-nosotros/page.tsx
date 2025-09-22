@@ -1,12 +1,12 @@
-import { ContactSection } from "@/components/ContactSection/ContactSection";
-
 import { Areas } from "./_components/Areas/Areas";
 import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
 import { Hero } from "./_components/Hero/Hero";
 import { OurTeam } from "./_components/OurTeam/OurTeam";
 import { Press } from "./_components/Press/Press";
+
 import { Slogan } from "./_components/Slogan/Slogan";
 import { Videos } from "./_components/Videos/Videos";
+import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
 
 export default function HablaConNosotros() {
   return (
@@ -15,17 +15,17 @@ export default function HablaConNosotros() {
 
       <Areas />
 
-      <Videos />
-
       <Slogan />
 
       <OurTeam />
+
+      <Videos />
 
       <Press />
 
       <ClientsReel />
 
-      <ContactSection />
+      <ContactSectionLight />
     </div>
   );
 }

@@ -10,15 +10,17 @@ interface VideoCardProps {
   onPlayVideo: (video: Video) => void;
 }
 
-export const VideoCard: React.FC<VideoCardProps> = ({
-  video,
-  onPlayVideo,
-}) => {
+export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlayVideo }) => {
   return (
-    <motion.div variants={itemVariants} className="relative w-full aspect-square rounded-lg p-4">
-      <h3 className="text-2xl text-black mb-4">{video.title}</h3>
+    <motion.div
+      variants={itemVariants}
+      className="w-full flex flex-col justify-between gap-6"
+    >
+      <div>
+        <h3 className="text-2xl text-black mb-2">{video.title}</h3>
 
-      <p className="text-black mb-6">{video.description}</p>
+        <p className="text-black">{video.description}</p>
+      </div>
 
       <motion.button
         className="w-full group flex items-center gap-3 text-black cursor-pointer transition-all border border-black border-solid rounded-full px-2 py-2 hover:bg-black hover:text-[#fff3e1]"
@@ -29,7 +31,6 @@ export const VideoCard: React.FC<VideoCardProps> = ({
         <div className="w-[30px] h-[30px] bg-accent rounded-full flex items-center justify-center">
           <PlayIcon />
         </div>
-
         Reproducir video
       </motion.button>
     </motion.div>

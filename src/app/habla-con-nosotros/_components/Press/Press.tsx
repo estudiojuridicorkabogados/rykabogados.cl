@@ -1,60 +1,55 @@
 "use client";
 
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
-
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { PRESS_ITEMS } from "./constants";
+import { PressItem } from "./PressItem";
+import { PressImage } from "./PressImage";
 
-import andacosinoImage from "../../../../../public/images/noticias/andacosino.webp";
-import bbclImage from "../../../../../public/images/noticias/bbcl.webp";
-import meganoticiaImage from "../../../../../public/images/noticias/meganoticia.webp";
+export const Press: React.FC = () => {
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
 
-const BLOCKS = [
-  { color: "#222F3F", image: bbclImage },
-  { color: "#FED9A5", image: andacosinoImage },
-  { color: "#222F3F", image: meganoticiaImage },
-];
-
-export const Press = () => {
   return (
     <motion.section
-      id="press"
       initial="hidden"
       whileInView="visible"
       className="bg-white py-16 lg:py-28"
       variants={containerVariants}
-      viewport={{ once: true, amount: 0.4 }}
+      viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="px-6 lg:px-0 lg:mx-auto lg:min-w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl flex flex-col gap-8">
-        <div className="flex flex-col">
-          <motion.span
-            variants={itemVariants}
-            className="uppercase text-xs lg:text-sm text-accent-dark font-bold mb-2 tracking-[3px]"
-          >
-            Noticias y Opiniones
-          </motion.span>
-
-          <motion.h2
-            variants={itemVariants}
-            className="text-black text-3xl lg:text-4xl"
-          >
-            Lo que hemos conseguido con nuestros clientes
-          </motion.h2>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {BLOCKS.map(({ color, image }, i) => (
-            <motion.div
-              key={i}
-              className="flex items-end justify-center h-[380px] w-full"
-              style={{ backgroundColor: color }}
+      <div className="px-6 lg:px-0 lg:mx-auto lg:min-w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-12">
+            <motion.h2
               variants={itemVariants}
+              className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black"
             >
-              <div className="relative w-3/4 h-5/6">
-                <Image src={image} alt="" fill className="object-cover" />
-              </div>
-            </motion.div>
-          ))}
+              Lo que hemos conseguido con nuestros clientes
+            </motion.h2>
+
+            <div className="space-y-0 border-y border-black">
+              {PRESS_ITEMS.map((item, index) => (
+                <PressItem
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  onHighlight={setHighlightedIndex}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="relative h-full flex items-center justify-center">
+            {PRESS_ITEMS.map((item, index) => (
+              <PressImage
+                key={item.id}
+                item={item}
+                highlighted={highlightedIndex === index}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </motion.section>
