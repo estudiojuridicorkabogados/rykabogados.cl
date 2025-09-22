@@ -65,8 +65,8 @@ export const Button: React.FC<ButtonProps> = ({
     return (
       <motion.button
         className={classNames(buttonStyles({ variant, size, className }))}
-        initial={false}
         // aria-label="Siguiente"
+        initial={false}
         whileTap={{ scale: 0.95 }}
         {...props}
       />
