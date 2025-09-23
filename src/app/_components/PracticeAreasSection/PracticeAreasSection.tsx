@@ -47,6 +47,7 @@ export const PracticeAreasSection = () => {
     >
       <Image
         src="/images/documents.webp"
+        sizes="100vw"
         alt="Some documents"
         fill
         className="object-cover"

@@ -43,6 +43,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           src={post.mainImage?.url || ""}
           alt={post.mainImage?.description || post.title || ""}
           fill
+          sizes="(max-width: 1024px) 100vw, 80vw"
           className="rounded-xl object-cover"
         />
       </motion.div>

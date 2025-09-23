@@ -19,6 +19,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
         src="/images/santiago.webp"
         alt="Santiago del Chile"
         fill
+        sizes="100vw"
         className="object-cover object-top"
       />
 

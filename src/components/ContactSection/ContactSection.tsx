@@ -10,7 +10,8 @@ export const ContactSection = () => {
         alt="Una senora que trabaja al compuderador"
         fill
         className="object-cover"
-        priority
+        sizes="100vw"
+        loading="lazy"
       />
 
       <div className="absolute inset-0 bg-black/57 lg:bg-black/37" />

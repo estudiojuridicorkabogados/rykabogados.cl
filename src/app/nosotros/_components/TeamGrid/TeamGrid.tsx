@@ -27,6 +27,7 @@ export const TeamGrid = () => {
                   alt={person.name}
                   src={person.photo}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 25vw"
                   className="rounded-2xl object-cover"
                 />
               </div>

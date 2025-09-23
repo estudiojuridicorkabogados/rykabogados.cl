@@ -41,6 +41,7 @@ export const Slogan = () => {
       <Image
         src="/images/heros/library.webp"
         alt="Some documents"
+        sizes="100vw"
         fill
         className="object-cover"
       />

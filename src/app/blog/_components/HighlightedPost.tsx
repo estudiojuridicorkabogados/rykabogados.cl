@@ -42,6 +42,7 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
             alt={post.mainImage?.description || ""}
             className="object-cover w-full h-full rounded-2xl"
             fill
+            sizes="(max-width: 1024px) 100vw, 80vw"
           />
 
           <div className="absolute inset-0 flex flex-col justify-end items-start gap-4 p-4 lg:p-8 z-10">

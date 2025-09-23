@@ -35,6 +35,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
           src={mainImage?.url || "/default-image.jpg"}
           alt={mainImage?.title || "Blog Post Image"}
           className="object-cover rounded-2xl"
+          sizes="(max-width: 1024px) 100vw, 33vw"
         />
       </motion.div>
 

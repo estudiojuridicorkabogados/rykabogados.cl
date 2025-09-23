@@ -48,6 +48,7 @@ export const Footer = () => {
                 src={logoWhite}
                 alt="logo"
                 fill
+                sizes="(max-width: 1024px) 100vw, 320px"
                 className="object-contain"
               />
             </div>

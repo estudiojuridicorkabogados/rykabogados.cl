@@ -20,21 +20,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   description,
   image,
-  className = ''
+  className = "",
 }) => {
   return (
     <section
       className={classNames([
         "relative h-[calc(100dvh-80px)] lg:h-[calc(100dvh-100px)] flex items-center justify-center overflow-hidden",
-        className
+        className,
       ])}
     >
       <Image
+        priority
         src={image.src}
         alt={image.alt}
         fill
+        sizes="100vw"
         className="object-cover object-bottom-left"
-        priority
       />
 
       {/* Overlay */}

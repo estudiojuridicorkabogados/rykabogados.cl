@@ -69,6 +69,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
             <div className="relative w-full lg:h-[360px] aspect-square lg:aspect-video rounded-lg shadow-[0px_2px_2px_0px_#00000040]">
               <Image
                 fill
+                sizes="(max-width: 1024px) 100vw, 66vw"
                 src={mainPost.mainImage?.url || "/images/default-image.jpg"}
                 alt={mainPost.mainImage?.title || "Blog Post Image"}
                 className="object-cover rounded-lg shadow-[0px_2px_2px_0px_#00000040]"
@@ -96,6 +97,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
                 src={
                   secondaryPost.mainImage?.url || "/images/default-image.jpg"
                 }
+                sizes="(max-width: 1024px) 100vw, 33vw"
                 alt={secondaryPost.mainImage?.title || "Blog Post Image"}
                 className="object-cover rounded-lg shadow-[0px_2px_2px_0px_#00000040]"
               />
