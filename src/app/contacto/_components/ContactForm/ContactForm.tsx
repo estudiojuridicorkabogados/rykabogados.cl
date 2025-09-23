@@ -10,8 +10,8 @@ import {
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { env } from "@/lib/env";
+import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 
-import { FloatingLabelInput } from "./FloatingLabelInput";
 
 const initialState: ActionResponse = {
   success: false,

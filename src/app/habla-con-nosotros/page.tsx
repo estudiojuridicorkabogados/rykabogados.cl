@@ -7,11 +7,14 @@ import { OurTeam } from "./_components/OurTeam/OurTeam";
 import { Press } from "./_components/Press/Press";
 import { Slogan } from "./_components/Slogan/Slogan";
 import { Videos } from "./_components/Videos/Videos";
+import { ReservaForm } from "./_components/ReservaForm/ReservaForm";
 
 export default function HablaConNosotros() {
   return (
     <div>
       <Hero />
+
+      <ReservaForm />
 
       <Areas />
 

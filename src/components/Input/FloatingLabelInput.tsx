@@ -1,6 +1,6 @@
 import { classNames } from "@/lib/utils/classNames";
 
-export interface FloatingLabelInputProps {
+export interface FloatingLabelInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
   defaultValue?: string;
@@ -18,6 +18,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   autoComplete,
   type = "text",
   required = false,
+  ...props
 }) => {
   return (
     <div className="relative">
@@ -38,6 +39,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
           "transition-colors",
           error && "border-red-400"
         ])}
+        {...props}
       />
 
       <label

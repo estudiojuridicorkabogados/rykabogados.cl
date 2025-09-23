@@ -103,3 +103,43 @@ h6 {
 .grecaptcha-badge {
   visibility: hidden;
 }
+
+.react-calendar__month-view__weekdays__weekday {
+  @apply flex items-center justify-center py-2;
+}
+
+.react-calendar__month-view__weekdays__weekday > abbr {
+  @apply text-white/50;
+  text-decoration: none;
+}
+
+.react-calendar__navigation {
+  @apply hidden;
+}
+
+.button-calendar > abbr {
+  @apply font-semibold transition-all duration-200 cursor-pointer flex items-center justify-center text-white rounded-full size-10 hover:bg-white/10;
+  pointer-events: auto;
+}
+
+.button-calendar {
+  pointer-events: none;
+  @apply border-t border-white/20 py-2 flex items-center justify-center;
+}
+
+
+.button-calendar.different-month > abbr {
+  @apply text-white/50 font-medium;
+}
+
+.button-calendar:disabled > abbr {
+  @apply text-white/50 cursor-not-allowed font-medium;
+}
+
+.button-calendar.current-day > abbr {
+  @apply text-accent-dark font-bold;
+}
+
+.button-calendar.selected > abbr {
+  @apply text-primary bg-white font-bold;
+}
