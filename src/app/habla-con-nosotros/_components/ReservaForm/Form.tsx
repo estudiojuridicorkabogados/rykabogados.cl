@@ -1,13 +1,14 @@
 "use client";
 
-import { motion, stagger, Variants } from "motion/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, stagger, Variants } from "motion/react";
 import { z } from "zod";
-import { useState } from "react";
 
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
+
 import { PersonalInfoStep } from "./PersonalInfoStep";
 import { TimeSlotStep } from "./TimeslotStep";
 
@@ -54,7 +55,7 @@ export const Form = () => {
 
   return (
     <motion.div variants={itemVariants} className="w-full">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="reserva-form" onSubmit={handleSubmit(onSubmit)}>
         {/* {currentStep === 1 && (
           <PersonalInfoStep
             register={register}

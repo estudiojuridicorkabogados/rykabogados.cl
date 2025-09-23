@@ -1,13 +1,13 @@
-import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
-
 import { Areas } from "./_components/Areas/Areas";
 import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
+import { Contact } from "./_components/Contact/Contact";
 import { Hero } from "./_components/Hero/Hero";
+import { NextSteps } from "./_components/NextSteps/NextSteps";
 import { OurTeam } from "./_components/OurTeam/OurTeam";
 import { Press } from "./_components/Press/Press";
+import { ReservaForm } from "./_components/ReservaForm/ReservaForm";
 import { Slogan } from "./_components/Slogan/Slogan";
 import { Videos } from "./_components/Videos/Videos";
-import { ReservaForm } from "./_components/ReservaForm/ReservaForm";
 
 export default function HablaConNosotros() {
   return (
@@ -17,6 +17,8 @@ export default function HablaConNosotros() {
       <ReservaForm />
 
       <Areas />
+
+      <NextSteps />
 
       <Slogan />
 
@@ -28,7 +30,7 @@ export default function HablaConNosotros() {
 
       <ClientsReel />
 
-      <ContactSectionLight />
+      <Contact />
     </div>
   );
 }

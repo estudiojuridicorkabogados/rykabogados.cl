@@ -1,6 +1,14 @@
 import { ContactButton } from "./ContactButton";
 
-export const ContactSectionLight = () => {
+interface ContactSectionLightProps {
+  contactLabel?: string;
+  onContactClick?: () => void;
+}
+
+export const ContactSectionLight: React.FC<ContactSectionLightProps> = ({
+  contactLabel,
+  onContactClick,
+}) => {
   return (
     <section className="relative py-16 lg:py-32 flex items-center justify-center bg-[#F7F6F6]">
       <div className="relative z-10 container lg:mx-auto lg:max-w-7xl px-6 lg:px-8 flex flex-col lg:flex-row gap-16 lg:gap-16">
@@ -23,7 +31,7 @@ export const ContactSectionLight = () => {
             fugiat, ipsam aliquid
           </p>
 
-          <ContactButton />
+          <ContactButton label={contactLabel} onClick={onContactClick} />
         </div>
       </div>
     </section>

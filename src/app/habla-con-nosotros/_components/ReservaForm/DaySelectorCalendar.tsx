@@ -1,9 +1,10 @@
-import { addMonths, format, isBefore, isSameDay, isToday } from "date-fns";
 import { useRef, useState } from "react";
 import Calendar from "react-calendar";
+import { addMonths, format, isBefore, isSameDay, isToday } from "date-fns";
 import { es } from "date-fns/locale";
-import { classNames } from "@/lib/utils/classNames";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import { classNames } from "@/lib/utils/classNames";
 
 interface DaySelectorCalendarProps {
   register: any;

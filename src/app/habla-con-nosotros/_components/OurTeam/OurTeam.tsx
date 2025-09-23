@@ -23,7 +23,7 @@ const imageVariants: Variants = {
 export const OurTeam = () => {
   return (
     <motion.section
-      id="nuestro-team"
+      id="nuestro-equipo"
       initial="hidden"
       whileInView="visible"
       className="w-full bg-primary text-white"

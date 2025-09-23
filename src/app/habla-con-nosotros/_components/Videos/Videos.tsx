@@ -17,7 +17,7 @@ export const Videos = () => {
   return (
     <>
       <motion.section
-        id="nuestro-team"
+        id="videos"
         initial="hidden"
         whileInView="visible"
         className="w-full bg-[#fff3e1] text-white"

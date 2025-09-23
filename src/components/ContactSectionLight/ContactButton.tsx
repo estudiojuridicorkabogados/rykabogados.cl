@@ -5,10 +5,25 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { URLS } from "@/lib/utils/constants";
 
-export const ContactButton = () => {
+interface ContactButtonProps {
+  label?: string;
+  onClick?: () => void;
+}
+
+export const ContactButton: React.FC<ContactButtonProps> = ({
+  label = "Mas info",
+  onClick,
+}) => {
   const router = useRouter();
 
-  const navigateToContacto = () => router.push(URLS.contacts());
+  const navigateToContacto = () => {
+    if (onClick) {
+      onClick();
+      return;
+    }
+
+    router.push(URLS.contacts());
+  };
 
   return (
     <Button
@@ -17,7 +32,7 @@ export const ContactButton = () => {
       onClick={navigateToContacto}
       animateOnClick
     >
-      Mas info
+      {label}
     </Button>
   );
 };

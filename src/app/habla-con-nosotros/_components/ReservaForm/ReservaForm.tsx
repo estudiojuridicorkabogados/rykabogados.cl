@@ -3,6 +3,7 @@
 import { motion, stagger, Variants } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";
+
 import { Form } from "./Form";
 
 const imageVariants: Variants = {
@@ -20,7 +21,7 @@ const imageVariants: Variants = {
 export const ReservaForm = () => {
   return (
     <motion.section
-      id="nuestro-team"
+      id="reserva-form-section"
       initial="hidden"
       whileInView="visible"
       className="w-full bg-primary text-white"
