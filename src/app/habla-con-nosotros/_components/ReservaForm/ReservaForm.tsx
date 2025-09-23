@@ -32,7 +32,7 @@ export const ReservaForm = () => {
     >
       <div className="py-16 lg:py-28">
         <div className="px-6 lg:px-0 lg:mx-auto lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="w-1/3">
+          <div className="lg:w-1/3">
             <motion.h2
               variants={itemVariants}
               className="text-3xl lg:text-4xl md:text-5xl font-semibold"

@@ -81,12 +81,13 @@ export const OurTeam = () => {
                   "first:ml-6 lg:first:ml-40 last:mr-6"
                 )}
               >
-                <div className="relative lg:h-[320px] bg-white/5">
+                <div className="relative hidden lg:block h-[320px] bg-white/5">
                   <Image
                     src={m.photo}
                     alt={`${m.name} - ${m.role}`}
                     className="object-cover"
                     loading="lazy"
+                    sizes="(max-width: 768px) 260px, (max-width: 1024px) 300px, 320px"
                     fill
                   />
                 </div>

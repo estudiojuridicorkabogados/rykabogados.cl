@@ -15,13 +15,14 @@ export const Logo: React.FC<LogoProps> = ({
   logo,
   ariaHidden,
 }) => (
-  <div className="relative flex-shrink-0 opacity-80 hover:opacity-100 transition-opacity duration-300 mr-12 lg:mr-20">
+  <div className="relative w-[120px] md:w-[180px] h-[70px] md:h-[100px] flex-shrink-0 opacity-100 transition-opacity duration-300 mr-8 lg:mr-12">
     <Image
       src={logo.src}
       alt={logo.alt}
-      className="h-24 w-auto md:h-32 object-contain"
+      className="object-contain"
+      fill
       // Provide sizes hint; track width is unbounded but logo height small.
-      sizes="(min-width:1024px) 150px, 120px"
+      sizes="(min-width:1024px) 150px, 200px"
       aria-hidden={ariaHidden}
     />
   </div>

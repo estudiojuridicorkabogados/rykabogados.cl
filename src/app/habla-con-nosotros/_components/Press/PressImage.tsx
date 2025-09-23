@@ -21,31 +21,30 @@ export const PressImage: React.FC<PressImageProps> = ({
   return (
     <motion.div
       variants={itemVariants}
-      className={`absolute ${item.className} shadow-[2px_6px_7px_0px_rgba(0,0,0,0.25)]`}
+      className={classNames(
+        "absolute shadow-[2px_6px_7px_0px_rgba(0,0,0,0.25)]",
+        item.className
+      )}
       style={{
         width: "251px",
         height: "309px",
-        zIndex: 3,
+        zIndex: highlighted ? 2 : 1,
       }}
     >
-      <div
+      <Image
+        src={item.image}
+        alt={`${item.publication} article`}
+        width={251}
+        height={309}
+        loading="lazy"
         className={classNames(
-          "relative w-full h-full bg-white overflow-hidden transition-all duration-150",
+          "z-1 object-cover transition-all duration-150 bg-white overflow-hidden",
           {
-            "border border-accent scale-105": highlighted,
+            grayscale: !highlighted,
+            "scale-105 border-2 border-primary z-1": highlighted,
           }
         )}
-      >
-        <Image
-          src={item.image}
-          alt={`${item.publication} article`}
-          fill
-          className={classNames("object-cover transition-all duration-150", {
-            grayscale: !highlighted,
-            "scale-105": highlighted,
-          })}
-        />
-      </div>
+      />
     </motion.div>
   );
 };

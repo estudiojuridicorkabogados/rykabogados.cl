@@ -7,8 +7,8 @@ import { Logo } from "./Logo";
 
 export const ClientsReel: React.FC = () => {
   return (
-    <div className="bg-primary relative py-6">
-      <Marquee pauseOnHover>
+    <div className="bg-primary relative h-[130px] md:h-[160px] flex items-center">
+      <Marquee pauseOnHover speed={90}>
         {LOGOS.map((logo, i) => (
           <Logo key={`logo-a-${i}`} logo={logo} />
         ))}

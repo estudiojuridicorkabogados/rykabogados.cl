@@ -65,9 +65,13 @@ export default function RootLayout({
 
         <SupportChatbot />
 
-        <Analytics />
+        {env.NEXT_PUBLIC_ENVIRONMENT === "production" ? (
+          <>
+            <Analytics />
 
-        <SpeedInsights />
+            <SpeedInsights />
+          </>
+        ) : null}
       </body>
     </html>
   );
