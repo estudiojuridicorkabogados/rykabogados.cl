@@ -31,6 +31,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     >
       <Image
         priority
+        loading="eager"
         src={image.src}
         alt={image.alt}
         fill

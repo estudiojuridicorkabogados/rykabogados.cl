@@ -3,7 +3,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import { Toaster } from "sonner";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar/Navbar";
@@ -29,6 +28,16 @@ export const metadata: Metadata = {
     "RyK ABOGADOS es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
 };
 
+const DynamicToaster = dynamic(
+  () =>
+    import("sonner").then(
+      (m) => m.Toaster
+    ),
+  {
+    loading: () => <div className="sr-only">Loading toaster</div>,
+  }
+);
+
 const SupportChatbot = dynamic(
   () =>
     import("@/components/SupportChatbot/SupportChatbot").then(
@@ -45,12 +54,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es-CL">
-      <body className={`${dmSans.variable} antialiased bg-white`}>
+    <html lang="es-CL" className={dmSans.variable}>
+      <body className="antialiased bg-white">
         <Navbar />
 
         <div className="bg-white">
-          <Toaster position="bottom-center" />
+          <DynamicToaster position="bottom-center" />
 
           {children}
         </div>
@@ -59,7 +68,7 @@ export default function RootLayout({
 
         <Script
           async
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         />
 
