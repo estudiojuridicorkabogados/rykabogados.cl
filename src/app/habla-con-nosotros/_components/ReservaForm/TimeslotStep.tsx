@@ -3,69 +3,51 @@ import { DaySelectorCalendar } from "./DaySelectorCalendar";
 interface TimeSlotStepProps {
   register: any;
   errors: any;
-  onNext: () => void;
-  onPrev: () => void;
 }
 
 const timeSlots = [
-  "9:00 AM - 10:00 AM",
-  "10:00 AM - 11:00 AM",
-  "11:00 AM - 12:00 PM",
-  "2:00 PM - 3:00 PM",
-  "3:00 PM - 4:00 PM",
-  "4:00 PM - 5:00 PM",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+  "13:30",
+  "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
 ];
 
 export const TimeSlotStep: React.FC<TimeSlotStepProps> = ({
   register,
   errors,
-  onNext,
-  onPrev,
 }) => {
   return (
-    <div className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium mb-4">
-          Selecciona un horario
-        </label>
+    <div className="flex flex-col gap-8">
+      <DaySelectorCalendar register={register} errors={errors} />
 
-        <DaySelectorCalendar register={register} errors={errors} />
-
-        <div className="grid grid-cols-2 gap-3">
-          {timeSlots.map((slot) => (
-            <label key={slot} className="cursor-pointer">
-              <input
-                {...register("timeSlot")}
-                type="radio"
-                value={slot}
-                className="sr-only"
-              />
-              <div className="p-3 rounded-lg border border-white/20 hover:bg-white/10 transition-colors text-center">
-                {slot}
-              </div>
-            </label>
-          ))}
-        </div>
-        {errors.timeSlot && (
-          <p className="text-red-300 text-sm mt-1">{errors.timeSlot.message}</p>
-        )}
+      <div className="grid lg:grid-cols-7 gap-3">
+        {timeSlots.map((slot) => (
+          <label key={slot} className="cursor-pointer">
+            <input
+              {...register("timeSlot")}
+              type="radio"
+              value={slot}
+              className="sr-only peer"
+            />
+            <div className="p-2 rounded-sm border border-white/20 transition-colors text-center peer-checked:bg-white peer-checked:text-primary hover:bg-white/10 peer-checked:hover:bg-white">
+              {slot}
+            </div>
+          </label>
+        ))}
       </div>
-
-      <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={onPrev}
-          className="flex-1 bg-transparent border border-white/30 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors"
-        >
-          Atrás
-        </button>
-        <button
-          type="submit"
-          className="flex-1 bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors"
-        >
-          Reservar llamada
-        </button>
-      </div>
+      {errors.timeSlot && (
+        <p className="text-red-300 text-sm mt-1">{errors.timeSlot.message}</p>
+      )}
     </div>
   );
 };

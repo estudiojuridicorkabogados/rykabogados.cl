@@ -41,7 +41,7 @@ export const PressImage: React.FC<PressImageProps> = ({
           "z-1 object-cover transition-all duration-150 bg-white overflow-hidden",
           {
             grayscale: !highlighted,
-            "scale-105 border-2 border-primary z-1": highlighted,
+            "scale-105 z-1": highlighted,
           }
         )}
       />

@@ -35,7 +35,7 @@ export const Videos = () => {
               Videos que hemos preparado para ti
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-y-8 lg:gap-x-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-y-20 lg:gap-x-20">
               {VIDEOS.slice(0, 5).map((video, index) => (
                 <VideoCard
                   key={video.id || index}

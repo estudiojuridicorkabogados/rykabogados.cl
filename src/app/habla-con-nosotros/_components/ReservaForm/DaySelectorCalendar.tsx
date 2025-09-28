@@ -77,15 +77,17 @@ export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
       </div>
 
       <Calendar
+        showNeighboringMonth
         ref={ref}
+        value={value}
         locale="es"
-        formatShortWeekday={(_, date) => {
-          return format(date, "EEEEE", { locale: es }).toUpperCase();
-        }}
         minDate={new Date()}
         maxDate={addMonths(new Date(), 3)}
         minDetail="month"
-        showNeighboringMonth
+        onChange={onChange}
+        formatShortWeekday={(_, date) => {
+          return format(date, "EEEEE", { locale: es }).toUpperCase();
+        }}
         tileClassName={({ date, activeStartDate }) => {
           const isCurrentDay = isToday(date);
           const isSelected =
@@ -105,8 +107,7 @@ export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
 
           return view === "month" && (day === 0 || day === 6); // Disable Sundays and Saturdays
         }}
-        onChange={onChange}
-        value={value}
+        
       />
     </div>
   );

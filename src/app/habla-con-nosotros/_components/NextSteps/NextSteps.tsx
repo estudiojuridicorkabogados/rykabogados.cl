@@ -23,7 +23,7 @@ export const NextSteps = () => {
             Los proximos pasos
           </motion.h2>
 
-          <motion.p variants={itemVariants}>
+          <motion.p variants={itemVariants} className="lg:w-1/2">
             Si te despidieron injustamente, puedes ser indemnizado
             económicamente por ello, compensación que dependerá de la causal
             invocada por tu empleador.

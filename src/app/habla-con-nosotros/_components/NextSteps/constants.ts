@@ -1,4 +1,4 @@
-export type IconType = "calendar" | "document" | "chatBubble" | "handshake";
+export type IconType = "calendar" | "webinar" | "piggy" | "hands";
 
 export interface IStep {
   stepNumber: string;
@@ -20,19 +20,19 @@ export const STEPS: IStep[] = [
     title: "Revisión de documentos",
     description:
       "Proporciona todos los documentos relevantes para que podamos analizarlos.",
-    icon: "document",
+    icon: "webinar",
   },
   {
     stepNumber: "03",
     title: "Consulta legal",
     description:
       "Recibe asesoramiento experto sobre tus derechos y opciones legales.",
-    icon: "chatBubble",
+    icon: "piggy",
   },
   {
     stepNumber: "04",
     title: "Resolución del caso",
     description: "Trabajamos contigo para alcanzar la mejor solución posible.",
-    icon: "handshake",
+    icon: "hands",
   },
 ];
