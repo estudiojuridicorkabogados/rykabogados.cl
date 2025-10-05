@@ -5,21 +5,26 @@ import { es } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { classNames } from "@/lib/utils/classNames";
+import { Control, useController } from "react-hook-form";
+import { FormData } from "./types";
 
 interface DaySelectorCalendarProps {
-  register: any;
-  errors: any;
+  control: Control<FormData>;
 }
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
-  register,
-  errors,
+  control,
 }) => {
-  const [value, onChange] = useState<Value>(null);
+  const {
+    field: { onChange, value },
+    fieldState: { error: fieldError },
+  } = useController({
+    name: "date",
+    control,
+    rules: {
+      required: "Por favor selecciona una fecha",
+    },
+  });
 
   const [displayMonthText, setDisplayMonthText] = useState(
     formatMonthYear(new Date())
@@ -56,7 +61,7 @@ export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 relative">
       <div className="flex justify-between items-center mb-2">
         <span className="font-semibold text-white capitalize">
           {displayMonthText}
@@ -107,8 +112,11 @@ export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
 
           return view === "month" && (day === 0 || day === 6); // Disable Sundays and Saturdays
         }}
-        
       />
+
+      {fieldError && (
+        <p className="absolute bottom-0 text-red-400 text-sm mt-1">{fieldError.message}</p>
+      )}
     </div>
   );
 };

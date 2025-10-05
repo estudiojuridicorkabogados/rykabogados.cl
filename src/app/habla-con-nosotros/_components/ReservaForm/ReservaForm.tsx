@@ -1,24 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion, stagger, Variants } from "motion/react";
+import { AnimatePresence, motion, stagger } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
 import { Form } from "./Form";
-
-const imageVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-};
 
 export const ReservaForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -47,7 +35,7 @@ export const ReservaForm = () => {
             {!success && (
               <motion.div
                 key="step1"
-                className="flex flex-col gap-4 md:flex-row md:justify-between"
+                className="flex flex-col gap-16 md:flex-row md:justify-between"
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
@@ -58,7 +46,8 @@ export const ReservaForm = () => {
                     variants={itemVariants}
                   >
                     <span
-                      className={classNames("text-white/40", {
+                      onClick={() => setCurrentStep(1)}
+                      className={classNames("text-white/40 cursor-pointer", {
                         "text-white": currentStep === 1,
                       })}
                     >
@@ -115,10 +104,10 @@ export const ReservaForm = () => {
                 </h2>
                 <p className="max-w-2xl text-white/80">
                   Hemos recibido tu solicitud y nos pondremos en contacto
-                  contigo pronto. Mientras tanto, te invitamos a ver los videos 
-                  informativos que hemos preparado especialmente para ti. En ellos 
-                  encontrarás información valiosa sobre tus derechos legales y 
-                  cómo podemos ayudarte a resolver tu situación.
+                  contigo pronto. Mientras tanto, te invitamos a ver los videos
+                  informativos que hemos preparado especialmente para ti. En
+                  ellos encontrarás información valiosa sobre tus derechos
+                  legales y cómo podemos ayudarte a resolver tu situación.
                 </p>
               </motion.div>
             )}

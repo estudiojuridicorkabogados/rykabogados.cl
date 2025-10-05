@@ -1,9 +1,11 @@
 "use client";
 
 import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
+import { UseFormRegister } from "react-hook-form";
+import { FormData } from "./types";
 
 interface PersonalInfoStepProps {
-  register: any;
+  register: UseFormRegister<FormData>;
   errors: any;
 }
 
@@ -11,28 +13,27 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
   register,
   errors,
 }) => (
-  <div className="space-y-12">
-    <div>
-      <FloatingLabelInput {...register("name")} label="Nombre completo" />
-      {errors.name && (
-        <p className="text-red-300 text-sm mt-1">{errors.name.message}</p>
-      )}
-    </div>
+  <div className="space-y-16 mt-8">
+    <FloatingLabelInput
+      id="name"
+      {...register("name")}
+      label="Nombre completo"
+      error={errors.name?.message}
+    />
 
-    <div>
-      <FloatingLabelInput {...register("email")} label="Email" />
+    <FloatingLabelInput
+      id="email"
+      {...register("email")}
+      label="Email"
+      type="email"
+      error={errors.email?.message}
+    />
 
-      {errors.email && (
-        <p className="text-red-300 text-sm mt-1">{errors.email.message}</p>
-      )}
-    </div>
-
-    <div>
-      <FloatingLabelInput {...register("phone")} label="Teléfono" />
-
-      {errors.phone && (
-        <p className="text-red-300 text-sm mt-1">{errors.phone.message}</p>
-      )}
-    </div>
+    <FloatingLabelInput
+      id="phoneNumber"
+      {...register("phoneNumber")}
+      label="Teléfono"
+      error={errors.phoneNumber?.message}
+    />
   </div>
 );

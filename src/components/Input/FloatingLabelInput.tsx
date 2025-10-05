@@ -56,7 +56,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
       </label>
 
       {error && (
-        <div className="absolute bottom-[-18] left-0">
+        <div className="absolute bottom-[-18px] left-0">
           <p className="text-xs text-red-400">{error}</p>
         </div>
       )}

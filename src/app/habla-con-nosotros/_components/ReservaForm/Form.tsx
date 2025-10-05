@@ -3,25 +3,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence,motion, stagger, Variants } from "motion/react";
+import { AnimatePresence, motion, stagger, Variants } from "motion/react";
 import { int, z } from "zod";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { Button } from "@/components/ui/Button";
 import { itemVariants } from "@/lib/utils/animations";
-import { classNames } from "@/lib/utils/classNames";
 
 import { PersonalInfoStep } from "./PersonalInfoStep";
 import { TimeSlotStep } from "./TimeslotStep";
-
-// Form schema
-const formSchema = z.object({
-  name: z.string().min(2, "Nombre debe tener al menos 2 caracteres"),
-  email: z.string().email("Email inválido"),
-  timeSlot: z.string().min(1, "Selecciona un horario"),
-});
-
-type FormData = z.infer<typeof formSchema>;
+import { FormData, formSchema } from "./types";
 
 interface FormProps {
   currentStep: number;
@@ -30,21 +21,27 @@ interface FormProps {
   onSuccess: () => void;
 }
 
-export const Form: React.FC<FormProps> = ({ currentStep, onNext, onPrev, onSuccess }) => {
+export const Form: React.FC<FormProps> = ({
+  currentStep,
+  onNext,
+  onPrev,
+  onSuccess,
+}) => {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
     trigger,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
   const nextStep = async () => {
     // Validate current step fields
     const isValid = await trigger(
-      currentStep === 1 ? ["timeSlot"] : ["name", "email"]
+      currentStep === 1 ? ["timeSlot", "date"] : ["name", "email", "phoneNumber"]
     );
 
     if (isValid) {
@@ -58,10 +55,12 @@ export const Form: React.FC<FormProps> = ({ currentStep, onNext, onPrev, onSucce
     onSuccess();
   };
 
+  console.log("Errors:", errors);
+
   return (
     <motion.div variants={itemVariants} className="w-full">
       <form
-        className="h-[600px]"
+        className="lg:h-[600px]"
         id="reserva-form"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -80,13 +79,13 @@ export const Form: React.FC<FormProps> = ({ currentStep, onNext, onPrev, onSucce
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <TimeSlotStep register={register} errors={errors} />
+                  <TimeSlotStep register={register} control={control} errors={errors} />
 
-                  <div className="w-full flex mt-3 lg:mt-8 justify-end">
+                  <div className="w-full flex mt-8 justify-end">
                     <Button
                       animateOnClick
                       variant="white-outline-on-primary"
-                      className="group"
+                      className="w-full lg:w-fit group"
                       type="button"
                       onClick={nextStep}
                     >
@@ -107,11 +106,12 @@ export const Form: React.FC<FormProps> = ({ currentStep, onNext, onPrev, onSucce
                 >
                   <PersonalInfoStep register={register} errors={errors} />
 
-                  <div className="w-full flex mt-3 lg:mt-12 justify-end">
+                  <div className="w-full flex mt-12 justify-end">
                     <Button
                       animateOnClick
+                      onClick={() => console.log("LCIK")}
                       variant="white-outline-on-primary"
-                      className="group"
+                      className="w-full lg:w-fit group"
                       type="submit"
                     >
                       Enviar{" "}

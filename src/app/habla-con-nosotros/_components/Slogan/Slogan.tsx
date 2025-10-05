@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/Button";
 import { motion, Variants } from "motion/react";
 import Image from "next/image";
 
@@ -31,6 +32,17 @@ const itemVariants: Variants = {
 };
 
 export const Slogan = () => {
+  const handleScrollToForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById("reserva-form-section");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <motion.section
       initial="hidden"
@@ -70,6 +82,17 @@ export const Slogan = () => {
             Agenda tu sesión de consulta gratuita o contáctanos directamente por
             WhatsApp para una atención inmediata.
           </motion.span>
+
+          <motion.div variants={itemVariants} className="mt-4">
+            <Button variant="reserva-form-link" asChild>
+              <a
+                href="#reserva-form-section"
+                onClick={handleScrollToForm}
+              >
+                Reserva una llamada
+              </a>
+            </Button>
+          </motion.div>
         </div>
       </motion.div>
     </motion.section>

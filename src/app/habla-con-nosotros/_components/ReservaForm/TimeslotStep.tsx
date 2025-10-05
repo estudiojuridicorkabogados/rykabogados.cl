@@ -1,7 +1,10 @@
+import { Control, UseFormRegister } from "react-hook-form";
 import { DaySelectorCalendar } from "./DaySelectorCalendar";
+import { FormData } from "./types";
 
 interface TimeSlotStepProps {
-  register: any;
+  register: UseFormRegister<FormData>;
+  control: Control<FormData>;
   errors: any;
 }
 
@@ -24,13 +27,14 @@ const timeSlots = [
 
 export const TimeSlotStep: React.FC<TimeSlotStepProps> = ({
   register,
+  control,
   errors,
 }) => {
   return (
     <div className="flex flex-col gap-8">
-      <DaySelectorCalendar register={register} errors={errors} />
+      <DaySelectorCalendar control={control} />
 
-      <div className="grid lg:grid-cols-7 gap-3">
+      <div className="relative grid grid-cols-3 lg:grid-cols-7 gap-3">
         {timeSlots.map((slot) => (
           <label key={slot} className="cursor-pointer">
             <input
@@ -44,10 +48,13 @@ export const TimeSlotStep: React.FC<TimeSlotStepProps> = ({
             </div>
           </label>
         ))}
+
+        {errors.timeSlot && (
+          <p className="absolute -bottom-7 text-red-400 text-sm mt-1">
+            {errors.timeSlot.message}
+          </p>
+        )}
       </div>
-      {errors.timeSlot && (
-        <p className="text-red-300 text-sm mt-1">{errors.timeSlot.message}</p>
-      )}
     </div>
   );
 };
