@@ -1,8 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
 import { motion, Variants } from "motion/react";
 import Image from "next/image";
+
+import { Button } from "@/components/ui/Button";
 
 const containerVariants: Variants = {
   hidden: { y: 400 },

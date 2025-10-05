@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "motion/react";
-
-import { itemVariants } from "@/lib/utils/animations";
-import { Button } from "@/components/ui/Button";
 import Link from "next/link";
+
 import { LinkedinIcon } from "@/components/icons/Linkedin";
+import { Button } from "@/components/ui/Button";
+import { itemVariants } from "@/lib/utils/animations";
 
 interface HeroContentProps {
   label: string;

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+
 import { HeroContent } from "./HeroContent";
 
 export const Hero = () => {

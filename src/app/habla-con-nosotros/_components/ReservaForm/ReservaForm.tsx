@@ -1,22 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { AnimatePresence, motion, stagger } from "motion/react";
 
+import { submitBookACallForm } from "@/actions/submitBookACallForm";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
 import { Form } from "./Form";
+import { FormData } from "./types";
 
 export const ReservaForm = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [isPending, startTransition] = useTransition();
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  
+  const [currentStep, setCurrentStep] = useState(1);
 
   const onNext = () => setCurrentStep(currentStep + 1);
 
   const onPrev = () => setCurrentStep(currentStep - 1);
 
-  const onSuccess = () => setSuccess(true);
+  const onSubmit = async (data: FormData) => {
+    setSubmitError(null);
+
+    startTransition(async () => {
+      try {
+        const result = await submitBookACallForm(data);
+
+        if (result.success) {
+          console.log("Form submitted successfully:", data);
+          setSuccess(true);
+        }
+      } catch (error) {
+        setSubmitError("Error inesperado. Por favor, intenta nuevamente.");
+        console.error("Submit error:", error);
+      }
+    });
+  };
 
   return (
     <motion.section
@@ -83,8 +104,9 @@ export const ReservaForm = () => {
                   <Form
                     currentStep={currentStep}
                     onNext={onNext}
-                    onPrev={onPrev}
-                    onSuccess={onSuccess}
+                    pending={isPending}
+                    submitError={submitError}
+                    onSubmit={onSubmit} 
                   />
                 </div>
               </motion.div>

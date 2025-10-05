@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion, stagger, Variants } from "motion/react";
-import { int, z } from "zod";
+import { AnimatePresence, motion } from "motion/react";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { Button } from "@/components/ui/Button";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { itemVariants } from "@/lib/utils/animations";
 
 import { PersonalInfoStep } from "./PersonalInfoStep";
@@ -16,16 +15,17 @@ import { FormData, formSchema } from "./types";
 
 interface FormProps {
   currentStep: number;
+  pending: boolean;
+  submitError: string | null;
   onNext: () => void;
-  onPrev: () => void;
-  onSuccess: () => void;
+  onSubmit: (formData: FormData) => void;
 }
 
 export const Form: React.FC<FormProps> = ({
   currentStep,
+  pending,
   onNext,
-  onPrev,
-  onSuccess,
+  onSubmit,
 }) => {
   const {
     register,
@@ -41,21 +41,15 @@ export const Form: React.FC<FormProps> = ({
   const nextStep = async () => {
     // Validate current step fields
     const isValid = await trigger(
-      currentStep === 1 ? ["timeSlot", "date"] : ["name", "email", "phoneNumber"]
+      currentStep === 1
+        ? ["timeSlot", "date"]
+        : ["name", "email", "phoneNumber"]
     );
 
     if (isValid) {
       onNext();
     }
   };
-
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    // Handle form submission here
-    onSuccess();
-  };
-
-  console.log("Errors:", errors);
 
   return (
     <motion.div variants={itemVariants} className="w-full">
@@ -79,7 +73,11 @@ export const Form: React.FC<FormProps> = ({
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <TimeSlotStep register={register} control={control} errors={errors} />
+                  <TimeSlotStep
+                    register={register}
+                    control={control}
+                    errors={errors}
+                  />
 
                   <div className="w-full flex mt-8 justify-end">
                     <Button
@@ -87,6 +85,7 @@ export const Form: React.FC<FormProps> = ({
                       variant="white-outline-on-primary"
                       className="w-full lg:w-fit group"
                       type="button"
+                      disabled={pending}
                       onClick={nextStep}
                     >
                       Proximo{" "}
@@ -111,11 +110,18 @@ export const Form: React.FC<FormProps> = ({
                       animateOnClick
                       onClick={() => console.log("LCIK")}
                       variant="white-outline-on-primary"
-                      className="w-full lg:w-fit group"
+                      className="w-full lg:w-40 group"
                       type="submit"
+                      disabled={pending}
                     >
-                      Enviar{" "}
-                      <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
+                      {pending ? (
+                        <LoadingSpinner />
+                      ) : (
+                        <>
+                          Enviar{" "}
+                          <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
+                        </>
+                      )}
                     </Button>
                   </div>
                 </motion.div>

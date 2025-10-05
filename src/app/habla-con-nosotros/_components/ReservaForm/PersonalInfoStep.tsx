@@ -1,7 +1,9 @@
 "use client";
 
-import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 import { UseFormRegister } from "react-hook-form";
+
+import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
+
 import { FormData } from "./types";
 
 interface PersonalInfoStepProps {
