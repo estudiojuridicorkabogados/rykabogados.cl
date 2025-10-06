@@ -33,7 +33,7 @@ export const OurTeam = () => {
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="py-16 lg:py-28">
-        <div className="px-6 lg:px-0 lg:mx-auto  lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="section-container mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <motion.h2
               variants={itemVariants}
@@ -78,7 +78,7 @@ export const OurTeam = () => {
                 className={classNames(
                   "snap-start shrink-0 w-[260px] md:w-[300px]",
                   "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
-                  "first:ml-6 lg:first:ml-40 last:mr-6"
+                  "first:ml-6 lg:first:ml-26 xl:first:ml-40 last:mr-6"
                 )}
               >
                 <div className="relative hidden lg:block h-[320px] bg-white/5">

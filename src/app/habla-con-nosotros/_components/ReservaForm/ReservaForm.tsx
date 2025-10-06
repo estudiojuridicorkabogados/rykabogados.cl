@@ -51,7 +51,7 @@ export const ReservaForm = () => {
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="py-16 lg:py-28 lg:h-[100vh]">
-        <div className="px-6 lg:mx-auto lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl">
+        <div className="section-container">
           <AnimatePresence mode="wait">
             {!success && (
               <motion.div

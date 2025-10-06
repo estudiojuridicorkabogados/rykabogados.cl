@@ -11,7 +11,7 @@ export const ContactSectionLight: React.FC<ContactSectionLightProps> = ({
 }) => {
   return (
     <section className="relative py-16 lg:py-32 flex items-center justify-center bg-[#F7F6F6]">
-      <div className="relative z-10 container lg:mx-auto lg:max-w-7xl px-6 lg:px-8 flex flex-col lg:flex-row gap-16 lg:gap-16">
+      <div className="relative z-10 section-container flex flex-col lg:flex-row gap-16 lg:gap-16">
         <div className="w-full lg:w-1/2 flex">
           <h3 className="text-3xl lg:text-5xl text-black">
             Agenda una llamada de evaluación gratis.

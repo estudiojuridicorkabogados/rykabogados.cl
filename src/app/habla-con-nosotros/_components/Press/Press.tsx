@@ -21,7 +21,7 @@ export const Press: React.FC = () => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="lg:mx-auto lg:min-w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl">
+      <div className="section-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="px-6 lg:px-0 space-y-12">
             <motion.h2

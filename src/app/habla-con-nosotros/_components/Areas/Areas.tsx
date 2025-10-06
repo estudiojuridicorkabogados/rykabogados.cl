@@ -22,7 +22,7 @@ export const Areas = () => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0.4 }}
     >
-      <div className="text-black lg:mx-auto lg:min-w-4xl lg:max-w-4xl xl:min-w-6xl xl:max-w-6xl 2xl:min-w-7xl 2xl:max-w-7xl 2xl:w-7xl flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-32 px-6 lg:px-0">
+      <div className="section-container text-black  flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-32">
         <div className="flex-2 flex flex-col gap-2 lg:gap-8">
           <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
             No hay nada que perder. <br />

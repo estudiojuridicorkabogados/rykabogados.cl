@@ -27,7 +27,7 @@ export const Videos = () => {
         viewport={{ once: true, amount: 0.3 }}
       >
         <div className="py-16 lg:py-28">
-          <div className="lg:mx-auto lg:max-w-4xl xl:max-w-6xl 2xl:min-w-7xl 2xl:max-w-7xl 2xl:w-7xl flex flex-col gap-8 px-6 lg:px-0">
+          <div className="section-container flex flex-col gap-8 px-6 lg:px-0">
             <motion.h2
               variants={itemVariants}
               className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black max-w-[440px] mb-8 lg:mb-12"

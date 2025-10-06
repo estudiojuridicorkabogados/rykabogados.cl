@@ -16,6 +16,7 @@ export const URLS: UrlsMap = {
   facebook: () => "https://www.facebook.com/p/RO-Abogados-Chile-100066607063186",
   instagram: () => "https://www.instagram.com/ryoabogadoschile",
   linkedin: () => "https://linkedin.com",
+  whatsapp: () => "http://api.whatsapp.com/send/?phone=56986395780&text=%C2%A1Hola%21+Me+gustar%C3%ADa+una+asesor%C3%ADa+laboral+gratuita&type=phone_number&app_absent=0",
 };
 
 type TeamMember = {

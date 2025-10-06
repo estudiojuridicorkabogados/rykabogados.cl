@@ -26,9 +26,9 @@ export default function HablaConNosotros() {
 
       <Videos />
 
-      {/* <Press /> */}
+      <Press />
 
-      {/* <ClientsReel /> */}
+      <ClientsReel />
 
       <Contact />
     </div>

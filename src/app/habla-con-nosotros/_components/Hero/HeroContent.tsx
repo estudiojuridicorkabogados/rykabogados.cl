@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
 import { itemVariants } from "@/lib/utils/animations";
+import { URLS } from "@/lib/utils/constants";
 
 interface HeroContentProps {
   label: string;
@@ -34,7 +35,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
-      className="relative z-10 mx-auto lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl px-6 flex flex-col"
+      className="section-container relative z-10 flex flex-col lg:w-4xl xl:w-6xl 2xl:w-7xl"
     >
       <motion.span
         variants={itemVariants}
@@ -65,8 +66,8 @@ export const HeroContent: React.FC<HeroContentProps> = ({
         </Button>
 
         <Button variant="whatsapp" asChild>
-          <a href="http://api.whatsapp.com/send/?phone=56986395780&text=%C2%A1Hola%21+Me+gustar%C3%ADa+una+asesor%C3%ADa+laboral+gratuita&type=phone_number&app_absent=0">
-            <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-primary transition-colors" />
+          <a href={URLS.whatsapp()} target="_blank" rel="noopener noreferrer" className="group flex items-center">
+            <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
             Hablamos para Whatsapp
           </a>
         </Button>
