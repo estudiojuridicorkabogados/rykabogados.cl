@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import Link from "next/link";
 
-import { LinkedinIcon } from "@/components/icons/Linkedin";
+import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
 import { itemVariants } from "@/lib/utils/animations";
 
@@ -58,7 +57,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
         {description}
       </motion.p>
 
-      <motion.div variants={itemVariants} className="flex gap-4">
+      <motion.div variants={itemVariants} className="flex flex-col md:flex-row gap-4">
         <Button variant="reserva-form-link" asChild>
           <a href="#reserva-form-section" onClick={handleScrollToForm}>
             Reserva un llamada
@@ -67,8 +66,8 @@ export const HeroContent: React.FC<HeroContentProps> = ({
 
         <Button variant="whatsapp" asChild>
           <a href="http://api.whatsapp.com/send/?phone=56986395780&text=%C2%A1Hola%21+Me+gustar%C3%ADa+una+asesor%C3%ADa+laboral+gratuita&type=phone_number&app_absent=0">
+            <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-primary transition-colors" />
             Hablamos para Whatsapp
-            <LinkedinIcon className="ml-2 w-4 h-4 fill-current text-black group-hover:text-primary transition-colors" />
           </a>
         </Button>
       </motion.div>

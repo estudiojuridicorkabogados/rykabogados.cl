@@ -63,7 +63,7 @@ export const Slogan = () => {
         variants={containerVariants}
         className="absolute h-[400px] lg:h-[360px] -bottom-1 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
       >
-        <div className="w-full lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-4 p-6 lg:p-0">
+        <div className="w-full lg:w-4xl xl:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-4 p-6 lg:p-0">
           <motion.span
             variants={itemVariants}
             className="uppercase text-sm text-accent font-bold tracking-[3px]"

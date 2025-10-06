@@ -15,7 +15,8 @@ export const Step: React.FC<StepProps> = ({ step }) => {
   return (
     <motion.div
       variants={itemVariants}
-      className="bg-[#fff3e1] flex flex-col items-start p-6 rounded-sm flex-1 h-full gap-6 shadow-md hover:-translate-y-2 duration-200 transition-transform"
+      whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+      className="bg-[#fff3e1] flex flex-col items-start p-6 rounded-sm w-full h-full gap-6 shadow-md"
     >
       <StepIcon icon={step.icon} />
 
