@@ -89,6 +89,7 @@ export const OurTeam = () => {
                     loading="lazy"
                     sizes="(max-width: 768px) 260px, (max-width: 1024px) 300px, 320px"
                     fill
+                    style={{ objectPosition: m.imageAlignment }}
                   />
                 </div>
                 <div className="p-4 flex justify-between items-start">

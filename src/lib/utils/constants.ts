@@ -25,6 +25,7 @@ type TeamMember = {
   role: string;
   photo: string;
   linkedin?: string;
+  imageAlignment?: "top" | "bottom";
 };
 
 export const TEAM_MEMBERS: TeamMember[] = [
@@ -34,6 +35,12 @@ export const TEAM_MEMBERS: TeamMember[] = [
     photo: "/images/team/camila.jpg",
     linkedin: "https://www.linkedin.com/",
   },
+    {
+    name: "Sebastian Kowalski",
+    role: "Chief Executive Officer",
+    photo: "/images/team/bastian.jpg",
+    linkedin: "https://www.linkedin.com/",
+  },
   {
     name: "Luciano Ascui",
     role: "Abogado Derecho Laboral",
@@ -41,10 +48,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "Javiera Fredes",
+    name: "Nicole Ulloa",
     role: "Abogada Derecho Laboral",
-    photo: "/images/team/javiera.jpg",
+    photo: "/images/team/nicole.jpeg",
     linkedin: "https://www.linkedin.com/",
+    imageAlignment: "top",
   },
   {
     name: "Bastian Morales",
@@ -59,21 +67,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "Javiera Fredes",
+    name: "Constanza Zarricueta",
     role: "Abogada Derecho Laboral",
-    photo: "/images/team/javiera.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Sebastian Kowalski",
-    role: "Chief Executive Officer",
-    photo: "/images/team/bastian.jpg",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    name: "Camila Retamales",
-    role: "Abogada Fundadora",
-    photo: "/images/team/camila.jpg",
+    photo: "/images/team/constanza.jpeg",
     linkedin: "https://www.linkedin.com/",
   },
 ];

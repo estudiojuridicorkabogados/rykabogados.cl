@@ -29,6 +29,11 @@ export const TeamGrid = () => {
                   fill
                   sizes="(max-width: 1024px) 100vw, 25vw"
                   className="rounded-2xl object-cover"
+                  style={
+                    person.imageAlignment === "top"
+                      ? { objectPosition: "top" }
+                      : undefined
+                  }
                 />
               </div>
 

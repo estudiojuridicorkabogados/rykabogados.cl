@@ -13,7 +13,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   return (
     <section
       id="testimonios"
-      className="relative w-screen h-[590px] lg:h-[690px] bg-[#0B142D] text-white overflow-hidden"
+      className="relative w-screen h-[590px] lg:h-[540px] bg-[#0B142D] text-white overflow-hidden "
     >
       <Image
         src="/images/santiago.webp"
@@ -23,7 +23,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
         className="object-cover object-top"
       />
 
-      <div className="absolute h-[480px] lg:h-[450px] bottom-0 left-0 right-0 backdrop-blur-[3px] flex items-center">
+      <div className="absolute h-full top-0 bottom-0 left-0 right-0 backdrop-blur-[3px] flex items-end [mask:linear-gradient(to_top,_black_0%,_black_60%,_transparent_80%)]">
         <TestimonalsCarousel
           title="Lo que dicen nuestro clientes"
           testimonials={testimonials}
