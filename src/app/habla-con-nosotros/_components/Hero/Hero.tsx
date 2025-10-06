@@ -6,19 +6,19 @@ import { HeroContent } from "./HeroContent";
 
 export const Hero = () => {
   return (
-    <section className="relative h-auto py-16 lg:h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-auto py-16 lg:h-[80vh] flex items-center justify-center overflow-hidden">
       <Image
         priority
         fill
         loading="eager"
-        src="/images/heros/studio-working.jpg"
+        src="/images/heros/tribunales-2.webp"
         alt="Nuestro equipo trabajando"
         sizes="100vw"
-        className="object-cover object-bottom-left"
+        className="object-cover object-top origin-center-left scale-125"
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/70" />
+      <div className="absolute inset-0 bg-black/65" />
 
       <HeroContent
         label="Habla con nosotros"

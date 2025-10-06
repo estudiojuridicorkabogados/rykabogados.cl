@@ -41,7 +41,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
             variants={itemVariants}
             className="text-4xl lg:text-5xl font-bold text-[#0B142D] leading-tight"
           >
-            Nuestros Articulos
+            Nuestros Artículos
           </motion.h2>
         </div>
 
