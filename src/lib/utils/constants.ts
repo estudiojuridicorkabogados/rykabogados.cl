@@ -32,32 +32,32 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Camila Retamales",
     role: "Abogada Fundadora",
-    photo: "/images/team/camila.jpg",
+    photo: "/images/team/camila.webp",
     linkedin: "https://www.linkedin.com/",
   },
     {
     name: "Sebastian Kowalski",
     role: "Chief Executive Officer",
-    photo: "/images/team/bastian.jpg",
+    photo: "/images/team/sebastian.webp",
     linkedin: "https://www.linkedin.com/",
   },
   {
     name: "Luciano Ascui",
     role: "Abogado Derecho Laboral",
-    photo: "/images/team/luciano.jpg",
+    photo: "/images/team/luciano.webp",
     linkedin: "https://www.linkedin.com/",
   },
   {
     name: "Nicole Ulloa",
     role: "Abogada Derecho Laboral",
-    photo: "/images/team/nicole.jpeg",
+    photo: "/images/team/nicole.webp",
     linkedin: "https://www.linkedin.com/",
     imageAlignment: "top",
   },
   {
     name: "Bastian Morales",
     role: "Abogado Derecho Laboral",
-    photo: "/images/team/bastian.jpg",
+    photo: "/images/team/bastian.webp",
     linkedin: "https://www.linkedin.com/",
   },
   {
@@ -69,7 +69,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Constanza Zarricueta",
     role: "Abogada Derecho Laboral",
-    photo: "/images/team/constanza.jpeg",
+    photo: "/images/team/constanza.webp",
     linkedin: "https://www.linkedin.com/",
   },
 ];

@@ -13,6 +13,7 @@ interface HeroSectionProps {
     src: string;
     alt: string;
   };
+  align?: "top" | "center" | "bottom";
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -21,6 +22,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   description,
   image,
   className = "",
+  align = "bottom",
 }) => {
   return (
     <section
@@ -36,7 +38,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         alt={image.alt}
         fill
         sizes="100vw"
-        className="object-cover object-bottom-left"
+        className={classNames("object-cover", {
+          "object-top": align === "top",
+          "object-center": align === "center",
+          "object-bottom": align === "bottom",
+        })}
       />
 
       {/* Overlay */}

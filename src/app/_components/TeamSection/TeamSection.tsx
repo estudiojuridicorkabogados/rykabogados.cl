@@ -26,10 +26,15 @@ export const TeamSection = () => {
           </h2>
 
           <p className="text-gray-60 mb-4">
-            En Retamales Kowalski Abogados contamos con un equipo de
-            profesionales calificados, comprometidos y dispuestos a entregar una
-            asesoría integral que le permita dar cumplimiento a la normativa
-            laboral y previsional vigente, prevenir infracciones.
+            En RK Abogados entendemos que la confianza no se promete, se
+            demuestra. Por eso enfrentamos cada desafío con pasión, ética y
+            compromiso con la excelencia, transformando los problemas legales en
+            soluciones concretas. Somos un estudio jurídico moderno y
+            multidisciplinario, con presencia en todo Chile. Nuestro equipo
+            combina experiencia, innovación y una visión humana para ofrecer
+            asesoría integral y estratégica en Derecho Laboral, Civil,
+            Societario y de Familia, guiados siempre por nuestros valores:
+            Excelencia, Lealtad e Integridad.
           </p>
 
           <NosotrosLink />

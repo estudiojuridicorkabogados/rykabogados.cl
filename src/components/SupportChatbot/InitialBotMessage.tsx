@@ -1,7 +1,8 @@
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { URLS } from "@/lib/utils/constants";
+
 import { containerVariants, } from "@/lib/utils/animations";
+import { URLS } from "@/lib/utils/constants";
 
 interface InitialBotMessageProps {
   open: boolean;

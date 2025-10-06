@@ -79,7 +79,8 @@ export const Footer = () => {
               Las Condes
             </span>
             <div className="flex flex-col gap-2">
-              <span>Tel 2 23644258</span>
+              <span>Tel 2 23644258 - 9 86395780</span>
+              
               <a
                 className="hover:text-accent"
                 href="mailto:estudio.juridico@ryoasociados.cl"

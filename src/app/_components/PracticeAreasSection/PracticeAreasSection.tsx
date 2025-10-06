@@ -42,7 +42,7 @@ export const PracticeAreasSection = () => {
       id="areas-de-practica"
       initial="hidden"
       whileInView="visible"
-      className="relative w-screen h-[690px] lg:h-[590px] overflow-hidden"
+      className="relative w-screen h-[690px] lg:h-[700px] overflow-hidden"
       viewport={{ once: true, amount: 0.8 }}
     >
       <Image
@@ -55,22 +55,22 @@ export const PracticeAreasSection = () => {
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[580px] lg:h-[460px] bottom-0 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
+        className="absolute h-[580px] lg:h-[520px] bottom-0 left-0 right-0 w-full bg-primary/60 backdrop-blur-[50px] flex flex-col justify-center"
       >
-        <div className="w-full lg:w-6xl lg:max-w-6xl xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:p-8">
+        <div className="w-full lg:w-6xl lg:max-w-6xl xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:py-8">
           <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
             Áreas de desempeño
           </span>
-          <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-20">
+          <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-16">
             <PracticeArea
               title="Trabajadores"
-              description="Si eres trabajador, tomamos tu caso a resultados, lo que significa que nuestros honorarios se cobrarán exclusivamente sobre la ganancia efectivamente percibida, ¡Sin gastos!"
+              description="Si eres trabajador, en RK Abogados tomamos tu caso a resultados, lo que significa que nuestros honorarios se cobrarán exclusivamente sobre la ganancia efectivamente obtenida. Ofrecemos una asesoría laboral completa, abarcando desde despidos injustificados y acoso laboral hasta vulneración de derechos, cobro de prestaciones y accidentes del trabajo, con un enfoque cercano, humano y orientado a soluciones justas y efectivas."
               link={URLS.asesoriaTrabajadores()}
             />
 
             <PracticeArea
               title="Empresas"
-              description="En R&O ABOGADOS contamos con un equipo de profesionales calificados, comprometidos y dispuestos a entregar una asesoría integral que le permita dar cumplimiento a la normativa laboral y previsional vigente, prevenir infracciones y/o defenderlo ante sanciones, demandas o multas generadas con ocasión del trabajo"
+              description="Si eres empresa, en RK Abogados brindamos asesoría laboral y corporativa integral, enfocada en el cumplimiento normativo, la prevención de riesgos y la resolución eficiente de conflictos. Acompañamos a su organización en contratos, políticas internas, fiscalizaciones y negociaciones colectivas, con un enfoque estratégico, preventivo y orientado a fortalecer las relaciones laborales."
               link={URLS.asesoriaEmpresas()}
             />
 

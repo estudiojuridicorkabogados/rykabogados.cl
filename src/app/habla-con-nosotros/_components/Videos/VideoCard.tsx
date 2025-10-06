@@ -25,7 +25,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlayVideo }) => {
       </div>
 
       <motion.button
-        className="w-full group flex items-center gap-3 text-black cursor-pointer transition-all border border-black border-solid rounded-full px-2 py-2 hover:bg-black hover:text-[#fff3e1]"
+        className="w-full group flex items-center gap-3 text-black cursor-pointer transition-all border border-primary border-solid rounded-full px-2 py-2 hover:bg-primary hover:text-accent"
         initial={false}
         whileTap={{ scale: 1.1 }}
         onClick={() => onPlayVideo(video)}
@@ -45,8 +45,9 @@ const PlayIcon = () => (
     height="14"
     viewBox="0 0 12 14"
     fill="none"
+    className="fill-primary ml-1"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M0 0L12 7L0 14V0Z" fill="black" />
+    <path d="M0 0L12 7L0 14V0Z" />
   </svg>
 );

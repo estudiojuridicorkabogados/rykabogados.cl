@@ -5,6 +5,7 @@ export const AsesoriaEmpresasHero = () => {
     <HeroSection
       label="Nuestros servicios"
       title="Asesoría Empresas"
+      align="center"
       description={`En RK Abogados contamos con un equipo de profesionales especializados en derecho laboral y corporativo, enfocado en brindar una asesoría estratégica, preventiva y resolutiva que garantice el cumplimiento de la normativa laboral y previsional vigente, minimice riesgos y fortalezca las relaciones con sus trabajadores.
 Nuestra asesoría abarca desde el diseño y actualización de contratos, políticas internas y reglamentos, hasta la implementación de modelos de cumplimiento laboral (Ley Karin, acoso laboral y sexual, igualdad de género, seguridad y salud en el trabajo).
 Acompañamos a su empresa en auditorías laborales, fiscalizaciones, procesos de negociación colectiva, despidos masivos o individuales, y defensa ante la Dirección del Trabajo o tribunales laborales.

@@ -20,15 +20,13 @@ export const ContactSectionLight: React.FC<ContactSectionLightProps> = ({
 
         <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:gap-4 text-black">
           <span className="uppercase text-sm font-bold tracking-[2px]">
-            Tienes Preguntas?
+            ¿Tienes Preguntas?
           </span>
 
           <h2 className="text-3xl lg:text-4xl font-bold">Contáctanos</h2>
 
           <p className="mb-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            vitae a delectus voluptatem sapiente, dolore quo quidem deleniti
-            fugiat, ipsam aliquid
+            Cuéntanos tu caso, nosotros nos encargamos del resto.
           </p>
 
           <ContactButton label={contactLabel} onClick={onContactClick} />

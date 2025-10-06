@@ -31,16 +31,16 @@ export const SupportChatbot = () => {
     if (!open && lastAssistantMsgId) setUnread((c) => c + 1);
   }, [lastAssistantMsgId, open]);
 
-  // Auto-scroll to latest message when open
   useEffect(() => {
     if (!open) return;
-
+    
     // Play notification sound for new messages
     const audio = new Audio('/sounds/bot-pop-up.mp3');
     audio.volume = 0.5;
     audio.play().catch(() => {
       // Handle autoplay restrictions silently
     });
+    // Auto-scroll to latest message when open
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, open]);
 

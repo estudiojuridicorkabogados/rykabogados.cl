@@ -25,15 +25,13 @@ export const ContactSection = () => {
 
         <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:gap-4">
           <span className="uppercase text-sm text-accent font-bold tracking-[2px]">
-            Tienes Preguntas?
+            ¿Tienes Preguntas?
           </span>
 
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-60">Contáctanos</h2>
 
           <p className="text-gray-60 mb-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            vitae a delectus voluptatem sapiente, dolore quo quidem deleniti
-            fugiat, ipsam aliquid
+            Cuéntanos tu caso, nosotros nos encargamos del resto.
           </p>
 
           <ContactButton />
