@@ -59,10 +59,9 @@ export const PracticeAreasSection = () => {
       >
         <div className="w-full lg:w-6xl lg:max-w-6xl xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:p-8">
           <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
-            
             Áreas de desempeño
           </span>
-          <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-48">
+          <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-20">
             <PracticeArea
               title="Trabajadores"
               description="Si eres trabajador, tomamos tu caso a resultados, lo que significa que nuestros honorarios se cobrarán exclusivamente sobre la ganancia efectivamente percibida, ¡Sin gastos!"
@@ -73,6 +72,12 @@ export const PracticeAreasSection = () => {
               title="Empresas"
               description="En R&O ABOGADOS contamos con un equipo de profesionales calificados, comprometidos y dispuestos a entregar una asesoría integral que le permita dar cumplimiento a la normativa laboral y previsional vigente, prevenir infracciones y/o defenderlo ante sanciones, demandas o multas generadas con ocasión del trabajo"
               link={URLS.asesoriaEmpresas()}
+            />
+
+            <PracticeArea
+              title="Otras Áreas"
+              description="En RK Abogados ofrecemos asesoría integral en materias civiles, societarias y familiares, abordando desde divorcios y conflictos civiles hasta contratos, constitución de sociedades y reestructuraciones empresariales, con un enfoque estratégico, humano y orientado a soluciones sostenibles."
+              link={URLS.otrasAreas()}
             />
           </div>
         </div>
@@ -92,15 +97,19 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
   description,
   link,
 }) => (
-  <motion.div variants={itemVariants} className="flex-1 flex flex-col gap-4">
+  <motion.div variants={itemVariants} className="flex-1 flex flex-col justify-between gap-4">
+    <div className="flex flex-col gap-4">
+
     <h2 className="text-2xl lg:text-5xl font-bold text-white">{title}</h2>
     <p className="text-sm lg:text-base text-white">{description}</p>
+    </div>
 
     <Link
       className="uppercase flex items-center font-semibold mt-1 lg:mt-4 text-accent text-xs lg:text-sm gap-3 group"
       href={link as Route}
     >
-      Ver más <LongArrowRight className="ml-2 stroke-accent group-hover:animate-wiggle" />
+      Ver más{" "}
+      <LongArrowRight className="ml-2 stroke-accent group-hover:animate-wiggle" />
     </Link>
   </motion.div>
 );

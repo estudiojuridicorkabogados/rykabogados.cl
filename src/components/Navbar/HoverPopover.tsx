@@ -13,7 +13,6 @@ interface HoverPopoverProps {
   links: {
     href: Route;
     label: string;
-    description: string;
     icon: React.ReactElement;
   }[];
 }
@@ -44,7 +43,7 @@ export const HoverPopover: React.FC<HoverPopoverProps> = ({ label, links }) => {
             <Link
               key={label}
               href={href}
-              className="text-black hover:text-accent-dark transition-all flex items-center gap-3 first:border-b first:border-black/10 py-3 first:pb-5 last:pt-4"
+              className="text-black hover:text-accent-dark transition-all flex items-center gap-3 border-b border-black/10 last:border-0 py-3 first:pb-5 last:pt-4"
               onClick={handleLinkClick}
             >
               <div className="flex items-center justify-center rounded-sm">

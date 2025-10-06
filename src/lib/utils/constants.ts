@@ -8,6 +8,7 @@ export const URLS: UrlsMap = {
   home: () => "/",
   asesoriaEmpresas: () => "/asesoria-empresas",
   asesoriaTrabajadores: () => "/asesoria-trabajadores",
+  otrasAreas: () => "/otras-areas",
   nosotros: () => "/nosotros",
   contacts: () => "/contacto",
   speakWithUs: () => "/habla-con-nosotros",

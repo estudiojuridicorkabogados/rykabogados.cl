@@ -22,6 +22,10 @@ const LINKS = [
     label: "Asesoría Empresas",
   },
   {
+    href: URLS.asesoriaEmpresas(),
+    label: "Otras Áreas",
+  },
+  {
     href: URLS.blog(),
     label: "Blog",
   },

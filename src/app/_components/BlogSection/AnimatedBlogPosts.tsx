@@ -41,7 +41,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
             variants={itemVariants}
             className="text-4xl lg:text-5xl font-bold text-[#0B142D] leading-tight"
           >
-            Nuestro Articulos
+            Nuestros Articulos
           </motion.h2>
         </div>
 
@@ -53,7 +53,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
             href="/blog"
             className="text-black uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200"
           >
-            Ver mas articulos
+            Ver más artículos
           </Link>
 
           <LongArrowRight className="ml-2 inline-block stroke-black group-hover:stroke-accent-dark group-hover:animate-wiggle transition-colors duration-200" />
@@ -119,7 +119,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
         className="flex lg:hidden items-center gap-2 w-full"
       >
         <Link href="/blog" className="text-black uppercase text-xs font-bold">
-          Ver mas articulos
+          Ver más artículos
         </Link>
 
         <LongArrowRight className="ml-2 inline-block stroke-black" />

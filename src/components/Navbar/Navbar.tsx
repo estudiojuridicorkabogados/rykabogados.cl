@@ -3,7 +3,13 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { HardHat, Landmark, Menu as MenuIcon, XIcon } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  HardHat,
+  Landmark,
+  Menu as MenuIcon,
+  XIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -43,22 +49,31 @@ const SERVICIOS_LINKS = [
   {
     href: URLS.asesoriaTrabajadores(),
     label: "Asesoría Trabajadores",
-    description: "Para aiutarte",
     icon: <HardHat className="size-4 stroke-primary" />,
   },
   {
     href: URLS.asesoriaEmpresas(),
     label: "Asesoría Empresas",
-    description: "Tiene empresas y pregunta",
     icon: <Landmark className="size-4 stroke-primary" />,
+  },
+  {
+    href: URLS.otrasAreas(),
+    label: "Otras Áreas",
+    icon: <BriefcaseBusiness className="size-4 stroke-primary" />,
   },
 ];
 
 export const Navbar = () => {
   return (
-    <Disclosure as="nav" className="relative z-50 bg-white h-[80px] lg:h-[100px] py-2">
+    <Disclosure
+      as="nav"
+      className="relative z-50 bg-white h-[80px] lg:h-[100px] py-2"
+    >
       <div className="container mx-auto px-6 lg:px-0 flex items-center justify-between h-full">
-        <Link href="/" className="relative flex items-center h-full w-[160px] lg:w-[220px]">
+        <Link
+          href="/"
+          className="relative flex items-center h-full w-[160px] lg:w-[220px]"
+        >
           <Image
             src="/images/logos/logo-black.png"
             alt="RyK Abogados Logo"

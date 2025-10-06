@@ -36,13 +36,18 @@ export const AboutSection = () => {
             variants={itemVariants}
             className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8"
           >
-            Retamales Kowalski Abogados es un estudio jurídico que ofrece sus
-            servicios a lo largo de todo Chile, conformado por un equipo de
-            abogados especializados que resuelven asuntos jurídicos
-            principalmente en el área del derecho laboral y cuyas estrategias
-            son discutidas y analizadas en conjunto, combinando las habilidades,
-            experiencia y competencias de cada uno de sus profesionales, con
-            excelentes y comprobables resultados.
+            En Retamales Kowalski Abogados, nuestra misión es entregar
+            soluciones jurídicas efectivas, éticas y personalizadas, que
+            respondan a las necesidades reales de nuestros clientes a lo largo
+            de todo Chile. Contamos con un equipo de abogados altamente
+            especializados en Derecho Laboral, con amplia experiencia y una
+            comprensión profunda de sus implicancias para empresas y
+            trabajadores. Cada estrategia se diseña y analiza en conjunto,
+            combinando conocimiento técnico, experiencia práctica y cercanía
+            humana, para asegurar resultados sólidos, medibles y sostenibles en
+            el tiempo. Nuestra prioridad es construir relaciones de confianza y
+            largo plazo, basadas en la transparencia, la lealtad y un compromiso
+            permanente con la excelencia profesional.
           </motion.p>
 
           <motion.div variants={itemVariants} className="hidden lg:block">
@@ -65,21 +70,24 @@ export const AboutSection = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
         >
-          <Stats title="Trabajadores" value={500} />
-          <Stats title="Empresas" value={120} />
+          <Stats className="lg:w-[206px]" title="Trabajadores" value={1490} startFrom={900} />
+          <Stats className="lg:w-[153px]" title="Empresas" value={100} />
         </motion.div>
 
-        <motion.div variants={itemVariants} className="w-full flex mt-4 lg:hidden">
-            <Button
-              className="w-full"
-              variant="default"
-              size="lg"
-              animateOnClick
-              onClick={navigateToContacto}
-            >
-              Contáctanos
-            </Button>
-          </motion.div>
+        <motion.div
+          variants={itemVariants}
+          className="w-full flex mt-4 lg:hidden"
+        >
+          <Button
+            className="w-full"
+            variant="default"
+            size="lg"
+            animateOnClick
+            onClick={navigateToContacto}
+          >
+            Contáctanos
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

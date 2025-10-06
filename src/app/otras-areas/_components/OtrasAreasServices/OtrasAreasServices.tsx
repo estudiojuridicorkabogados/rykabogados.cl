@@ -7,7 +7,7 @@ import { itemVariants } from "@/lib/utils/animations";
 
 import { SERVICES } from "./services";
 
-export const EmpresasServices = () => {
+export const OtrasAreasServices = () => {
   return (
     <motion.section
       id="hero"
