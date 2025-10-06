@@ -14,6 +14,7 @@ export const AboutSection = () => {
 
   const navigateToContacto = () => router.push(URLS.contacts());
 
+
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="lg:max-w-6xl 2xl:max-w-7xl xl:w-7xl  mx-auto px-6 flex flex-col lg:flex-row gap-y-8 gap-x-24 items-start">
@@ -22,8 +23,8 @@ export const AboutSection = () => {
           initial="hidden"
           whileInView="visible"
           variants={containerVariants}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, }}
+          transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
         >
           <motion.h2
             variants={itemVariants}

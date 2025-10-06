@@ -35,6 +35,12 @@ export const SupportChatbot = () => {
   useEffect(() => {
     if (!open) return;
 
+    // Play notification sound for new messages
+    const audio = new Audio('/sounds/bot-pop-up.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(() => {
+      // Handle autoplay restrictions silently
+    });
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, open]);
 

@@ -82,7 +82,7 @@ body {
 }
 
 .chatbot-msg.agent-msg {
-  @apply bg-white text-gray-900 border border-gray-200 rounded-bl-md;
+  @apply bg-white text-gray-900 border border-gray-200 rounded-bl-xs;
 }
 
 .chatbot-msg.user-msg {
