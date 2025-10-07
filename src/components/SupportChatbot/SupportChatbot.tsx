@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
+import Image from "next/image";
 
 import { classNames } from "@/lib/utils/classNames";
 
@@ -66,8 +67,8 @@ export const SupportChatbot = () => {
       {/* Chat Panel */}
       <div
         className={classNames([
-          "fixed bottom-4 right-4 z-50 origin-bottom-right transition-all duration-200 ease-out",
-          "w-[22rem] sm:w-[24rem] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col",
+          "fixed top-0 bottom-0 left-0 right-0 md:top-auto md:left-auto md:bottom-4 md:right-4 z-50 origin-bottom-right transition-all duration-200 ease-out",
+          "w-screen sm:w-[24rem] h-screen md:h-[500px] bg-white md:rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col",
           {
             "opacity-100 translate-y-0 scale-100 pointer-events-auto": open,
             "opacity-0 translate-y-2 scale-95 pointer-events-none": !open,
@@ -80,7 +81,13 @@ export const SupportChatbot = () => {
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-primary text-white">
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+            <Image
+              src="/images/logos/logo-white.png"
+              alt="RK Abogados"
+              width={120}
+              height={50}
+            />
+            {/* <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
               <ChatIcon />
             </span>
             <div className="leading-tight">
@@ -88,7 +95,7 @@ export const SupportChatbot = () => {
               <div className="text-xs opacity-80">
                 Solemos responder en minutos
               </div>
-            </div>
+            </div> */}
           </div>
 
           <button
