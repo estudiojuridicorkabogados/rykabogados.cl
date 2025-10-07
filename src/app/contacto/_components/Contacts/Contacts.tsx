@@ -9,8 +9,9 @@ export const Contacts = () => {
       <div className="flex flex-col lg:max-w-[320px]">
         <span className="font-bold">Visita nosotros</span>
         <span>
-          Antonio Bellet 143, Providencia <br /> Isidora Goyenechea 3000, Las
-          Condes
+          Antonio Bellet 143, oficina 609, Providencia
+          <br />
+          Isidora Goyenechea 3000, piso 23, Las Condes
         </span>
       </div>
 

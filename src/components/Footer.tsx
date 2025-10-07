@@ -45,7 +45,7 @@ export const Footer = () => {
   return (
     <footer className="bg-[#252525] text-white pt-16 pb-8">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-12">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 xl:gap-12">
           <div className="md:col-span-2 flex">
             <div className="relative w-full h-[40px] md:w-[320px] md:h-[64px] lg:mb-8">
               <Image
@@ -75,12 +75,14 @@ export const Footer = () => {
 
           <div className="flex flex-col text-white font-[500] gap-8 text-center md:text-left text-sm lg:text-base">
             <span>
-              Antonio Bellet 143, Providencia <br /> Isidora Goyenechea 3000,
-              Las Condes
+              Antonio Bellet 143, oficina 609, Providencia
+              <br />
+              Isidora Goyenechea 3000, piso 23, Las Condes
             </span>
+
             <div className="flex flex-col gap-2">
               <span>Tel 2 23644258 - 9 86395780</span>
-              
+
               <a
                 className="hover:text-accent"
                 href="mailto:estudio.juridico@ryoasociados.cl"
@@ -91,7 +93,11 @@ export const Footer = () => {
             </div>
 
             <div className="flex gap-3 items-center justify-center lg:justify-start">
-              <a href={URLS.instagram()} target="_blank" className="bg-white size-6 lg:size-8 rounded-full flex items-center justify-center">
+              <a
+                href={URLS.instagram()}
+                target="_blank"
+                className="bg-white size-6 lg:size-8 rounded-full flex items-center justify-center"
+              >
                 <InstagramIcon className="size-4 lg:size-5 fill-[#252525]" />
               </a>
               <a href={URLS.facebook()} target="_blank">
