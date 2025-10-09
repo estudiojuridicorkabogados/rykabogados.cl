@@ -17,10 +17,6 @@ export const TeamSection = () => {
         </div>
 
         <div className="w-full lg:w-1/2 flex flex-col gap-4">
-          <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
-            Encuentra el equipo
-          </span>
-
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-60">
             Nosostros
           </h2>
