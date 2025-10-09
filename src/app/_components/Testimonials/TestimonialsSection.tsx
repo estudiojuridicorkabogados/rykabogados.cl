@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import santiagoImage from "../../../../public/images/santiago.webp";
+
 import { TestimonalsCarousel } from "./TestimonialsCarousel";
 import { Testimonial } from "./types";
 
@@ -13,17 +15,17 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   return (
     <section
       id="testimonios"
-      className="relative w-screen h-[590px] lg:h-[540px] bg-[#0B142D] text-white overflow-hidden "
+      className="relative w-screen h-[590px] lg:h-[570px] bg-[#0B142D] text-white overflow-hidden "
     >
       <Image
-        src="/images/santiago.webp"
+        src={santiagoImage}
         alt="Santiago del Chile"
         fill
         sizes="100vw"
-        className="object-cover object-top"
+        className="object-cover object-top scale-105"
       />
 
-      <div className="absolute h-full top-0 bottom-0 left-0 right-0 backdrop-blur-[3px] flex items-end [mask:linear-gradient(to_top,_black_0%,_black_60%,_transparent_80%)]">
+      <div className="absolute top-1/2 left-3 right-3 lg:right-auto lg:left-1/2 transform lg:-translate-x-1/2 -translate-y-1/2 h-[350px] lg:h-[280px] backdrop-blur-xl rounded-2xl">
         <TestimonalsCarousel
           title="Lo que dicen nuestro clientes"
           testimonials={testimonials}

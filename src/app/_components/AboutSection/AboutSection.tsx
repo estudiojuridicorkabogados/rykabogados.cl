@@ -14,7 +14,6 @@ export const AboutSection = () => {
 
   const navigateToContacto = () => router.push(URLS.contacts());
 
-
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="lg:max-w-6xl 2xl:max-w-7xl xl:w-7xl  mx-auto px-6 flex flex-col lg:flex-row gap-y-8 gap-x-24 items-start">
@@ -23,7 +22,7 @@ export const AboutSection = () => {
           initial="hidden"
           whileInView="visible"
           variants={containerVariants}
-          viewport={{ once: true, }}
+          viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
         >
           <motion.h2
@@ -35,7 +34,7 @@ export const AboutSection = () => {
 
           <motion.p
             variants={itemVariants}
-            className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8"
+            className="lg:text-lg text-gray-600 leading-relaxed mb-2"
           >
             En Retamales Kowalski Abogados, nuestra misión es entregar
             soluciones jurídicas efectivas, éticas y personalizadas, que
@@ -43,11 +42,15 @@ export const AboutSection = () => {
             de todo Chile. Contamos con un equipo de abogados altamente
             especializados en Derecho Laboral, con amplia experiencia y una
             comprensión profunda de sus implicancias para empresas y
-            trabajadores. Cada estrategia se diseña y analiza en conjunto,
-            combinando conocimiento técnico, experiencia práctica y cercanía
-            humana, para asegurar resultados sólidos, medibles y sostenibles en
-            el tiempo. Nuestra prioridad es construir relaciones de confianza y
-            largo plazo, basadas en la transparencia, la lealtad y un compromiso
+            trabajadores.
+          </motion.p>
+
+          <motion.p variants={itemVariants} className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8">
+            Cada estrategia se diseña y analiza en conjunto, combinando
+            conocimiento técnico, experiencia práctica y cercanía humana, para
+            asegurar resultados sólidos, medibles y sostenibles en el tiempo.
+            Nuestra prioridad es construir relaciones de confianza y largo
+            plazo, basadas en la transparencia, la lealtad y un compromiso
             permanente con la excelencia profesional.
           </motion.p>
 
@@ -71,7 +74,12 @@ export const AboutSection = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
         >
-          <Stats className="lg:w-[206px]" title="Trabajadores" value={1490} startFrom={900} />
+          <Stats
+            className="lg:w-[206px]"
+            title="Trabajadores"
+            value={1490}
+            startFrom={900}
+          />
           <Stats className="lg:w-[153px]" title="Empresas" value={100} />
         </motion.div>
 

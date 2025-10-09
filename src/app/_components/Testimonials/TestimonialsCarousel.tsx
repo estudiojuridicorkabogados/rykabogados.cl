@@ -36,16 +36,16 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
   };
 
   return (
-    <div className="w-4xl h-[350px] lg:h-[280px] max-w-4xl mx-auto px-6 flex flex-col justify-between relative mb-8">
+    <div className="w-full lg:w-4xl h-full lg:max-w-4xl px-6 py-6 flex flex-col justify-between relative rounded-2xl">
       <div className="relative overflow-hidden">
         <div className="text-white font-light uppercase text-sm mb-4 tracking-[2px]">
           {title}
         </div>
 
-        <div className="relative h-[420px] w-full">
+        <div className="relative w-full">
           <AnimatePresence custom={direction} initial={false} mode="popLayout">
             <Slide key={selectedItem.index}>
-              <p className="text-3xl lg:text-3xl font-medium mb-8">
+              <p className="text-2xl lg:text-3xl font-medium mb-8">
                 &ldquo;{selectedItem.quote}&rdquo;
               </p>
             </Slide>
@@ -53,7 +53,7 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
         </div>
       </div>
 
-      <div className="w-full flex items-center justify-between mt-16">
+      <div className="w-full flex items-center justify-between mt-2">
         <AnimatePresence custom={direction} initial={false} mode="popLayout">
           <Slide key={selectedItem.index}>
             <div>

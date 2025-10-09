@@ -13,7 +13,7 @@ import "./globals.css";
 
 // @TODO Improve metadata
 export const metadata: Metadata = {
-  title: "RyK Abogados | Excelencia, Lealtad y Integridad",
+  title: "RK Abogados | Excelencia, Lealtad e Integridad",
   keywords: [
     "abogados",
     "abogados en chile",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "abogados r&k",
   ],
   description:
-    "RyK ABOGADOS es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
+    "RK Abogados es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
 };
 
 const DynamicToaster = dynamic(

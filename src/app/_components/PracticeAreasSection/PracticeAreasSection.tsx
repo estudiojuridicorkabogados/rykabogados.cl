@@ -42,7 +42,7 @@ export const PracticeAreasSection = () => {
       id="areas-de-practica"
       initial="hidden"
       whileInView="visible"
-      className="relative w-screen h-[690px] lg:h-[700px] overflow-hidden"
+      className="relative w-screen h-[1050px] lg:h-[700px] overflow-hidden"
       viewport={{ once: true, amount: 0.8 }}
     >
       <Image
@@ -55,7 +55,7 @@ export const PracticeAreasSection = () => {
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[580px] lg:h-[520px] bottom-0 left-0 right-0 w-full bg-primary/60 backdrop-blur-[50px] flex flex-col justify-center"
+        className="absolute h-[930px] lg:h-[520px] bottom-0 left-0 right-0 w-full bg-primary/60 backdrop-blur-[50px] flex flex-col justify-center"
       >
         <div className="w-full lg:w-6xl lg:max-w-6xl xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:py-8">
           <span className="uppercase text-sm text-accent font-bold tracking-[3px]">

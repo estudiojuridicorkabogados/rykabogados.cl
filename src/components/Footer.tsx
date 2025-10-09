@@ -6,13 +6,13 @@ import { usePathname } from "next/navigation";
 
 import { URLS } from "@/lib/utils/constants";
 
-import logoWhite from "../../public/images/logos/logo-white.png";
+import logoWhite from "../../public/images/logos/logo_symbol_white.png";
 
 import { FacebookIcon } from "./icons/Facebook";
 import { InstagramIcon } from "./icons/Instagram";
 import { LinkedinIcon } from "./icons/Linkedin";
 
-const LINKS = [
+const PAGE_LINKS = [
   {
     href: URLS.asesoriaTrabajadores(),
     label: "Asesoría Trabajadores",
@@ -35,6 +35,17 @@ const LINKS = [
   },
 ];
 
+const FORMALIDAD_LINKS = [
+  {
+    href: URLS.asesoriaTrabajadores(),
+    label: "Aviso Legal",
+  },
+  {
+    href: URLS.asesoriaEmpresas(),
+    label: "FAQ",
+  },
+];
+
 export const Footer = () => {
   const pathname = usePathname();
 
@@ -45,9 +56,9 @@ export const Footer = () => {
   return (
     <footer className="bg-[#252525] text-white pt-16 pb-8">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 xl:gap-12">
-          <div className="md:col-span-2 flex">
-            <div className="relative w-full h-[40px] md:w-[320px] md:h-[64px] lg:mb-8">
+        <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-8 xl:gap-12">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-16 w-full md:w-auto">
+            <div className="mt-2 relative w-full h-[40px] md:w-[179px] md:h-[89px] lg:mb-8">
               <Image
                 src={logoWhite}
                 alt="logo"
@@ -56,15 +67,32 @@ export const Footer = () => {
                 className="object-contain"
               />
             </div>
-          </div>
 
-          <div>
             <ul className="hidden lg:block space-y-3 text-center md:text-left">
-              {LINKS.map((link) => (
+              <li>
+                <span className="text-white font-bold">Paginas</span>
+              </li>
+              {PAGE_LINKS.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-white transition-colors hover:text-accent font-[500]"
+                    className="text-white transition-colors hover:text-accent font-light"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="hidden lg:block space-y-3 text-center md:text-left">
+              <li>
+                <span className="text-white font-bold">Formalidad</span>
+              </li>
+              {FORMALIDAD_LINKS.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-white transition-colors hover:text-accent font-light"
                   >
                     {link.label}
                   </Link>

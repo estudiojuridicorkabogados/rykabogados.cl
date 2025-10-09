@@ -47,16 +47,15 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
 
         <motion.div
           variants={itemVariants}
-          className="hidden lg:flex items-center gap-2 group"
+          className="hidden lg:flex"
         >
           <Link
             href="/blog"
-            className="text-black uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200"
+            className="items-center gap-2 group text-black uppercase text-xs font-bold hover:text-accent-dark transition-colors duration-200"
           >
             Ver más artículos
+            <LongArrowRight className="ml-2 inline-block stroke-black group-hover:stroke-accent-dark group-hover:animate-wiggle transition-colors duration-200" />
           </Link>
-
-          <LongArrowRight className="ml-2 inline-block stroke-black group-hover:stroke-accent-dark group-hover:animate-wiggle transition-colors duration-200" />
         </motion.div>
       </div>
 
