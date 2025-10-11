@@ -34,7 +34,7 @@ export const SERVICES = [
         </p>
 
         <p>
-          RyK Abogados lo acompañará en todo proceso ante este organismo,
+          RK Abogados lo acompañará en todo proceso ante este organismo,
           cuidando el debido proceso legal que debe existir al respecto y
           reclamando administrativa o judicialmente la rebaja o revocación de
           las multas laborales cursadas.
@@ -47,7 +47,7 @@ export const SERVICES = [
     description: (
       <div className="flex flex-col gap-3">
         <p>
-          En el contexto de una eventual negociación colectiva, RyK Abogados le
+          En el contexto de una eventual negociación colectiva, RK Abogados le
           asesorará y/o representará en cada una de las etapas de preparación,
           evaluación y de aplicación práctica del contrato o convenio colectivo.
         </p>

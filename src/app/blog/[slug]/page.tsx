@@ -43,8 +43,8 @@ export async function generateMetadata({
       return {};
     }
 
-    const title = post.metaTitle || post.title || "RyK Abogados - Blog Post";
-    const description = post.metaDescription || post.excerpt || "RyK Abogados - Blog Post";
+    const title = post.metaTitle || post.title || "RK Abogados - Blog Post";
+    const description = post.metaDescription || post.excerpt || "RK Abogados - Blog Post";
 
     const images = post.mainImage?.url
       ? [
@@ -59,11 +59,11 @@ export async function generateMetadata({
     return {
       title,
       description,
-      creator: "RyK Abogados",
+      creator: "RK Abogados",
       openGraph: {
         title,
         description,
-        siteName: "RyK Abogados",
+        siteName: "RK Abogados",
         images,
         locale: "es-CL",
         url: new URL(`/blog/${slug}`, env.NEXT_PUBLIC_BASE_URL),
@@ -87,15 +87,15 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "@id": `${url}/#BlogPosting`,
-    name: post.metaTitle || post.title || "RyK Abogados - Blog Post",
-    description: post.metaDescription || post.excerpt || "RyK Abogados - Blog Post",
+    name: post.metaTitle || post.title || "RK Abogados - Blog Post",
+    description: post.metaDescription || post.excerpt || "RK Abogados - Blog Post",
     datePublished: post.date
       ? format(new Date(post.date), "yyyy-MM-dd")
       : undefined,
     author: {
       "@type": "Person",
       "@id": `${post.author?.name}/#Person`,
-      name: post.author?.name || "RyK Abogados",
+      name: post.author?.name || "RK Abogados",
     },
     image: {
       "@type": "ImageObject",

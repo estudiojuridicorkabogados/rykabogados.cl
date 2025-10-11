@@ -38,7 +38,7 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
   return (
     <div className="w-full lg:w-4xl h-full lg:max-w-4xl px-6 py-6 flex flex-col justify-between relative rounded-2xl">
       <div className="relative overflow-hidden">
-        <div className="text-white font-light uppercase text-sm mb-4 tracking-[2px]">
+        <div className="text-white font-bold uppercase text-xs lg:text-sm mb-4 tracking-[3px]">
           {title}
         </div>
 

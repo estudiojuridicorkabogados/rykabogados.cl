@@ -27,13 +27,7 @@ export const Alert: React.FC<PropsWithChildren> = ({ children }) => (
 );
 
 export const Text: React.FC<PropsWithChildren> = ({ children }) => {
-  const childrenArray = Children.toArray(children);
-
-  if (childrenArray.length === 1 && childrenArray[0] === "") {
-    return null;
-  }
-
-  return <p className="text-lg mb-2">{children}</p>;
+  return <p className="text-lg mt-2 mb-2">{children}</p>;
 };
 
 export const UnorderedList: React.FC<PropsWithChildren> = ({ children }) => (
@@ -107,12 +101,12 @@ export const Heading: React.FC<PropsWithChildren<HeadingProps>> = ({
       return <h1 className="rich-text-heading text-5xl">{children}</h1>;
     case 2:
       return (
-        <h2 className="rich-text-heading font-semibold! text-2xl lg:text-4xl mt-8 lg:mt-12">
+        <h2 className="rich-text-heading text-2xl lg:text-4xl mt-8 lg:mt-12">
           {children}
         </h2>
       );
     case 3:
-      return <h3 className="rich-text-heading text-xl">{children}</h3>;
+      return <h3 className="rich-text-heading text-xl lg:text-2xl">{children}</h3>;
     case 4:
       return <h4 className="rich-text-heading text-lg">{children}</h4>;
     case 5:

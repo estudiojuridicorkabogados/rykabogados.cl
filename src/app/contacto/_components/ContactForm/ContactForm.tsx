@@ -103,7 +103,7 @@ export const ContactForm = () => {
 
           <div className="flex flex-col gap-2">
             <label
-              className="font-bold text-white/80 text-xs"
+              className="font-bold text-white/80 text-base pt-2"
               htmlFor="mensaje"
             >
               Mensaje

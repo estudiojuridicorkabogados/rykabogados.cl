@@ -42,11 +42,11 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
       <div className="w-full lg:max-w-xl">
         <motion.div
           variants={itemVariants}
-          className="mt-4 flex items-center gap-x-2 text-sm lg:text-lg"
+          className="mt-4 flex items-center gap-x-2 text-sm lg:text-base"
         >
           <span className="text-black/60">{blogPost.author?.name}</span>
 
-          <span className="text-black">|</span>
+          <span className="text-accent-dark">|</span>
 
           <time
             dateTime={blogPost.date || new Date().toISOString()}

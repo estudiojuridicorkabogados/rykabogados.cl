@@ -76,7 +76,7 @@ export const Navbar = () => {
         >
           <Image
             src="/images/logos/logo-black.png"
-            alt="RyK Abogados Logo"
+            alt="RK Abogados Logo"
             fill
             sizes="(max-width: 1024px) 180px, 240px"
             className="object-contain"

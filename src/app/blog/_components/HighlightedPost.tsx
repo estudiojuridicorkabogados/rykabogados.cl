@@ -8,6 +8,8 @@ import Link from "next/link";
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { ShortPost } from "@/types/global";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 interface HighlightedPostProps {
   post: ShortPost;
@@ -45,16 +47,35 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
             sizes="(max-width: 1024px) 100vw, 80vw"
           />
 
-          <div className="absolute inset-0 flex flex-col justify-end items-start gap-4 p-4 lg:p-8 z-10">
+          <div className="backdrop-blur-xl absolute bottom-4 left-4 right-4 w-fit rounded-2xl overflow-hidden flex flex-col justify-end items-start gap-3 p-4 lg:p-6 z-10">
+            {/* <div className="backdrop-blur-xl absolute inset-0 flex flex-col justify-end items-start gap-4 p-4 lg:p-8 z-10"> */}
+            <motion.div
+              variants={itemVariants}
+              className="flex items-center gap-x-2 text-sm lg:text-base"
+            >
+              <span className="text-white">{post.author?.name}</span>
+
+              <span className="text-white">|</span>
+
+              <time
+                dateTime={post.date || new Date().toISOString()}
+                className="text-white"
+              >
+                {post.date
+                  ? format(post.date, "dd.MM.yyyy", { locale: es })
+                  : ""}
+              </time>
+            </motion.div>
+
             <motion.h2
               variants={itemVariants}
-              className="text-xl lg:text-3xl font-bold text-white line-clamp-4 leading-6"
+              className="text-xl lg:text-3xl font-bold text-white line-clamp-4 lg:w-2/3"
             >
               {post.title}
             </motion.h2>
             <motion.p
               variants={itemVariants}
-              className="hidden md:flex text-white line-clamp-3 text-sm lg:text-medium"
+              className="hidden md:flex text-white line-clamp-3 text-sm lg:text-medium lg:w-2/3"
             >
               {post.excerpt}
             </motion.p>

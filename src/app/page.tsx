@@ -18,7 +18,7 @@ async function fetchHomePageData() {
     },
     {
       quote:
-        "Como empresa, necesitábamos asesoría legal confiable. RyK Abogados nos ha acompañado en nuestro crecimiento.",
+        "Como empresa, necesitábamos asesoría legal confiable. RK Abogados nos ha acompañado en nuestro crecimiento.",
       name: "Jorge Silva",
       role: "CEO, TechStart",
     },

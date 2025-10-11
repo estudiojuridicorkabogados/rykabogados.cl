@@ -85,6 +85,10 @@ body {
   @apply bg-white text-gray-900 border border-gray-200 rounded-bl-xs;
 }
 
+.rich-text-heading {
+  @apply font-sans font-bold;
+}
+
 .chatbot-msg.user-msg {
   @apply bg-primary text-white rounded-br-md;
 }

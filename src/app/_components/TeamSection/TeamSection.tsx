@@ -10,7 +10,7 @@ export const TeamSection = () => {
         <div className="w-full lg:w-1/2 h-[390px] relative">
           <Image
             src="/images/team.webp"
-            alt="Equipo de RyK Abogados"
+            alt="Equipo de RK Abogados"
             fill
             className="object-cover rounded-xl"
           />

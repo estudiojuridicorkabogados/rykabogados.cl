@@ -91,7 +91,7 @@ export const SupportChatbot = () => {
               <ChatIcon />
             </span>
             <div className="leading-tight">
-              <div className="font-semibold">RyK Abogados</div>
+              <div className="font-semibold">RK Abogados</div>
               <div className="text-xs opacity-80">
                 Solemos responder en minutos
               </div>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
 import { URLS } from "@/lib/utils/constants";
+import { WhatsappIcon } from "@/components/icons/Whatsapp";
 
 export const HablaConNosotros: React.FC = () => {
   const router = useRouter();
@@ -27,6 +28,18 @@ export const HablaConNosotros: React.FC = () => {
         onClick={navigateToHablaConNosotros}
       >
         Reserva una llamada
+      </Button>
+
+      <Button variant="whatsapp" asChild>
+        <a
+          href={URLS.whatsapp()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center w-full mt-4"
+        >
+          <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
+          Hablamos para Whatsapp
+        </a>
       </Button>
     </div>
   );

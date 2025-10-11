@@ -56,7 +56,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             {Tags.map((tag) => (
               <span
                 key={tag}
-                className="text-sm uppercase font-medium px-2 py-1 bg-[#EEEEEE] text-black/25"
+                className="text-sm uppercase font-medium px-2 py-1 bg-accent text-accent-dark rounded-sm"
               >
                 {tag}
               </span>
@@ -69,9 +69,9 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         <HablaConNosotros />
       </div>
 
-      <blockquote className="border-slate-300 border-t pt-10 mt-10 text-xl/8 font-semibold tracking-tight text-gray-700 sm:text-xl">
+      <blockquote className="border-slate-300 border-t pt-10 mt-10 text-black/50 sm:text-xl">
         <p>
-          En RyK Abogados, somos especialistas en derecho laboral y estamos
+          En RK Abogados, somos especialistas en derecho laboral y estamos
           comprometidos en brindar asesoría tanto a empresas como a trabajadores
           en materia de inclusión laboral y cumplimiento normativo. Si tu
           empresa busca implementar políticas inclusivas o si eres un trabajador

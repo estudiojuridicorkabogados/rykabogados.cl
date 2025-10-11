@@ -139,7 +139,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 md:mt-32 flex flex-col lg:flex-row gap-y-0 gap-x-8 lg:items-center lg:justify-between text-xs text-white/50">
-          <p>&copy; {new Date().getFullYear()} RyK Abogados</p>
+          <p>&copy; {new Date().getFullYear()} RK Abogados</p>
 
           <p>Todos los derechos reservados</p>
         </div>
