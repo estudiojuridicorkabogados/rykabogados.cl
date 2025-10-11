@@ -28,9 +28,9 @@ export default function HablaConNosotros() {
 
       <Press />
 
-      <ClientsReel />
-
       <Contact />
+
+      <ClientsReel />
     </div>
   );
 }

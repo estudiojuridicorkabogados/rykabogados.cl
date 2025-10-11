@@ -9,6 +9,7 @@ import { classNames } from "@/lib/utils/classNames";
 
 import { Form } from "./Form";
 import { FormData } from "./types";
+import { ReservaFormSuccessFeedback } from "./ReservaFormSuccessFeedback";
 
 export const ReservaForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -50,7 +51,9 @@ export const ReservaForm = () => {
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="py-16 lg:py-28 lg:h-[100vh]">
+      <div className="py-16 lg:py-28 lg:h-[100vh] relative">
+        <ReservaFormSuccessFeedback />
+
         <div className="section-container">
           <AnimatePresence mode="wait">
             {!success && (
