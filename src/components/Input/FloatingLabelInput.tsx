@@ -31,7 +31,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
         defaultValue={defaultValue}
         placeholder={label}
         className={classNames([
-          "peer block w-full bg-transparent text-white",
+          "peer block w-full bg-transparent text-white text-xs lg:text-base",
           "border-0 border-b border-white/60",
           "focus:border-white outline-none focus:ring-0",
           "placeholder-transparent caret-white",
@@ -48,7 +48,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
           "pointer-events-none absolute left-0",
           "text-white/80 transition-all duration-200",
           "top-0 text-xs", // floated (default when not placeholder-shown or on focus)
-          "peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-white/70", // when empty (placeholder shown) - sit on the baseline
+          "peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm lg:peer-placeholder-shown:text-base peer-placeholder-shown:text-white/70", // when empty (placeholder shown) - sit on the baseline
           "font-bold peer-focus:top-0 peer-focus:text-xs peer-focus:text-white", // focus styles
         ])}
       >

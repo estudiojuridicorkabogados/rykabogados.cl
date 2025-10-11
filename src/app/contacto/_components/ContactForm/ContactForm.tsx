@@ -49,7 +49,7 @@ export const ContactForm = () => {
 
   return (
     <div className="flex-2 flex flex-col justify-end h-full">
-      <div className="flex flex-col gap-8 text-white">
+      <div className="flex flex-col gap-4 lg:gap-8 text-white">
         <h1 className="text-5xl">Contáctanos</h1>
         <p className="lg:max-w-2/3">
           Cuéntanos tu caso, nosotros nos encargamos del resto.
@@ -58,7 +58,7 @@ export const ContactForm = () => {
         <form
           ref={formRef}
           action={action}
-          className="max-w-[450px] flex flex-col gap-6"
+          className="max-w-[450px] flex flex-col gap-6 mt-4"
         >
           {/* Honeypot for bots */}
           <input
@@ -103,7 +103,7 @@ export const ContactForm = () => {
 
           <div className="flex flex-col gap-2">
             <label
-              className="font-bold text-white/80 text-base pt-2"
+              className="font-bold text-white/80 text-sm lg:text-base pt-2"
               htmlFor="mensaje"
             >
               Mensaje
@@ -111,7 +111,7 @@ export const ContactForm = () => {
             <textarea
               id="mensaje"
               name="mensaje"
-              className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0"
+              className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-sm lg:text-base"
               rows={5}
               placeholder="Cuéntanos sobre tu requierimento"
             />

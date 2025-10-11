@@ -18,7 +18,7 @@ export const Hero = () => {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/65" />
+      <div className="absolute inset-0 bg-black/70" />
 
       <HeroContent
         label="Habla con nosotros"

@@ -23,7 +23,7 @@ export const Press: React.FC = () => {
     >
       <div className="section-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="px-6 lg:px-0 space-y-12">
+          <div className="px-0 space-y-12">
             <motion.h2
               variants={itemVariants}
               className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black"
