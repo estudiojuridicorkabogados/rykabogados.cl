@@ -78,7 +78,7 @@ body {
 }
 
 .chatbot-msg {
-  @apply max-w-[85%] rounded-2xl px-3 py-2 text-sm shadow-sm;
+  @apply max-w-[92%] rounded-2xl px-3 py-3 text-sm font-[500] border border-[#D9D9D9];
 }
 
 .chatbot-msg.agent-msg {

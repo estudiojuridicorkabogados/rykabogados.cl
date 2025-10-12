@@ -1,7 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 
-import { containerVariants, } from "@/lib/utils/animations";
+import { containerVariants } from "@/lib/utils/animations";
 import { URLS } from "@/lib/utils/constants";
 
 interface InitialBotMessageProps {
@@ -38,31 +38,20 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
       <div>
         <div className="flex flex-col items-start gap-4">
           <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
-            ¡Hola! Soy el asistente virtual de Ryk Abogados. Estoy aquí para
-            ayudarte con consultas legales y brindarte información sobre
-            nuestros servicios. ¿En qué puedo asistirte hoy?
+            ¡Hola! 👋 Soy el asistente virtual de RK Abogados. ¿En qué puedo asistirte hoy?
           </motion.div>
 
           <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
-            Si queres, también puedes agendar una reunión con uno de nuestros
-            abogados haciendo{" "}
-            <Link
-              href="/habla-con-nosotros#reserva-form-section"
-              rel="noreferrer"
-              className="text-primary underline font-medium hover:text-primary/80 cursor-pointer"
-            >
-              click aquí
-            </Link>
-            . O puede escribirnos a nuestro WhatsApp haciendo{" "}
+            O
+            {" "}
             <a
               href={URLS.whatsapp()}
               target="_blank"
               rel="noreferrer"
-              className="text-primary underline font-medium hover:text-primary/80 cursor-pointer"
+              className="text-black underline font-medium hover:text-primary/80 cursor-pointer"
             >
-              click aquí
+              hablamos para whatsapp 📲
             </a>
-            .
           </motion.div>
         </div>
       </div>
