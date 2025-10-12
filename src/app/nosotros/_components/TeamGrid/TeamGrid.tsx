@@ -3,22 +3,46 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 
-import { itemVariants } from "@/lib/utils/animations";
+import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { TEAM_MEMBERS } from "@/lib/utils/constants";
 
 export const TeamGrid = () => {
   return (
     <div className="py-16 lg:py-28 bg-primary">
       <motion.div
+        className="section-container flex flex-col gap-4"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ staggerChildren: 0.3 }}
-        className="mx-auto w-full lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl px-6 lg:px-8"
+        variants={containerVariants}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
       >
+        <motion.h2
+          variants={itemVariants}
+          className="text-4xl lg:text-5xl font-bold text-white leading-tight"
+        >
+          Los miembros
+        </motion.h2>
+
+        <motion.p
+          variants={itemVariants}
+          className="lg:text-lg text-white mb-2 lg:max-w-4xl"
+        >
+          Nuestro equipo de abogados especializados en Derecho Laboral, Civil,
+          Societario y de Familia combina experiencia, conocimiento actualizado
+          y una visión humana para entregar asesoría integral, preventiva y
+          resolutiva. Acompañamos a las empresas en el cumplimiento de la
+          normativa laboral y previsional, la gestión de conflictos, auditorías
+          y defensa ante fiscalizaciones, además de asesorar en contratos,
+          sociedades y reestructuraciones empresariales. Guiados por nuestros
+          valores —Excelencia, Lealtad e Integridad— trabajamos con cercanía y
+          profesionalismo, ofreciendo resultados sólidos y relaciones de
+          confianza duraderas.
+        </motion.p>
+
         <ul
           role="list"
-          className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
+          className="mt-8 mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
         >
           {TEAM_MEMBERS.map((person, i) => (
             <motion.li key={i} variants={itemVariants}>
@@ -40,9 +64,7 @@ export const TeamGrid = () => {
               <h3 className="!font-sans !font-bold mt-6 text-lg/8 tracking-tight text-white">
                 {person.name}
               </h3>
-              <p className="text-base/7 text-white/80">
-                {person.role}
-              </p>
+              <p className="text-base/7 text-white/80">{person.role}</p>
             </motion.li>
           ))}
         </ul>

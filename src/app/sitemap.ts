@@ -4,10 +4,13 @@ const BASE_PATHS = [
   "",
   "/asesoria-empresas",
   "/asesoria-trabajadores",
+  "/otras-areas",
   "/blog",
   "/nosotros",
   "/contacto",
   "/habla-con-nosotros",
+  "/aviso-legal",
+  "/faq",
 ];
 
 async function fetchPostRoutes() {
