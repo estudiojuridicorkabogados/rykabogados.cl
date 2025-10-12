@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
-import { MessageSquareIcon } from "lucide-react";
+import { MessageCircleQuestionMark, MessageSquareIcon } from "lucide-react";
 
 import { classNames } from "@/lib/utils/classNames";
 
@@ -22,7 +22,8 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       type="button"
       onClick={onToggleOpen}
       className={classNames([
-        "z-50 cursor-pointer fixed bottom-4 right-4 h-14 w-14 rounded-full bg-accent-dark text-white shadow-lg ring-1 ring-black/5 transition-all duration-200 ease-out",
+        "z-50 cursor-pointer fixed bottom-4 right-4 ring-black/5 transition-all duration-200 ease-out",
+        "h-14 w-14 rounded-full bg-accent border border-accent-dark text-white shadow-lg ring-1",
         {
           "opacity-0 scale-95 pointer-events-none": open,
           "opacity-100 scale-100": !open,
@@ -32,7 +33,7 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       aria-label={open ? "Hide chat" : "Open chat"}
     >
       {/* Chat icon */}
-      <MessageSquareIcon className="h-6 w-6 stroke-white/90" />
+      <MessageCircleQuestionMark className="h-6 w-6 stroke-primary" />
 
       {/* Unread badge */}
       {unread > 0 && (

@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import { SendIcon } from "lucide-react";
 
 interface ChatbotSupportInputProps {
+  textareaRef: React.Ref<HTMLTextAreaElement>;
   onSubmit: (query: string) => void;
 }
 
 export const ChatbotInput: React.FC<ChatbotSupportInputProps> = ({
+  textareaRef,
   onSubmit,
 }) => {
   const [input, setInput] = useState("");
@@ -48,7 +50,8 @@ export const ChatbotInput: React.FC<ChatbotSupportInputProps> = ({
     >
       <div className="flex items-start gap-2">
         <textarea
-          className=" transition-all flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm outline-none text-gray-900 placeholder:text-gray-500 focus:border-primary focus:ring-2 focus:ring-primary"
+          ref={textareaRef}
+          className=" transition-all flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm outline-none text-gray-900 placeholder:text-gray-500 focus:border-primary focus:ring-1 focus:ring-primary"
           value={input}
           rows={2}
           style={{ resize: 'none' }}

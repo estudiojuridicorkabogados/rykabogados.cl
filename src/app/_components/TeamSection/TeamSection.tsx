@@ -12,7 +12,7 @@ export const TeamSection = () => {
             src="/images/team.webp"
             alt="Equipo de RK Abogados"
             fill
-            className="object-cover rounded-xl"
+            className="object-cover rounded"
           />
         </div>
 

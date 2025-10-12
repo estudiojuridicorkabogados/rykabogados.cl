@@ -36,7 +36,7 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div>
-        <div className="flex flex-col items-start gap-4">
+        <div className="flex flex-col items-start gap-2">
           <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
             ¡Hola! 👋 Soy el asistente virtual de RK Abogados. ¿En qué puedo asistirte hoy?
           </motion.div>

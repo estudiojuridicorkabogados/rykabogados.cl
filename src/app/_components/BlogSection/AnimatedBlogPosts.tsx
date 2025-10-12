@@ -45,10 +45,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
           </motion.h2>
         </div>
 
-        <motion.div
-          variants={itemVariants}
-          className="hidden lg:flex"
-        >
+        <motion.div variants={itemVariants} className="hidden lg:flex">
           <Link
             href="/blog"
             className="items-center gap-2 group text-black uppercase text-xs font-bold hover:text-accent-dark transition-colors duration-200"
@@ -65,23 +62,21 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
             href={`/blog/${mainPost.slug}`}
             className="w-full flex flex-col"
           >
-            <div className="relative w-full lg:h-[360px] aspect-square lg:aspect-video rounded-lg shadow-[0px_2px_2px_0px_#00000040]">
+            <div className="relative w-full lg:h-[360px] aspect-square lg:aspect-video">
               <Image
                 fill
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 src={mainPost.mainImage?.url || "/images/default-image.jpg"}
                 alt={mainPost.mainImage?.title || "Blog Post Image"}
-                className="object-cover rounded-lg shadow-[0px_2px_2px_0px_#00000040]"
+                className="object-cover rounded"
               />
             </div>
 
-            <h3 className="mt-6 text-xl lg:text-3xl text-black line-clamp-2">
+            <AuthorAndDate blogPost={mainPost} />
+
+            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-semibold !font-sans">
               {mainPost.title}
             </h3>
-
-            {mainPost.date ? (
-              <p className="text-black/40">{formatDate(mainPost.date)}</p>
-            ) : null}
           </Link>
         </motion.div>
 
@@ -90,7 +85,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
             href={`/blog/${secondaryPost.slug}`}
             className="w-full flex flex-col"
           >
-            <div className="relative lg:h-[360px] aspect-square rounded-lg shadow-[0px_2px_2px_0px_#00000040]">
+            <div className="relative lg:h-[360px] aspect-square rounded">
               <Image
                 fill
                 src={
@@ -98,17 +93,15 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
                 }
                 sizes="(max-width: 1024px) 100vw, 33vw"
                 alt={secondaryPost.mainImage?.title || "Blog Post Image"}
-                className="object-cover rounded-lg shadow-[0px_2px_2px_0px_#00000040]"
+                className="object-cover rounded"
               />
             </div>
 
-            <h3 className="mt-6 text-xl lg:text-3xl text-black line-clamp-2">
+            <AuthorAndDate blogPost={secondaryPost} />
+
+            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-semibold !font-sans">
               {secondaryPost.title}
             </h3>
-
-            {secondaryPost.date ? (
-              <p className="text-black/40">{formatDate(secondaryPost.date)}</p>
-            ) : null}
           </Link>
         </motion.div>
       </div>
@@ -130,3 +123,22 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
 function formatDate(date: string): string {
   return format(new Date(date), "dd.MM.yyyy", { locale: es });
 }
+
+const AuthorAndDate: React.FC<{ blogPost: ShortPost }> = ({ blogPost }) => {
+  return (
+    <div className="mt-4 flex items-center gap-x-2 text-sm lg:text-base">
+      <span className="text-black/60">{blogPost.author?.name}</span>
+
+      <span className="text-accent-dark">|</span>
+
+      <time
+        dateTime={blogPost.date || new Date().toISOString()}
+        className="text-black/40"
+      >
+        {blogPost.date
+          ? format(blogPost.date, "dd.MM.yyyy", { locale: es })
+          : ""}
+      </time>
+    </div>
+  );
+};

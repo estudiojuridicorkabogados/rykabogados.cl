@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import Image from "next/image";
 
+import { useDebounceCallback } from "@/hooks/useDebounceCallback";
 import { classNames } from "@/lib/utils/classNames";
 
 import { PlusIcon } from "../icons/Plus";
@@ -13,12 +14,11 @@ import { ChatbotInput } from "./ChatbotInput";
 import { InitialBotMessage } from "./InitialBotMessage";
 import { Message } from "./Message";
 import { MessageLoading } from "./MessageLoading";
-import { useDebounceCallback } from "@/hooks/useDebounceCallback";
 
 export const SupportChatbot = () => {
   const { messages, status, sendMessage } = useChat();
   const [open, setOpen] = useState(false);
-
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [unread, setUnread] = useState(0);
   const endRef = useRef<HTMLDivElement | null>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
@@ -83,9 +83,21 @@ export const SupportChatbot = () => {
     if (!open) setUnread(0);
   };
 
+  useEffect(() => {
+    if (open) {
+      // Focus textarea when chat is opened
+      setTimeout(() => {
+        textareaRef.current?.focus();
+      }, 100);
+    }
+  }, [open]);
+
   const onToggleOpen = () => {
+    if (!open) {
+      setUnread(0);
+    }
+
     setOpen((v) => !v);
-    if (!open) setUnread(0);
   };
 
   const handleClose = () => {
@@ -112,7 +124,7 @@ export const SupportChatbot = () => {
       >
         <div className="relative bg-gradient-to-b from-[#FED9A591] via-[#FED9A500] to-[#FBFBFC] via-20% to-25% h-full flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between px-8 py-6 text-white">
+          <div className="flex items-center justify-between px-6 py-6 text-white">
             <div className="flex items-center gap-2">
               <Image
                 src="/images/logos/logo-black.png"
@@ -125,7 +137,7 @@ export const SupportChatbot = () => {
             <button
               type="button"
               onClick={handleClose}
-              className="inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-white/10 focus:outline-none"
+              className="cursor-pointer inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-white/10 focus:outline-none"
               aria-label="Cerrar chat"
             >
               <PlusIcon className="rotate-45 size-4" />
@@ -135,11 +147,11 @@ export const SupportChatbot = () => {
           {/* Messages */}
           <div
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto px-8 py-3 mb-16 pb-8"
+            className="flex-1 overflow-y-auto px-6 py-3 mb-16 pb-8 mt-2"
           >
-            <span className="font-bold text-2xl text-black mb-4">
-              Bienvenido a RK Abogados. Come prefieres hablar on nosotros?
-            </span>
+            <p className="font-medium text-xl text-black mb-4 leading-[25px] max-w-4/5">
+              Bienvenido a RK Abogados. ¿Cómo prefieres hablar con nosotros?
+            </p>
 
             <div
               className="space-y-2"
@@ -159,7 +171,7 @@ export const SupportChatbot = () => {
           </div>
         </div>
 
-        <ChatbotInput onSubmit={onSubmit} />
+        <ChatbotInput textareaRef={textareaRef} onSubmit={onSubmit} />
       </div>
 
       {/* Floating Launcher Button */}
