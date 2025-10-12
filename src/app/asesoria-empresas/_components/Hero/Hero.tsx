@@ -11,7 +11,7 @@ Nuestra asesoría abarca desde el diseño y actualización de contratos, políti
 Acompañamos a su empresa en auditorías laborales, fiscalizaciones, procesos de negociación colectiva, despidos masivos o individuales, y defensa ante la Dirección del Trabajo o tribunales laborales.
 Nuestro enfoque combina prevención, control y estrategia legal, permitiendo a cada organización operar con seguridad jurídica, proteger su reputación y optimizar sus recursos humanos.`}
       image={{
-        src: "/images/heros/home-3.jpg", // @TODO Convert to WEBP
+        src: "/images/heros/colonas.webp",
         alt: "Nuestro equipo trabajando",
       }}
     />

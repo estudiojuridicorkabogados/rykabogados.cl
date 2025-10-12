@@ -11,7 +11,7 @@ export const Hero = () => {
         priority
         fill
         loading="eager"
-        src="/images/heros/tribunales-2.webp"
+        src="/images/heros/tribunales.webp"
         alt="Tribunal de Santiago de Chile"
         sizes="100vw"
         className="object-cover object-top scale-110"
