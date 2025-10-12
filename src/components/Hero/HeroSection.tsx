@@ -39,7 +39,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         fill
         sizes="100vw"
         className={classNames("object-cover", {
-          "object-top": align === "top",
+          "object-top-right": align === "top",
           "object-center": align === "center",
           "object-bottom": align === "bottom",
         })}

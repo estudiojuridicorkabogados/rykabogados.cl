@@ -12,9 +12,9 @@ export const Hero = () => {
         fill
         loading="eager"
         src="/images/heros/tribunales-2.webp"
-        alt="Nuestro equipo trabajando"
+        alt="Tribunal de Santiago de Chile"
         sizes="100vw"
-        className="object-cover object-top origin-center-left scale-125"
+        className="object-cover object-top scale-110"
       />
 
       {/* Overlay */}

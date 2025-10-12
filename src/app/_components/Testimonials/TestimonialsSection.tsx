@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-import santiagoImage from "../../../../public/images/santiago.webp";
+// import santiagoImage from "../../../../public/images/santiago.webp";
+import santiagoImage from "../../../../public/images/santiago-2.jpg";
+
 
 import { TestimonalsCarousel } from "./TestimonialsCarousel";
 import { Testimonial } from "./types";

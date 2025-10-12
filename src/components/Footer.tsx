@@ -68,7 +68,7 @@ export const Footer = () => {
               />
             </div>
 
-            <ul className="hidden lg:block space-y-3 text-center md:text-left">
+            <ul className="hidden lg:block space-y-2 text-center md:text-left">
               <li>
                 <span className="text-white font-bold">Paginas</span>
               </li>
@@ -76,7 +76,7 @@ export const Footer = () => {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-white transition-colors hover:text-accent font-light"
+                    className="text-white transition-colors hover:text-accent font-light text-sm"
                   >
                     {link.label}
                   </Link>
@@ -84,7 +84,7 @@ export const Footer = () => {
               ))}
             </ul>
 
-            <ul className="hidden lg:block space-y-3 text-center md:text-left">
+            <ul className="hidden lg:block space-y-2 text-center md:text-left">
               <li>
                 <span className="text-white font-bold">Formalidad</span>
               </li>
@@ -92,7 +92,7 @@ export const Footer = () => {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-white transition-colors hover:text-accent font-light"
+                    className="text-white transition-colors hover:text-accent font-light text-sm"
                   >
                     {link.label}
                   </Link>
@@ -101,7 +101,7 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col text-white font-[500] gap-8 text-center md:text-left text-sm lg:text-base">
+          <div className="flex flex-col text-white font-[500] gap-8 text-center md:text-left text-sm">
             <span>
               Antonio Bellet 143, oficina 609, Providencia
               <br />

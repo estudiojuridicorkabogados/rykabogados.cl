@@ -5,14 +5,16 @@ import { ContactButton } from "./ContactButton";
 export const ContactSection = () => {
   return (
     <section className="relative h-[540px] flex items-center justify-center overflow-hidden">
-      <Image
-        src="/images/contactanos.webp"
-        alt="Una senora que trabaja al compuderador"
-        fill
-        className="object-cover"
-        sizes="100vw"
-        loading="lazy"
-      />
+      <div className="absolute inset-0">
+        <Image
+          src="/images/rk-fondadores.webp"
+          alt="los fundadores de RK abogados"
+          fill
+          className="object-cover !object-[10%_10%]"
+          sizes="100vw"
+          loading="lazy"
+        />
+      </div>
 
       <div className="absolute inset-0 bg-black/57 lg:bg-black/37" />
 
@@ -28,10 +30,14 @@ export const ContactSection = () => {
             ¿Tienes Preguntas?
           </span>
 
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-60">Contáctanos</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-60">
+            Contáctanos
+          </h2>
 
           <p className="text-gray-60 mb-6">
-            Cuéntanos tu caso, nosotros nos encargamos del resto.
+            Cuéntanos tu caso, nosotros nos encargamos del resto. Nuestro equipo
+            de abogados especializados está listo para brindarte la asesoría
+            legal que necesitas.
           </p>
 
           <ContactButton />
