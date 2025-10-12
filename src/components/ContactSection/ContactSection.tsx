@@ -10,7 +10,7 @@ export const ContactSection = () => {
           src="/images/rk-fondadores.webp"
           alt="los fundadores de RK abogados"
           fill
-          className="object-cover !object-[10%_10%]"
+          className="object-cover object-center"
           sizes="100vw"
           loading="lazy"
         />
