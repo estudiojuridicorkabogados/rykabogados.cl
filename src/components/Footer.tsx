@@ -37,12 +37,12 @@ const PAGE_LINKS = [
 
 const FORMALIDAD_LINKS = [
   {
-    href: URLS.asesoriaTrabajadores(),
+    href: URLS.avisoLegal(),
     label: "Aviso Legal",
   },
   {
-    href: URLS.asesoriaEmpresas(),
-    label: "FAQ",
+    href: URLS.faq(),
+    label: "Preguntas Frecuentes",
   },
 ];
 

@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 
     return posts.map(({ slug }) => ({ params: { slug } }));
   } catch (error) {
-    console.log("Could pre generate blog posts pages due to");
+    console.log("Could not pre generate blog posts pages due to");
     console.error(error);
     return [];
   }

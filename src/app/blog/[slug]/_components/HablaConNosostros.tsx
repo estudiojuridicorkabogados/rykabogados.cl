@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 
+import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
 import { URLS } from "@/lib/utils/constants";
-import { WhatsappIcon } from "@/components/icons/Whatsapp";
 
 export const HablaConNosotros: React.FC = () => {
   const router = useRouter();

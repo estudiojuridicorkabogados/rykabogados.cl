@@ -8,8 +8,8 @@ import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
 import { Form } from "./Form";
-import { FormData } from "./types";
 import { ReservaFormSuccessFeedback } from "./ReservaFormSuccessFeedback";
+import { FormData } from "./types";
 
 export const ReservaForm = () => {
   const [isPending, startTransition] = useTransition();

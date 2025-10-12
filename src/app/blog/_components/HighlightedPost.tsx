@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,8 +10,6 @@ import Link from "next/link";
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { ShortPost } from "@/types/global";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 
 interface HighlightedPostProps {
   post: ShortPost;
