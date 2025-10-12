@@ -1,37 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import Image from "next/image";
 
 import { classNames } from "@/lib/utils/classNames";
+
+import { PlusIcon } from "../icons/Plus";
 
 import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
 import { ChatbotInput } from "./ChatbotInput";
 import { InitialBotMessage } from "./InitialBotMessage";
 import { Message } from "./Message";
 import { MessageLoading } from "./MessageLoading";
-import { PlusIcon } from "../icons/Plus";
-import { stat } from "fs";
-
-function useDebounceCallback<T extends (...args: any[]) => any>(
-  callback: T,
-  delay: number
-) {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  return useCallback(
-    (...args: Parameters<T>) => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      timeoutRef.current = setTimeout(() => {
-        callback(...args);
-      }, delay);
-    },
-    [callback, delay]
-  );
-}
+import { useDebounceCallback } from "@/hooks/useDebounceCallback";
 
 export const SupportChatbot = () => {
   const { messages, status, sendMessage } = useChat();
@@ -51,14 +33,7 @@ export const SupportChatbot = () => {
     if (!open && lastAssistantMsgId) setUnread((c) => c + 1);
   }, [lastAssistantMsgId, open]);
 
-  useEffect(() => {
-    if (status === 'submitted' && open) {
-      handleNewMessageAdded();
-    }
-  }, [open, status]);
-  
   const handleNewMessageAdded = useDebounceCallback(() => {
-    console.log("New message added");
     // Play notification sound for new messages
     const audio = new Audio("/sounds/bot-pop-up.mp3");
     audio.volume = 0.5;
@@ -79,8 +54,9 @@ export const SupportChatbot = () => {
 
   useEffect(() => {
     if (!open) return;
+
     handleNewMessageAdded();
-  }, [messages, handleNewMessageAdded]);
+  }, [open, status, messages, handleNewMessageAdded]);
 
   useEffect(() => {
     const container = messagesContainerRef.current;
