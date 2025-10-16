@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/api/",
     },
-    sitemap: "https://rykabogados.cl/sitemap.xml",
+    sitemap: "https://rkabogados.cl/sitemap.xml",
   };
 }
