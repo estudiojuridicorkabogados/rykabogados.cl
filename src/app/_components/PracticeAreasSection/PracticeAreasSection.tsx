@@ -43,7 +43,7 @@ export const PracticeAreasSection = () => {
       initial="hidden"
       whileInView="visible"
       className="relative w-screen h-[1050px] lg:h-[700px] overflow-hidden"
-      viewport={{ once: true, amount: 0.8 }}
+      viewport={{ once: true, amount: 0.1 }}
     >
       <Image
         src="/images/documents.webp"
@@ -55,7 +55,7 @@ export const PracticeAreasSection = () => {
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[930px] lg:h-[520px] bottom-0 left-0 right-0 w-full bg-primary/60 backdrop-blur-[50px] flex flex-col justify-center"
+        className="absolute h-[950px] lg:h-[520px] bottom-0 left-0 right-0 w-full bg-primary/60 backdrop-blur-[50px] flex flex-col justify-center"
       >
         <div className="w-full lg:w-6xl lg:max-w-6xl xl:max-w-7xl 2xl:w-7xl mx-auto flex flex-col gap-4 lg:gap-8 p-6 lg:py-8">
           <span className="uppercase text-sm text-accent font-bold tracking-[3px]">
@@ -66,7 +66,7 @@ export const PracticeAreasSection = () => {
               title="Trabajadores"
               description="En RK Abogados tomamos tu caso a resultado, porque creemos en la justicia y en tu derecho a ser escuchado. Te acompañamos con cercanía y rigor en conflictos laborales de toda índole, desde despidos injustificados hasta negociaciones colectivas, con un enfoque humano, técnico y orientado a soluciones efectivas y sostenibles."
               link={URLS.asesoriaTrabajadores()}
-            />
+            /> 
 
             <PracticeArea
               title="Empresas"
@@ -97,7 +97,7 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
   description,
   link,
 }) => (
-  <motion.div variants={itemVariants} className="flex-1 flex flex-col justify-between gap-4">
+  <motion.div variants={itemVariants} className="flex flex-col justify-between gap-4">
     <div className="flex flex-col gap-4">
 
     <h2 className="text-2xl lg:text-5xl font-bold text-white">{title}</h2>
