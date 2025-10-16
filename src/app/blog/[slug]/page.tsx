@@ -16,9 +16,7 @@ interface BlogPostPageParams {
 
 export async function generateStaticParams() {
   try {
-    const res = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/posts`);
 
     const { posts } = (await res.json()) as { posts: ApiPost[] };
 
