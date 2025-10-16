@@ -1,26 +1,29 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { AnimatePresence, motion, stagger } from "motion/react";
+import { format } from "date-fns";
+import { motion, stagger } from "motion/react";
 
 import { submitBookACallForm } from "@/actions/submitBookACallForm";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
 import { Form } from "./Form";
-import { ReservaFormSuccessFeedback } from "./ReservaFormSuccessFeedback";
+import {
+  BookingInfo,
+  ReservaFormSuccessFeedback,
+} from "./ReservaFormSuccessFeedback";
 import { FormData } from "./types";
 
 export const ReservaForm = () => {
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+
+  const [bookingInfo, setBookingInfo] = useState<BookingInfo | null>(null);
 
   const [currentStep, setCurrentStep] = useState(1);
 
   const onNext = () => setCurrentStep(currentStep + 1);
-
-  const onPrev = () => setCurrentStep(currentStep - 1);
 
   const onSubmit = async (data: FormData) => {
     setSubmitError(null);
@@ -29,9 +32,12 @@ export const ReservaForm = () => {
       try {
         const result = await submitBookACallForm(data);
 
-        if (result.success) {
+        if (result.success && data.date) {
           console.log("Form submitted successfully:", data);
-          setSuccess(true);
+          setBookingInfo({
+            date: format(data.date, "dd/MM/yyyy"),
+            timeSlot: data.timeSlot,
+          });
           setCurrentStep(1); // Reset to step 1
         }
       } catch (error) {
@@ -53,7 +59,9 @@ export const ReservaForm = () => {
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="py-16 lg:py-28 lg:h-[100vh] relative">
-        {success && <ReservaFormSuccessFeedback />}
+        {bookingInfo && (
+          <ReservaFormSuccessFeedback bookingInfo={bookingInfo} />
+        )}
 
         <div className="section-container">
           <motion.div
