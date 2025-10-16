@@ -1,5 +1,16 @@
 import { HeroSection } from "@/components/Hero/HeroSection";
 
+// const DESCRIPTION = `
+// En Retamales Kowalski Abogados creemos que la confianza se gana con resultados, transparencia y cercanía. 
+// Somos un equipo de abogados con energía, visión y sólida experiencia, comprometidos con una práctica moderna, eficiente y humana del Derecho. 
+// Nuestro estudio ofrece soluciones jurídicas personalizadas a empresas y personas naturales a lo largo de todo Chile. Nuestra práctica se guía por tres valores esenciales: excelencia en el servicio, lealtad hacia el cliente e integridad en cada acción.
+// `;
+
+const DESCRIPTION = `
+En Retamales Kowalski Abogados creemos que la confianza se gana con resultados, transparencia y cercanía. 
+Somos un equipo de abogados con energía, visión y sólida experiencia, comprometidos con una práctica moderna, eficiente y humana del Derecho. 
+`;
+
 export const HomeHero = () => {
   return (
     <HeroSection
@@ -10,7 +21,7 @@ export const HomeHero = () => {
         </>
       }
       align="top"
-      description={`En Retamales Kowalski Abogados creemos que la confianza de nuestros clientes se construye con resultados reales, una atención cercana y una ética profesional intachable. Somos un estudio jurídico dinámico y multidisciplinario, con presencia a lo largo de todo Chile, dedicado a ofrecer soluciones legales personalizadas para empresas, trabajadores y personas naturales. Nuestra práctica se guía por tres valores esenciales: excelencia en el servicio, lealtad hacia el cliente e integridad en cada acción.`}
+      description={DESCRIPTION}
       image={{
         src: "/images/heros/chile-bandera.webp",
         alt: "Columns background",

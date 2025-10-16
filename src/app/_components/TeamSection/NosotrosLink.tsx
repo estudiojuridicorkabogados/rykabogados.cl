@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
+import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { Button } from "@/components/ui/Button";
 import { URLS } from "@/lib/utils/constants";
 
@@ -12,12 +13,14 @@ export const NosotrosLink = () => {
 
   return (
     <Button
-      className="w-full lg:w-fit"
-      variant="white-outline-on-primary"
       animateOnClick
+      variant="white-outline-on-primary"
+      className="w-full lg:w-fit group"
+      type="button"
       onClick={navigateToNosostros}
     >
-      Más Info
+      Conoce a nuestro equipo{" "}
+      <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
     </Button>
   );
 };

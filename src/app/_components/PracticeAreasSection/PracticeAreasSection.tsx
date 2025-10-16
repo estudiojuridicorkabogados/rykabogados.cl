@@ -64,19 +64,19 @@ export const PracticeAreasSection = () => {
           <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-16">
             <PracticeArea
               title="Trabajadores"
-              description="Si eres trabajador, en RK Abogados tomamos tu caso a resultados, lo que significa que nuestros honorarios se cobrarán exclusivamente sobre la ganancia efectivamente obtenida. Ofrecemos una asesoría laboral completa, abarcando desde despidos injustificados y acoso laboral hasta vulneración de derechos, cobro de prestaciones y accidentes del trabajo, con un enfoque cercano, humano y orientado a soluciones justas y efectivas."
+              description="En RK Abogados tomamos tu caso a resultado, porque creemos en la justicia y en tu derecho a ser escuchado. Te acompañamos con cercanía y rigor en conflictos laborales de toda índole, desde despidos injustificados hasta negociaciones colectivas, con un enfoque humano, técnico y orientado a soluciones efectivas y sostenibles."
               link={URLS.asesoriaTrabajadores()}
             />
 
             <PracticeArea
               title="Empresas"
-              description="Si eres empresa, en RK Abogados brindamos asesoría laboral y corporativa integral, enfocada en el cumplimiento normativo, la prevención de riesgos y la resolución eficiente de conflictos. Acompañamos a su organización en contratos, políticas internas, fiscalizaciones y negociaciones colectivas, con un enfoque estratégico, preventivo y orientado a fortalecer las relaciones laborales."
+              description="En RK Abogados brindamos asesoría laboral y corporativa integral, enfocada en el cumplimiento normativo, la prevención y la gestión eficiente de conflictos. Asistimos a tu organización en contratos, políticas internas y negociaciones colectivas, promoviendo relaciones laborales sólidas y una operación segura y estratégica."
               link={URLS.asesoriaEmpresas()}
             />
 
             <PracticeArea
               title="Otras Áreas"
-              description="En RK Abogados ofrecemos asesoría integral en materias civiles, societarias y familiares, abordando desde divorcios y conflictos civiles hasta contratos, constitución de sociedades y reestructuraciones empresariales, con un enfoque estratégico, humano y orientado a soluciones sostenibles."
+              description="En RK Abogados ofrecemos asesoría en materias civiles, comerciales y societarias, entregando soluciones precisas y eficientes. Apoyamos a personas y empresas en la redacción y revisión de contratos, resolución de controversias y procesos de constitución o reorganización, con una visión integral y orientada a resultados duraderos."
               link={URLS.otrasAreas()}
             />
           </div>

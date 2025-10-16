@@ -69,9 +69,9 @@ export const Footer = () => {
             </div>
 
             <ul className="hidden lg:block space-y-2 text-center md:text-left">
-              <li>
+              {/* <li>
                 <span className="text-white font-bold">Paginas</span>
-              </li>
+              </li> */}
               {PAGE_LINKS.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -85,9 +85,9 @@ export const Footer = () => {
             </ul>
 
             <ul className="hidden lg:block space-y-2 text-center md:text-left">
-              <li>
+              {/* <li>
                 <span className="text-white font-bold">Formalidad</span>
-              </li>
+              </li> */}
               {FORMALIDAD_LINKS.map((link) => (
                 <li key={link.label}>
                   <Link

@@ -21,16 +21,17 @@ export const TeamSection = () => {
             Nosostros
           </h2>
 
-          <p className="text-gray-60 mb-4">
+          <p className="text-gray-60">
             En RK Abogados entendemos que la confianza no se promete, se
-            demuestra. Por eso enfrentamos cada desafío con pasión, ética y
-            compromiso con la excelencia, transformando los problemas legales en
-            soluciones concretas. Somos un estudio jurídico moderno y
-            multidisciplinario, con presencia en todo Chile. Nuestro equipo
-            combina experiencia, innovación y una visión humana para ofrecer
-            asesoría integral y estratégica en Derecho Laboral, Civil,
-            Societario y de Familia, guiados siempre por nuestros valores:
-            Excelencia, Lealtad e Integridad.
+            demuestra. Enfrentamos cada desafío con pasión, ética y compromiso
+            con la excelencia, transformando los problemas legales en soluciones
+            concretas.
+          </p>
+
+          <p className="text-gray-60 mb-4">
+            Nuestro equipo, comprometido y riguroso, combina experiencia,
+            innovación y una visión humana del Derecho para brindar asesoría
+            integral y estratégica a cada cliente.
           </p>
 
           <NosotrosLink />

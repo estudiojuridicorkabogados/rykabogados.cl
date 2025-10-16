@@ -36,16 +36,19 @@ export const AboutSection = () => {
             variants={itemVariants}
             className="lg:text-lg text-gray-600 leading-relaxed mb-2"
           >
-            En Retamales Kowalski Abogados, nuestra misión es entregar
-            soluciones jurídicas efectivas, éticas y personalizadas, que
-            respondan a las necesidades reales de nuestros clientes a lo largo
-            de todo Chile. Contamos con un equipo de abogados altamente
-            especializados en Derecho Laboral, con amplia experiencia y una
-            comprensión profunda de sus implicancias para empresas y
-            trabajadores.
+            En Retamales Kowalski Abogados brindamos soluciones jurídicas
+            efectivas y personalizadas, adaptadas a las necesidades reales de
+            cada cliente. Nuestro equipo, especializado en Derecho Laboral,
+            combina experiencia técnica, criterio práctico y cercanía humana
+            para diseñar estrategias sólidas y sostenibles. Buscamos construir
+            relaciones de confianza duradera, basadas en la transparencia, la
+            lealtad y un compromiso constante con la excelencia profesional.
           </motion.p>
 
-          <motion.p variants={itemVariants} className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8">
+          <motion.p
+            variants={itemVariants}
+            className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8"
+          >
             Cada estrategia se diseña y analiza en conjunto, combinando
             conocimiento técnico, experiencia práctica y cercanía humana, para
             asegurar resultados sólidos, medibles y sostenibles en el tiempo.
