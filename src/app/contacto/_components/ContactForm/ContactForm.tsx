@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { toast } from "sonner";
 
 import {
@@ -115,6 +116,19 @@ export const ContactForm = () => {
               rows={5}
               placeholder="Cuéntanos sobre tu requierimento"
             />
+          </div>
+
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="dataConsent"
+              name="dataConsent"
+              required
+              className="mt-1"
+            />
+            <label htmlFor="dataConsent" className="text-white/80 text-sm lg:text-base">
+              Acepto <a href="/politica-de-cookies" target="_blank" className="underline">cookies</a>
+            </label>
           </div>
 
           {/* TODO Add loading state */}

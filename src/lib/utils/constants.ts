@@ -16,10 +16,12 @@ export const URLS: UrlsMap = {
   speakWithUs: () => "/habla-con-nosotros",
   blog: () => "/blog",
   blogPost: (slug: string) => `/blog/${slug}` as unknown as Route,
-  facebook: () => "https://www.facebook.com/p/RO-Abogados-Chile-100066607063186",
+  facebook: () =>
+    "https://www.facebook.com/p/RO-Abogados-Chile-100066607063186",
   instagram: () => "https://www.instagram.com/ryoabogadoschile",
   linkedin: () => "https://linkedin.com",
-  whatsapp: () => "http://api.whatsapp.com/send/?phone=56986395780&text=%C2%A1Hola%21+Me+gustar%C3%ADa+una+asesor%C3%ADa+laboral+gratuita&type=phone_number&app_absent=0",
+  whatsapp: () =>
+    "http://api.whatsapp.com/send/?phone=56986395780&text=%C2%A1Hola%21+Me+gustar%C3%ADa+una+asesor%C3%ADa+laboral+gratuita&type=phone_number&app_absent=0",
 };
 
 type TeamMember = {
@@ -27,51 +29,59 @@ type TeamMember = {
   role: string;
   photo: string;
   linkedin?: string;
+  phone?: string;
   imageAlignment?: "top" | "bottom";
 };
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: "Camila Retamales",
+    name: "Camila Retamales Quiroz",
     role: "Abogada Fundadora",
     photo: "/images/team/camila.webp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/camila-retamales-082a63160",
+    phone: "+56 9 8639 5780",
   },
-    {
+  {
     name: "Sebastian Kowalski",
     role: "Chief Executive Officer",
     photo: "/images/team/sebastian.webp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/sebastian-kowalski-605706197",
+    phone: "+56 9 5185 6194",
   },
   {
-    name: "Luciano Ascui",
+    name: "Luciano Ascui Mestre",
     role: "Abogado Derecho Laboral",
     photo: "/images/team/luciano.webp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/luciano-ignacio-ascui-67784a12a",
+    phone: "+56 9 7873 4201",
   },
   {
-    name: "Nicole Ulloa",
+    name: "Nicole Ulloa Evert",
     role: "Abogada Derecho Laboral",
     photo: "/images/team/nicole.webp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/nicoleulloaevert",
     imageAlignment: "top",
+    phone: "+56 9 7394 0304",
   },
   {
-    name: "Bastian Morales",
+    name: "Bastián Morales Romero",
     role: "Abogado Derecho Laboral",
     photo: "/images/team/bastian.webp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/moralesromero",
+    phone: "+56 9 7881 4048",
   },
   {
-    name: "Paolo Castiglione",
+    name: "Paolo Castiglione Cañas",
     role: "Abogado Derecho Laboral",
     photo: "/images/team/paolo.webp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/paolo-castiglione-ca%C3%B1as-90805422",
+    phone: "+56 9 7895 1026",
   },
   {
     name: "Constanza Zarricueta",
     role: "Abogada Derecho Laboral",
     photo: "/images/team/constanza.webp",
-    linkedin: "https://www.linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/constanza-zarricueta-cruz-776b4a215",
+    phone: "+56 9 8257 2369",
   },
 ];

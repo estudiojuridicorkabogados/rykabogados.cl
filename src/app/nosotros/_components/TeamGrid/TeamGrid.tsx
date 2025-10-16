@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 
+import { LinkedinSquareIcon } from "@/components/icons/LinkedinSquare";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { TEAM_MEMBERS } from "@/lib/utils/constants";
 
@@ -61,10 +62,24 @@ export const TeamGrid = () => {
                 />
               </div>
 
-              <h3 className="!font-sans !font-bold mt-6 text-lg/8 tracking-tight text-white">
-                {person.name}
-              </h3>
-              <p className="text-base/7 text-white/80">{person.role}</p>
+              <div className="flex flex-row justify-between gap-3 mt-6">
+                <div className="flex flex-col">
+                  <h3 className="!font-sans !font-bold text-lg/8 tracking-tight text-white">
+                    {person.name}
+                  </h3>
+                  <p className="text-base/7 text-white/80">{person.role}</p>
+                  <p className="text-base/7 text-white/80">{person.phone}</p>
+                </div>
+
+                <a
+                  href={person.linkedin}
+                  target="_blank"
+                  className="pt-2"
+                  rel="noopener noreferrer"
+                >
+                  <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
+                </a>
+              </div>
             </motion.li>
           ))}
         </ul>
