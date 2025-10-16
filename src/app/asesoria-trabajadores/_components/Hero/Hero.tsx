@@ -1,13 +1,17 @@
 import { HeroSection } from "@/components/Hero/HeroSection";
 
+const DESCRIPTION = `
+En RK Abogados tomamos tu caso a resultado, porque creemos en la justicia y en tu derecho a ser escuchado.
+Te acompañamos con cercanía y rigor en conflictos laborales de toda índole, desde despidos injustificados hasta negociaciones colectivas, con un enfoque humano, técnico y orientado a soluciones efectivas y sostenibles.
+`;
+
 export const AsesoriaTrabajadoresHero = () => {
   return (
     <HeroSection
       label="Nuestros servicios"
       title="Asesoría Trabajador"
       align="top"
-      description={`Si eres trabajador, tomamos tu caso a resultado.
-En RK Abogados comprendemos la importancia de defender tus derechos laborales. Nuestros honorarios se cobran exclusivamente sobre la ganancia efectivamente obtenida, sin gastos iniciales. Asumimos tu causa con compromiso, transparencia y experiencia, velando por una reparación justa frente a despidos injustificados, acoso laboral, vulneraciones de derechos fundamentales, no pago de cotizaciones y todo tipo de infracciones laborales.`}
+      description={DESCRIPTION}
       image={{
         src: "/images/heros/team-trabajando.webp",
         alt: "Nuestro equipo trabajando",

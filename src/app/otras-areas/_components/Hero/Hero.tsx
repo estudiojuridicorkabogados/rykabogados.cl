@@ -1,12 +1,15 @@
 import { HeroSection } from "@/components/Hero/HeroSection";
 
+const DESCRIPTION = `
+En RK Abogados ofrecemos asesoría integral en materias civiles, comerciales y societarias, entregando soluciones jurídicas adaptadas a las necesidades de cada cliente. Nuestro equipo también desarrolla capacitaciones legales orientadas a empresas y personas naturales, promoviendo el conocimiento y la prevención de riesgos. Actuamos con una mirada estratégica y práctica, enfocada en resultados sostenibles y en fortalecer la gestión legal de quienes confían en nosotros.`;
+
 export const OtraAreasHero = () => {
   return (
     <HeroSection
       label="Nuestros servicios"
       title="Otras Áreas"
       align="center"
-      description={`Derecho Civil, Societario y Familia. Además de nuestra especialización en derecho laboral, en RK Abogados prestamos asesoría en procesos de divorcio y materias de familia, resolución de conflictos civiles, redacción de contratos, constitución de sociedades y reestructuraciones empresariales. Nuestra práctica combina una mirada estratégica y humana, buscando soluciones jurídicas eficientes y sostenibles.`}
+      description={DESCRIPTION}
       image={{
         src: "/images/heros/estudio.webp",
         alt: "Nuestro equipo trabajando",

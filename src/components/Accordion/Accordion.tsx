@@ -67,7 +67,7 @@ export const Accordion: React.FC<AccordionProps> = ({ entries }) => {
                   }}
                   className="overflow-hidden md:pr-12 border-t border-gray-900"
                 >
-                  <div className="py-0 lg:w-3/4">
+                  <div className="py-0 lg:w-4/5">
                     <div className="md:pl-7 pb-12 pt-12 text-base/7 text-black/50 leading-6">
                       {faq.description}
                     </div>
