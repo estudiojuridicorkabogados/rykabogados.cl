@@ -1,17 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { getCalendarClient } from "@/lib/google-calendar/google-calendar";
-
-// @TODO USE env var
-const TARGET_CALENDAR_ID = "c_9e03919b83d6867c1a2c05a3aa4c3a39efa92861f695ca14a0825238bc555616@group.calendar.google.com";
+import { createGoogleCalendarEvent } from "@/lib/google-calendar/createGoogleCalendarEvent";
 
 export async function POST(request: Request) {
   try {
-    // 1. Parse the request body
-    // console.log("REQUEST")
-    // const body = await request.json();
     const text = await request.text();
-    console.log("TEXT", text);
 
     let body;
     try {
@@ -26,42 +19,26 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Get the authenticated Google Calendar client
-    const calendar = await getCalendarClient();
-
-    // 3. Prepare the event data
-    const eventDetails = {
-      summary: body.title || "Next.js Booking",
-      location: body.location,
-      description: body.notes,
-      start: {
-        dateTime: body.startTime,
-        timeZone: body.timeZone || "UTC", // Ensure you send a timezone
-      },
-      end: {
-        dateTime: body.endTime,
-        timeZone: body.timeZone || "UTC",
-      },
-    };
-
-    // 4. Insert the event
-    const result = await calendar.events.insert({
-      calendarId: TARGET_CALENDAR_ID,
-      requestBody: eventDetails,
+    console.log("Request Body:", body);
+    const result = await createGoogleCalendarEvent({
+      title: body.title || "Next.js Booking",
+      notes: body.notes,
+      startTime: body.startTime,
+      endTime: body.endTime,
     });
 
-    // 5. Return success response
+    console.log("Done", result);
+
     return NextResponse.json(
       {
         message: "Event created successfully!",
-        eventId: result.data.id,
-        htmlLink: result.data.htmlLink,
+        eventId: result.eventId,
+        htmlLink: result.htmlLink,
       },
       { status: 200 }
     );
   } catch (error) {
     console.error("Calendar API Error:", error);
-    // Return a generic error to the client for security
     return NextResponse.json(
       {
         error: "Failed to create event due to a server error.",

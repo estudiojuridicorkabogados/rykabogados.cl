@@ -2,17 +2,16 @@ import { getVercelOidcToken } from "@vercel/functions/oidc";
 import { ExternalAccountClient } from "google-auth-library";
 import { google } from "googleapis";
 
-// Calendar scope is required to create, view, or modify events
+import { env } from "../env";
+
+const GCP_PROJECT_NUMBER = env.GCP_PROJECT_NUMBER;
+const GCP_SERVICE_ACCOUNT_EMAIL = env.GCP_SERVICE_ACCOUNT_EMAIL;
+const GCP_WORKLOAD_IDENTITY_POOL_ID = env.GCP_WORKLOAD_IDENTITY_POOL_ID;
+const GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID =
+  env.GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID;
+
 const CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar.events";
 
-// const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
-const GCP_PROJECT_NUMBER = process.env.GCP_PROJECT_NUMBER;
-const GCP_SERVICE_ACCOUNT_EMAIL = process.env.GCP_SERVICE_ACCOUNT_EMAIL;
-const GCP_WORKLOAD_IDENTITY_POOL_ID = process.env.GCP_WORKLOAD_IDENTITY_POOL_ID;
-const GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID =
-  process.env.GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID;
-
-// Initialize the External Account Client
 const authClient = ExternalAccountClient.fromJSON({
   type: "external_account",
   audience: `//iam.googleapis.com/projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${GCP_WORKLOAD_IDENTITY_POOL_ID}/providers/${GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID}`,
@@ -28,16 +27,11 @@ const authClient = ExternalAccountClient.fromJSON({
 
 /**
  * Creates an authenticated Google Calendar client using WIF (ADC).
- * @returns {object} An initialized Google Calendar service object.
  */
-export async function getCalendarClient() {
+export async function getGoogleCalendarClient() {
   if (!authClient) {
     throw new Error("Authentication client not initialized.");
-    ``;
   }
 
-  // 3. Initialize the Calendar service with the authenticated client.
-  const calendar = google.calendar({ version: "v3", auth: authClient });
-
-  return calendar;
+  return google.calendar({ version: "v3", auth: authClient });
 }
