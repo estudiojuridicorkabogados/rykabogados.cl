@@ -28,6 +28,15 @@ export const metadata: Metadata = {
   ],
   description:
     "RK Abogados es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico", sizes: "16x16", type: "image/x-icon" },
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 const DynamicToaster = dynamic(() => import("sonner").then((m) => m.Toaster), {

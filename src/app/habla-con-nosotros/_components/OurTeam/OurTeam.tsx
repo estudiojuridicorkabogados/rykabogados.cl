@@ -71,7 +71,7 @@ export const OurTeam = () => {
               WebkitOverflowScrolling: "touch",
             }}
           >
-            {TEAM_MEMBERS.map((m,i) => (
+            {TEAM_MEMBERS.map((m, i) => (
               <article
                 key={i}
                 data-card
@@ -89,25 +89,24 @@ export const OurTeam = () => {
                     loading="lazy"
                     sizes="(max-width: 768px) 260px, (max-width: 1024px) 300px, 320px"
                     fill
-                    style={{ objectPosition: m.imageAlignment }}
                   />
                 </div>
                 <div className="p-4 flex justify-between items-start">
                   <div>
-                    <h3 className="!font-sans text-base !font-semibold">{m.name}</h3>
+                    <h3 className="!font-sans text-base !font-semibold">
+                      {m.name}
+                    </h3>
                     <p className="text-white/80 text-sm">{m.role}</p>
                   </div>
 
-                  {m.linkedin ? (
-                    <a
-                      href={m.linkedin}
-                      target="_blank"
-                      className="pt-2"
-                      rel="noopener noreferrer"
-                    >
-                      <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
-                    </a>
-                  ) : null}
+                  <a
+                    href={m.linkedin}
+                    target="_blank"
+                    className="pt-2"
+                    rel="noopener noreferrer"
+                  >
+                    <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
+                  </a>
                 </div>
               </article>
             ))}
