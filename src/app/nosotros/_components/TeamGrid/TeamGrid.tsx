@@ -22,10 +22,10 @@ export const TeamGrid = () => {
           variants={itemVariants}
           className="text-4xl lg:text-5xl font-bold text-white leading-tight"
         >
-          Los miembros
+          Conoce nuestro equipo
         </motion.h2>
 
-        <motion.p
+        {/* <motion.p
           variants={itemVariants}
           className="lg:text-lg text-white mb-2 lg:max-w-4xl"
         >
@@ -39,7 +39,7 @@ export const TeamGrid = () => {
           valores —Excelencia, Lealtad e Integridad— trabajamos con cercanía y
           profesionalismo, ofreciendo resultados sólidos y relaciones de
           confianza duraderas.
-        </motion.p>
+        </motion.p> */}
 
         <ul
           role="list"
@@ -54,11 +54,6 @@ export const TeamGrid = () => {
                   fill
                   sizes="(max-width: 1024px) 100vw, 25vw"
                   className="rounded-2xl object-cover"
-                  style={
-                    person.imageAlignment === "top"
-                      ? { objectPosition: "top" }
-                      : undefined
-                  }
                 />
               </div>
 
@@ -68,7 +63,7 @@ export const TeamGrid = () => {
                     {person.name}
                   </h3>
                   <p className="text-base/7 text-white/80">{person.role}</p>
-                  <p className="text-base/7 text-white/80">{person.phone}</p>
+                  <a href={person.phoneLink} target="_blank" className="cursor-pointer text-base/7 text-white/80">{person.phone}</a>
                 </div>
 
                 <a

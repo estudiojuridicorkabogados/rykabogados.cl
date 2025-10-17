@@ -63,12 +63,6 @@ export default function RootLayout({
 
           <Footer />
 
-          <Script
-            async
-            strategy="lazyOnload"
-            src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-          />
-
           <SupportChatbot />
 
           <CookieBanner />
@@ -79,6 +73,12 @@ export default function RootLayout({
             <ConditionalAnalytics />
           ) : null}
         </CookieConsentProvider>
+
+        <Script
+          async
+          strategy="lazyOnload"
+          src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+        />
       </body>
     </html>
   );
