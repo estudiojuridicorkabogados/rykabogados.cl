@@ -30,15 +30,9 @@ export const metadata: Metadata = {
     "RK Abogados es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
 };
 
-const DynamicToaster = dynamic(
-  () =>
-    import("sonner").then(
-      (m) => m.Toaster
-    ),
-  {
-    loading: () => <div className="sr-only">Loading toaster</div>,
-  }
-);
+const DynamicToaster = dynamic(() => import("sonner").then((m) => m.Toaster), {
+  loading: () => <div className="sr-only">Loading toaster</div>,
+});
 
 const SupportChatbot = dynamic(
   () =>
@@ -77,11 +71,10 @@ export default function RootLayout({
 
           <SupportChatbot />
 
-          {/* Cookie Consent UI */}
           <CookieBanner />
+
           <CookieSettingsModal />
 
-          {/* Analytics - only loads with user consent */}
           {env.NEXT_PUBLIC_ENVIRONMENT === "production" ? (
             <ConditionalAnalytics />
           ) : null}

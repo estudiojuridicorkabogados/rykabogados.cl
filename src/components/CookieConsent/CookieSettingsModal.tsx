@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { AnimatePresence,motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 import { Button } from "../ui/Button";
 
@@ -12,24 +12,20 @@ export function CookieSettingsModal() {
   const { showModal, closeSettings, savePreferences, preferences } =
     useCookieConsent();
 
+    console.log("Preferences in modal:", preferences);
+
   const [analyticsEnabled, setAnalyticsEnabled] = useState(
-    preferences?.analytics ?? false
+    preferences?.analytics ?? true
   );
 
-  // Update state when preferences change
   useEffect(() => {
     if (preferences) {
       setAnalyticsEnabled(preferences.analytics);
     }
   }, [preferences]);
 
-  const handleSavePreferences = () => {
+  const handleSavePreferences = () =>
     savePreferences({ analytics: analyticsEnabled });
-  };
-
-  const handleAcceptAll = () => {
-    savePreferences({ analytics: true });
-  };
 
   return (
     <AnimatePresence>
@@ -60,7 +56,7 @@ export function CookieSettingsModal() {
             >
               {/* Header */}
               <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                <DialogTitle className="text-xl font-semibold text-gray-900">
+                <DialogTitle className="text-2xl !font-semibold text-gray-900 !font-sans">
                   Configuración de cookies
                 </DialogTitle>
                 <p className="mt-1 text-sm text-gray-600">
@@ -74,9 +70,9 @@ export function CookieSettingsModal() {
                 <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="text-base font-semibold text-gray-900 mb-1">
+                      <span className="text-base font-semibold text-gray-900 mb-1">
                         Cookies necesarias
-                      </h3>
+                      </span>
                       <p className="text-sm text-gray-600 leading-relaxed">
                         Estas cookies son esenciales para el funcionamiento
                         básico del sitio web. Incluyen cookies de sesión y
@@ -97,7 +93,7 @@ export function CookieSettingsModal() {
                     </div>
                   </div>
                   <div className="mt-2">
-                    <span className="inline-block px-2 py-1 text-xs font-medium text-gray-600 bg-gray-200 rounded">
+                    <span className="inline-block px-2 py-1 text-xs font-medium text-black bg-accent rounded">
                       Siempre activas
                     </span>
                   </div>
@@ -107,9 +103,9 @@ export function CookieSettingsModal() {
                 <div className="border border-gray-200 rounded-lg p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="text-base font-semibold text-gray-900 mb-1">
+                      <span className="text-base font-semibold text-gray-900 mb-1">
                         Cookies de análisis y rendimiento
-                      </h3>
+                      </span>
                       <p className="text-sm text-gray-600 leading-relaxed">
                         Estas cookies nos permiten analizar el uso del sitio web
                         y mejorar su rendimiento. Recopilan información sobre
@@ -122,8 +118,8 @@ export function CookieSettingsModal() {
                       <button
                         type="button"
                         onClick={() => setAnalyticsEnabled(!analyticsEnabled)}
-                        className={`relative w-11 h-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
-                          analyticsEnabled ? "bg-primary-600" : "bg-gray-300"
+                        className={`cursor-pointer relative w-11 h-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
+                          analyticsEnabled ? "bg-green-400" : "bg-gray-400"
                         }`}
                         aria-label="Toggle analytics cookies"
                       >
@@ -137,15 +133,6 @@ export function CookieSettingsModal() {
                       </button>
                     </div>
                   </div>
-                </div>
-
-                {/* Information */}
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <p className="text-sm text-blue-900">
-                    <strong>Nota:</strong> Puedes cambiar tus preferencias en
-                    cualquier momento desde el pie de página de nuestro sitio
-                    web.
-                  </p>
                 </div>
               </div>
 
@@ -167,9 +154,9 @@ export function CookieSettingsModal() {
                   variant="dark"
                   className="w-full lg:w-fit group"
                   type="button"
-                  onClick={handleAcceptAll}
+                  onClick={handleSavePreferences}
                 >
-                  Aceptar todas
+                  Confirmar elecciones
                 </Button>
               </div>
             </DialogPanel>

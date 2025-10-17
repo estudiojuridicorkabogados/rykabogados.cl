@@ -1,7 +1,6 @@
 "use client";
 
 import { use } from "react";
-import { useContext } from "react";
 
 import { CookieConsentContext } from "./CookieConsentProvider";
 

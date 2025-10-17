@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { URLS } from "@/lib/utils/constants";
+
 export const metadata: Metadata = {
   title: "Política de Cookies | RK Abogados",
   description:
@@ -216,8 +218,8 @@ export default function PoliticaCookiesPage() {
           {/* Back to home */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <Link
-              href="/"
-              className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
+              href={URLS.home()}
+              className="items-center gap-2 group text-black text-md font-bold hover:text-accent-dark transition-colors duration-200"
             >
               ← Volver al inicio
             </Link>
