@@ -5,17 +5,20 @@ interface UrlsMap {
 }
 
 export const URLS: UrlsMap = {
+  // Internal links
   home: () => "/",
   asesoriaEmpresas: () => "/asesoria-empresas",
   asesoriaTrabajadores: () => "/asesoria-trabajadores",
-  avisoLegal: () => "/aviso-legal",
-  faq: () => "/faqs",
   otrasAreas: () => "/otras-areas",
   nosotros: () => "/nosotros",
   contacts: () => "/contacto",
   speakWithUs: () => "/habla-con-nosotros",
   blog: () => "/blog",
   blogPost: (slug: string) => `/blog/${slug}` as unknown as Route,
+  avisoLegal: () => "/aviso-legal",
+  faq: () => "/faqs",
+  cookiePolicy: () => "/politica-cookies",
+  // External links
   facebook: () =>
     "https://www.facebook.com/p/RO-Abogados-Chile-100066607063186",
   instagram: () => "https://www.instagram.com/ryoabogadoschile",

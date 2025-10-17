@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { useCookieConsent } from "@/components/CookieConsent/useCookieConsent";
 import { URLS } from "@/lib/utils/constants";
 
 import logoWhite from "../../public/images/logos/logo_symbol_white.png";
@@ -41,6 +42,10 @@ const FORMALIDAD_LINKS = [
     label: "Aviso Legal",
   },
   {
+    href: URLS.cookiePolicy(),
+    label: "Política de Cookies",
+  },
+  {
     href: URLS.faq(),
     label: "Preguntas Frecuentes",
   },
@@ -48,6 +53,7 @@ const FORMALIDAD_LINKS = [
 
 export const Footer = () => {
   const pathname = usePathname();
+  const { openSettings } = useCookieConsent();
 
   if (pathname === "/contacto") {
     return null;
@@ -138,8 +144,16 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 md:mt-32 flex flex-col lg:flex-row gap-y-0 gap-x-8 lg:items-center lg:justify-between text-xs text-white/50">
+        <div className="mt-12 md:mt-32 flex flex-col lg:flex-row gap-y-2 gap-x-8 lg:items-center lg:justify-between text-xs text-white/50">
           <p>&copy; {new Date().getFullYear()} RK Abogados</p>
+
+          <button
+            onClick={openSettings}
+            className="text-white/50 hover:text-white transition-colors text-left lg:text-center"
+            type="button"
+          >
+            Configurar cookies
+          </button>
 
           <p>Todos los derechos reservados</p>
         </div>

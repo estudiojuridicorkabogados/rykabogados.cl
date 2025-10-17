@@ -1,9 +1,11 @@
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Script from "next/script";
 
+import { ConditionalAnalytics } from "@/components/Analytics/ConditionalAnalytics";
+import { CookieBanner } from "@/components/CookieConsent/CookieBanner";
+import { CookieConsentProvider } from "@/components/CookieConsent/CookieConsentProvider";
+import { CookieSettingsModal } from "@/components/CookieConsent/CookieSettingsModal";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { env } from "@/lib/env";
@@ -56,31 +58,34 @@ export default function RootLayout({
   return (
     <html lang="es-CL" className={dmSans.variable}>
       <body className="antialiased bg-white">
-        <Navbar />
+        <CookieConsentProvider>
+          <Navbar />
 
-        <div className="bg-white">
-          <DynamicToaster position="bottom-center" />
+          <div className="bg-white">
+            <DynamicToaster position="bottom-center" />
 
-          {children}
-        </div>
+            {children}
+          </div>
 
-        <Footer />
+          <Footer />
 
-        <Script
-          async
-          strategy="lazyOnload"
-          src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-        />
+          <Script
+            async
+            strategy="lazyOnload"
+            src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          />
 
-        <SupportChatbot />
+          <SupportChatbot />
 
-        {env.NEXT_PUBLIC_ENVIRONMENT === "production" ? (
-          <>
-            <Analytics />
+          {/* Cookie Consent UI */}
+          <CookieBanner />
+          <CookieSettingsModal />
 
-            <SpeedInsights />
-          </>
-        ) : null}
+          {/* Analytics - only loads with user consent */}
+          {env.NEXT_PUBLIC_ENVIRONMENT === "production" ? (
+            <ConditionalAnalytics />
+          ) : null}
+        </CookieConsentProvider>
       </body>
     </html>
   );
