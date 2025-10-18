@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { motion, stagger } from "motion/react";
 
 import { submitBookACallForm } from "@/actions/submitBookACallForm";
-import { getCaptchaToken } from "@/lib/re-captcha/getCaptchaToken";
+import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 

@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 
-import { verifyCaptcha } from "@/lib/re-captcha/verifyCaptcha";
+import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
 
 export interface ActionResponse {
   success: boolean;

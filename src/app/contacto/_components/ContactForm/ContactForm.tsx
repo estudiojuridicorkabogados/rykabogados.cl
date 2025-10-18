@@ -10,7 +10,7 @@ import {
 import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { getCaptchaToken } from "@/lib/re-captcha/getCaptchaToken";
+import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 
 
 const initialState: ActionResponse = {

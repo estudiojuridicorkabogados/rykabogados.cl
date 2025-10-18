@@ -2,7 +2,7 @@ import { getVercelOidcToken } from "@vercel/functions/oidc";
 import { ExternalAccountClient } from "google-auth-library";
 import { google } from "googleapis";
 
-import { env } from "../env";
+import { env } from "@/lib/env";
 
 const GCP_PROJECT_NUMBER = env.GCP_PROJECT_NUMBER;
 const GCP_SERVICE_ACCOUNT_EMAIL = env.GCP_SERVICE_ACCOUNT_EMAIL;

@@ -2,8 +2,8 @@
 
 import { format } from "date-fns";
 
-import { sendEmail } from "@/lib/gmail/sendEmail";
-import { verifyCaptcha } from "@/lib/re-captcha/verifyCaptcha";
+import { sendEmail } from "@/lib/google/gmail/sendEmail";
+import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
 
 import { FormData } from "../app/habla-con-nosotros/_components/ReservaForm/types";
 
