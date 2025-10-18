@@ -12,8 +12,6 @@ export function CookieSettingsModal() {
   const { showModal, closeSettings, savePreferences, preferences } =
     useCookieConsent();
 
-    console.log("Preferences in modal:", preferences);
-
   const [analyticsEnabled, setAnalyticsEnabled] = useState(
     preferences?.analytics ?? true
   );

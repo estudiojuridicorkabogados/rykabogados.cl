@@ -17,7 +17,7 @@ export const HomeHero = () => {
       align="top"
       description={DESCRIPTION}
       image={{
-        src: "/images/heros/chile-bandera.webp",
+        src: "/images/heros/bandera-chile.webp",
         alt: "Columns background",
       }}
     />
