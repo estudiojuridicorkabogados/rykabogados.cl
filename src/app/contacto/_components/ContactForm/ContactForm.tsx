@@ -117,15 +117,14 @@ export const ContactForm = () => {
             />
           </div>
 
-          <div className="flex items-start gap-2">
+          <div className="flex items-center gap-2">
             <input
               type="checkbox"
               id="dataConsent"
               name="dataConsent"
               required
-              className="mt-1"
             />
-            <label htmlFor="dataConsent" className="text-white/80 text-sm lg:text-base">
+            <label htmlFor="dataConsent" className="text-white/80 text-xs">
               Acepto <a href="/politica-de-cookies" target="_blank" className="underline">cookies</a>
             </label>
           </div>
