@@ -17,7 +17,10 @@ export const Contacts = () => {
 
       <div className="flex flex-col">
         <span className="font-bold">Habla con nosotros</span>
-        <span>Tel 2 23644258 - 9 86395780</span>
+        <span>
+          Tel <a href="tel:+56223644258">2 23644258</a> -{" "}
+          <a href="tel:+56986395780">9 86395780</a>
+        </span>
         <a href="mailto:estudio.juridico@ryoasociados.cl" target="_blank">
           estudio.juridico@ryoasociados.cl
         </a>

@@ -38,16 +38,16 @@ const PAGE_LINKS = [
 
 const FORMALIDAD_LINKS = [
   {
+    href: URLS.faq(),
+    label: "Preguntas Frecuentes",
+  },
+  {
     href: URLS.avisoLegal(),
     label: "Aviso Legal",
   },
   {
     href: URLS.cookiePolicy(),
     label: "Política de Cookies",
-  },
-  {
-    href: URLS.faq(),
-    label: "Preguntas Frecuentes",
   },
 ];
 
@@ -115,7 +115,10 @@ export const Footer = () => {
             </span>
 
             <div className="flex flex-col gap-2">
-              <span>Tel 2 23644258 - 9 86395780</span>
+              <span>
+                Tel <a href="tel:+56223644258">2 23644258</a> -{" "}
+                <a href="tel:+56986395780">9 86395780</a>
+              </span>
 
               <a
                 className="hover:text-accent"
@@ -145,17 +148,18 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 md:mt-32 flex flex-col lg:flex-row gap-y-2 gap-x-8 lg:items-center lg:justify-between text-xs text-white/50">
-          <p>&copy; {new Date().getFullYear()} RK Abogados</p>
+          <p>
+            &copy; {new Date().getFullYear()} RK Abogados &middot; Todos los
+            derechos reservados
+          </p>
 
           <button
             onClick={openSettings}
-            className="text-white/50 hover:text-white transition-colors text-left lg:text-center"
+            className="text-white/50 hover:text-white transition-colors text-left lg:text-center cursor-pointer"
             type="button"
           >
             Configurar cookies
           </button>
-
-          <p>Todos los derechos reservados</p>
         </div>
       </div>
     </footer>

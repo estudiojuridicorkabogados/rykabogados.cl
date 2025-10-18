@@ -11,26 +11,37 @@ import { Videos } from "./_components/Videos/Videos";
 
 export default function HablaConNosotros() {
   return (
-    <div>
-      <Hero />
+    <>
+      <div>
+        <Hero />
 
-      <ReservaForm />
+        <ReservaForm />
 
-      <Areas />
+        <Areas />
 
-      <NextSteps />
+        <NextSteps />
 
-      <Slogan />
+        <Slogan />
 
-      <OurTeam />
+        <OurTeam />
 
-      <Videos />
+        <Videos />
 
-      <Press />
+        <Press />
 
-      <Contact />
+        <Contact />
 
-      <ClientsReel />
-    </div>
+        <ClientsReel />
+      </div>
+
+      <style>
+        {`     
+          .grecaptcha-badge {
+            visibility: visible;
+            bottom: 90px !important;
+            z-index: 100;
+          }`}
+      </style>
+    </>
   );
 }

@@ -74,7 +74,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
 
             <AuthorAndDate blogPost={mainPost} />
 
-            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-semibold !font-sans">
+            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 !font-sans">
               {mainPost.title}
             </h3>
           </Link>
@@ -119,10 +119,6 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
     </motion.div>
   );
 };
-
-function formatDate(date: string): string {
-  return format(new Date(date), "dd.MM.yyyy", { locale: es });
-}
 
 const AuthorAndDate: React.FC<{ blogPost: ShortPost }> = ({ blogPost }) => {
   return (

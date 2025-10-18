@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
-import Link from "next/link";
 import { toast } from "sonner";
 
 import {
@@ -11,7 +10,7 @@ import {
 import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { env } from "@/lib/env";
+import { getCaptchaToken } from "@/lib/re-captcha/getCaptchaToken";
 
 
 const initialState: ActionResponse = {
@@ -147,22 +146,3 @@ export const ContactForm = () => {
     </div>
   );
 };
-
-async function getCaptchaToken() {
-  return new Promise<string | null>((resolve) => {
-    grecaptcha.ready(async () => {
-      const siteKey = env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-
-      if (!siteKey) {
-        resolve(null);
-        return;
-      }
-
-      const token = await grecaptcha.execute(siteKey, {
-        action: "contact_us",
-      });
-
-      resolve(token);
-    });
-  });
-}

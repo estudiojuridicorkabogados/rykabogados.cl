@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 
-import { env } from "@/lib/env";
+import { verifyCaptcha } from "@/lib/re-captcha/verifyCaptcha";
 
 export interface ActionResponse {
   success: boolean;
@@ -57,7 +57,6 @@ export async function submitContactForm(
     mensaje: formData.get("mensaje") as string,
   };
 
-
   const validatedData = contactSchema.safeParse(rawData);
 
   if (!validatedData.success) {
@@ -88,22 +87,4 @@ export async function submitContactForm(
     success: true,
     message: "Form submitted succesfully",
   };
-}
-
-async function verifyCaptcha(token: string): Promise<boolean> {
-  const secretKey = env.RECAPTCHA_SECRET_KEY;
-
-  if (!secretKey) {
-    return false;
-  }
-
-  const url = new URL("https://www.google.com/recaptcha/api/siteverify");
-  url.searchParams.append("secret", secretKey);
-  url.searchParams.append("response", token);
-
-  const response = await fetch(url, { method: "POST" });
-
-  const data = await response.json();
-
-  return data.success;
 }

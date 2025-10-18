@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { motion, stagger } from "motion/react";
 
 import { submitBookACallForm } from "@/actions/submitBookACallForm";
+import { getCaptchaToken } from "@/lib/re-captcha/getCaptchaToken";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
@@ -30,7 +31,8 @@ export const ReservaForm = () => {
 
     startTransition(async () => {
       try {
-        const result = await submitBookACallForm(data);
+        const token = await getCaptchaToken();
+        const result = await submitBookACallForm(data, token);
 
         if (result.success && data.date) {
           console.log("Form submitted successfully:", data);

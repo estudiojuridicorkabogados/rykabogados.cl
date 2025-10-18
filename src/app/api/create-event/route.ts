@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { createGoogleCalendarEvent } from "@/lib/google-calendar/createGoogleCalendarEvent";
+// import { createGoogleCalendarEvent } from "@/lib/google-calendar/createGoogleCalendarEvent";
 
 export async function POST(request: Request) {
   try {
@@ -20,20 +20,20 @@ export async function POST(request: Request) {
     }
 
     console.log("Request Body:", body);
-    const result = await createGoogleCalendarEvent({
-      title: body.title || "Next.js Booking",
-      notes: body.notes,
-      startTime: body.startTime,
-      endTime: body.endTime,
-    });
+    // const result = await createGoogleCalendarEvent({
+    //   title: body.title || "Next.js Booking",
+    //   notes: body.notes,
+    //   startTime: body.startTime,
+    //   endTime: body.endTime,
+    // });
 
-    console.log("Done", result);
+    // console.log("Done", result);
 
     return NextResponse.json(
       {
         message: "Event created successfully!",
-        eventId: result.eventId,
-        htmlLink: result.htmlLink,
+        // eventId: result.eventId,
+        // htmlLink: result.htmlLink,
       },
       { status: 200 }
     );
