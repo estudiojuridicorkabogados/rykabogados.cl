@@ -24,9 +24,10 @@ export const OtrasAreasServices = () => {
           variants={itemVariants}
           className="text-4xl font-bold text-black"
         >
-          Nuestros Servicios para Empresas
+          Áreas de práctica
+
         </motion.h2>
-        <motion.p
+        {/* <motion.p
           variants={itemVariants}
           className="text-lg text-gray-600 lg:w-2/3"
         >
@@ -35,7 +36,7 @@ export const OtrasAreasServices = () => {
           equipo de abogados expertos en derecho empresarial brinda asesoría
           integral en todas las etapas del ciclo de vida de su negocio, desde la
           constitución hasta la expansión internacional.
-        </motion.p>
+        </motion.p> */}
       </div>
 
       <Accordion entries={SERVICES} />
