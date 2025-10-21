@@ -23,7 +23,7 @@ const PAGE_LINKS = [
     label: "Asesoría Empresas",
   },
   {
-    href: URLS.asesoriaEmpresas(),
+    href: URLS.otrasAreas(),
     label: "Otras Áreas",
   },
   {
