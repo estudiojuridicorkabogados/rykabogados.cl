@@ -14,10 +14,10 @@ export const HomeHero = () => {
           Excelencia, Lealtad <br />e Integridad
         </>
       }
-      align="bottom"
+      align="center"
       description={DESCRIPTION}
       image={{
-        src: "/images/heros/santiago-2.webp",
+        src: "/images/heros/santiago.webp",
         alt: "Santiago, Chile",
       }}
     />
