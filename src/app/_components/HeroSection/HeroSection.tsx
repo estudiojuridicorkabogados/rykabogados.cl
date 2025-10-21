@@ -14,11 +14,11 @@ export const HomeHero = () => {
           Excelencia, Lealtad <br />e Integridad
         </>
       }
-      align="top"
+      align="bottom"
       description={DESCRIPTION}
       image={{
-        src: "/images/heros/bandera-chile.webp",
-        alt: "Columns background",
+        src: "/images/heros/santiago-2.webp",
+        alt: "Santiago, Chile",
       }}
     />
   );

@@ -151,3 +151,11 @@ h6 {
 .section-container {
   @apply px-6 lg:px-0 lg:mx-auto lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl;
 }
+
+.hero-title {
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* horiz offset, vert offset, blur, color */
+}
+
+.hero-description {
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3); /* horiz offset, vert offset, blur, color */
+}

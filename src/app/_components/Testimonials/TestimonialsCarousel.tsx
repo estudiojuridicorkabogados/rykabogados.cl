@@ -45,7 +45,7 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
         <div className="relative w-full">
           <AnimatePresence custom={direction} initial={false} mode="popLayout">
             <Slide key={selectedItem.index}>
-              <p className="text-2xl lg:text-3xl font-medium mb-8">
+              <p className="text-2xl lg:text-2xl font-medium pb-8 line-clamp-5">
                 &ldquo;{selectedItem.quote}&rdquo;
               </p>
             </Slide>
@@ -57,8 +57,8 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
         <AnimatePresence custom={direction} initial={false} mode="popLayout">
           <Slide key={selectedItem.index}>
             <div>
-              <span className="font-semibold">{selectedItem.name}</span>
-              <p className="text-xs text-gray-300">{selectedItem.role}</p>
+              <span className="font-light italic">{selectedItem.name}</span>
+              {/* <p className="text-xs text-gray-300">{selectedItem.role}</p> */}
             </div>
           </Slide>
         </AnimatePresence>

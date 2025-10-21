@@ -45,18 +45,6 @@ export const AboutSection = () => {
             lealtad y un compromiso constante con la excelencia profesional.
           </motion.p>
 
-          <motion.p
-            variants={itemVariants}
-            className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:mb-8"
-          >
-            Cada estrategia se diseña y analiza en conjunto, combinando
-            conocimiento técnico, experiencia práctica y cercanía humana, para
-            asegurar resultados sólidos, medibles y sostenibles en el tiempo.
-            Nuestra prioridad es construir relaciones de confianza y largo
-            plazo, basadas en la transparencia, la lealtad y un compromiso
-            permanente con la excelencia profesional.
-          </motion.p>
-
           <motion.div variants={itemVariants} className="hidden lg:block">
             <Button
               className="w-fit"

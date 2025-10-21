@@ -25,21 +25,21 @@ export const HeroContent: React.FC<HeroContentProps> = ({
     >
       <motion.span
         variants={itemVariants}
-        className="uppercase text-xs lg:text-sm text-accent font-bold mb-2 lg:mb-4 tracking-[3px]"
+        className="hero-title uppercase text-xs lg:text-sm text-accent font-bold mb-2 lg:mb-4 tracking-[3px]"
       >
         {label}
       </motion.span>
 
       <motion.h1
         variants={itemVariants}
-        className="lg:max-w-3xl text-5xl lg:text-7xl mb-4 lg:mb-8 text-gray-60"
+        className="hero-title lg:max-w-3xl text-5xl lg:text-7xl mb-4 lg:mb-6 text-gray-60"
       >
         {title}
       </motion.h1>
 
       <motion.p
         variants={itemVariants}
-        className="lg:text-lg text-white/90 font-light tracking-wide lg:max-w-2xl"
+        className="hero-description lg:text-lg text-white/90 font-base tracking-wide lg:max-w-2xl"
       >
         {description}
       </motion.p>

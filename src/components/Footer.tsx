@@ -42,8 +42,8 @@ const FORMALIDAD_LINKS = [
     label: "Preguntas Frecuentes",
   },
   {
-    href: URLS.avisoLegal(),
-    label: "Aviso Legal",
+    href: URLS.privacyPolicy(),
+    label: "Política de Privacidad",
   },
   {
     href: URLS.cookiePolicy(),

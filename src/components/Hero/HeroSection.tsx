@@ -27,7 +27,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
       className={classNames([
-        "relative h-[calc(100dvh-80px)] lg:h-[calc(100dvh-100px)] flex items-center justify-center overflow-hidden",
+        // "relative h-screen flex items-center justify-center overflow-hidden",
+        "relative h-[calc(100dvh-80px)] lg:h-[calc(100dvh-50px)] flex items-center justify-center overflow-hidden",
         className,
       ])}
     >
@@ -39,14 +40,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         fill
         sizes="100vw"
         className={classNames("object-cover", {
-          "object-top-right": align === "top",
+          "object-top-left": align === "top",
           "object-center": align === "center",
           "object-bottom": align === "bottom",
         })}
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 from-35% to-black/0" />
 
       <HeroContent label={label} title={title} description={description} />
     </section>

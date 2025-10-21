@@ -206,10 +206,10 @@ export default function PoliticaCookiesPage() {
                 <br />
                 Email:{" "}
                 <a
-                  href="mailto:info@rykabogados.cl"
+                  href="mailto:contacto@rkabogados.cl"
                   className="text-primary-600 hover:text-primary-700 underline"
                 >
-                  info@rykabogados.cl
+                  contacto@rkabogados.cl
                 </a>
               </p>
             </div>

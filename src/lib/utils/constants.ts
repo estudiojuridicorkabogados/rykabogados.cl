@@ -15,7 +15,7 @@ export const URLS: UrlsMap = {
   speakWithUs: () => "/habla-con-nosotros",
   blog: () => "/blog",
   blogPost: (slug: string) => `/blog/${slug}` as unknown as Route,
-  avisoLegal: () => "/aviso-legal",
+  privacyPolicy: () => "/politicas-de-privacidad",
   faq: () => "/faqs",
   cookiePolicy: () => "/politica-cookies",
   // External links
