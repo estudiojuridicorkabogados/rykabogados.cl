@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useChat } from "@ai-sdk/react";
-import { MessageCircleQuestionMark, MessageSquareIcon } from "lucide-react";
+import { BotMessageSquare } from "lucide-react";
 
 import { classNames } from "@/lib/utils/classNames";
 
@@ -33,7 +31,7 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       aria-label={open ? "Hide chat" : "Open chat"}
     >
       {/* Chat icon */}
-      <MessageCircleQuestionMark className="h-6 w-6 stroke-primary" />
+      <BotMessageSquare className="h-7 w-7 stroke-primary" />
 
       {/* Unread badge */}
       {unread > 0 && (
