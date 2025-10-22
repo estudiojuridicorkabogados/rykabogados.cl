@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, stagger, Variants } from "motion/react";
 import Image from "next/image";
 
@@ -21,6 +22,29 @@ const imageVariants: Variants = {
 };
 
 export const OurTeam = () => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null); // Add ref
+
+  // Add wheel event handler
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // Only handle vertical scroll events (deltaY)
+      // Don't interfere if user is holding Shift (for native horizontal scroll)
+      if (e.deltaY !== 0 && !e.shiftKey) {
+        e.preventDefault();
+        scrollContainer.scrollLeft += e.deltaY;
+      }
+    };
+
+    scrollContainer.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      scrollContainer.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   return (
     <motion.section
       id="nuestro-equipo"
@@ -57,6 +81,7 @@ export const OurTeam = () => {
 
         <motion.div className="relative" variants={imageVariants}>
           <div
+            ref={scrollContainerRef}
             role="region"
             aria-label="Miembros del equipo"
             className={classNames([
