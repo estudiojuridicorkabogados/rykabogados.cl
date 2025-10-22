@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/Hero/HeroSection";
 export const NosostrosHero = () => {
   return (
     <HeroSection
-      label="Encuentra el equipo"
+      label="Conócenos"
       title="Nosotros"
       align="center"
       description={`En RK Abogados creemos que la confianza se construye con resultados reales, ética profesional y compromiso constante con la excelencia.

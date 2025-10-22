@@ -39,7 +39,7 @@ type TeamMember = {
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Camila Retamales Quiroz",
-    role: "Abogada Fundadora",
+    role: "Abogada Socia",
     photo: "/images/team/camila.webp",
     linkedin: "https://www.linkedin.com/in/camila-retamales-082a63160",
     phone: "+56 9 8639 5780",
@@ -55,7 +55,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Luciano Ascui Mestre",
-    role: "Abogado Derecho Laboral",
+    role: "Abogado",
     photo: "/images/team/luciano-old.webp",
     linkedin: "https://www.linkedin.com/in/luciano-ignacio-ascui-67784a12a",
     phone: "+56 9 7873 4201",
@@ -63,7 +63,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Nicole Ulloa Evert",
-    role: "Abogada Derecho Laboral",
+    role: "Abogada",
     photo: "/images/team/nicole-old.webp",
     linkedin: "https://www.linkedin.com/in/nicoleulloaevert",
     phone: "+56 9 7394 0304",
@@ -71,7 +71,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Bastián Morales Romero",
-    role: "Abogado Derecho Laboral",
+    role: "Abogado",
     photo: "/images/team/bastian-old.webp",
     linkedin: "https://www.linkedin.com/in/moralesromero",
     phone: "+56 9 7881 4048",
@@ -79,15 +79,15 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Paolo Castiglione Cañas",
-    role: "Abogado Derecho Laboral",
+    role: "Abogado",
     photo: "/images/team/paolo.webp",
-    linkedin: "https://www.linkedin.com/in/paolo-castiglione-ca%C3%B1as-90805422",
+    linkedin: "https://www.linkedin.com/in/paolo-castiglione-ca%C3%B1as-908054221",
     phone: "+56 9 7895 1026",
     phoneLink: "tel:+56978951026",
   },
   {
     name: "Constanza Zarricueta",
-    role: "Abogada Derecho Laboral",
+    role: "Abogada",
     photo: "/images/team/constanza.webp",
     linkedin: "https://www.linkedin.com/in/constanza-zarricueta-cruz-776b4a215",
     phone: "+56 9 8257 2369",

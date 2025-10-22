@@ -22,7 +22,7 @@ export const TeamGrid = () => {
           variants={itemVariants}
           className="text-4xl lg:text-5xl font-bold text-white leading-tight"
         >
-          Conoce nuestro equipo
+          Conoce a nuestro equipo
         </motion.h2>
 
         {/* <motion.p

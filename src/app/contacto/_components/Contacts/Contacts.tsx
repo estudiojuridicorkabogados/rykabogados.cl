@@ -21,7 +21,7 @@ export const Contacts = () => {
           Tel <a href="tel:+56223644258">2 23644258</a> -{" "}
           <a href="tel:+56986395780">9 86395780</a>
         </span>
-        <a href="mailto:contacto@rkabogados.cl" target="_blank">
+        <a className="hover:text-accent transition-colors duration-300" href="mailto:contacto@rkabogados.cl">
           contacto@rkabogados.cl
         </a>
       </div>
