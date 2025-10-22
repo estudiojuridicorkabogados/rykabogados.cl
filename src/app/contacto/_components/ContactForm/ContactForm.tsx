@@ -11,7 +11,7 @@ import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
-
+import { URLS } from "@/lib/utils/constants";
 
 const initialState: ActionResponse = {
   success: false,
@@ -125,7 +125,14 @@ export const ContactForm = () => {
               required
             />
             <label htmlFor="dataConsent" className="text-white/80 text-xs">
-              Acepto <a href="/politica-de-cookies" target="_blank" className="underline">cookies</a>
+              Acepto{" "}
+              <a
+                href={URLS.privacyPolicy()}
+                target="_blank"
+                className="underline"
+              >
+                política de privacidad
+              </a>
             </label>
           </div>
 

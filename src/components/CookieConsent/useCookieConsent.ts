@@ -4,7 +4,7 @@ import { use } from "react";
 
 import { CookieConsentContext } from "./CookieConsentProvider";
 
-export function useCookieConsent() {
+export const useCookieConsent = () => {
   const context = use(CookieConsentContext);
 
   if (!context) {

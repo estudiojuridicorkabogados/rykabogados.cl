@@ -122,10 +122,10 @@ export const Footer = () => {
 
               <a
                 className="hover:text-accent"
-                href="mailto:estudio.juridico@ryoasociados.cl"
+                href="mailto:contacto@rkabogados.cl"
                 target="_blank"
               >
-                estudio.juridico@ryoasociados.cl
+                contacto@rkabogados.cl
               </a>
             </div>
 

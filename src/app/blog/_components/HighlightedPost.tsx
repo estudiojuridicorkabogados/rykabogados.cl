@@ -29,7 +29,7 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
         variants={itemVariants}
         className="relative text-3xl lg:text-5xl font-bold text-black z-10"
       >
-        Nuestros articulos
+        Publicaciones
       </motion.h1>
 
       <motion.div

@@ -9,7 +9,7 @@ import { Button } from "../ui/Button";
 
 import { useCookieConsent } from "./useCookieConsent";
 
-export function CookieBanner() {
+export const CookieBanner = () => {
   const { showBanner, acceptAll, openSettings } =
     useCookieConsent();
 

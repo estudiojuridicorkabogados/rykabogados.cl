@@ -30,7 +30,7 @@ export const TESTIMONIALS = [
   },
   {
     quote:
-      "Estoy muy agradecida de haber elegido utilizar a los abogados de RK Asociados y a Camila Retamales para mi caso el cual se resolvió satisfactoriamente a mi favor, me sentí desde el inicio acogida y asesorada con gran profesionalismo, lo cual me hizo estar y confiada en que mi demanda era justa, mi abogada estuvo en permanente contacto analizando mis respaldos y orientándome con asertividad y estoy sorprendida de los resultados de la resolución tan oportunos y rapidos, Recomiendo ampliamente a Camila y su equipo.",
+      "Estoy muy agradecida de haber elegido utilizar a los abogados de RK Abogados y a Camila Retamales para mi caso el cual se resolvió satisfactoriamente a mi favor, me sentí desde el inicio acogida y asesorada con gran profesionalismo, lo cual me hizo estar y confiada en que mi demanda era justa, mi abogada estuvo en permanente contacto analizando mis respaldos y orientándome con asertividad y estoy sorprendida de los resultados de la resolución tan oportunos y rapidos, Recomiendo ampliamente a Camila y su equipo.",
     name: "Rosa Palomino",
     // role: "Trabajadora",
   },

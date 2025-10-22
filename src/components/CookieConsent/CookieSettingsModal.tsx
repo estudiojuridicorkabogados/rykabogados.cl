@@ -8,7 +8,7 @@ import { Button } from "../ui/Button";
 
 import { useCookieConsent } from "./useCookieConsent";
 
-export function CookieSettingsModal() {
+export const CookieSettingsModal = () => {
   const { showModal, closeSettings, savePreferences, preferences } =
     useCookieConsent();
 
