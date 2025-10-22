@@ -1,9 +1,8 @@
 import { HeroSection } from "@/components/Hero/HeroSection";
 
 const DESCRIPTION = `
-En RK Abogados contamos con un equipo especializado en derecho laboral corporativo, dedicado a ofrecer una asesoría estratégica, preventiva y resolutiva que asegure el cumplimiento normativo, minimice riesgos y fortalezca las relaciones laborales.
-Asistimos a tu empresa en la redacción de contratos, políticas internas, reglamentos y modelos de cumplimiento laboral (Ley Karin, seguridad y salud), además de auditorías, fiscalizaciones, negociaciones colectivas y defensa o representación ante la Dirección del Trabajo o tribunales.
-Nuestro enfoque combina prevención y estrategia legal, permitiendo a cada organización actuar con seguridad jurídica, fortalecer su gestión interna y optimizar el desarrollo de su capital humano.
+En RK Abogados brindamos una asesoría laboral integral enfocada en la prevención, la gestión estratégica y la resolución eficiente de conflictos. Apoyamos a las organizaciones en la correcta aplicación de la normativa laboral, la elaboración de políticas internas y la construcción de relaciones laborales sólidas y sostenibles.
+Nuestro compromiso es fortalecer la seguridad jurídica y la gestión del talento dentro de cada empresa, impulsando un entorno laboral estable, transparente y orientado al crecimiento.
 `
 
 export const AsesoriaEmpresasHero = () => {

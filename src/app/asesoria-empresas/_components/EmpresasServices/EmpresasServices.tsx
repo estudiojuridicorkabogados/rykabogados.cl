@@ -30,11 +30,10 @@ export const EmpresasServices = () => {
           variants={itemVariants}
           className="text-lg text-gray-600 lg:w-2/3"
         >
-          Ofrecemos una amplia gama de servicios especializados para ayudar a su
-          empresa a crecer y prosperar en el competitivo mercado actual. Nuestro
-          equipo de abogados expertos en derecho empresarial brinda asesoría
-          integral en todas las etapas del ciclo de vida de su negocio, desde la
-          constitución hasta la expansión internacional.
+          Ofrecemos una amplia gama de servicios orientados a impulsar el
+          crecimiento y la estabilidad de su empresa. Acompañamos a cada
+          organización en la toma de decisiones clave, garantizando soluciones
+          efectivas y sostenibles a largo plazo.
         </motion.p>
       </div>
 

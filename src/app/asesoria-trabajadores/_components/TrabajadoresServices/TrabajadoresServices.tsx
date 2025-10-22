@@ -30,10 +30,10 @@ export const TrabajadoresServices = () => {
           variants={itemVariants}
           className="text-lg text-gray-600 lg:w-2/3"
         >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus
-          distinctio odio fugiat repellat ad, qui soluta repudiandae, illum
-          tenetur assumenda doloremque impedit hic ea explicabo quae suscipit.
-          Modi, labore error.
+          Sabemos que enfrentar un problema laboral puede ser difícil. En RK
+          Abogados te acompañamos en cada paso, entregándote apoyo legal,
+          claridad y soluciones concretas para proteger tus derechos y tu
+          tranquilidad.
         </motion.p>
       </div>
 

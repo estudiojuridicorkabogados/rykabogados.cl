@@ -1,4 +1,4 @@
-import { ContactSection } from "@/components/ContactSection/ContactSection";
+import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
 
 export default function BlogLayout({ children }: LayoutProps<"/blog">) {
   return (
@@ -9,7 +9,7 @@ export default function BlogLayout({ children }: LayoutProps<"/blog">) {
         {children}
       </div>
 
-      <ContactSection />
+      <ContactSectionLight />
     </div>
   );
 }
