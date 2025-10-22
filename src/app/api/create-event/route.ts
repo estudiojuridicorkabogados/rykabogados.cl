@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-// import { createGoogleCalendarEvent } from "@/lib/google-calendar/createGoogleCalendarEvent";
+import { sendEmail } from "@/lib/google/gmail/sendEmail";
+import { createGoogleCalendarEvent } from "@/lib/google/google-calendar/createGoogleCalendarEvent";
 
 export async function POST(request: Request) {
   try {
@@ -19,21 +20,42 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("Request Body:", body);
-    // const result = await createGoogleCalendarEvent({
-    //   title: body.title || "Next.js Booking",
-    //   notes: body.notes,
-    //   startTime: body.startTime,
-    //   endTime: body.endTime,
-    // });
+    const result = await createGoogleCalendarEvent({
+      title: "Asesoria Gratuita",
+      notes: body.notes,
+      userEmail: body.userEmail,
+      startTime: body.startTime,
+      endTime: body.endTime,
+    });
 
-    // console.log("Done", result);
+    await sendEmail({
+      to: body.userEmail,
+      subject: "Gracias por contactarnos",
+      html: `<p>Gracias por contactarnos. Hemos recibido tu solicitud y nos pondremos en contacto contigo pronto para confirmar los detalles de la llamada.</p>
+      <p>Saludos,<br><strong>RK Abogados</strong></p>`,
+      from: "notificaciones@ryoasociados.cl",
+      replyTo: "notificaciones@ryoasociados.cl",
+    });
+
+    await sendEmail({
+      to: "notificaciones@ryoasociados.cl",
+      subject: "Nueva Asesoria Gratuita",
+      html: `<p>
+      <p>Nombre: ${body.name}</p>
+      <p>Email: ${body.email}</p>
+      <p>Teléfono: ${body.phoneNumber}</p>
+      <p>Notas: ${body.notes}</p>
+      <p>Evento en Calendario: <a href="${result.htmlLink}">${result.htmlLink}</a></p>
+      </p>`,
+      from: "camila.retamales@rkabogados.cl",
+      replyTo: "camila.retamales@rkabogados.cl",
+    });
 
     return NextResponse.json(
       {
         message: "Event created successfully!",
-        // eventId: result.eventId,
-        // htmlLink: result.htmlLink,
+        eventId: result.eventId,
+        htmlLink: result.htmlLink,
       },
       { status: 200 }
     );
