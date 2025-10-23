@@ -38,9 +38,7 @@ function createEventData(eventDetails: EventDetails) {
     description: eventDetails.notes,
     attendees: [
       { email: CAMILA_EMAIL },
-      {
-        email: eventDetails.userEmail,
-      },
+      { email: eventDetails.userEmail },
     ],
     start: {
       dateTime: eventDetails.startTime,

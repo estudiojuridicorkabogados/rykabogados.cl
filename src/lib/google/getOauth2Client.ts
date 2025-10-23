@@ -9,13 +9,15 @@ const GCP_WORKLOAD_IDENTITY_POOL_ID = env.GCP_WORKLOAD_IDENTITY_POOL_ID;
 const GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID =
   env.GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID;
 
+interface GetOAuth2ClientOptions {
+  delegatedUserEmail: string;
+  scope: string;
+}
+
 export async function getOAuth2Client({
   delegatedUserEmail,
   scope,
-}: {
-  delegatedUserEmail: string;
-  scope: string;
-}) {
+}: GetOAuth2ClientOptions) {
   const wifClient = ExternalAccountClient.fromJSON({
     type: "external_account",
     audience: `//iam.googleapis.com/projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${GCP_WORKLOAD_IDENTITY_POOL_ID}/providers/${GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID}`,
