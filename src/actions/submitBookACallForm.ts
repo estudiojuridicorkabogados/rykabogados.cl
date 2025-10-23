@@ -1,9 +1,10 @@
 "use server";
 
-import { format } from "date-fns";
-
+import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
+import { createGoogleCalendarEvent } from "@/lib/google/google-calendar/createGoogleCalendarEvent";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
+import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
 
 import { FormData } from "../app/habla-con-nosotros/_components/ReservaForm/types";
 
@@ -30,13 +31,33 @@ export async function submitBookACallForm(
     if (data.date) {
       return {
         success: false,
-        message: "Must send a date",
+        message: "Debe enviar una fecha",
       };
     }
 
-    await Promise.all([sendReceiptEmailToClient(data), notifyOffice(data)]);
+    // @TODO Fix this shit
+    const result = await createGoogleCalendarEvent({
+      title: "Asesoria Gratuita",
+      notes: "body.notes",
+      userEmail: data.email,
+      startTime: "body.startTime",
+      endTime: "body.endTime",
+    });
 
-    // @TODO Add event to calendar once ready
+    if (!result.htmlLink) {
+      return {
+        success: false,
+        message: "No se pudo crear una cita",
+      };
+    }
+
+    await dispatchNotificationEmails({
+      name: data.name,
+      userEmail: data.email,
+      phoneNumber: data.phoneNumber,
+      notes: "data.notes", // @TODO
+      eventHtmlLink: "",
+    });
 
     return { success: true, message: "Reserva enviada exitosamente" };
   } catch (error) {
@@ -45,44 +66,44 @@ export async function submitBookACallForm(
   }
 }
 
-async function sendReceiptEmailToClient(data: FormData) {
-  if (!data.date) {
-    return;
-  }
+interface NotificationEmailArgs {
+  name: string;
+  userEmail: string;
+  phoneNumber: string;
+  notes: string;
+  eventHtmlLink: string;
+}
 
-  const formattedDate = format(data.date, "dd/MM/yyyy");
+async function dispatchNotificationEmails(args: NotificationEmailArgs) {
+  const gmailOAuth2Client = await getGmailOAuth2Client();
 
   await sendEmail({
-    to: data.email,
+    to: args.userEmail,
     subject: "Confirmación de tu solicitud - RK Abogados",
-    replyTo: "info@rkabogados.cl", // Replies go to your office email
+    from: NOTIFICATIONS_EMAIL,
+    replyTo: NOTIFICATIONS_EMAIL,
     html: `
-        <h2>Hola ${data.name},</h2>
-        <p>Hemos recibido tu solicitud de llamada para el <strong>${formattedDate}</strong> a las <strong>${data.timeSlot}</strong>.</p>
+        <h2>Hola ${args.name},</h2>
+        <p>Hemos recibido tu solicitud de llamada.</p>
         <p>Nos pondremos en contacto contigo para confirmar la cita o proponerte un horario alternativo si el horario seleccionado no estuviera disponible.</p>
         <br>
         <p>Saludos,<br><strong>RK Abogados</strong></p>
       `,
+    oauth2Client: gmailOAuth2Client,
   });
-}
-
-async function notifyOffice(data: FormData) {
-  if (!data.date) {
-    return;
-  }
-
-  const formattedDate = format(data.date, "dd/MM/yyyy");
 
   await sendEmail({
-    to: "camila.retamales@rykabogados.cl",
+    to: NOTIFICATIONS_EMAIL,
     subject: "Nueva solicitud de llamada",
     html: `
         <h2>Nueva solicitud de llamada de rkabogados.cl</h2>
-        <p><strong>Nombre:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Teléfono:</strong> ${data.phoneNumber}</p>
-        <p><strong>Fecha:</strong> ${formattedDate}</p>
-        <p><strong>Horario:</strong> ${data.timeSlot}</p>
+        <p><strong>Nombre:</strong> ${args.name}</p>
+        <p><strong>Email:</strong> ${args.userEmail}</p>
+        <p><strong>Teléfono:</strong> ${args.phoneNumber}</p>
+        <p><strong>Notas:</strong> ${args.notes}</p>
       `,
+    from: CAMILA_EMAIL,
+    replyTo: CAMILA_EMAIL,
+    oauth2Client: gmailOAuth2Client,
   });
 }

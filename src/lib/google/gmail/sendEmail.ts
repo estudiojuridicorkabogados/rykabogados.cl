@@ -1,11 +1,13 @@
-import { getGmailClient } from "./getGmailClient";
+import { OAuth2Client } from "google-auth-library";
+import { google } from "googleapis";
 
 export interface EmailOptions {
   to: string;
   subject: string;
   html: string;
-  from?: string;
+  from: string;
   replyTo?: string;
+  oauth2Client: OAuth2Client;
 }
 
 /**
@@ -17,9 +19,8 @@ export async function sendEmail({
   html,
   from,
   replyTo,
+  oauth2Client,
 }: EmailOptions) {
-  const gmail = await getGmailClient();
-
   // Create the email message in RFC 2822 format
   const messageParts = [
     `From: ${from || "RYK Abogados"}`,
@@ -41,13 +42,14 @@ export async function sendEmail({
     .replace(/\//g, "_")
     .replace(/=+$/, "");
 
-  // Send the email
-  const response = await gmail.users.messages.send({
-    userId: "me",
-    requestBody: {
-      raw: encodedMessage,
-    },
-  });
+  const response = await google
+    .gmail({ version: "v1", auth: oauth2Client })
+    .users.messages.send({
+      userId: "me",
+      requestBody: {
+        raw: encodedMessage,
+      },
+    });
 
   return response.data;
 }

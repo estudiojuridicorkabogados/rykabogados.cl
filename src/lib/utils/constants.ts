@@ -94,3 +94,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     phoneLink: "tel:+56982572369",
   },
 ];
+
+
+export const NOTIFICATIONS_EMAIL = "notificaciones@ryoasociados.cl";
+export const CAMILA_EMAIL = "camila.retamales@ryoasociados.cl";

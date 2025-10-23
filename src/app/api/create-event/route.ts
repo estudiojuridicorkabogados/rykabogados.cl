@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
+import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
 import { createGoogleCalendarEvent } from "@/lib/google/google-calendar/createGoogleCalendarEvent";
+import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
 
 export async function POST(request: Request) {
   try {
@@ -28,27 +30,16 @@ export async function POST(request: Request) {
       endTime: body.endTime,
     });
 
-    await sendEmail({
-      to: body.userEmail,
-      subject: "Gracias por contactarnos",
-      html: `<p>Gracias por contactarnos. Hemos recibido tu solicitud y nos pondremos en contacto contigo pronto para confirmar los detalles de la llamada.</p>
-      <p>Saludos,<br><strong>RK Abogados</strong></p>`,
-      from: "notificaciones@ryoasociados.cl",
-      replyTo: "notificaciones@ryoasociados.cl",
-    });
+    if (!result.htmlLink) {
+      throw new Error("Failed to create event");
+    }
 
-    await sendEmail({
-      to: "notificaciones@ryoasociados.cl",
-      subject: "Nueva Asesoria Gratuita",
-      html: `<p>
-      <p>Nombre: ${body.name}</p>
-      <p>Email: ${body.email}</p>
-      <p>Teléfono: ${body.phoneNumber}</p>
-      <p>Notas: ${body.notes}</p>
-      <p>Evento en Calendario: <a href="${result.htmlLink}">${result.htmlLink}</a></p>
-      </p>`,
-      from: "camila.retamales@rkabogados.cl",
-      replyTo: "camila.retamales@rkabogados.cl",
+    await dispatchNotificationEmails({
+      name: body.name,
+      userEmail: body.userEmail,
+      phoneNumber: body.phoneNumber,
+      notes: body.notes,
+      eventHtmlLink: result.htmlLink,
     });
 
     return NextResponse.json(
@@ -68,4 +59,41 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+}
+
+interface NotificationEmailArgs {
+  name: string;
+  userEmail: string;
+  phoneNumber: string;
+  notes: string;
+  eventHtmlLink: string;
+}
+
+async function dispatchNotificationEmails(args: NotificationEmailArgs) {
+  const gmailOAuth2Client = await getGmailOAuth2Client();
+
+  await sendEmail({
+    to: args.userEmail,
+    subject: "Gracias por contactarnos",
+    html: `<p>Gracias por contactarnos. Hemos recibido tu solicitud y nos pondremos en contacto contigo pronto para confirmar los detalles de la llamada.</p>
+    <p>Saludos,<br><strong>RK Abogados</strong></p>`,
+    from: NOTIFICATIONS_EMAIL,
+    replyTo: NOTIFICATIONS_EMAIL,
+    oauth2Client: gmailOAuth2Client,
+  });
+
+  await sendEmail({
+    to: NOTIFICATIONS_EMAIL,
+    subject: "Nueva Asesoria Gratuita",
+    html: `<p>
+    <p>Nombre: ${args.name}</p>
+    <p>Email: ${args.userEmail}</p>
+    <p>Teléfono: ${args.phoneNumber}</p>
+    <p>Notas: ${args.notes}</p>
+    <p>Evento en Calendario: <a href="${args.eventHtmlLink}">${args.eventHtmlLink}</a></p>
+    </p>`,
+    from: CAMILA_EMAIL,
+    replyTo: CAMILA_EMAIL,
+    oauth2Client: gmailOAuth2Client,
+  });
 }

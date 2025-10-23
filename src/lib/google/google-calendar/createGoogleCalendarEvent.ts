@@ -1,4 +1,8 @@
-import { getGoogleCalendarClient } from "./getGoogleCalendarClient";
+import { google } from "googleapis";
+
+import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
+
+import { getOAuth2Client } from "../getOauth2Client";
 
 interface EventDetails {
   title: string;
@@ -8,28 +12,32 @@ interface EventDetails {
   endTime: string; // ISO string
 }
 
-const NOTIFICATIONS_EMAIL = "notificaciones@ryoasociados.cl";
-const CAMILA_EMAIL = "camila.retamales@ryoasociados.cl";
-
-const BASE_ATTENDEES = [
-  { email: NOTIFICATIONS_EMAIL },
-  { email: CAMILA_EMAIL },
-];
-
 export async function createGoogleCalendarEvent(eventDetails: EventDetails) {
-  const calendar = await getGoogleCalendarClient();
+  const oauth2Client = await getOAuth2Client({
+    delegatedUserEmail: NOTIFICATIONS_EMAIL,
+    scope: "https://www.googleapis.com/auth/calendar",
+  });
 
-  // @TODO Make sure dates are always for Chilean Timezone (convert the mthe right wasy)
-  const eventData = {
+  const result = await google
+    .calendar({ version: "v3", auth: oauth2Client })
+    .events.insert({
+      calendarId: NOTIFICATIONS_EMAIL,
+      requestBody: createEventData(eventDetails),
+      sendUpdates: "all",
+    });
+
+  return {
+    eventId: result.data.id,
+    htmlLink: result.data.htmlLink,
+  };
+}
+
+function createEventData(eventDetails: EventDetails) {
+  return {
     summary: eventDetails.title,
     description: eventDetails.notes,
-    organizer: {
-      email: NOTIFICATIONS_EMAIL,
-      displayName: "RK Abogados",
-      self: true,
-    },
     attendees: [
-      ...BASE_ATTENDEES,
+      { email: CAMILA_EMAIL },
       {
         email: eventDetails.userEmail,
       },
@@ -42,16 +50,5 @@ export async function createGoogleCalendarEvent(eventDetails: EventDetails) {
       dateTime: eventDetails.endTime,
       timeZone: "America/Santiago",
     },
-  };
-
-  const result = await calendar.events.insert({
-    calendarId: NOTIFICATIONS_EMAIL,
-    requestBody: eventData,
-    sendUpdates: "all",
-  });
-
-  return {
-    eventId: result.data.id,
-    htmlLink: result.data.htmlLink,
   };
 }
