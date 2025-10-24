@@ -86,7 +86,10 @@ export const Slogan = () => {
             WhatsApp para una atención inmediata.
           </motion.span>
 
-          <motion.div variants={itemVariants} className="mt-4 flex flex-col md:flex-row gap-4">
+          <motion.div
+            variants={itemVariants}
+            className="mt-4 flex flex-col md:flex-row gap-4"
+          >
             <Button variant="reserva-form-link" asChild>
               <a href="#reserva-form-section" onClick={handleScrollToForm}>
                 Reserva una llamada

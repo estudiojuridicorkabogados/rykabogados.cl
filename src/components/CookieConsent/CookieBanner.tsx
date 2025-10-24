@@ -10,8 +10,7 @@ import { Button } from "../ui/Button";
 import { useCookieConsent } from "./useCookieConsent";
 
 export const CookieBanner = () => {
-  const { showBanner, acceptAll, openSettings } =
-    useCookieConsent();
+  const { showBanner, acceptAll, openSettings } = useCookieConsent();
 
   return (
     <AnimatePresence>
@@ -72,4 +71,4 @@ export const CookieBanner = () => {
       )}
     </AnimatePresence>
   );
-}
+};

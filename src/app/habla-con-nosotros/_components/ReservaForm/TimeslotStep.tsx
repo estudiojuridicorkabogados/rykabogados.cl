@@ -1,4 +1,4 @@
-import { Control, UseFormRegister } from "react-hook-form";
+import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
 import { DaySelectorCalendar } from "./DaySelectorCalendar";
 import { FormData } from "./types";
@@ -6,7 +6,7 @@ import { FormData } from "./types";
 interface TimeSlotStepProps {
   register: UseFormRegister<FormData>;
   control: Control<FormData>;
-  errors: any;
+  errors: FieldErrors<FormData>;
 }
 
 const timeSlots = [

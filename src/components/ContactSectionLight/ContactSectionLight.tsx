@@ -26,9 +26,8 @@ export const ContactSectionLight: React.FC<ContactSectionLightProps> = ({
           <h2 className="text-3xl lg:text-4xl font-bold">Contáctanos</h2>
 
           <p className="mb-6">
-            Cuéntanos tu caso, nosotros nos encargamos del
-            resto. Nuestro equipo está listo para ofrecerte la asesoría que
-            necesitas.
+            Cuéntanos tu caso, nosotros nos encargamos del resto. Nuestro equipo
+            está listo para ofrecerte la asesoría que necesitas.
           </p>
 
           <ContactButton label={contactLabel} onClick={onContactClick} />

@@ -1,7 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { motion } from "motion/react";
 import Image from "next/image";
 
@@ -50,7 +48,11 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 mt-8">
         <div className="flex-1">
-          <AuthorAndDate author={post.author} date={post.date} timeToRead={post.timeToRead} />
+          <AuthorAndDate
+            author={post.author}
+            date={post.date}
+            timeToRead={post.timeToRead}
+          />
 
           <div className="flex gap-3 mt-4 mb-12">
             {Tags.map((tag) => (

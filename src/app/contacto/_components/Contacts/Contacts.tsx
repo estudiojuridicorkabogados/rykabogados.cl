@@ -21,7 +21,10 @@ export const Contacts = () => {
           Tel <a href="tel:+56223644258">2 23644258</a> -{" "}
           <a href="tel:+56986395780">9 86395780</a>
         </span>
-        <a className="hover:text-accent transition-colors duration-300" href="mailto:contacto@rkabogados.cl">
+        <a
+          className="hover:text-accent transition-colors duration-300"
+          href="mailto:contacto@rkabogados.cl"
+        >
           contacto@rkabogados.cl
         </a>
       </div>
@@ -31,13 +34,14 @@ export const Contacts = () => {
           href={URLS.instagram()}
           target="_blank"
           className="bg-white size-6 lg:size-8 rounded-full flex items-center justify-center"
+          rel="noreferrer"
         >
           <InstagramIcon className="size-4 lg:size-5 fill-[#252525]" />
         </a>
-        <a href={URLS.facebook()} target="_blank">
+        <a href={URLS.facebook()} target="_blank" rel="noreferrer">
           <FacebookIcon className="size-6 lg:size-8 fill-white" />
         </a>
-        <a href={URLS.linkedin()} target="_blank">
+        <a href={URLS.linkedin()} target="_blank" rel="noreferrer">
           <LinkedinIcon className="size-6 lg:size-8 fill-white" />
         </a>
       </div>

@@ -13,8 +13,6 @@ export const LongArrowRight: React.FC<LongArrowRightProps> = ({
     xmlns="http://www.w3.org/2000/svg"
     className={className}
   >
-    <path
-      d="M0 4.95214H57M57 4.95214L53.7347 1M57 4.95214L53.7347 9"
-    />
+    <path d="M0 4.95214H57M57 4.95214L53.7347 1M57 4.95214L53.7347 9" />
   </svg>
 );

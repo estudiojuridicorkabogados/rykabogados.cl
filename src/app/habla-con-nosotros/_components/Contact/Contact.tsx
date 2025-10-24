@@ -9,5 +9,10 @@ export const Contact = () => {
     formSection?.scrollIntoView({ behavior: "smooth" });
   };
 
-  return <ContactSectionLight contactLabel="Reserva una llamada" onContactClick={handleContactClick} />;
+  return (
+    <ContactSectionLight
+      contactLabel="Reserva una llamada"
+      onContactClick={handleContactClick}
+    />
+  );
 };

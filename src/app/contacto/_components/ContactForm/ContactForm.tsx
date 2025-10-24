@@ -130,6 +130,7 @@ export const ContactForm = () => {
                 href={URLS.privacyPolicy()}
                 target="_blank"
                 className="underline"
+                rel="noreferrer"
               >
                 política de privacidad
               </a>

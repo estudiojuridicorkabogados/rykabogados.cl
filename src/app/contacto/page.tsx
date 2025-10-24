@@ -18,8 +18,7 @@ export default function Contacto() {
             visibility: visible;
             bottom: 90px !important;
             z-index: 40;
-          }`
-        }
+          }`}
       </style>
     </>
   );

@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import tribunal from "../../../../public/images/heros/bandera-chile.webp";
-import santiagoImage from "../../../../public/images/santiago.webp";
 
 import { TESTIMONIALS } from "./constants";
 import { TestimonalsCarousel } from "./TestimonialsCarousel";

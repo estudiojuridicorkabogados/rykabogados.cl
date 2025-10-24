@@ -1,6 +1,7 @@
 import { classNames } from "@/lib/utils/classNames";
 
-export interface FloatingLabelInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface FloatingLabelInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
   defaultValue?: string;
@@ -37,7 +38,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
           "placeholder-transparent caret-white",
           "pl-0 pt-4 pb-1",
           "transition-colors",
-          error && "border-red-400"
+          error && "border-red-400",
         ])}
         {...props}
       />

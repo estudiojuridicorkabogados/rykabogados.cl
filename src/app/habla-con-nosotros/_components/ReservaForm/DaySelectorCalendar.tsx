@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { Control, useController } from "react-hook-form";
@@ -116,7 +118,9 @@ export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
       />
 
       {fieldError && (
-        <p className="absolute bottom-0 text-red-400 text-sm mt-1">{fieldError.message}</p>
+        <p className="absolute bottom-0 text-red-400 text-sm mt-1">
+          {fieldError.message}
+        </p>
       )}
     </div>
   );

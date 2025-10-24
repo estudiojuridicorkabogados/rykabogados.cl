@@ -66,7 +66,7 @@ export const PracticeAreasSection = () => {
               title="Trabajadores"
               description="En RK Abogados tomamos tu caso a resultado, porque creemos en la justicia y en tu derecho a ser escuchado. Te acompañamos con cercanía y rigor en conflictos laborales de toda índole, desde despidos injustificados hasta negociaciones colectivas, con un enfoque humano, técnico y orientado a soluciones efectivas y sostenibles."
               link={URLS.asesoriaTrabajadores()}
-            /> 
+            />
 
             <PracticeArea
               title="Empresas"
@@ -97,11 +97,13 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
   description,
   link,
 }) => (
-  <motion.div variants={itemVariants} className="flex flex-col justify-between gap-4">
+  <motion.div
+    variants={itemVariants}
+    className="flex flex-col justify-between gap-4"
+  >
     <div className="flex flex-col gap-4">
-
-    <h2 className="text-2xl lg:text-5xl font-bold text-white">{title}</h2>
-    <p className="text-sm lg:text-base text-white">{description}</p>
+      <h2 className="text-2xl lg:text-5xl font-bold text-white">{title}</h2>
+      <p className="text-sm lg:text-base text-white">{description}</p>
     </div>
 
     <Link

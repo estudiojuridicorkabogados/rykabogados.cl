@@ -5,6 +5,7 @@ import {
 import {
   Block,
   BLOCKS,
+  Document,
   Inline,
   INLINES,
   MARKS,
@@ -73,41 +74,43 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
       [INLINES.HYPERLINK]: ({ data }, children) => (
         <Hyperlink uri={data.uri}>{children}</Hyperlink>
       ),
-      [BLOCKS.PARAGRAPH]: (_, children: any) => <Text>{children}</Text>,
-      [BLOCKS.HEADING_1]: (_, children: any) => (
+      [BLOCKS.PARAGRAPH]: (_, children: React.ReactNode) => (
+        <Text>{children}</Text>
+      ),
+      [BLOCKS.HEADING_1]: (_, children: React.ReactNode) => (
         <Heading size={1}>{children}</Heading>
       ),
-      [BLOCKS.HEADING_2]: (_, children: any) => (
+      [BLOCKS.HEADING_2]: (_, children: React.ReactNode) => (
         <Heading size={2}>{children}</Heading>
       ),
-      [BLOCKS.HEADING_3]: (_, children: any) => (
+      [BLOCKS.HEADING_3]: (_, children: React.ReactNode) => (
         <Heading size={3}>{children}</Heading>
       ),
-      [BLOCKS.HEADING_4]: (_, children: any) => (
+      [BLOCKS.HEADING_4]: (_, children: React.ReactNode) => (
         <Heading size={4}>{children}</Heading>
       ),
-      [BLOCKS.HEADING_5]: (_, children: any) => (
+      [BLOCKS.HEADING_5]: (_, children: React.ReactNode) => (
         <Heading size={5}>{children}</Heading>
       ),
-      [BLOCKS.HEADING_6]: (_, children: any) => (
+      [BLOCKS.HEADING_6]: (_, children: React.ReactNode) => (
         <Heading size={6}>{children}</Heading>
       ),
-      [BLOCKS.OL_LIST]: (_, children: any) => (
+      [BLOCKS.OL_LIST]: (_, children: React.ReactNode) => (
         <OrderedList>{children}</OrderedList>
       ),
-      [BLOCKS.UL_LIST]: (_, children: any) => (
+      [BLOCKS.UL_LIST]: (_, children: React.ReactNode) => (
         <UnorderedList>{children}</UnorderedList>
       ),
       [BLOCKS.LIST_ITEM]: (node) => {
         const UnTaggedChildren = documentToReactComponents(
-          node as unknown as any,
+          node as unknown as Document,
           {
             renderNode: {
               [BLOCKS.PARAGRAPH]: (_, children) => children,
               [BLOCKS.LIST_ITEM]: (_, children) => children,
               [BLOCKS.OL_LIST]: (nestedListNode) => {
                 const UnTaggedChildren = documentToReactComponents(
-                  nestedListNode as unknown as any,
+                  nestedListNode as unknown as Document,
                   {
                     renderNode: {
                       [BLOCKS.PARAGRAPH]: (_, children) => children,
@@ -131,7 +134,7 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
               },
               [BLOCKS.UL_LIST]: (nestedListNode) => {
                 const UnTaggedChildren = documentToReactComponents(
-                  nestedListNode as unknown as any,
+                  nestedListNode as unknown as Document,
                   {
                     renderNode: {
                       [BLOCKS.PARAGRAPH]: (_, children) => children,

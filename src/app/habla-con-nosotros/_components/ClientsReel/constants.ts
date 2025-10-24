@@ -17,7 +17,6 @@ import subusImage from "../../../../../public/images/clients/subus.png";
 // import multitierraImage from "../../../../../public/images/clients/multitierra.webp";
 // import mueblistaImage from "../../../../../public/images/clients/mueblista.webp";
 
-
 export interface LogoItem {
   src: StaticImageData;
   alt: string;

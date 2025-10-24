@@ -36,10 +36,7 @@ function createEventData(eventDetails: EventDetails) {
   return {
     summary: eventDetails.title,
     description: eventDetails.notes,
-    attendees: [
-      { email: CAMILA_EMAIL },
-      { email: eventDetails.userEmail },
-    ],
+    attendees: [{ email: CAMILA_EMAIL }, { email: eventDetails.userEmail }],
     start: {
       dateTime: eventDetails.startTime,
       timeZone: "America/Santiago",

@@ -1,7 +1,7 @@
 import { Route } from "next";
 
 interface UrlsMap {
-  [slug: string]: (...args: any[]) => Route;
+  [slug: string]: (...args: string[]) => Route;
 }
 
 export const URLS: UrlsMap = {
@@ -81,7 +81,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: "Paolo Castiglione Cañas",
     role: "Abogado",
     photo: "/images/team/paolo.webp",
-    linkedin: "https://www.linkedin.com/in/paolo-castiglione-ca%C3%B1as-908054221",
+    linkedin:
+      "https://www.linkedin.com/in/paolo-castiglione-ca%C3%B1as-908054221",
     phone: "+56 9 7895 1026",
     phoneLink: "tel:+56978951026",
   },
@@ -94,7 +95,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
     phoneLink: "tel:+56982572369",
   },
 ];
-
 
 export const NOTIFICATIONS_EMAIL = "notificaciones@ryoasociados.cl";
 export const CAMILA_EMAIL = "camila.retamales@ryoasociados.cl";

@@ -25,7 +25,6 @@ export const OtrasAreasServices = () => {
           className="text-4xl font-bold text-black"
         >
           Áreas de práctica
-
         </motion.h2>
         {/* <motion.p
           variants={itemVariants}

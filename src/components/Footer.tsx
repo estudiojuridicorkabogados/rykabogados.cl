@@ -124,6 +124,7 @@ export const Footer = () => {
                 className="hover:text-accent"
                 href="mailto:contacto@rkabogados.cl"
                 target="_blank"
+                rel="noreferrer"
               >
                 contacto@rkabogados.cl
               </a>
@@ -134,13 +135,14 @@ export const Footer = () => {
                 href={URLS.instagram()}
                 target="_blank"
                 className="bg-white size-6 lg:size-8 rounded-full flex items-center justify-center"
+                rel="noreferrer"
               >
                 <InstagramIcon className="size-4 lg:size-5 fill-[#252525]" />
               </a>
-              <a href={URLS.facebook()} target="_blank">
+              <a href={URLS.facebook()} target="_blank" rel="noreferrer">
                 <FacebookIcon className="size-6 lg:size-8 fill-white" />
               </a>
-              <a href={URLS.linkedin()} target="_blank">
+              <a href={URLS.linkedin()} target="_blank" rel="noreferrer">
                 <LinkedinIcon className="size-6 lg:size-8 fill-white" />
               </a>
             </div>

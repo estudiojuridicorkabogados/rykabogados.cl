@@ -1,10 +1,8 @@
-import { title } from "process";
-
 const containerClassName = "flex flex-col gap-4";
 
 export const SERVICES = [
   {
-    title: "⁠Despido Injustificado",
+    title: "Despido Injustificado",
     description: (
       <div className={containerClassName}>
         <p>

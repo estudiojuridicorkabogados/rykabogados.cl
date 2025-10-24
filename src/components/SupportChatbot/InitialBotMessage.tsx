@@ -1,5 +1,4 @@
 import { motion, Variants } from "framer-motion";
-import Link from "next/link";
 
 import { containerVariants } from "@/lib/utils/animations";
 import { URLS } from "@/lib/utils/constants";
@@ -38,12 +37,12 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
       <div>
         <div className="flex flex-col items-start gap-2">
           <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
-            ¡Hola! 👋 Soy el asistente virtual de RK Abogados. ¿En qué puedo asistirte hoy?
+            ¡Hola! 👋 Soy el asistente virtual de RK Abogados. ¿En qué puedo
+            asistirte hoy?
           </motion.div>
 
           <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
-            O
-            {" "}
+            O{" "}
             <a
               href={URLS.whatsapp()}
               target="_blank"

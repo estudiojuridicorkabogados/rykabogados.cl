@@ -8,7 +8,7 @@ interface MessageProps {
   loading?: boolean;
 }
 
-export const Message: React.FC<MessageProps> = ({ message, loading }) => {
+export const Message: React.FC<MessageProps> = ({ message }) => {
   const isUser = message?.role === "user";
   const text = message?.parts
     .map((p) => (p.type === "text" ? p.text : ""))
@@ -34,12 +34,12 @@ export const Message: React.FC<MessageProps> = ({ message, loading }) => {
       >
         <ReactMarkdown
           components={{
-            h1: ({ node, ...props }) => <h1 className="font-sans" {...props} />,
-            h2: ({ node, ...props }) => <h2 className="font-sans" {...props} />,
-            h3: ({ node, ...props }) => <h3 className="font-sans" {...props} />,
-            h4: ({ node, ...props }) => <h4 className="font-sans" {...props} />,
-            h5: ({ node, ...props }) => <h5 className="font-sans" {...props} />,
-            h6: ({ node, ...props }) => <h6 className="font-sans" {...props} />,
+            h1: ({ ...props }) => <h1 className="font-sans" {...props} />,
+            h2: ({ ...props }) => <h2 className="font-sans" {...props} />,
+            h3: ({ ...props }) => <h3 className="font-sans" {...props} />,
+            h4: ({ ...props }) => <h4 className="font-sans" {...props} />,
+            h5: ({ ...props }) => <h5 className="font-sans" {...props} />,
+            h6: ({ ...props }) => <h6 className="font-sans" {...props} />,
           }}
         >
           {text}

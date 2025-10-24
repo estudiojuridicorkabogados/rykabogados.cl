@@ -63,7 +63,14 @@ export const TeamGrid = () => {
                     {person.name}
                   </h3>
                   <p className="text-base/7 text-white/80">{person.role}</p>
-                  <a href={person.phoneLink} target="_blank" className="cursor-pointer text-base/7 text-white/80">{person.phone}</a>
+                  <a
+                    href={person.phoneLink}
+                    target="_blank"
+                    className="cursor-pointer text-base/7 text-white/80"
+                    rel="noreferrer"
+                  >
+                    {person.phone}
+                  </a>
                 </div>
 
                 <a

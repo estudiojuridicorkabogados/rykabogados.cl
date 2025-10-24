@@ -15,7 +15,7 @@ export function getCookieConsent(): CookieConsentPreferences | null {
     .find((row) => row.startsWith(`${COOKIE_NAME}=`))
     ?.split("=")[1];
 
-    console.log("Retrieved cookie value:", cookieValue);
+  console.log("Retrieved cookie value:", cookieValue);
 
   if (!cookieValue) return null;
 
@@ -29,9 +29,7 @@ export function getCookieConsent(): CookieConsentPreferences | null {
 /**
  * Set cookie consent preferences in cookie
  */
-export function setCookieConsent(
-  preferences: CookieConsentPreferences
-): void {
+export function setCookieConsent(preferences: CookieConsentPreferences): void {
   if (typeof window === "undefined") return;
 
   const value = encodeURIComponent(JSON.stringify(preferences));

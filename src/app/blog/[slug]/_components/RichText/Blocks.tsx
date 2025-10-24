@@ -1,4 +1,4 @@
-import { Children, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import parse from "html-react-parser";
 import Image from "next/image";
 
@@ -106,7 +106,9 @@ export const Heading: React.FC<PropsWithChildren<HeadingProps>> = ({
         </h2>
       );
     case 3:
-      return <h3 className="rich-text-heading text-xl lg:text-2xl">{children}</h3>;
+      return (
+        <h3 className="rich-text-heading text-xl lg:text-2xl">{children}</h3>
+      );
     case 4:
       return <h4 className="rich-text-heading text-lg">{children}</h4>;
     case 5:

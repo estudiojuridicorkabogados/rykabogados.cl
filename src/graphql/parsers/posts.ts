@@ -1,5 +1,4 @@
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
-import { Document } from "@contentful/rich-text-types";
 
 import { URLS } from "@/lib/utils/constants";
 import { timeToRead } from "@/lib/utils/content";
@@ -30,7 +29,7 @@ function parseLinkToAsset(
 
 export function parseGraphQLPost(graphQLPost: PostGraphQL): Post {
   const mainImage = graphQLPost.mainImage
-    ? extractImageDataFromContentfulAsset(graphQLPost.mainImage as any) // Contentful new types are fucking awful, so I had to hack around a bit
+    ? extractImageDataFromContentfulAsset(graphQLPost.mainImage as AssetGraphQL) // Contentful new types are fucking awful, so I had to hack around a bit
     : undefined;
 
   const plainTextString = graphQLPost.content
@@ -47,15 +46,17 @@ export function parseGraphQLPost(graphQLPost: PostGraphQL): Post {
     },
     author: {
       name: graphQLPost.author?.nombreYApellido,
-      photo: graphQLPost.author?.photo ? {
-        url: graphQLPost.author.photo.url,
-        title: graphQLPost.author.photo.title,
-        description: graphQLPost.author.photo.description,
-        details: {
-          height: graphQLPost.author.photo.height,
-          width: graphQLPost.author.photo.width,
-        },
-      } : null,
+      photo: graphQLPost.author?.photo
+        ? {
+            url: graphQLPost.author.photo.url,
+            title: graphQLPost.author.photo.title,
+            description: graphQLPost.author.photo.description,
+            details: {
+              height: graphQLPost.author.photo.height,
+              width: graphQLPost.author.photo.width,
+            },
+          }
+        : null,
     },
     timeToRead: timeToRead(plainTextString),
     href: graphQLPost.slug ? URLS.blogPost(graphQLPost.slug) : undefined,

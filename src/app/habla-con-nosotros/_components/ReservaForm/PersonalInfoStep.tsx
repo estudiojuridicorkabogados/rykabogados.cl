@@ -1,6 +1,6 @@
 "use client";
 
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 
@@ -8,7 +8,7 @@ import { FormData } from "./types";
 
 interface PersonalInfoStepProps {
   register: UseFormRegister<FormData>;
-  errors: any;
+  errors: FieldErrors<FormData>;
 }
 
 export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({

@@ -20,11 +20,11 @@ export const HeroContent: React.FC<HeroContentProps> = ({
 }) => {
   const handleScrollToForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const element = document.getElementById('reserva-form-section');
+    const element = document.getElementById("reserva-form-section");
     if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     }
   };
@@ -58,7 +58,10 @@ export const HeroContent: React.FC<HeroContentProps> = ({
         {description}
       </motion.p>
 
-      <motion.div variants={itemVariants} className="flex flex-col md:flex-row gap-4">
+      <motion.div
+        variants={itemVariants}
+        className="flex flex-col md:flex-row gap-4"
+      >
         <Button variant="reserva-form-link" asChild>
           <a href="#reserva-form-section" onClick={handleScrollToForm}>
             Reserva un llamada
@@ -66,7 +69,12 @@ export const HeroContent: React.FC<HeroContentProps> = ({
         </Button>
 
         <Button variant="whatsapp" asChild>
-          <a href={URLS.whatsapp()} target="_blank" rel="noopener noreferrer" className="group flex items-center">
+          <a
+            href={URLS.whatsapp()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center"
+          >
             <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
             Hablamos para Whatsapp
           </a>

@@ -31,11 +31,13 @@ CookieConsent/
 ## 🍪 Cookie Categories
 
 ### 1. Necessary Cookies (Always Active)
+
 - Session cookies
 - Cookie consent preferences
 - **Cannot be disabled**
 
 ### 2. Analytics Cookies (Optional)
+
 - Google Analytics (when implemented)
 - Vercel Analytics
 - Vercel Speed Insights
@@ -44,6 +46,7 @@ CookieConsent/
 ## 💾 Storage Strategy
 
 ### Cookie: `cookie-consent`
+
 ```json
 {
   "necessary": true,
@@ -51,15 +54,18 @@ CookieConsent/
   "timestamp": "2025-10-17T00:00:00.000Z"
 }
 ```
+
 - **Duration:** 1 year
 - **Purpose:** Store user consent preferences
 - **Domain:** Site-wide
 - **SameSite:** Lax
 
 ### LocalStorage: `cookie-banner-dismissed`
+
 ```json
 "true"
 ```
+
 - **Purpose:** Track if user dismissed banner without accepting
 - **No expiration** (persists until cleared)
 - **No tracking when dismissed**
@@ -67,6 +73,7 @@ CookieConsent/
 ## 🎯 User Flow
 
 ### First Visit
+
 1. Banner appears at bottom of screen
 2. User has 3 options:
    - **Reject**: Dismiss banner, no analytics, stored in localStorage
@@ -74,6 +81,7 @@ CookieConsent/
    - **Accept All**: Accept all cookies, enable analytics
 
 ### Settings Modal
+
 1. Shows two cookie categories:
    - **Necessary**: Always ON, disabled switch
    - **Analytics**: Toggle switch, OFF by default
@@ -83,6 +91,7 @@ CookieConsent/
    - **Save Preferences**: Save current switch states
 
 ### Return Visits
+
 - If user accepted: Banner doesn't show, analytics active
 - If user dismissed: Banner doesn't show, analytics inactive
 - After 1 year: Consent expires, banner shows again
@@ -90,20 +99,17 @@ CookieConsent/
 ## 🔧 Usage
 
 ### Using the Hook
+
 ```tsx
-import { useCookieConsent } from '@/components/CookieConsent';
+import { useCookieConsent } from "@/components/CookieConsent";
 
 function MyComponent() {
-  const {
-    hasAnalyticsConsent,
-    acceptAll,
-    openSettings,
-    dismissBanner
-  } = useCookieConsent();
+  const { hasAnalyticsConsent, acceptAll, openSettings, dismissBanner } =
+    useCookieConsent();
 
   return (
     <div>
-      {hasAnalyticsConsent ? 'Analytics active' : 'Analytics disabled'}
+      {hasAnalyticsConsent ? "Analytics active" : "Analytics disabled"}
       <button onClick={openSettings}>Cookie Settings</button>
     </div>
   );
@@ -111,8 +117,9 @@ function MyComponent() {
 ```
 
 ### Conditional Rendering Based on Consent
+
 ```tsx
-import { useCookieConsent } from '@/components/CookieConsent';
+import { useCookieConsent } from "@/components/CookieConsent";
 
 function AnalyticsComponent() {
   const { hasAnalyticsConsent } = useCookieConsent();
@@ -126,6 +133,7 @@ function AnalyticsComponent() {
 ## 🎨 Styling
 
 Components use Tailwind CSS with your existing design system:
+
 - Primary color: `primary-600`
 - Animations: Framer Motion
 - Modal: Headless UI Dialog
@@ -152,6 +160,7 @@ Components use Tailwind CSS with your existing design system:
 ## 🔐 Privacy Compliance
 
 ### GDPR Compliance
+
 - ✅ Opt-in by default (analytics OFF)
 - ✅ Clear information about cookies
 - ✅ Easy to withdraw consent
@@ -159,6 +168,7 @@ Components use Tailwind CSS with your existing design system:
 - ✅ Link to detailed cookie policy
 
 ### Best Practices
+
 - No analytics until explicit consent
 - Dismissed ≠ Consent (important legal distinction)
 - Re-ask for consent after 1 year
@@ -168,12 +178,14 @@ Components use Tailwind CSS with your existing design system:
 ## 🛠️ Maintenance
 
 ### Adding New Cookie Categories
+
 1. Update `types.ts` to add new property
 2. Add switch in `CookieSettingsModal.tsx`
 3. Update logic in `CookieConsentProvider.tsx`
 4. Document in cookie policy page
 
 ### Adding Google Analytics
+
 1. Add `NEXT_PUBLIC_GA_ID` to `env.ts`
 2. Create `GoogleAnalytics.tsx` component
 3. Add to `ConditionalAnalytics.tsx`
@@ -189,17 +201,20 @@ Components use Tailwind CSS with your existing design system:
 ## 🐛 Troubleshooting
 
 ### Banner not appearing
+
 - Check if cookie/localStorage is set
 - Clear site data and refresh
 - Verify provider wraps application
 
 ### Analytics not loading
+
 - Check console for errors
 - Verify `hasAnalyticsConsent` is true
 - Check environment is production
 - Verify Vercel/Google IDs configured
 
 ### Modal not opening
+
 - Check `openSettings` is called correctly
 - Verify Headless UI Dialog is working
 - Check z-index conflicts

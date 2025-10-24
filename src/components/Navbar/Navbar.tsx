@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Disclosure,
   DisclosureButton,
@@ -26,6 +28,10 @@ const MOBILE_LINKS = [
   {
     href: URLS.asesoriaEmpresas(),
     label: "Asesoría Empresas",
+  },
+  {
+    href: URLS.otrasAreas(),
+    label: "Otras Áreas",
   },
   {
     href: URLS.nosotros(),
@@ -133,18 +139,20 @@ export const Navbar = () => {
         transition
         className="origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
       >
-        <div className="bg-white space-y-1 px-6 pt-6 pb-6">
-          {MOBILE_LINKS.map((link) => (
-            <DisclosureButton
-              key={link.href}
-              as={Link}
-              href={link.href}
-              className="block py-4 text-sm text-black border-b border-black/10 first:pt-0 last:pb-0 last:border-none"
-            >
-              {link.label}
-            </DisclosureButton>
-          ))}
-        </div>
+        {({ close }) => (
+          <div className="bg-white space-y-1 px-6 pt-6 pb-6">
+            {MOBILE_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => close()}
+                className="w-full block py-4 text-sm text-black border-b border-black/10 first:pt-0 last:pb-0 last:border-none"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </DisclosurePanel>
     </Disclosure>
   );

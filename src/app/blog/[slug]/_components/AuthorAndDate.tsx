@@ -39,7 +39,8 @@ export const AuthorAndDate: React.FC<AuthorAndDateProps> = ({
               {format(date, "MMM d, yyyy", { locale: es })}
             </time>
           ) : null}
-          {' • '}{timeToRead} min de lectura
+          {" • "}
+          {timeToRead} min de lectura
         </span>
       </div>
     </div>

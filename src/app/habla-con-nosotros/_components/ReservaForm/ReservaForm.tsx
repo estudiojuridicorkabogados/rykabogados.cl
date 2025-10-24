@@ -35,7 +35,6 @@ export const ReservaForm = () => {
         const result = await submitBookACallForm(data, token);
 
         if (result.success && data.date) {
-          console.log("Form submitted successfully:", data);
           setBookingInfo({
             date: format(data.date, "dd/MM/yyyy"),
             timeSlot: data.timeSlot,

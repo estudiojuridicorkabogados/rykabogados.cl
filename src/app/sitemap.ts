@@ -11,7 +11,7 @@ const BASE_PATHS = [
   "/habla-con-nosotros",
   "/politicas-de-privacidad",
   "/faq",
-  "/politica-cookies"
+  "/politica-cookies",
 ];
 
 async function fetchPostRoutes() {

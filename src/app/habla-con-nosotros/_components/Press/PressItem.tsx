@@ -12,7 +12,11 @@ interface PressItemProps {
   onHighlight: (index: number | null) => void;
 }
 
-export const PressItem: React.FC<PressItemProps> = ({ item, index, onHighlight }) => {
+export const PressItem: React.FC<PressItemProps> = ({
+  item,
+  index,
+  onHighlight,
+}) => {
   return (
     <motion.div
       variants={itemVariants}
@@ -25,9 +29,7 @@ export const PressItem: React.FC<PressItemProps> = ({ item, index, onHighlight }
         <span className="font-normal">{item.date}</span>
       </div>
 
-      <p className="font-sans lg:text-xl text-black">
-        {item.description}
-      </p>
+      <p className="font-sans lg:text-xl text-black">{item.description}</p>
     </motion.div>
   );
 };

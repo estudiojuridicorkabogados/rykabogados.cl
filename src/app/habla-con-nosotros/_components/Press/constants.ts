@@ -30,7 +30,8 @@ export const PRESS_ITEMS: PressItem[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur. Sapien amet vitae justo euismod. Arcu nullam turpis.",
     image: pressImages.press02,
-    className: "top-[100px] lg:top-[280px] left-[35px] lg:left-[105px] rotate-[15deg]",
+    className:
+      "top-[100px] lg:top-[280px] left-[35px] lg:left-[105px] rotate-[15deg]",
   },
   {
     id: "3",
@@ -39,6 +40,7 @@ export const PRESS_ITEMS: PressItem[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur. Sapien amet vitae justo euismod. Arcu nullam turpis.",
     image: pressImages.press03,
-    className: "lg:top-[190px] -right-[10px] lg:right-0 rotate-[25deg] lg:rotate-[335deg]",
+    className:
+      "lg:top-[190px] -right-[10px] lg:right-0 rotate-[25deg] lg:rotate-[335deg]",
   },
 ];

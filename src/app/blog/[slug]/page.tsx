@@ -21,9 +21,7 @@ export async function generateStaticParams() {
     const { posts } = (await res.json()) as { posts: ApiPost[] };
 
     return posts.map(({ slug }) => ({ params: { slug } }));
-  } catch (error) {
-    console.log("Could not pre generate blog posts pages due to");
-    console.error(error);
+  } catch {
     return [];
   }
 }
@@ -42,7 +40,8 @@ export async function generateMetadata({
     }
 
     const title = post.metaTitle || post.title || "RK Abogados - Blog Post";
-    const description = post.metaDescription || post.excerpt || "RK Abogados - Blog Post";
+    const description =
+      post.metaDescription || post.excerpt || "RK Abogados - Blog Post";
 
     const images = post.mainImage?.url
       ? [
@@ -68,7 +67,7 @@ export async function generateMetadata({
       },
       twitter: { card: "summary_large_image", title, description, images },
     };
-  } catch (error) {
+  } catch {
     return {};
   }
 }
@@ -86,7 +85,8 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
     "@type": "BlogPosting",
     "@id": `${url}/#BlogPosting`,
     name: post.metaTitle || post.title || "RK Abogados - Blog Post",
-    description: post.metaDescription || post.excerpt || "RK Abogados - Blog Post",
+    description:
+      post.metaDescription || post.excerpt || "RK Abogados - Blog Post",
     datePublished: post.date
       ? format(new Date(post.date), "yyyy-MM-dd")
       : undefined,
