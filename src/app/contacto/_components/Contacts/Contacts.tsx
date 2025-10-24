@@ -7,19 +7,17 @@ export const Contacts = () => {
   return (
     <div className="flex-1 flex flex-col gap-12 lg:h-full lg:justify-end text-white lg:mt-18">
       <div className="flex flex-col lg:max-w-[320px]">
-        <span className="font-bold">Visita nosotros</span>
+        <span className="font-bold">Visítanos</span>
         <span>
           Antonio Bellet 143, oficina 609, Providencia
-          <br />
-          Isidora Goyenechea 3000, piso 23, Las Condes
         </span>
       </div>
 
       <div className="flex flex-col">
-        <span className="font-bold">Habla con nosotros</span>
+        <span className="font-bold">Hablemos</span>
         <span>
-          Tel <a href="tel:+56223644258">2 23644258</a> -{" "}
-          <a href="tel:+56986395780">9 86395780</a>
+          Tel <a href="tel:+56223644258">+56 2 2364 4258</a> -{" "}
+          <a href="tel:+56986395780">+56 9 8639 5780</a>
         </span>
         <a
           className="hover:text-accent transition-colors duration-300"

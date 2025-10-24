@@ -52,7 +52,7 @@ export const ContactForm = () => {
       <div className="flex flex-col gap-4 lg:gap-8 text-white">
         <h1 className="text-5xl">Contáctanos</h1>
         <p className="lg:max-w-2/3">
-          Cuéntanos tu caso, nosotros nos encargamos del resto.
+        Déjanos tus datos y un abogado de nuestro equipo te contactará personalmente.
         </p>
 
         <form
@@ -113,7 +113,7 @@ export const ContactForm = () => {
               name="mensaje"
               className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-sm lg:text-base"
               rows={5}
-              placeholder="Cuéntanos sobre tu requierimento"
+              placeholder="Describe brevemente tu caso o indícanos que tipo de asesoría necesitas"
             />
           </div>
 
@@ -137,7 +137,7 @@ export const ContactForm = () => {
             </label>
           </div>
 
-          {/* TODO Add loading state */}
+          {/* TODO Add loading state, and properly send an email with the data to the team */}
           <Button
             disabled={isPending || state.success}
             animateOnClick

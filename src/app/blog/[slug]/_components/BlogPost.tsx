@@ -73,15 +73,11 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
       <blockquote className="border-slate-300 border-t pt-10 mt-10 text-black/50 sm:text-xl">
         <p>
-          En RK Abogados, somos especialistas en derecho laboral y estamos
-          comprometidos en brindar asesoría tanto a empresas como a trabajadores
-          en materia de inclusión laboral y cumplimiento normativo. Si tu
-          empresa busca implementar políticas inclusivas o si eres un trabajador
-          en situación de discapacidad que requiere orientación sobre tus
-          derechos, nuestro equipo está preparado para ofrecer soluciones
-          legales efectivas y personalizadas. Contáctanos y aprovecha nuestra
-          experiencia para construir un entorno laboral más justo, equitativo y
-          ajustado a la normativa vigente.
+          En RK Abogados promovemos el cumplimiento de la normativa laboral y el
+          fortalecimiento de relaciones laborales justas y sostenibles. Nuestro
+          enfoque combina prevención, estrategia y claridad jurídica,
+          permitiendo a cada organización actuar con seguridad, eficiencia y
+          confianza.
         </p>
       </blockquote>
     </motion.div>
