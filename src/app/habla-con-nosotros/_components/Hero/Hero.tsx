@@ -22,8 +22,8 @@ export const Hero = () => {
 
       <HeroContent
         label="Habla con nosotros"
-        title="¿Despido Injustificado? Asesoría legal gratuita."
-        description="Si requiere asistencia jurídica especializada, nuestro bufete ofrece una amplia gama de servicios legales para proteger sus derechos laborales. Desde asesoramiento en despidos injustificados hasta representación en procesos judiciales, estamos comprometidos con la defensa de sus intereses."
+        title="¿Despido Injustificado? Consulta inicial gratuita."
+        description="En RK Abogados revisamos tu caso, analizamos tu despido y te explicamos tus derechos. Trabajamos bajo un modelo de honorarios a resultado, es decir, solo pagas si ganas."
       />
     </section>
   );

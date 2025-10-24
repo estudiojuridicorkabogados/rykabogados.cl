@@ -26,13 +26,13 @@ export const Areas = () => {
         <div className="flex-2 flex flex-col gap-2 lg:gap-8">
           <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
             No hay nada que perder. <br />
-            Solo ganamos si tu ganas.
+            Defiende lo que es tuyo.
           </motion.h2>
 
           <motion.p variants={itemVariants}>
             Si te despidieron injustamente, puedes ser indemnizado
-            económicamente por ello, compensación que dependerá de la causal
-            invocada por tu empleador.
+            económicamente. Analizamos tu caso sin costo y solo pagas si
+            obtenemos resultados a tu favor.
           </motion.p>
         </div>
 
