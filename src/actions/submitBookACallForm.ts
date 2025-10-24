@@ -51,6 +51,12 @@ export async function submitBookACallForm(
 
     const santiagoEndTime = addMinutes(santiagoStartTime, 30);
 
+    console.log("date.date", data.date);
+    console.log("santiagoStartTime", santiagoStartTime);
+    console.log(
+      "santiagoStartTime.toISOString",
+      santiagoStartTime.toISOString()
+    );
 
     const result = await createGoogleCalendarEvent({
       title: "Asesoria Gratuita",
