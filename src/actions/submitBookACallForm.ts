@@ -1,4 +1,6 @@
 "use server";
+import { addMinutes } from "date-fns";
+import { fromZonedTime } from "date-fns-tz";
 
 import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
@@ -8,40 +10,54 @@ import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
 
 import { FormData } from "../app/habla-con-nosotros/_components/ReservaForm/types";
 
+interface SubmitBookACallFormData extends Omit<FormData, "date"> {
+  date: string;
+}
+
 export async function submitBookACallForm(
-  data: FormData,
+  data: SubmitBookACallFormData,
   reCaptchaToken: string | null
 ) {
   try {
     console.log("Server action received:", data);
 
     if (!reCaptchaToken) {
+      console.error("ReCAPTCHA no enviado");
       return { success: false, message: "ReCAPTCHA no enviado" };
     }
 
     const isValidCaptcha = await verifyCaptcha(reCaptchaToken);
 
     if (!isValidCaptcha) {
+      console.error("ReCAPTCHA no enviado");
+
       return {
         success: false,
         message: "Por favor, completa el CAPTCHA.",
       };
     }
 
-    if (data.date) {
+    if (!data.date) {
       return {
         success: false,
         message: "Debe enviar una fecha",
       };
     }
 
-    // @TODO Fix this shit
+    const santiagoStartTime = fromZonedTime(
+      `${data.date} ${data.timeSlot}`,
+      "America/Santiago"
+    );
+
+    const santiagoEndTime = addMinutes(santiagoStartTime, 30);
+
+
     const result = await createGoogleCalendarEvent({
       title: "Asesoria Gratuita",
-      notes: "body.notes",
+      notes: data.mensaje,
       userEmail: data.email,
-      startTime: "body.startTime",
-      endTime: "body.endTime",
+      startTime: santiagoStartTime.toISOString(),
+      endTime: santiagoEndTime.toISOString(),
     });
 
     if (!result.htmlLink) {
@@ -55,8 +71,10 @@ export async function submitBookACallForm(
       name: data.name,
       userEmail: data.email,
       phoneNumber: data.phoneNumber,
-      notes: "data.notes", // @TODO
-      eventHtmlLink: "",
+      notes: data.mensaje,
+      causalDespido: data.causalDespido,
+      antiguedadLaboral: data.antiguedadLaboral,
+      eventHtmlLink: result.htmlLink,
     });
 
     return { success: true, message: "Reserva enviada exitosamente" };
@@ -71,6 +89,8 @@ interface NotificationEmailArgs {
   userEmail: string;
   phoneNumber: string;
   notes: string;
+  causalDespido: string;
+  antiguedadLaboral: string;
   eventHtmlLink: string;
 }
 
@@ -100,6 +120,8 @@ async function dispatchNotificationEmails(args: NotificationEmailArgs) {
         <p><strong>Nombre:</strong> ${args.name}</p>
         <p><strong>Email:</strong> ${args.userEmail}</p>
         <p><strong>Teléfono:</strong> ${args.phoneNumber}</p>
+        <p><strong>Causal de despido:</strong> ${args.causalDespido}</p>
+        <p><strong>Antigüedad laboral:</strong> ${args.antiguedadLaboral}</p>
         <p><strong>Notas:</strong> ${args.notes}</p>
       `,
     from: CAMILA_EMAIL,

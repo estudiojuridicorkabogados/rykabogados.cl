@@ -12,6 +12,9 @@ export const formSchema = z.object({
     .date("Selecciona una fecha")
     .nullable()
     .refine((date) => date !== null, { message: "Selecciona una fecha" }),
+  causalDespido: z.string().min(1, "Selecciona un causal de despido"),
+  antiguedadLaboral: z.string().min(1, "Selecciona una antigüedad laboral"),
+  mensaje: z.string().min(1, "Escribe un mensaje obligatorio"),
 });
 
 export type FormData = z.infer<typeof formSchema>;

@@ -43,7 +43,14 @@ export const Form: React.FC<FormProps> = ({
     const isValid = await trigger(
       currentStep === 1
         ? ["timeSlot", "date"]
-        : ["name", "email", "phoneNumber"]
+        : [
+            "name",
+            "email",
+            "phoneNumber",
+            "causalDespido",
+            "antiguedadLaboral",
+            "mensaje",
+          ]
     );
 
     if (isValid) {
@@ -103,7 +110,11 @@ export const Form: React.FC<FormProps> = ({
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <PersonalInfoStep register={register} errors={errors} />
+                  <PersonalInfoStep
+                    register={register}
+                    control={control}
+                    errors={errors}
+                  />
 
                   <div className="w-full flex mt-12 justify-end">
                     <Button

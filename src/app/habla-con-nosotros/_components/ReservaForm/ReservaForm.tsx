@@ -31,8 +31,19 @@ export const ReservaForm = () => {
 
     startTransition(async () => {
       try {
+        if (!data.date) {
+          setSubmitError("Debe seleccionar una fecha");
+          return;
+        }
+
         const token = await getCaptchaToken();
-        const result = await submitBookACallForm(data, token);
+
+        const sendData = {
+          ...data,
+          date: data.date.toISOString().split("T")[0],
+        };
+
+        const result = await submitBookACallForm(sendData, token);
 
         if (result.success && data.date) {
           setBookingInfo({
@@ -105,9 +116,8 @@ export const ReservaForm = () => {
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
-                Reserva una llamada gratuita con uno de nuestros abogados para
-                discutir tus necesidades legales y descubrir cómo podemos
-                ayudarte.
+                Agenda una llamada con uno de nuestros abogados y conocer las
+                opciones legales disponibles para ti.
               </motion.p>
             </div>
 

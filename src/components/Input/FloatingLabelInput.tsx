@@ -22,7 +22,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   ...props
 }) => {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <input
         id={id}
         name={id}
