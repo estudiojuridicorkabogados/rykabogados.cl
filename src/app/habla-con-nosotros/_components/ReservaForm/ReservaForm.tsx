@@ -38,9 +38,10 @@ export const ReservaForm = () => {
 
         const token = await getCaptchaToken();
 
+        const date = `${data.date.getFullYear()}-${data.date.getMonth() + 1}-${data.date.getDate()}`;
         const sendData = {
           ...data,
-          date: data.date.toISOString().split("T")[0],
+          date,
         };
 
         const result = await submitBookACallForm(sendData, token);
@@ -70,7 +71,7 @@ export const ReservaForm = () => {
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="py-16 lg:py-28 lg:h-[100vh] relative">
+      <div className="py-16 lg:py-28 lg:h-screen relative">
         {bookingInfo && (
           <ReservaFormSuccessFeedback bookingInfo={bookingInfo} />
         )}

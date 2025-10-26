@@ -52,7 +52,8 @@ export const ContactForm = () => {
       <div className="flex flex-col gap-4 lg:gap-8 text-white">
         <h1 className="text-5xl">Contáctanos</h1>
         <p className="lg:max-w-2/3">
-        Déjanos tus datos y un abogado de nuestro equipo te contactará personalmente.
+          Déjanos tus datos y un abogado de nuestro equipo te contactará
+          personalmente.
         </p>
 
         <form
@@ -90,6 +91,31 @@ export const ContactForm = () => {
             error={state.errors?.email?.[0]}
             defaultValue={state.inputs?.email}
           />
+
+          <div className="flex flex-col gap-2">
+            <label className="font-bold text-white/80 text-sm lg:text-base pt-2">
+              Tipo de servicios necesarios
+            </label>
+            <select
+              name="typeOfServices"
+              defaultValue=""
+              className="bg-transparent border-b border-white/60 text-white focus:outline-none focus:ring-0 focus:border-b"
+              required
+            >
+              <option value="" disabled>
+                Selecciona una opción
+              </option>
+              <option value="trabajadores">Trabajadores</option>
+              <option value="empresa">Empresa</option>
+              <option value="otros">Otras</option>
+            </select>
+
+            {state.errors?.typeOfServices ? (
+              <p className="absolute bottom-[-18px] left-0 text-xs text-[red]">
+                {state.errors.typeOfServices[0]}
+              </p>
+            ) : null}
+          </div>
 
           <FloatingLabelInput
             id="phone"

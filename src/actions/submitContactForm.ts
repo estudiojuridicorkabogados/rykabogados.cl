@@ -12,12 +12,14 @@ export interface ActionResponse {
     email?: string[];
     phone?: string[];
     mensaje?: string[];
+    typeOfServices?: string[];
     token?: string[];
   };
   inputs?: {
     name: string;
     email: string;
     phone: string;
+    typeOfServices?: string;
     mensaje?: string;
   };
 }
@@ -27,6 +29,7 @@ interface ContactFormData {
   email: string;
   phone: string;
   mensaje?: string;
+  typeOfServices?: string;
   token?: string;
 }
 
@@ -34,6 +37,7 @@ const contactSchema = z.object({
   name: z.string().trim().min(1, "Nombre es necessario"),
   email: z.email("Correo es incorrecto"),
   mensaje: z.string("").optional(),
+  typeOfServices: z.string().min(1, "Tipo de servicios es necesario"),
   phone: z
     .string()
     .trim()
@@ -54,6 +58,7 @@ export async function submitContactForm(
     name: formData.get("name") as string,
     email: formData.get("email") as string,
     phone: formData.get("phone") as string,
+    typeOfServices: formData.get("typeOfServices") as string,
     mensaje: formData.get("mensaje") as string,
   };
 
@@ -81,7 +86,7 @@ export async function submitContactForm(
     };
   }
 
-  // @TODO Do something with this data, possibly send it to slack or to a contact email
+  // @TODO SEND TWO EMAILS (clint and studio)
 
   return {
     success: true,
