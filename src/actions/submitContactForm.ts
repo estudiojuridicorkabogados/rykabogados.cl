@@ -2,7 +2,10 @@
 
 import { z } from "zod";
 
+import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
+import { sendEmail } from "@/lib/google/gmail/sendEmail";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
+import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
 
 export interface ActionResponse {
   success: boolean;
@@ -77,6 +80,7 @@ export async function submitContactForm(
 
   const isValidCaptcha = await verifyCaptcha(token);
 
+  console.log("isValidCaptcha", isValidCaptcha);
   if (!isValidCaptcha) {
     return {
       success: false,
@@ -86,10 +90,49 @@ export async function submitContactForm(
     };
   }
 
-  // @TODO SEND TWO EMAILS (clint and studio)
+  console.log("auhtenticating to gmail");
+  const gmailOAuth2Client = await getGmailOAuth2Client();
+
+  console.log("sending emails");
+
+  await Promise.all([
+    sendEmail({
+      to: rawData.email,
+      subject: "Gracias por contactarnos - RK Abogados",
+      from: NOTIFICATIONS_EMAIL,
+      replyTo: NOTIFICATIONS_EMAIL,
+      html: createCustomerEmailHtml(rawData),
+      oauth2Client: gmailOAuth2Client,
+    }),
+    sendEmail({
+      to: NOTIFICATIONS_EMAIL,
+      subject: "Nueva solicitud de llamada",
+      html: createStudioEmailHtml(rawData),
+      from: CAMILA_EMAIL,
+      replyTo: CAMILA_EMAIL,
+      oauth2Client: gmailOAuth2Client,
+    }),
+  ]);
 
   return {
     success: true,
     message: "Form submitted succesfully",
   };
 }
+
+const createCustomerEmailHtml = (rawData: ContactFormData) => `
+  <h2>Hola ${rawData.name},</h2>
+  <p>Hemos recibido tu solicitud de contacto.</p>
+  <p>Muchas gracias por tu interés en nuestro servicio. Nos pondremos en contacto contigo lo antes posible.</p>
+  <br>
+  <p>Saludos,<br><strong>RK Abogados</strong></p>
+`;
+
+const createStudioEmailHtml = (rawData: ContactFormData) => `
+  <h2>Nueva solicitud de contacto de rkabogados.cl</h2>
+  <p><strong>Nombre:</strong> ${rawData.name}</p>
+  <p><strong>Email:</strong> ${rawData.email}</p>
+  <p><strong>Teléfono:</strong> ${rawData.phone}</p>
+  <p><strong>Tipo de servicios:</strong> ${rawData.typeOfServices}</p>
+  <p><strong>Notas:</strong> ${rawData.mensaje}</p>
+`;
