@@ -44,8 +44,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     photo: "/images/team/camila.png",
     // photo: "/images/team/camila.webp",
     linkedin: "https://www.linkedin.com/in/camila-retamales-082a63160",
-    phone: "+56 9 8639 5780",
-    phoneLink: "tel:+56986395780",
+    phone: "+56 2 23644258",
+    phoneLink: "tel:+56223644258",
     email: "camila.retamales@rkabogados.cl",
   },
   {

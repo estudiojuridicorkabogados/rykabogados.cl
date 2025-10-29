@@ -43,44 +43,59 @@ export const TeamGrid = () => {
 
         <ul
           role="list"
-          className="mt-8 mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
+          className="mt-8 mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
         >
           {TEAM_MEMBERS.map((person, i) => (
-            <motion.li key={i} variants={itemVariants}>
+            <motion.li
+              key={i}
+              variants={itemVariants}
+              className="bg-white/5 rounded-2xl border-white/10 border"
+            >
               <div className="aspect-14/13 w-full rounded-2xl outline-1 -outline-offset-1 outline-black/5 dark:outline-white/10 relative">
                 <Image
                   alt={person.name}
                   src={person.photo}
                   fill
                   sizes="(max-width: 1024px) 100vw, 25vw"
-                  className="rounded-2xl object-cover"
+                  className="rounded-t-2xl object-cover"
                 />
               </div>
 
-              <div className="flex flex-row justify-between gap-3 mt-6">
-                <div className="flex flex-col">
-                  <h3 className="font-sans! font-bold! text-lg/8 tracking-tight text-white">
-                    {person.name}
-                  </h3>
+              <div className="flex flex-row justify-between gap-3 my-5 w-full px-5">
+                <div className="flex flex-col gap-1 w-full">
+                  <div className="flex flex-row items-center justify-between gap-3 w-full">
+                    <h3 className="font-sans! font-bold! text-base text-white">
+                      {person.name}
+                    </h3>
+                  </div>
 
-                  <p className="text-base/7 text-white/80">{person.role}</p>
+                  <p className="text-white/80 text-sm italic mb-4">
+                    {person.role}
+                  </p>
 
+                  <a
+                    href={`mailto:${person.email}`}
+                    target="_blank"
+                    className="cursor-pointer text-sm text-white/80 hover:text-accent transition-colors duration-300"
+                    rel="noreferrer"
+                  >
+                    {person.email}
+                  </a>
                   <a
                     href={person.phoneLink}
                     target="_blank"
-                    className="cursor-pointer text-base/7 text-white/80"
+                    className="cursor-pointer text-sm text-white/80 mb-2 hover:text-accent transition-colors duration-300"
                     rel="noreferrer"
                   >
                     {person.phone}
                   </a>
 
                   <a
-                    href={`mailto:${person.email}`}
+                    href={person.linkedin}
                     target="_blank"
-                    className="cursor-pointer text-base/7 text-white/80"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                   >
-                    {person.email}
+                    <LinkedinSquareIcon className="size-5 fill-white/50 hover:fill-accent transition-colors duration-300" />
                   </a>
 
                   {/* <a
@@ -91,14 +106,6 @@ export const TeamGrid = () => {
                   >
                     <WhatsappIcon className="h-7 w-7 fill-white/50" />
                   </a> */}
-                  <a
-                    href={person.linkedin}
-                    target="_blank"
-                    className="pt-2"
-                    rel="noopener noreferrer"
-                  >
-                    <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
-                  </a>
                 </div>
               </div>
             </motion.li>

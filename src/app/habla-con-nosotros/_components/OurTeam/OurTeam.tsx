@@ -21,11 +21,17 @@ const imageVariants: Variants = {
   },
 };
 
+const isMacOS = (): boolean => {
+  if (typeof navigator === "undefined") return false;
+  return (navigator.platform || "").includes("Mac");
+};
+
 export const OurTeam = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null); // Add ref
 
   // Add wheel event handler
   useEffect(() => {
+    if (isMacOS()) return;
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
@@ -118,7 +124,7 @@ export const OurTeam = () => {
                 </div>
                 <div className="p-4 flex justify-between items-start">
                   <div>
-                    <h3 className="!font-sans text-base !font-semibold">
+                    <h3 className="font-sans! text-base font-semibold!">
                       {m.name}
                     </h3>
                     <p className="text-white/80 text-sm">{m.role}</p>
