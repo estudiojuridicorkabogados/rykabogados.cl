@@ -14,7 +14,7 @@ export const ContactSectionLight: React.FC<ContactSectionLightProps> = ({
       <div className="z-10 section-container flex flex-col lg:flex-row justify-center gap-16 lg:gap-16P">
         <div className="w-full lg:w-1/2 flex">
           <h3 className="text-3xl lg:text-5xl text-black">
-            Agenda una llamada.
+            Agenda una llamada
           </h3>
         </div>
 

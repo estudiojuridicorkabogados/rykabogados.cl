@@ -34,65 +34,80 @@ type TeamMember = {
   linkedin: string;
   phone: string;
   phoneLink: string;
+  email: string;
 };
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Camila Retamales Quiroz",
     role: "Abogada Socia",
-    photo: "/images/team/camila.webp",
+    photo: "/images/team/camila.png",
+    // photo: "/images/team/camila.webp",
     linkedin: "https://www.linkedin.com/in/camila-retamales-082a63160",
     phone: "+56 9 8639 5780",
     phoneLink: "tel:+56986395780",
+    email: "camila.retamales@rkabogados.cl",
   },
   {
     name: "Sebastian Kowalski",
     role: "Chief Executive Officer",
-    photo: "/images/team/sebastian.webp",
+    photo: "/images/team/sebastian.png",
+    // photo: "/images/team/sebastian.webp",
     linkedin: "https://www.linkedin.com/in/sebastian-kowalski-605706197",
     phone: "+56 9 5185 6194",
     phoneLink: "tel:+56951856194",
+    email: "sebastian.kowalski@rkabogados.cl",
   },
   {
     name: "Luciano Ascui Mestre",
     role: "Abogado",
-    photo: "/images/team/luciano-old.webp",
+    photo: "/images/team/luciano.png",
+    // photo: "/images/team/luciano-old.webp",
     linkedin: "https://www.linkedin.com/in/luciano-ignacio-ascui-67784a12a",
     phone: "+56 9 7873 4201",
     phoneLink: "tel:+56978734201",
+    email: "luciano.ascui@rkabogados.cl",
   },
   {
     name: "Nicole Ulloa Evert",
     role: "Abogada",
-    photo: "/images/team/nicole-old.webp",
+    photo: "/images/team/nicole.png",
+    // photo: "/images/team/nicole-old.webp",
     linkedin: "https://www.linkedin.com/in/nicoleulloaevert",
     phone: "+56 9 7394 0304",
     phoneLink: "tel:+56973940304",
+    email: "nicole.ulloa@rkabogados.cl",
   },
   {
     name: "Bastián Morales Romero",
     role: "Abogado",
-    photo: "/images/team/bastian-old.webp",
+    photo: "/images/team/bastian.png",
+    // photo: "/images/team/bastian-old.webp",
     linkedin: "https://www.linkedin.com/in/moralesromero",
     phone: "+56 9 7881 4048",
     phoneLink: "tel:+56978814048",
+    email: "bastian.morales@rkabogados.cl",
   },
   {
     name: "Paolo Castiglione Cañas",
     role: "Abogado",
-    photo: "/images/team/paolo.webp",
+    photo: "/images/team/paolo.png",
+    // photo: "/images/team/paolo.webp",
     linkedin:
       "https://www.linkedin.com/in/paolo-castiglione-ca%C3%B1as-908054221",
     phone: "+56 9 7895 1026",
     phoneLink: "tel:+56978951026",
+    email: "paolo.castiglione@rkabogados.cl",
   },
   {
     name: "Constanza Zarricueta",
     role: "Abogada",
-    photo: "/images/team/constanza.webp",
+    photo: "/images/team/constanza.png",
+    // photo: "/images/team/constanza.webp",
     linkedin: "https://www.linkedin.com/in/constanza-zarricueta-cruz-776b4a215",
     phone: "+56 9 8257 2369",
     phoneLink: "tel:+56982572369",
+    email: "constanza.zarricueta@rkabogados.cl",
   },
 ];
 

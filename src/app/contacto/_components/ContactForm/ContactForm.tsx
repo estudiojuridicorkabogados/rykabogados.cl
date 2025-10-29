@@ -105,9 +105,9 @@ export const ContactForm = () => {
               <option value="" disabled>
                 Selecciona una opción
               </option>
-              <option value="trabajadores">Trabajadores</option>
+              <option value="trabajadores">Trabajador</option>
               <option value="empresa">Empresa</option>
-              <option value="otros">Otras</option>
+              <option value="otros">Otras áreas</option>
             </select>
 
             {state.errors?.typeOfServices ? (

@@ -59,10 +59,12 @@ export const TeamGrid = () => {
 
               <div className="flex flex-row justify-between gap-3 mt-6">
                 <div className="flex flex-col">
-                  <h3 className="!font-sans !font-bold text-lg/8 tracking-tight text-white">
+                  <h3 className="font-sans! font-bold! text-lg/8 tracking-tight text-white">
                     {person.name}
                   </h3>
+
                   <p className="text-base/7 text-white/80">{person.role}</p>
+
                   <a
                     href={person.phoneLink}
                     target="_blank"
@@ -71,16 +73,33 @@ export const TeamGrid = () => {
                   >
                     {person.phone}
                   </a>
-                </div>
 
-                <a
-                  href={person.linkedin}
-                  target="_blank"
-                  className="pt-2"
-                  rel="noopener noreferrer"
-                >
-                  <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
-                </a>
+                  <a
+                    href={`mailto:${person.email}`}
+                    target="_blank"
+                    className="cursor-pointer text-base/7 text-white/80"
+                    rel="noreferrer"
+                  >
+                    {person.email}
+                  </a>
+
+                  {/* <a
+                    href={`https://wa.me/${person.phone.replace("+56 ", "")}`}
+                    target="_blank"
+                    className="cursor-pointer text-base/7 text-white/80"
+                    rel="noreferrer"
+                  >
+                    <WhatsappIcon className="h-7 w-7 fill-white/50" />
+                  </a> */}
+                  <a
+                    href={person.linkedin}
+                    target="_blank"
+                    className="pt-2"
+                    rel="noopener noreferrer"
+                  >
+                    <LinkedinSquareIcon className="h-7 w-7 fill-white/50" />
+                  </a>
+                </div>
               </div>
             </motion.li>
           ))}
