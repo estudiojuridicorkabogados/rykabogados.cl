@@ -32,6 +32,7 @@ export const OurTeam = () => {
   // Add wheel event handler
   useEffect(() => {
     if (isMacOS()) return;
+
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
