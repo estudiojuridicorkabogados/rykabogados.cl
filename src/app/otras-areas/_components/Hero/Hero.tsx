@@ -1,7 +1,17 @@
 import { HeroSection } from "@/components/Hero/HeroSection";
 
-const DESCRIPTION = `
-En RK Abogados ofrecemos asesoría integral en materias civiles, comerciales y societarias, entregando soluciones jurídicas adaptadas a las necesidades de cada cliente. Nuestro equipo también desarrolla capacitaciones legales orientadas a empresas y personas naturales, promoviendo el conocimiento y la prevención de riesgos. Actuamos con una mirada estratégica y práctica, enfocada en resultados sostenibles y en fortalecer la gestión legal de quienes confían en nosotros.`;
+const DESCRIPTION = (
+  <>
+    En RK Abogados, además de nuestra reconocida práctica en materia laboral,
+    contamos con un equipo de profesionales especializados en diversas áreas del
+    derecho, lo que nos permite ofrecer una asesoría integral y soluciones
+    jurídicas adaptadas a las necesidades de cada cliente.
+    <br />
+    Nuestro enfoque combina conocimiento técnico y visión estratégica para
+    prevenir riesgos, fortalecer la gestión legal y promover decisiones
+    informadas.
+  </>
+);
 
 export const OtraAreasHero = () => {
   return (

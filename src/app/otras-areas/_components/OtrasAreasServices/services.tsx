@@ -56,4 +56,20 @@ export const SERVICES = [
       </p>
     ),
   },
+  {
+    title: "Derecho Tributario",
+    description: (
+      <p>
+        Brindamos asesoría integral en planificación fiscal, cumplimiento tributario y defensa administrativa o judicial ante el Servicio de Impuestos Internos (SII) y los Tribunales Tributarios y Aduaneros. Nuestro enfoque busca prevenir contingencias, optimizar la carga impositiva y asegurar el cumplimiento normativo, tanto para empresas como para personas naturales.
+      </p>
+    ),
+  },
+  {
+    title: "Compliance",
+    description: (
+      <p>
+        Diseñamos e implementamos programas de cumplimiento normativo y modelos de prevención de delitos corporativos, conforme a la Ley N° 20.393. Asesoramos a las organizaciones en la elaboración de políticas internas, identificación de riesgos y capacitación de equipos, promoviendo una cultura ética, transparente y responsable dentro de la empresa.
+      </p>
+    ),
+  },
 ];

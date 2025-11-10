@@ -44,6 +44,8 @@ export const SERVICES = [
             Incumplimiento grave del contrato: no cumplir las obligaciones
             esenciales pactadas en el contrato de trabajo.
           </li>
+          <li>Caso fortuito o fuerza mayor</li>
+          <li>Necesidades de la empresa</li>
         </ul>
 
         <p>
@@ -124,12 +126,13 @@ export const SERVICES = [
     description: (
       <div className={containerClassName}>
         <p>
-          Si tu empleador te adeuda sueldos, horas extra, bonos, comisiones,
-          cotizaciones, finiquito o cualquier prestación laboral, tienes derecho
-          a exigir su pago judicialmente, incluso si tu contrato sigue vigente.
-          En RK Abogados te asistimos en la interposición y ejecución de
-          demandas laborales, haciendo valer tus derechos y logrando que las
-          obligaciones del empleador se cumplan efectivamente.
+          Si tu empleador te adeuda sueldos, horas extra, semana corrida,
+          comisiones, cotizaciones, bonos, comisiones, cotizaciones, finiquito o
+          cualquier prestación laboral, tienes derecho a exigir su pago
+          judicialmente, incluso si tu contrato sigue vigente. En RK Abogados te
+          asistimos en la interposición y ejecución de demandas laborales,
+          haciendo valer tus derechos y logrando que las obligaciones del
+          empleador se cumplan efectivamente.
         </p>
 
         <p>
