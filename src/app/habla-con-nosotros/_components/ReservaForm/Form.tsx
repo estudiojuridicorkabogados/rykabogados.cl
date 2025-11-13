@@ -119,7 +119,7 @@ export const Form: React.FC<FormProps> = ({
                   <div className="w-full flex mt-12 justify-end">
                     <Button
                       animateOnClick
-                      onClick={() => console.log("LCIK")}
+                      onClick={() => null}
                       variant="white-outline-on-primary"
                       className="w-full lg:w-40 group"
                       type="submit"

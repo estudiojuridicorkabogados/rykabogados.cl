@@ -10,29 +10,30 @@ export interface IStep {
 export const STEPS: IStep[] = [
   {
     stepNumber: "01",
-    title: "Reserva una consulta",
+    title: "Primer contacto",
     description:
-      "Agenda una reunión inicial para discutir tu situación y objetivos legales.",
+      "Agenda una llamada o reunión inicial para exponer tu situación y recibir una orientación preliminar sobre los pasos legales a seguir.",
     icon: "calendar",
   },
   {
     stepNumber: "02",
-    title: "Revisión de documentos",
+    title: "Análisis del caso",
     description:
-      "Proporciona todos los documentos relevantes para que podamos analizarlos.",
+      "Nuestro equipo revisará tus antecedentes laborales y documentación, evaluando la viabilidad de la demanda y la estimación de tus indemnizaciones.",
     icon: "webinar",
   },
   {
     stepNumber: "03",
-    title: "Consulta legal",
+    title: "Presentación de la demanda",
     description:
-      "Recibe asesoramiento experto sobre tus derechos y opciones legales.",
+      "Redactamos e ingresamos la demanda ante el tribunal competente, representándote en todas las audiencias y gestiones necesarias durante el juicio.",
     icon: "piggy",
   },
   {
     stepNumber: "04",
-    title: "Resolución del caso",
-    description: "Trabajamos contigo para alcanzar la mejor solución posible.",
+    title: "Resultado y pago",
+    description:
+      "Una vez obtenida la sentencia favorable o acuerdo, te asistimos en la gestión del pago y cumplimiento efectivo de la indemnización.",
     icon: "hands",
   },
 ];

@@ -20,13 +20,14 @@ export const NextSteps = () => {
       <div className="text-black lg:mx-auto lg:min-w-4xl lg:max-w-4xl xl:min-w-6xl xl:max-w-6xl 2xl:min-w-7xl 2xl:max-w-7xl 2xl:w-7xl flex flex-col gap-8 lg:gap-16 px-6 lg:px-0">
         <div className="flex-2 flex flex-col gap-2 lg:gap-8">
           <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
-            Los proximos pasos
+            Próximos pasos
           </motion.h2>
 
           <motion.p variants={itemVariants} className="lg:w-1/2">
-            Si te despidieron injustamente, puedes ser indemnizado
-            económicamente por ello, compensación que dependerá de la causal
-            invocada por tu empleador.
+            Si fuiste despedido injustamente, puedes obtener una indemnización
+            económica conforme a la ley. En RK Abogados te acompañamos en todo
+            el proceso, desde la primera llamada hasta el pago efectivo de la
+            sentencia o acuerdo.
           </motion.p>
         </div>
 

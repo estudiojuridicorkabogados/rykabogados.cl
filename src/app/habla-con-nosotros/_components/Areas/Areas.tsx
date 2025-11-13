@@ -10,6 +10,8 @@ const AREAS = [
   "Tutela de derechos fundamentales",
   "Cobro de prestaciones",
   "Cálculo de finiquito",
+  "Accidentes o enfermedades profesionales",
+  "Organizaciones sindicales",
 ];
 
 export const Areas = () => {

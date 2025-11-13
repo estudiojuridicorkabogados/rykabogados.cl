@@ -16,7 +16,7 @@ export const Press: React.FC = () => {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      className="bg-white py-16 lg:py-28"
+      className="bg-white py-16 lg:py-28 lg:min-h-[690px]"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
     >

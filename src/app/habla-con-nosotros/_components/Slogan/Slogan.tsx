@@ -70,20 +70,20 @@ export const Slogan = () => {
             variants={itemVariants}
             className="uppercase text-sm text-accent font-bold tracking-[3px]"
           >
-            Listo para evaluar tu caso
+            Listos para evaluar tu caso
           </motion.span>
           <motion.h2
             variants={itemVariants}
             className="text-3xl lg:text-4xl text-white"
           >
-            Defendemos tu derechos come si fueran nuestros.
+            Defendemos tu derechos como si fueran nuestros.
           </motion.h2>
           <motion.span
             variants={itemVariants}
             className="text-white lg:text-xl"
           >
-            Agenda tu sesión de consulta gratuita o contáctanos directamente por
-            WhatsApp para una atención inmediata.
+            Agenda una consulta gratuita por llamada, videollamada o contáctanos
+            directamente por WhatsApp para recibir atención inmediata.
           </motion.span>
 
           <motion.div

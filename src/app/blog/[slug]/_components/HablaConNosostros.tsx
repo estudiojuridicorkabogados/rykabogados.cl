@@ -13,10 +13,13 @@ export const HablaConNosotros: React.FC = () => {
 
   return (
     <div className="bg-[#F3F0EC] p-6 lg:p-8 w-full lg:w-[340px] h-fit lg:sticky lg:top-12">
-      <span className="text-xl text-black mb-6 font-bold">Hablemos sobre tu caso</span>
+      <span className="text-xl text-black mb-6 font-bold">
+        Hablemos sobre tu caso
+      </span>
 
       <p className="text-lg leading-8 text-gray-700 mb-4">
-      ¿Necesitas orientación legal? Conéctate con nuestros abogados y recibe la información que necesitas para tomar la mejor decisión.
+        ¿Necesitas orientación legal? Conéctate con nuestros abogados y recibe
+        la información que necesitas para tomar la mejor decisión.
       </p>
 
       <Button

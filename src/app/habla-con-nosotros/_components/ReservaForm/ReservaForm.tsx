@@ -55,7 +55,7 @@ export const ReservaForm = () => {
         }
       } catch (error) {
         setSubmitError("Error inesperado. Por favor, intenta nuevamente.");
-        console.error("Submit error:", error);
+        // console.error("Submit error:", error);
       }
     });
   };
@@ -117,8 +117,8 @@ export const ReservaForm = () => {
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
-                Agenda una llamada con uno de nuestros abogados y conocer las
-                opciones legales disponibles para ti.
+                ¿Necesitas orientación legal? Conéctate con nuestros abogados y
+                descubre la mejor estrategia para tu caso.
               </motion.p>
             </div>
 
