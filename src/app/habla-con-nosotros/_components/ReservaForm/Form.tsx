@@ -95,7 +95,7 @@ export const Form: React.FC<FormProps> = ({
                       disabled={pending}
                       onClick={nextStep}
                     >
-                      Proximo{" "}
+                      Próximo{" "}
                       <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
                     </Button>
                   </div>
