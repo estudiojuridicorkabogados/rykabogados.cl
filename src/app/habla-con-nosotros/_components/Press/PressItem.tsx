@@ -24,15 +24,17 @@ export const PressItem: React.FC<PressItemProps> = ({
       onMouseEnter={() => onHighlight(index)}
       onMouseLeave={() => onHighlight(null)}
     >
-      <h3 className="font-medium text-black text-xl">{item.title}</h3>
+      <h3 className="font-sans! font-medium! text-black text-lg">
+        {item.title}
+      </h3>
 
       <div className="lg:text-sm text-black">
         <span className="font-bold">{item.publication} - </span>
         <span className="font-normal">{item.date}</span>
       </div>
 
-      <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr]">
-        <div className="overflow-hidden font-sans text-base text-black">
+      <div className="group-hover:mt-4 group-hover:mb-2 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr]">
+        <div className="overflow-hidden font-sans text-base text-black flex flex-col gap-2 text-black/50">
           {item.description}
         </div>
       </div>
