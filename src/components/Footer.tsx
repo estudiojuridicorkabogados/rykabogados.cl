@@ -107,7 +107,7 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col text-white font-[500] gap-8 text-center md:text-left text-sm">
+          <div className="flex flex-col text-white font-medium gap-8 text-center md:text-left text-sm">
             <span>
               {ADDRESS}
               <br />

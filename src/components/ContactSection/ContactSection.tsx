@@ -7,7 +7,7 @@ export const ContactSection = () => {
     <section className="relative h-[540px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/images/rk-fondadores.webp"
+          src="/images/heros/santiago.webp"
           alt="los fundadores de RK abogados"
           fill
           className="object-cover object-center"
