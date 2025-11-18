@@ -94,7 +94,7 @@ export const ContactForm = () => {
 
           <div className="flex flex-col gap-2">
             <label className="font-bold text-white/80 text-sm lg:text-base pt-2">
-              Tipo de servicios necesarios
+              ¿Qué tipo de servicio buscas?
             </label>
             <select
               name="typeOfServices"

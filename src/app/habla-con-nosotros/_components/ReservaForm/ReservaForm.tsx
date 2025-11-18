@@ -53,7 +53,7 @@ export const ReservaForm = () => {
           });
           setCurrentStep(1); // Reset to step 1
         }
-      } catch (error) {
+      } catch {
         setSubmitError("Error inesperado. Por favor, intenta nuevamente.");
         // console.error("Submit error:", error);
       }

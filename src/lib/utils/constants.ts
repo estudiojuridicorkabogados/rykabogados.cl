@@ -44,7 +44,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     photo: "/images/team/camila.png",
     // photo: "/images/team/camila.webp",
     linkedin: "https://www.linkedin.com/in/camila-retamales-082a63160",
-    phone: "+56 2 23644258",
+    phone: "+56 9 8639 5780",
     phoneLink: "tel:+56223644258",
     email: "camila.retamales@rkabogados.cl",
   },
@@ -100,6 +100,26 @@ export const TEAM_MEMBERS: TeamMember[] = [
     email: "paolo.castiglione@rkabogados.cl",
   },
   {
+    name: "Santiago Gonzalez",
+    role: "Abogado",
+    photo: "/images/team/paolo.png",
+    // photo: "/images/team/santiago.webp",
+    linkedin: "https://www.linkedin.com/in/santiago-gonzalez-garcia-776b4a215",
+    phone: "+56 9 8257 2369",
+    phoneLink: "tel:+56982572369",
+    email: "santiago.gonzalez@rkabogados.cl",
+  },
+  {
+    name: "Armida Castro",
+    role: "Abogado",
+    photo: "/images/team/nicole.png",
+    // photo: "/images/team/armida.webp",
+    linkedin: "https://www.linkedin.com/in/armida-castro-776b4a215",
+    phone: "+56 9 8257 2369",
+    phoneLink: "tel:+56982572369",
+    email: "armida.castro@rkabogados.cl",
+  },
+  {
     name: "Constanza Zarricueta",
     role: "Abogada",
     photo: "/images/team/constanza.png",
@@ -113,3 +133,5 @@ export const TEAM_MEMBERS: TeamMember[] = [
 
 export const NOTIFICATIONS_EMAIL = "notificaciones@ryoasociados.cl";
 export const CAMILA_EMAIL = "camila.retamales@ryoasociados.cl";
+
+export const ADDRESS = "Padre Mariano 82, oficina 704, Providencia";

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { ADDRESS } from "@/lib/utils/constants";
+
 export const metadata: Metadata = {
   title: "Política de Privacidad | RK Abogados",
   description:
@@ -68,8 +70,8 @@ export default function PoliticasDePrivacidadPage() {
               <p className="text-gray-700 mb-4">
                 Retamales Kowalski Abogados Limitada, RUT 77.703.086-8, es una
                 sociedad constituida conforme a la legislación chilena, con
-                domicilio en Antonio Bellet N°143, oficina 609, comuna de
-                Providencia, Región Metropolitana.
+                domicilio en {ADDRESS}, comuna de Providencia, Región
+                Metropolitana.
               </p>
               <p className="text-gray-700 mb-4">
                 La sociedad desarrolla sus actividades bajo el nombre comercial
@@ -366,8 +368,7 @@ export default function PoliticasDePrivacidadPage() {
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
                 <li>Correo electrónico: contacto@rkabogados.cl</li>
                 <li>
-                  Dirección postal: Antonio Bellet N°143, oficina 609,
-                  Providencia, Santiago, Chile.
+                  Dirección postal: {ADDRESS}, Providencia, Santiago, Chile.
                 </li>
                 <li>
                   Plazo de respuesta: máximo dos días hábiles, conforme al

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { useCookieConsent } from "@/components/CookieConsent/useCookieConsent";
-import { URLS } from "@/lib/utils/constants";
+import { ADDRESS, URLS } from "@/lib/utils/constants";
 
 import logoWhite from "../../public/images/logos/logo_symbol_white.png";
 
@@ -109,7 +109,7 @@ export const Footer = () => {
 
           <div className="flex flex-col text-white font-[500] gap-8 text-center md:text-left text-sm">
             <span>
-              Antonio Bellet 143, oficina 609, Providencia
+              {ADDRESS}
               <br />
               Isidora Goyenechea 3000, piso 23, Las Condes
             </span>

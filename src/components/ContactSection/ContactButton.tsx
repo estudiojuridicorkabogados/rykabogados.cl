@@ -17,7 +17,7 @@ export const ContactButton = () => {
       onClick={navigateToContacto}
       animateOnClick
     >
-      Mas info
+      MÁS INFORMACIÓN
     </Button>
   );
 };

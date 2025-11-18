@@ -40,7 +40,7 @@ export const HablaConNosotros: React.FC = () => {
           className="group flex items-center w-full mt-4"
         >
           <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
-          Hablamos por Whatsapp
+          Hablemos por Whatsapp
         </a>
       </Button>
     </div>

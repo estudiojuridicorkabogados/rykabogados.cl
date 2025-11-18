@@ -49,7 +49,7 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
               rel="noreferrer"
               className="text-black underline font-medium hover:text-primary/80 cursor-pointer"
             >
-              hablamos para whatsapp 📲
+              Hablemos por whatsapp 📲
             </a>
           </motion.div>
         </div>

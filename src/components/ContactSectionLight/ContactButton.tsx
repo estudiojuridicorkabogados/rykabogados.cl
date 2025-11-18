@@ -11,7 +11,7 @@ interface ContactButtonProps {
 }
 
 export const ContactButton: React.FC<ContactButtonProps> = ({
-  label = "Mas info",
+  label = "MÁS INFORMACIÓN",
   onClick,
 }) => {
   const router = useRouter();

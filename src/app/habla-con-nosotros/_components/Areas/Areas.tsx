@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 const AREAS = [
-  "Despido Injustificado",
+  "Despido injustificado",
   "Autodespido",
   "Tutela de derechos fundamentales",
   "Cobro de prestaciones",

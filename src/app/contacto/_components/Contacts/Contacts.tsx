@@ -1,7 +1,7 @@
 import { FacebookIcon } from "@/components/icons/Facebook";
 import { InstagramIcon } from "@/components/icons/Instagram";
 import { LinkedinIcon } from "@/components/icons/Linkedin";
-import { URLS } from "@/lib/utils/constants";
+import { ADDRESS, URLS } from "@/lib/utils/constants";
 
 export const Contacts = () => {
   return (
@@ -39,12 +39,12 @@ export const Contacts = () => {
 
       <div className="flex flex-col lg:max-w-[320px]">
         <span className="font-bold">Visítanos</span>
-        <span>Antonio Bellet 143, oficina 609, Providencia</span>
+        <span>{ADDRESS}</span>
         <div className="mt-4">
           <div className="w-full h-80 rounded-lg overflow-hidden ring-1 ring-white/10">
             <iframe
               title="Mapa de R&K Abogados"
-              src="https://www.google.com/maps?q=Antonio%20Bellet%20143%2C%20Providencia%2C%20Chile&hl=es&z=16&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12869.047217216124!2d-70.616248092201!3d-33.42410825489978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf2e7e389f73%3A0xf1054aa24a0ccefb!2sPadre%20Mariano%2082%2C%20oficina%20704%2C%207500026%20Providencia%2C%20Regi%C3%B3n%20Metropolitana%2C%20Chile!5e0!3m2!1sen!2sus!4v1763499315761!5m2!1sen!2sus"
               width="100%"
               height="100%"
               loading="lazy"
