@@ -20,7 +20,7 @@ export const PressItem: React.FC<PressItemProps> = ({
   return (
     <motion.div
       variants={itemVariants}
-      className="flex flex-col space-y-1 border-black py-4 border-t last:border-b group"
+      className="flex flex-col space-y-1 border-black py-4 border-t last:border-b group cursor-pointer"
       onMouseEnter={() => onHighlight(index)}
       onMouseLeave={() => onHighlight(null)}
     >

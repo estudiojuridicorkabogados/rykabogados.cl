@@ -22,7 +22,7 @@ export const Hero = () => {
 
       <HeroContent
         label="Habla con nosotros"
-        title="¿Despido Injustificado? Consulta inicial gratuita."
+        title="¿Despido Injustificado? Consulta inicial gratuita"
         description="En RK Abogados revisamos tu caso, analizamos tu despido y te explicamos tus derechos. Trabajamos bajo un modelo de honorarios a resultado, es decir, solo pagas si ganas."
       />
     </section>
