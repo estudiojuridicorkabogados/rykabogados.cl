@@ -33,7 +33,7 @@ export const PressImage: React.FC<PressImageProps> = ({
     >
       <Image
         src={item.image}
-        alt={`${item.publication} article`}
+        alt={`${item.id} press article`}
         width={251}
         height={309}
         loading="lazy"

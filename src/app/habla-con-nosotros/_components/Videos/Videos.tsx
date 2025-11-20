@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, stagger } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";

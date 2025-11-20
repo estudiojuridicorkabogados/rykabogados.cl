@@ -1,7 +1,5 @@
 export interface PressItem {
   id: string;
-  publication: string;
-  date: string;
   title: string;
   description: React.ReactNode;
   image: string;
@@ -17,8 +15,6 @@ const pressImages = {
 export const PRESS_ITEMS: PressItem[] = [
   {
     id: "1",
-    publication: "San Carlos Online",
-    date: "Diciembre 15, 2021",
     title: "Indemnización por vulneración de la integridad del trabajador",
     description: (
       <>
@@ -45,8 +41,6 @@ export const PRESS_ITEMS: PressItem[] = [
   },
   {
     id: "2",
-    publication: "BBCL",
-    date: "Diciembre 15, 2021",
     title: "Despido injustificado: cómo reconocerlo y reclamar",
     description: (
       <>
@@ -87,8 +81,6 @@ export const PRESS_ITEMS: PressItem[] = [
   },
   {
     id: "3",
-    publication: "BBCL",
-    date: "Diciembre 15, 2021",
     title: "Autodespido y condena solidaria contra empresa mandante",
     description: (
       <>

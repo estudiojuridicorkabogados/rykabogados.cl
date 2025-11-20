@@ -90,10 +90,7 @@ export async function submitContactForm(
     };
   }
 
-  console.log("auhtenticating to gmail");
   const gmailOAuth2Client = await getGmailOAuth2Client();
-
-  console.log("sending emails");
 
   await Promise.all([
     sendEmail({

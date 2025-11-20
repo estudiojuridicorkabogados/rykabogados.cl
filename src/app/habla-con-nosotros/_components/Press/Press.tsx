@@ -3,14 +3,20 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 
+import { Accordion } from "@/components/Accordion/Accordion";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 import { PRESS_ITEMS } from "./constants";
 import { PressImage } from "./PressImage";
-import { PressItem } from "./PressItem";
 
 export const Press: React.FC = () => {
   const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
+
+  const handleHoverEnd = (index: number) => {
+    if (highlightedIndex === index) {
+      setHighlightedIndex(null);
+    }
+  };
 
   return (
     <motion.section
@@ -31,14 +37,14 @@ export const Press: React.FC = () => {
             </motion.h2>
 
             <div className="space-y-0">
-              {PRESS_ITEMS.map((item, index) => (
-                <PressItem
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  onHighlight={setHighlightedIndex}
-                />
-              ))}
+              <Accordion
+                entries={PRESS_ITEMS}
+                fixedSize={false}
+                showNumbers={false}
+                fullSizeText
+                onHoverStart={setHighlightedIndex}
+                onHoverEnd={handleHoverEnd}
+              />
             </div>
           </div>
 

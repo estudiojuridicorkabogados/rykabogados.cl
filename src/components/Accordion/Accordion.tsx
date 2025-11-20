@@ -20,18 +20,37 @@ interface Entry {
 
 interface AccordionProps {
   entries: Entry[];
+  fixedSize?: boolean;
+  showNumbers?: boolean;
+  fullSizeText?: boolean;
+  onHoverStart?: (index: number) => void;
+  onHoverEnd?: (index: number) => void;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({ entries }) => {
+export const Accordion: React.FC<AccordionProps> = ({
+  entries,
+  fixedSize = true,
+  showNumbers = true,
+  fullSizeText = false,
+  onHoverStart,
+  onHoverEnd,
+}) => {
   return (
-    <div className="mx-auto px-6 lg:w-6xl 2xl:w-7xl">
+    <div
+      className={classNames("mx-auto", {
+        "lg:w-6xl 2xl:w-7xl px-6": fixedSize,
+        "w-full": !fixedSize,
+      })}
+    >
       <dl className="mt-16">
-        {entries.map((faq, i) => (
+        {entries.map((entry, i) => (
           <Disclosure
-            key={faq.title}
+            key={entry.title}
             as={motion.div}
             variants={itemVariants}
             className="border-t last:border-b border-gray-900 first:pt-0 last:pb-0"
+            onHoverStart={() => onHoverStart?.(i)}
+            onHoverEnd={() => onHoverEnd?.(i)}
           >
             {({ open }) => (
               <>
@@ -42,7 +61,7 @@ export const Accordion: React.FC<AccordionProps> = ({ entries }) => {
                         "transition-all delay-300 duration-75 md:text-lg"
                       )}
                     >
-                      {`0${i + 1}.`} {faq.title}
+                      {showNumbers ? `${i + 1}.` : ""} {entry.title}
                     </span>
                     <span className="flex h-7 justify-center items-center mr-4">
                       <PlusIcon
@@ -65,11 +84,29 @@ export const Accordion: React.FC<AccordionProps> = ({ entries }) => {
                     open: { height: "auto", opacity: 1 },
                     collapsed: { height: 0, opacity: 0 },
                   }}
-                  className="overflow-hidden md:pr-12 border-t border-gray-900"
+                  className={classNames(
+                    "overflow-hidden md:pr-12 border-t border-gray-900",
+                    {
+                      "md:pr-0": fullSizeText,
+                    }
+                  )}
                 >
-                  <div className="py-0 lg:w-4/5">
-                    <div className="md:pl-7 pb-12 pt-12 text-base/7 text-black/50 leading-6">
-                      {faq.description}
+                  <div
+                    className={classNames("py-0", {
+                      "lg:w-4/5": !fullSizeText,
+                      "w-full": fullSizeText,
+                    })}
+                  >
+                    <div
+                      className={classNames(
+                        "pb-12 pt-12 text-base/7 text-black/50 leading-6",
+                        {
+                          "md:pl-7 ": !fullSizeText,
+                          "pl-0": fullSizeText,
+                        }
+                      )}
+                    >
+                      {entry.description}
                     </div>
                   </div>
                 </DisclosurePanel>
