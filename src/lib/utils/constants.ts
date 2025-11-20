@@ -21,8 +21,8 @@ export const URLS: UrlsMap = {
   // External links
   facebook: () =>
     "https://www.facebook.com/p/RO-Abogados-Chile-100066607063186",
-  instagram: () => "https://www.instagram.com/ryoabogadoschile",
-  linkedin: () => "https://linkedin.com",
+  instagram: () => "https://www.instagram.com/rkabogados/",
+  linkedin: () => "https://www.linkedin.com/company/retamales-kowalski-abogados/",
   whatsapp: () =>
     "http://api.whatsapp.com/send/?phone=56986395780&text=%C2%A1Hola%21+Me+gustar%C3%ADa+una+asesor%C3%ADa+laboral+gratuita&type=phone_number&app_absent=0",
 };
@@ -104,7 +104,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Sandra Riquelme Reyes",
-    role: "Abogada",
+    role: "Abogada Asociada",
     photo: "/images/team/sandra.webp",
     linkedin: "https://www.linkedin.com/in/sandra-riquelme-3b259188",
     phone: "223644258",
@@ -113,7 +113,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Nicolás Moreno Marchant",
-    role: "Abogado",
+    role: "Abogado Asociado",
     photo: "/images/team/nico.webp",
     linkedin: "https://www.linkedin.com/in/nicol%C3%A1s-m-18144385",
     phone: "223644258",

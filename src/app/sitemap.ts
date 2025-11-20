@@ -9,8 +9,8 @@ const BASE_PATHS = [
   "/nosotros",
   "/contacto",
   "/habla-con-nosotros",
+  "/faqs",
   "/politicas-de-privacidad",
-  "/faq",
   "/politica-cookies",
 ];
 
