@@ -127,12 +127,12 @@ export const SERVICES = [
       <div className={containerClassName}>
         <p>
           Si tu empleador te adeuda sueldos, horas extra, semana corrida,
-          comisiones, cotizaciones, bonos, comisiones, cotizaciones, finiquito o
-          cualquier prestación laboral, tienes derecho a exigir su pago
-          judicialmente, incluso si tu contrato sigue vigente. En RK Abogados te
-          asistimos en la interposición y ejecución de demandas laborales,
-          haciendo valer tus derechos y logrando que las obligaciones del
-          empleador se cumplan efectivamente.
+          comisiones, cotizaciones, bonos, finiquito o cualquier prestación
+          laboral, tienes derecho a exigir su pago judicialmente, incluso si tu
+          contrato sigue vigente. En RK Abogados te asistimos en la
+          interposición y ejecución de demandas laborales, haciendo valer tus
+          derechos y logrando que las obligaciones del empleador se cumplan
+          efectivamente.
         </p>
 
         <p>

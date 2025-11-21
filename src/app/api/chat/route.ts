@@ -1,5 +1,11 @@
 import { openai } from "@ai-sdk/openai";
-import { convertToModelMessages, stepCountIs, streamText, tool, UIMessage } from "ai";
+import {
+  convertToModelMessages,
+  stepCountIs,
+  streamText,
+  tool,
+  UIMessage,
+} from "ai";
 import { z } from "zod";
 
 import { findRelevantContent } from "@/lib/ai/embeddings";
@@ -28,6 +34,11 @@ DO NOT try to get the information straightaway.
 If the customer mentions they have a generic question, first make sure to get what the question is and try to reply
 with the knowledge you have from the context.
 Try to get deeper into the issue if it's too generic. If you find that it is not possible to help through the knowledge, then go ahead and ask the user's contact details.
+
+If people ask about a contact email, give them this: contacto@rkabogados.cl
+If people ask about a contact phone number, give them this: +56 2 2364 4258 (fixed phone number) - +56 9 8639 5780 (mobile phone number)
+If people ask about your address, give them this: Padre Mariano 82, oficina 704, Providencia
+If people ask to speak on WhatsApp, or mentions WhatsApp, or wants to chat on WhatsApp, use the provideWhatsappContact tool.
 `;
 
 export async function POST(req: Request) {
@@ -78,7 +89,7 @@ export async function POST(req: Request) {
     stopWhen: stepCountIs(5),
     tools: {
       processUserInfo: tool({
-        description: `process user information by storing it in the database.`,
+        description: `process user information by sending an email to the studio. Also send one to the user as a confrimation`,
         inputSchema: z.object({
           fullName: z.string().describe("the user's full name"),
           email: z.string().describe("the user's email address"),
@@ -93,6 +104,15 @@ export async function POST(req: Request) {
             ),
         }),
         execute: processUserInfo,
+      }),
+      provideWhatsappContact: tool({
+        description: `Provide the WhatsApp contact number for the user to chat with us.`,
+        inputSchema: z.object({}),
+        execute: async () => {
+          return {
+            whatsappNumber: "+56 9 8639 5780",
+          };
+        },
       }),
     },
     messages: modelMessages,
