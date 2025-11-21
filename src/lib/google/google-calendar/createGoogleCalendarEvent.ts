@@ -38,9 +38,8 @@ export async function createGoogleCalendarEvent(eventDetails: EventDetails) {
 function createEventData(eventDetails: EventDetails) {
   return {
     summary: eventDetails.title,
-    description: eventDetails.notes,
     attendees: [{ email: CAMILA_EMAIL }, { email: eventDetails.userEmail }],
-    notes: `
+    description: `
     <p>Nombre: ${eventDetails.name}</p>
     <p>Correo: ${eventDetails.userEmail}</p>
     <p>Anos de antigüedad laboral: ${eventDetails.antiguedadLaboral}</p>
