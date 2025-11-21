@@ -55,7 +55,7 @@ export const SelectInput = forwardRef<HTMLButtonElement, SelectInputProps>(
     const selectedOption = options.find((option) => option.id === value);
 
     return (
-      <div>
+      <div className="w-full">
         <Listbox value={internalValue} onChange={handleChange}>
           {name ? (
             <input type="hidden" name={name} value={internalValue ?? ""} />
