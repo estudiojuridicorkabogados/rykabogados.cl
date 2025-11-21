@@ -7,9 +7,12 @@ import { getOAuth2Client } from "../getOauth2Client";
 interface EventDetails {
   title: string;
   notes: string;
+  name: string;
   userEmail: string;
   startTime: string; // ISO string
   endTime: string; // ISO string
+  antiguedadLaboral: string;
+  causalDespido: string;
 }
 
 export async function createGoogleCalendarEvent(eventDetails: EventDetails) {
@@ -37,6 +40,13 @@ function createEventData(eventDetails: EventDetails) {
     summary: eventDetails.title,
     description: eventDetails.notes,
     attendees: [{ email: CAMILA_EMAIL }, { email: eventDetails.userEmail }],
+    notes: `
+    <p>Nombre: ${eventDetails.name}</p>
+    <p>Correo: ${eventDetails.userEmail}</p>
+    <p>Anos de antigüedad laboral: ${eventDetails.antiguedadLaboral}</p>
+    <p>Causal de despido: ${eventDetails.causalDespido}</p>
+    <p>Cuentanos un poco sobre tu caso: ${eventDetails.notes}</p>
+    `,
     start: {
       dateTime: eventDetails.startTime,
       timeZone: "America/Santiago",

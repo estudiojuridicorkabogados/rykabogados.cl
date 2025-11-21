@@ -19,8 +19,6 @@ export async function submitBookACallForm(
   reCaptchaToken: string | null
 ) {
   try {
-    console.log("Server action received:", data);
-
     if (!reCaptchaToken) {
       console.error("ReCAPTCHA no enviado");
       return { success: false, message: "ReCAPTCHA no enviado" };
@@ -51,15 +49,11 @@ export async function submitBookACallForm(
 
     const santiagoEndTime = addMinutes(santiagoStartTime, 30);
 
-    console.log("date.date", data.date);
-    console.log("santiagoStartTime", santiagoStartTime);
-    console.log(
-      "santiagoStartTime.toISOString",
-      santiagoStartTime.toISOString()
-    );
-
     const result = await createGoogleCalendarEvent({
       title: "Asesoria Gratuita",
+      name: data.name,
+      antiguedadLaboral: data.antiguedadLaboral,
+      causalDespido: data.causalDespido,
       notes: data.mensaje,
       userEmail: data.email,
       startTime: santiagoStartTime.toISOString(),
@@ -119,7 +113,7 @@ async function dispatchNotificationEmails(args: NotificationEmailArgs) {
   });
 
   await sendEmail({
-    to: NOTIFICATIONS_EMAIL,
+    to: CAMILA_EMAIL,
     subject: "Nueva solicitud de llamada",
     html: `
         <h2>Nueva solicitud de llamada de rkabogados.cl</h2>
@@ -130,8 +124,8 @@ async function dispatchNotificationEmails(args: NotificationEmailArgs) {
         <p><strong>Antigüedad laboral:</strong> ${args.antiguedadLaboral}</p>
         <p><strong>Notas:</strong> ${args.notes}</p>
       `,
-    from: CAMILA_EMAIL,
-    replyTo: CAMILA_EMAIL,
+    from: NOTIFICATIONS_EMAIL,
+    replyTo: NOTIFICATIONS_EMAIL,
     oauth2Client: gmailOAuth2Client,
   });
 }
