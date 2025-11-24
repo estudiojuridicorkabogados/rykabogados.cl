@@ -6,7 +6,7 @@ import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
 import { createGoogleCalendarEvent } from "@/lib/google/google-calendar/createGoogleCalendarEvent";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
-import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
+import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
 
 import { FormData } from "../app/habla-con-nosotros/_components/ReservaForm/types";
 
@@ -100,8 +100,8 @@ async function dispatchNotificationEmails(args: NotificationEmailArgs) {
   await sendEmail({
     to: args.userEmail,
     subject: "Confirmación de tu solicitud - RK Abogados",
-    from: NOTIFICATIONS_EMAIL,
-    replyTo: NOTIFICATIONS_EMAIL,
+    from: CONTACTO_EMAIL,
+    replyTo: CONTACTO_EMAIL,
     html: `
         <h2>Hola ${args.name},</h2>
         <p>Hemos recibido tu solicitud de llamada.</p>
@@ -124,8 +124,8 @@ async function dispatchNotificationEmails(args: NotificationEmailArgs) {
         <p><strong>Antigüedad laboral:</strong> ${args.antiguedadLaboral}</p>
         <p><strong>Notas:</strong> ${args.notes}</p>
       `,
-    from: NOTIFICATIONS_EMAIL,
-    replyTo: NOTIFICATIONS_EMAIL,
+    from: CONTACTO_EMAIL,
+    replyTo: CONTACTO_EMAIL,
     oauth2Client: gmailOAuth2Client,
   });
 }

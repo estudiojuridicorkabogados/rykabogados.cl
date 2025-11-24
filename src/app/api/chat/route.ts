@@ -11,7 +11,7 @@ import { z } from "zod";
 import { findRelevantContent } from "@/lib/ai/embeddings";
 import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
-import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
+import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
 
 // Allow streaming responses up to 45 seconds
 export const maxDuration = 45;
@@ -139,8 +139,8 @@ async function processUserInfo(args: ProcessUserInfoArgs) {
       sendEmail({
         to: email,
         subject: "Gracias por contactarnos - RK Abogados",
-        from: NOTIFICATIONS_EMAIL,
-        replyTo: NOTIFICATIONS_EMAIL,
+        from: CONTACTO_EMAIL,
+        replyTo: CONTACTO_EMAIL,
         html: `
         <h2>Hola ${fullName},</h2>
         <p>Hemos recibido tu solicitud de contacto.</p>
@@ -153,8 +153,8 @@ async function processUserInfo(args: ProcessUserInfoArgs) {
       sendEmail({
         to: CAMILA_EMAIL,
         subject: "Nuevo mensaje de usuario",
-        from: NOTIFICATIONS_EMAIL,
-        replyTo: NOTIFICATIONS_EMAIL,
+        from: CONTACTO_EMAIL,
+        replyTo: CONTACTO_EMAIL,
         html: `
         <h2>Nuevo mensaje de usuario</h2>
         <p>Nombre: ${fullName}</p>

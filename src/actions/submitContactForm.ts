@@ -5,7 +5,7 @@ import { z } from "zod";
 import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
-import { CAMILA_EMAIL, NOTIFICATIONS_EMAIL } from "@/lib/utils/constants";
+import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
 
 export interface ActionResponse {
   success: boolean;
@@ -96,13 +96,13 @@ export async function submitContactForm(
     sendEmail({
       to: rawData.email,
       subject: "Gracias por contactarnos - RK Abogados",
-      from: NOTIFICATIONS_EMAIL,
-      replyTo: NOTIFICATIONS_EMAIL,
+      from: CONTACTO_EMAIL,
+      replyTo: CONTACTO_EMAIL,
       html: createCustomerEmailHtml(rawData),
       oauth2Client: gmailOAuth2Client,
     }),
     sendEmail({
-      to: NOTIFICATIONS_EMAIL,
+      to: CONTACTO_EMAIL,
       subject: "Nueva solicitud de llamada",
       html: createStudioEmailHtml(rawData),
       from: CAMILA_EMAIL,
