@@ -1,6 +1,6 @@
 "use client";
 
-import { BotMessageSquare } from "lucide-react";
+import Image from "next/image";
 
 import { classNames } from "@/lib/utils/classNames";
 
@@ -20,8 +20,8 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       type="button"
       onClick={onToggleOpen}
       className={classNames([
-        "z-50 cursor-pointer fixed bottom-4 right-4 ring-black/5 transition-all duration-200 ease-out",
-        "h-14 w-14 rounded-full bg-accent border border-accent-dark text-white shadow-lg ring-1",
+        "z-50 cursor-pointer fixed bottom-4 right-4 ring-black/5 transition-all duration-200 ease-out overflow-visible",
+        "h-14 w-14 rounded-full bg-primary border border-accent-dark text-white shadow-lg ring-1",
         {
           "opacity-0 scale-95 pointer-events-none": open,
           "opacity-100 scale-100": !open,
@@ -30,12 +30,17 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       ])}
       aria-label={open ? "Hide chat" : "Open chat"}
     >
-      {/* Chat icon */}
-      <BotMessageSquare className="h-7 w-7 stroke-primary" />
+      <Image
+        src="/images/support_chat.webp"
+        alt="Chat"
+        width={70}
+        height={70}
+        className="object-cover max-w-none w-[70px] h-[70px] mb-4"
+      />
 
       {/* Unread badge */}
       {unread > 0 && (
-        <span className="absolute -top-1 -right-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-rose-500 px-1.5 text-[10px] font-semibold text-white ring-2 ring-white">
+        <span className="absolute -top-1 -right-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1.5 text-[10px] font-semibold text-white ring-2 ring-white">
           {unread > 9 ? "9+" : unread}
         </span>
       )}
