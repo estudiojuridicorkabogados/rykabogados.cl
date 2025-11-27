@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { draftMode } from "next/headers";
 import Script from "next/script";
 
 import { ConditionalAnalytics } from "@/components/Analytics/ConditionalAnalytics";
@@ -53,11 +54,13 @@ const SupportChatbot = dynamic(
   }
 );
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled } = await draftMode();
+
   return (
     <html lang="es-CL" className={dmSans.variable}>
       <body className="antialiased bg-white">
@@ -77,7 +80,6 @@ export default function RootLayout({
           <CookieBanner />
 
           <CookieSettingsModal />
-
           {env.NEXT_PUBLIC_ENVIRONMENT === "production" ? (
             <ConditionalAnalytics />
           ) : null}
