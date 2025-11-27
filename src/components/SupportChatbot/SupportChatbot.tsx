@@ -110,8 +110,8 @@ export const SupportChatbot = () => {
       {/* Chat Panel */}
       <div
         className={classNames([
-          "fixed top-0 bottom-0 left-0 right-0 md:top-auto md:left-auto md:bottom-4 md:right-4 z-50 origin-bottom-right transition-all duration-200 ease-out",
-          "w-screen sm:w-[24rem] h-screen md:h-[80vh] md:rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col",
+          "fixed top-0 left-0 right-0 h-dvh md:h-[80vh] md:top-auto md:left-auto md:bottom-4 md:right-4 z-50 origin-bottom-right transition-all duration-200 ease-out",
+          "w-screen sm:w-[24rem] md:rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col",
           "bg-white",
           {
             "opacity-100 translate-y-0 scale-100 pointer-events-auto": open,
@@ -122,9 +122,9 @@ export const SupportChatbot = () => {
         role="dialog"
         aria-label="Support chat"
       >
-        <div className="relative bg-gradient-to-b from-[#FED9A591] via-[#FED9A500] to-[#FBFBFC] via-20% to-25% h-full flex flex-col">
+        <div className="relative bg-linear-to-b from-[#FED9A591] via-[#FED9A500] to-[#FBFBFC] via-20% to-25% flex-1 flex flex-col min-h-0">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-6 text-white">
+          <div className="flex items-center justify-between px-6 py-6 text-white shrink-0">
             <div className="flex items-center gap-2">
               <Image
                 src="/images/logos/logo-black.png"
@@ -147,7 +147,7 @@ export const SupportChatbot = () => {
           {/* Messages */}
           <div
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto px-6 py-3 mb-16 pb-8 mt-2"
+            className="flex-1 overflow-y-auto px-6 py-3 pb-4 mt-2"
           >
             <p className="font-medium text-xl text-black mb-4 leading-[25px] max-w-4/5">
               Bienvenido a RK Abogados. ¿Cómo prefieres hablar con nosotros?
