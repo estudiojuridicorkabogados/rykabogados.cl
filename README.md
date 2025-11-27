@@ -2,7 +2,7 @@
 
 The official website for **R&K Abogados**, a premier law firm based in Santiago, Chile.
 
-🌐 **Live Site:** [rekabogados.cl](https://rekabogados.cl)
+🌐 **Live Site:** [rkabogados.cl](https://rkabogados.cl)
 
 ## 🚀 Getting Started
 

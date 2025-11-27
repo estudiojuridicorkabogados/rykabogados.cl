@@ -105,7 +105,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Sandra Riquelme Reyes",
-    role: "Abogada Asociada",
+    role: "Of Counsel",
     photo: "/images/team/sandra.webp",
     linkedin: "https://www.linkedin.com/in/sandra-riquelme-3b259188",
     phone: "223644258",
@@ -114,7 +114,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Nicolás Moreno Marchant",
-    role: "Abogado Asociado",
+    role: "Of Counsel",
     photo: "/images/team/nico.webp",
     linkedin: "https://www.linkedin.com/in/nicol%C3%A1s-m-18144385",
     phone: "223644258",

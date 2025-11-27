@@ -64,7 +64,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       >
         <Button variant="reserva-form-link" asChild>
           <a href="#reserva-form-section" onClick={handleScrollToForm}>
-            Reserva un llamada
+            Reserva una llamada
           </a>
         </Button>
 
