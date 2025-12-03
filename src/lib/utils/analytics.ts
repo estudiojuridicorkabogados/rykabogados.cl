@@ -8,3 +8,10 @@ export function trackWhatsappConversion() {
   }
 }
 
+export function trackBookACallFormConversion() {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", "conversion", {
+      send_to: EVENT_TO,
+    });
+  }
+}

@@ -15,6 +15,7 @@ import {
   ReservaFormSuccessFeedback,
 } from "./ReservaFormSuccessFeedback";
 import { FormData } from "./types";
+import { trackBookACallFormConversion } from "@/lib/utils/analytics";
 
 export const ReservaForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -43,6 +44,8 @@ export const ReservaForm = () => {
           ...data,
           date,
         };
+
+        trackBookACallFormConversion();
 
         const result = await submitBookACallForm(sendData, token);
 
