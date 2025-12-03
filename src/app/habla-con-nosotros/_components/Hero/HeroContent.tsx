@@ -2,10 +2,9 @@
 
 import { motion } from "motion/react";
 
-import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
+import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
 import { itemVariants } from "@/lib/utils/animations";
-import { URLS } from "@/lib/utils/constants";
 
 interface HeroContentProps {
   label: string;
@@ -68,17 +67,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
           </a>
         </Button>
 
-        <Button variant="whatsapp" asChild>
-          <a
-            href={URLS.whatsapp()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center"
-          >
-            <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
-            Hablemos por Whatsapp
-          </a>
-        </Button>
+        <WhatsappLink />
       </motion.div>
     </motion.div>
   );

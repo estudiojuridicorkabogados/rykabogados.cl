@@ -2,6 +2,18 @@ import { Document } from "@contentful/rich-text-types";
 
 import { Maybe } from "./generated/graphql";
 
+// Google Analytics gtag types
+declare global {
+  interface Window {
+    gtag: (
+      command: "event" | "config" | "js",
+      targetId: string | Date,
+      config?: Record<string, unknown>
+    ) => void;
+    dataLayer: unknown[];
+  }
+}
+
 export interface Image {
   url?: Maybe<string>;
   title?: Maybe<string>;

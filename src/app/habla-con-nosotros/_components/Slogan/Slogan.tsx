@@ -3,9 +3,8 @@
 import { motion, Variants } from "motion/react";
 import Image from "next/image";
 
-import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
-import { URLS } from "@/lib/utils/constants";
+import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
 
 const containerVariants: Variants = {
   hidden: { y: 400 },
@@ -96,20 +95,11 @@ export const Slogan = () => {
               </a>
             </Button>
 
-            <Button variant="whatsapp" asChild>
-              <a
-                href={URLS.whatsapp()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center"
-              >
-                <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
-                Hablemos por Whatsapp
-              </a>
-            </Button>
+            <WhatsappLink />
           </motion.div>
         </div>
       </motion.div>
     </motion.section>
   );
 };
+

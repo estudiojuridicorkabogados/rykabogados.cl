@@ -1,7 +1,7 @@
 import { motion, Variants } from "framer-motion";
 
+import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
 import { containerVariants } from "@/lib/utils/animations";
-import { URLS } from "@/lib/utils/constants";
 
 interface InitialBotMessageProps {
   open: boolean;
@@ -42,15 +42,7 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
           </motion.div>
 
           <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
-            O{" "}
-            <a
-              href={URLS.whatsapp()}
-              target="_blank"
-              rel="noreferrer"
-              className="text-black underline font-medium hover:text-primary/80 cursor-pointer"
-            >
-              Hablemos por whatsapp 📲
-            </a>
+            O <WhatsappLink variant="link" text="Hablemos por whatsapp 📲" />
           </motion.div>
         </div>
       </div>

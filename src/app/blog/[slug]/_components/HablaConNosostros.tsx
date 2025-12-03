@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
-import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
+import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
 import { URLS } from "@/lib/utils/constants";
 
 export const HablaConNosotros: React.FC = () => {
@@ -32,17 +32,7 @@ export const HablaConNosotros: React.FC = () => {
         Reserva una llamada
       </Button>
 
-      <Button variant="whatsapp" asChild>
-        <a
-          href={URLS.whatsapp()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex items-center w-full mt-4"
-        >
-          <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
-          Hablemos por Whatsapp
-        </a>
-      </Button>
+      <WhatsappLink className="w-full mt-4" />
     </div>
   );
 };
