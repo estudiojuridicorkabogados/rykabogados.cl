@@ -6,7 +6,8 @@ import Script from "next/script";
 
 import { useCookieConsent } from "../CookieConsent/useCookieConsent";
 
-const GA_MEASUREMENT_ID = "AW-11083927345";
+const GOOGLE_ADS_TAG = "AW-11083927345";
+const GA_MEASUREMENT_ID = "G-HE87DHS09F";
 
 export function ConditionalAnalytics() {
   const { hasAnalyticsConsent, isLoading } = useCookieConsent();
@@ -28,16 +29,22 @@ export function ConditionalAnalytics() {
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
       />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}');
-        `}
-      </Script>
 
-      {/* Vercel Analytics */}
+    
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+            gtag('config', '${GOOGLE_ADS_TAG}');
+          `,
+        }}
+      />
+      
       <Analytics />
       <SpeedInsights />
     </>
