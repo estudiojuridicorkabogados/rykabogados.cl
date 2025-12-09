@@ -63,6 +63,8 @@ export default async function RootLayout({
     <html lang="es-CL" className={dmSans.variable}>
       <body className="antialiased bg-white">
         {/* Google Tag Manager (noscript) */}
+        <CookieSettingsModal />
+
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-PC49T6MC"
@@ -86,8 +88,6 @@ export default async function RootLayout({
           <SupportChatbot />
 
           <CookieBanner />
-
-          <CookieSettingsModal />
 
           <ConditionalAnalytics />
         </CookieConsentProvider>
