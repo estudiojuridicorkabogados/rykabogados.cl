@@ -46,7 +46,8 @@ const buttonStyles = cva(
 type ButtonVariantProps = VariantProps<typeof buttonStyles>;
 
 export interface ButtonProps
-  extends Omit<
+  extends
+    Omit<
       React.ButtonHTMLAttributes<HTMLButtonElement>,
       "onAnimationStart" | "onDrag" | "onDragStart" | "onDragEnd"
     >,

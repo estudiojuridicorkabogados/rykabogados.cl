@@ -59,11 +59,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isEnabled } = await draftMode();
-
   return (
     <html lang="es-CL" className={dmSans.variable}>
       <body className="antialiased bg-white">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PC49T6MC"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
         <CookieConsentProvider>
           <Navbar />
 
@@ -80,9 +88,8 @@ export default async function RootLayout({
           <CookieBanner />
 
           <CookieSettingsModal />
-          {env.NEXT_PUBLIC_ENVIRONMENT === "production" ? (
-            <ConditionalAnalytics />
-          ) : null}
+
+          <ConditionalAnalytics />
         </CookieConsentProvider>
 
         <Script

@@ -1,7 +1,6 @@
 import { classNames } from "@/lib/utils/classNames";
 
-export interface FloatingLabelInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface FloatingLabelInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
   defaultValue?: string;
