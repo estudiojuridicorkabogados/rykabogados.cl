@@ -15,8 +15,6 @@ export function getCookieConsent(): CookieConsentPreferences | null {
     .find((row) => row.startsWith(`${COOKIE_NAME}=`))
     ?.split("=")[1];
 
-  console.log("Retrieved cookie value:", cookieValue);
-
   if (!cookieValue) return null;
 
   try {

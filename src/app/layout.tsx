@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { draftMode } from "next/headers";
 import Script from "next/script";
 
 import { ConditionalAnalytics } from "@/components/Analytics/ConditionalAnalytics";
@@ -63,7 +62,6 @@ export default async function RootLayout({
     <html lang="es-CL" className={dmSans.variable}>
       <body className="antialiased bg-white">
         {/* Google Tag Manager (noscript) */}
-        <CookieSettingsModal />
 
         <noscript>
           <iframe
@@ -88,6 +86,8 @@ export default async function RootLayout({
           <SupportChatbot />
 
           <CookieBanner />
+
+          <CookieSettingsModal />
 
           <ConditionalAnalytics />
         </CookieConsentProvider>

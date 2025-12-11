@@ -95,7 +95,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     email: "paolo.castiglione@rkabogados.cl",
   },
   {
-    name: "Odette Silva Álvares",
+    name: "Odette Silva Álvarez",
     role: "Abogada",
     photo: "/images/team/odette.webp",
     linkedin: "https://www.linkedin.com/in/odette-silva-%C3%A1lvarez-2448091ba",
