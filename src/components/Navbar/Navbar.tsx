@@ -17,6 +17,8 @@ import Link from "next/link";
 
 import { URLS } from "@/lib/utils/constants";
 
+import logoBlack from "../../../public/images/logos/logo-black.png";
+
 import { ClientLink } from "./ClientLink";
 import { HoverPopover } from "./HoverPopover";
 
@@ -81,10 +83,10 @@ export const Navbar = () => {
           className="relative flex items-center h-full w-[160px] lg:w-[220px]"
         >
           <Image
-            src="/images/logos/logo-black.png"
+            src={logoBlack}
             alt="RK Abogados Logo"
             fill
-            sizes="(max-width: 1024px) 180px, 240px"
+            unoptimized
             className="object-contain"
           />
         </Link>

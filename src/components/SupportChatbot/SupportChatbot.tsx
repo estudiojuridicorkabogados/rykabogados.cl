@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useDebounceCallback } from "@/hooks/useDebounceCallback";
 import { classNames } from "@/lib/utils/classNames";
 
+import logoBlack from "../../../public/images/logos/logo-black.png";
 import { PlusIcon } from "../icons/Plus";
 
 import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
@@ -127,8 +128,9 @@ export const SupportChatbot = () => {
           <div className="flex items-center justify-between px-6 py-6 text-white shrink-0">
             <div className="flex items-center gap-2">
               <Image
-                src="/images/logos/logo-black.png"
+                src={logoBlack}
                 alt="RK Abogados"
+                unoptimized
                 width={120}
                 height={50}
               />
