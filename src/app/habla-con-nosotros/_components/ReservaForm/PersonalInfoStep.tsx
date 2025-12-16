@@ -27,7 +27,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
       error={errors.name?.message}
     />
 
-    <div className="flex gap-8 w-full">
+    <div className="flex flex-col md:flex-row gap-8 w-full">
       <FloatingLabelInput
         id="email"
         {...register("email")}
@@ -44,7 +44,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
       />
     </div>
 
-    <div className="flex gap-6 w-full">
+    <div className="flex flex-col md:flex-row gap-6 w-full">
       <Controller
         name="causalDespido"
         control={control}
@@ -54,7 +54,10 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             label="¿Causal de despido?"
             options={[
               { id: "art-161", label: "Art. 161 - Necesidades de la empresa" },
-              { id: "art-160", label: "Art. 160 - Despido sin derecho indemnización" },
+              {
+                id: "art-160",
+                label: "Art. 160 - Despido sin derecho indemnización",
+              },
               { id: "otra", label: "Otra causal" },
             ]}
             error={errors.causalDespido?.message}

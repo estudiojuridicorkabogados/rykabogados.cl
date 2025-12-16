@@ -25,10 +25,3 @@ export const StepIcon: React.FC<StepIconProps> = ({ icon }) => {
       return null;
   }
 };
-
-
-
-
-
-
-

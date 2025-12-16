@@ -62,14 +62,14 @@ export const SelectInput = forwardRef<HTMLButtonElement, SelectInputProps>(
           ) : null}
 
           <div className="w-full">
-            <Label className="font-bold text-white/80 text-sm lg:text-base pt-2">
+            <Label className="font-bold text-white/80 text-base pt-2">
               {label}
             </Label>
             <div className="relative mt-2">
               <ListboxButton
                 ref={ref}
                 className={classNames([
-                  "grid w-full cursor-default grid-cols-1 py-1.5 pr-2 pl-3 text-left text-white sm:text-sm/6",
+                  "grid w-full cursor-default grid-cols-1 py-1.5 pr-2 pl-3 text-left text-white text-base",
                   "bg-transparent border-0 border-b border-white/60",
                   "focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/80",
                   error &&
@@ -89,7 +89,7 @@ export const SelectInput = forwardRef<HTMLButtonElement, SelectInputProps>(
 
               <ListboxOptions
                 transition
-                className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-800 py-1 text-base outline-0 -outline-offset-1 outline-white/10 data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm"
+                className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-800 py-1 text-base outline-0 -outline-offset-1 outline-white/10 data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0"
               >
                 {options.map((option) => (
                   <ListboxOption
@@ -98,7 +98,7 @@ export const SelectInput = forwardRef<HTMLButtonElement, SelectInputProps>(
                     className="cursor-pointer group relative py-2 pr-9 pl-3 text-white/80 select-none data-focus:outline-hidden hover:bg-accent hover:text-primary"
                   >
                     <div className="flex items-center">
-                      <span className="block truncate font-normal group-data-selected:font-semibold">
+                      <span className="block font-normal group-data-selected:font-semibold">
                         {option.label}
                       </span>
                     </div>
