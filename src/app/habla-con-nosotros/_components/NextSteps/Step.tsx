@@ -4,8 +4,8 @@ import { motion } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";
 
+import { StepIcon } from "./StepIcon/StepIcon";
 import { IStep } from "./constants";
-import { StepIcon } from "./StepIcon";
 
 interface StepProps {
   step: IStep;

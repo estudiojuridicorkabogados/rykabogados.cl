@@ -1,4 +1,4 @@
-export type IconType = "calendar" | "webinar" | "piggy" | "hands";
+export type IconType = "contact" | "analysis" | "case-file" | "success";
 
 export interface IStep {
   stepNumber: string;
@@ -13,27 +13,27 @@ export const STEPS: IStep[] = [
     title: "Primer contacto",
     description:
       "Agenda una llamada o reunión inicial para exponer tu situación y recibir una orientación preliminar sobre los pasos legales a seguir.",
-    icon: "calendar",
+    icon: "contact",
   },
   {
     stepNumber: "02",
     title: "Análisis del caso",
     description:
       "Nuestro equipo revisará tus antecedentes laborales y documentación, evaluando la viabilidad de la demanda y la estimación de tus indemnizaciones.",
-    icon: "webinar",
+    icon: "analysis",
   },
   {
     stepNumber: "03",
     title: "Presentación de la demanda",
     description:
       "Redactamos e ingresamos la demanda ante el tribunal competente, representándote en todas las audiencias y gestiones necesarias durante el juicio.",
-    icon: "piggy",
+    icon: "case-file",
   },
   {
     stepNumber: "04",
     title: "Resultado y pago",
     description:
       "Una vez obtenida la sentencia favorable o acuerdo, te asistimos en la gestión del pago y cumplimiento efectivo de la indemnización.",
-    icon: "hands",
+    icon: "success",
   },
 ];

@@ -53,8 +53,8 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
           <SelectInput
             label="¿Causal de despido?"
             options={[
-              { id: "necesidades-de-empresa", label: "Necesidades de empresa" },
-              { id: "art-160", label: "Art 160 (Incumplimiento)" },
+              { id: "art-161", label: "Art. 161 - Necesidades de la empresa" },
+              { id: "art-160", label: "Art. 160 - Despido sin derecho indemnización" },
               { id: "otra", label: "Otra causal" },
             ]}
             error={errors.causalDespido?.message}
