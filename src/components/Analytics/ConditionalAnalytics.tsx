@@ -37,7 +37,8 @@ export function ConditionalAnalytics() {
       />
 
       <Analytics />
-      <SpeedInsights />
+      {/* Sample only 40% of page views to reduce edge function invocations */}
+      <SpeedInsights sampleRate={0.4} />
     </>
   );
 }

@@ -7,6 +7,9 @@ import { PracticeAreasSection } from "./_components/PracticeAreasSection/Practic
 import { TeamSection } from "./_components/TeamSection/TeamSection";
 import { TestimonialsSection } from "./_components/Testimonials/TestimonialsSection";
 
+// Revalidate homepage every hour
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <div>
