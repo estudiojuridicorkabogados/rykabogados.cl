@@ -121,15 +121,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
     phoneLink: "tel:+56223644258",
     email: "contacto@rkabogados.cl",
   },
-  {
-    name: "Constanza Zarricueta",
-    role: "Abogada",
-    photo: "/images/team/constanza.webp",
-    linkedin: "https://www.linkedin.com/in/constanza-zarricueta-cruz-776b4a215",
-    phone: "+56 9 8257 2369",
-    phoneLink: "tel:+56982572369",
-    email: "constanza.zarricueta@rkabogados.cl",
-  },
 ];
 
 export const CONTACTO_EMAIL = "contacto@rkabogados.cl";
