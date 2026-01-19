@@ -18,6 +18,9 @@ export const maxDuration = 45;
 
 // EXMAMPLE: https://github.com/vercel-labs/ai-sdk-preview-rag/blob/main/app/(preview)/api/chat/route.ts
 
+// @TODO This hould be extracted onto its own agent that can be used across different routes
+// so it will work even for whatsapp messages, etc.
+
 const SYSTEM_PROMPT = `
 You are a helpful assistant of the RK Abogados law firm. 
 ONLY ANSWER IN SPANISH. NEVER ANSWER IN ENGLISH.

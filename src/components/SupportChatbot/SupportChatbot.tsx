@@ -42,9 +42,6 @@ export const SupportChatbot = () => {
       // Handle autoplay restrictions silently
     });
 
-    // Auto-scroll to latest message when open
-    // endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTo({
         top: messagesContainerRef.current.scrollHeight,
