@@ -10,6 +10,7 @@ import {
 import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { URLS } from "@/lib/utils/constants";
 
@@ -21,6 +22,7 @@ const initialState: ActionResponse = {
 export const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const tokenRef = useRef<HTMLInputElement>(null);
+  const { shortCode, gclid, logToSheet } = useTracking();
 
   const [state, action, isPending] = useActionState(
     submitContactForm,
@@ -36,6 +38,30 @@ export const ContactForm = () => {
       });
     }
   }, [state.success]);
+
+  // Add form submission tracking
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
+
+    const handleSubmit = () => {
+      const formData = new FormData(form);
+      const phone = formData.get("phone")?.toString() || "";
+      const email = formData.get("email")?.toString() || "";
+
+      logToSheet({
+        landing: window.location.href,
+        channel: "form",
+        phone,
+        email,
+      });
+    };
+
+    form.addEventListener("submit", handleSubmit);
+    return () => {
+      form.removeEventListener("submit", handleSubmit);
+    };
+  }, [logToSheet]);
 
   const handleClick = async () => {
     const token = await getCaptchaToken();
@@ -72,6 +98,8 @@ export const ContactForm = () => {
           />
 
           <input type="hidden" name="token" ref={tokenRef} />
+          <input type="hidden" name="caso" value={shortCode} />
+          <input type="hidden" name="gclid" value={gclid} />
 
           <FloatingLabelInput
             id="name"

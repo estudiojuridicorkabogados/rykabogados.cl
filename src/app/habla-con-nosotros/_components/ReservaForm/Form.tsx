@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
@@ -19,6 +20,8 @@ interface FormProps {
   submitError: string | null;
   onNext: () => void;
   onSubmit: (formData: FormData) => void;
+  shortCode: string;
+  gclid: string;
 }
 
 export const Form: React.FC<FormProps> = ({
@@ -26,6 +29,8 @@ export const Form: React.FC<FormProps> = ({
   pending,
   onNext,
   onSubmit,
+  shortCode,
+  gclid,
 }) => {
   const {
     register,
@@ -65,6 +70,10 @@ export const Form: React.FC<FormProps> = ({
         id="reserva-form"
         onSubmit={handleSubmit(onSubmit)}
       >
+        {/* Hidden tracking fields */}
+        <input type="hidden" name="caso" value={shortCode} />
+        <input type="hidden" name="gclid" value={gclid} />
+
         <div className="flex flex-col">
           <motion.div
             className="flex flex-col"

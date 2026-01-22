@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { motion, stagger } from "motion/react";
 
 import { submitBookACallForm } from "@/actions/submitBookACallForm";
+import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { trackBookACallFormConversion } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
@@ -20,6 +21,7 @@ import { FormData } from "./types";
 export const ReservaForm = () => {
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const { shortCode, gclid, logToSheet } = useTracking();
 
   const [bookingInfo, setBookingInfo] = useState<BookingInfo | null>(null);
 
@@ -50,6 +52,14 @@ export const ReservaForm = () => {
         const result = await submitBookACallForm(sendData, token);
 
         if (result.success && data.date) {
+          // Log to Google Sheets
+          logToSheet({
+            landing: window.location.href,
+            channel: "form",
+            phone: data.phoneNumber,
+            email: data.email,
+          });
+
           setBookingInfo({
             date: format(data.date, "dd/MM/yyyy"),
             timeSlot: data.timeSlot,
@@ -132,6 +142,8 @@ export const ReservaForm = () => {
                 pending={isPending}
                 submitError={submitError}
                 onSubmit={onSubmit}
+                shortCode={shortCode}
+                gclid={gclid}
               />
             </div>
           </motion.div>
