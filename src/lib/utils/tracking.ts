@@ -1,5 +1,5 @@
 const WEBAPP_URL =
-  "https://script.google.com/macros/s/AKfycbwlHFxYXHLOaBO7Ddgj5uv-W84HAuc1icLHafo-fYCEr4Gih_BQmmPY3Iqay1eaud_iKg/exec";
+  "https://script.google.com/macros/s/AKfycbwdfIflbl-jPOw5j-ldCl_qumzoEDvC82njzKOf4ZiO6jQwvhnlWa4k1txCLQdzSjrnwA/exec";
 const DEFAULT_PHONE = "56986395780";
 const DEFAULT_MSG =
   "¡Hola! Estaba revisando el sitio web y me gustaría que evalúen mi situación, por favor.";
@@ -94,18 +94,14 @@ export function logToSheet({
     `&email=${encodeURIComponent(email)}` +
     `&cb=${Date.now()}`;
 
-  // Use Image pixel technique for GET request
-  const img = new Image();
-  img.src = url;
-
-  console.log("📡 Log → Sheets", {
-    landing,
-    gclid,
-    shortCode,
-    channel,
-    phone,
-    email,
-  });
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("📡 Log → Sheets", data);
+    })
+    .catch((err) => {
+      console.error("Error logging to sheet:", err);
+    });
 }
 
 /**
@@ -114,13 +110,13 @@ export function logToSheet({
 export function buildWhatsAppUrl({
   phone,
   baseText,
-  shortCode,
+  gclid,
 }: BuildWhatsAppUrlParams): string {
   let msg = baseText && baseText.trim() ? baseText.trim() : DEFAULT_MSG;
 
   // Append "Caso: {shortCode}" if not already present
   if (!/caso\s*:/i.test(msg)) {
-    msg += "\nCaso: " + shortCode;
+    msg += "\nCaso: " + gclid;
   }
 
   const finalPhone = phone || DEFAULT_PHONE;

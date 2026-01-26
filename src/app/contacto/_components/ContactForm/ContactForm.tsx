@@ -51,7 +51,7 @@ export const ContactForm = () => {
 
       logToSheet({
         landing: window.location.href,
-        channel: "form",
+        channel: "contacto-form",
         phone,
         email,
       });

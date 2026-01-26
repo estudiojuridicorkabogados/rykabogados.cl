@@ -55,7 +55,7 @@ export const ReservaForm = () => {
           // Log to Google Sheets
           logToSheet({
             landing: window.location.href,
-            channel: "form",
+            channel: "reserva-form",
             phone: data.phoneNumber,
             email: data.email,
           });
