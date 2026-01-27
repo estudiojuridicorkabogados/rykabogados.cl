@@ -1,13 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
+import { Suspense } from "react";
 
 import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
 import { useTracking } from "@/hooks/useTracking";
 import { trackWhatsappConversion } from "@/lib/utils/analytics";
 import { classNames } from "@/lib/utils/classNames";
-import { URLS } from "@/lib/utils/constants";
 
 interface WhatsappLinkProps {
   className?: string;
@@ -16,44 +15,19 @@ interface WhatsappLinkProps {
   variant?: "button" | "link";
 }
 
-export const WhatsappLink: React.FC<WhatsappLinkProps> = ({
+const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   className,
   text = "Hablemos por Whatsapp",
   showIcon = true,
   variant = "button",
 }) => {
-  const { buildWhatsAppUrl, logToSheet, fireConversion } = useTracking();
-
-  // Extract phone and base text from existing WhatsApp URL
-  const { phone, baseText } = useMemo(() => {
-    try {
-      const url = new URL(URLS.whatsapp());
-      const phoneParam = url.searchParams.get("phone");
-      const textParam = url.searchParams.get("text");
-      return {
-        phone: phoneParam?.replace(/\D/g, "") || undefined,
-        baseText: textParam || undefined,
-      };
-    } catch {
-      return { phone: undefined, baseText: undefined };
-    }
-  }, []);
-
-  // Build WhatsApp URL with tracking
-  const whatsappUrl = useMemo(() => {
-    if (!phone || !baseText) {
-      return URLS.whatsapp();
-    }
-
-    return buildWhatsAppUrl({ phone, baseText });
-  }, [buildWhatsAppUrl, phone, baseText]);
+  const { whatsappUrl, logToSheet, fireConversion } = useTracking();
 
   const handleClick = () => {
     // Log to Google Sheets
     logToSheet({
       landing: window.location.href,
       channel: "whatsapp",
-      phone: phone || "56986395780",
     });
 
     // Fire conversion
@@ -95,5 +69,13 @@ export const WhatsappLink: React.FC<WhatsappLinkProps> = ({
         {text}
       </a>
     </Button>
+  );
+};
+
+export const WhatsappLink: React.FC<WhatsappLinkProps> = (props) => {
+  return (
+    <Suspense>
+      <WhatsappLinkInternal {...props} />
+    </Suspense>
   );
 };

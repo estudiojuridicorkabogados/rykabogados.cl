@@ -8,7 +8,6 @@ import { CookieConsentProvider } from "@/components/CookieConsent/CookieConsentP
 import { CookieSettingsModal } from "@/components/CookieConsent/CookieSettingsModal";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar/Navbar";
-import { TrackingProvider } from "@/components/Tracking/TrackingProvider";
 import { env } from "@/lib/env";
 import { dmSans } from "@/lib/utils/fonts";
 
@@ -91,8 +90,6 @@ export default async function RootLayout({
           <CookieSettingsModal />
 
           <ConditionalAnalytics />
-
-          <TrackingProvider />
         </CookieConsentProvider>
 
         <Script

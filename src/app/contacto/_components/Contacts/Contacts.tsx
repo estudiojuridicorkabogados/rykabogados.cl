@@ -1,6 +1,7 @@
 import { FacebookIcon } from "@/components/icons/Facebook";
 import { InstagramIcon } from "@/components/icons/Instagram";
 import { LinkedinIcon } from "@/components/icons/Linkedin";
+import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
 import { ADDRESS, URLS } from "@/lib/utils/constants";
 
 export const Contacts = () => {
@@ -18,6 +19,8 @@ export const Contacts = () => {
         >
           contacto@rkabogados.cl
         </a>
+
+        <WhatsappLink className="mt-4 w-full" />
       </div>
 
       <div className="flex gap-3 items-center">

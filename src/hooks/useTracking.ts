@@ -1,73 +1,63 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 
 import {
   buildWhatsAppUrl,
   fireConversion,
-  getGclid,
   getSessionCode,
   logToSheet,
+  LogToSheetParams,
 } from "@/lib/utils/tracking";
 
 interface UseTrackingReturn {
-  shortCode: string;
-  gclid: string;
-  logToSheet: (params: {
-    landing: string;
-    channel: string;
-    phone?: string;
-    email?: string;
-  }) => void;
-  buildWhatsAppUrl: (params: { phone: string; baseText: string }) => string;
+  whatsappUrl: string;
+  logToSheet: (params: Omit<LogToSheetParams, "gclid" | "shortCode">) => void;
   fireConversion: (sendTo?: string) => void;
 }
 
 export function useTracking(): UseTrackingReturn {
-  const [shortCode, setShortCode] = useState<string>("");
-  const [gclid, setGclid] = useState<string>("");
+  const searchParams = useSearchParams();
 
-  // Initialize on mount
-  useEffect(() => {
-    setShortCode(getSessionCode());
-    setGclid(getGclid());
-  }, []);
+  const gclid = useMemo(() => {
+    const urlGclid = searchParams.get("gclid");
+    console.log("urlGclid from search params", urlGclid);
+    if (urlGclid) {
+      return urlGclid;
+    }
+
+    // Then try cookie (set by middleware)
+    try {
+      const match = document.cookie.match(/(?:^|; )gclid=([^;]+)/);
+      console.log(
+        "urlGclid from cookie",
+        match ? decodeURIComponent(match[1]) : ""
+      );
+      return match ? decodeURIComponent(match[1]) : "";
+    } catch {
+      return "";
+    }
+  }, [searchParams]);
 
   // Memoized logToSheet wrapper that includes shortCode and gclid
-  const logToSheetWrapper = useMemo(
-    () =>
-      (params: {
-        landing: string;
-        channel: string;
-        phone?: string;
-        email?: string;
-      }) => {
-        logToSheet({
-          ...params,
-          gclid,
-          shortCode,
-        });
-      },
-    [gclid, shortCode]
+  const logToSheetWrapper = useCallback(
+    (params: Omit<LogToSheetParams, "gclid" | "shortCode">) => {
+      logToSheet({
+        ...params,
+        gclid,
+        shortCode: getSessionCode(),
+      });
+    },
+    [gclid]
   );
 
   // Memoized buildWhatsAppUrl wrapper that includes shortCode and gclid
-  const buildWhatsAppUrlWrapper = useMemo(
-    () => (params: { phone: string; baseText: string }) => {
-      return buildWhatsAppUrl({
-        ...params,
-        shortCode,
-        gclid,
-      });
-    },
-    [gclid, shortCode]
-  );
+  const whatsappUrl = useMemo(() => buildWhatsAppUrl({ gclid }), [gclid]);
 
   return {
-    shortCode,
-    gclid,
+    whatsappUrl,
     logToSheet: logToSheetWrapper,
-    buildWhatsAppUrl: buildWhatsAppUrlWrapper,
     fireConversion,
   };
 }

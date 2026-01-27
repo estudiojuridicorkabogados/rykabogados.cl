@@ -4,7 +4,7 @@ const DEFAULT_PHONE = "56986395780";
 const DEFAULT_MSG =
   "¡Hola! Estaba revisando el sitio web y me gustaría que evalúen mi situación, por favor.";
 
-interface LogToSheetParams {
+export interface LogToSheetParams {
   landing: string;
   gclid: string;
   shortCode: string;
@@ -14,9 +14,6 @@ interface LogToSheetParams {
 }
 
 interface BuildWhatsAppUrlParams {
-  phone: string;
-  baseText?: string;
-  shortCode: string;
   gclid: string;
 }
 
@@ -45,31 +42,6 @@ export function getSessionCode(): string {
 }
 
 /**
- * Get gclid from URL query params or cookie
- */
-export function getGclid(): string {
-  if (typeof window === "undefined") {
-    return "";
-  }
-
-  // First try URL query params
-  const urlParams = new URLSearchParams(window.location.search);
-  const urlGclid = urlParams.get("gclid");
-  if (urlGclid) {
-    return urlGclid;
-  }
-
-  // Then try cookie (set by middleware)
-  try {
-    const match = document.cookie.match(/(?:^|; )gclid=([^;]+)/);
-    return match ? decodeURIComponent(match[1]) : "";
-  } catch (e) {
-    console.error("Error getting gclid:", e);
-    return "";
-  }
-}
-
-/**
  * Log tracking data to Google Sheets via WebApp
  */
 export function logToSheet({
@@ -94,36 +66,20 @@ export function logToSheet({
     `&email=${encodeURIComponent(email)}` +
     `&cb=${Date.now()}`;
 
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("📡 Log → Sheets", data);
-    })
-    .catch((err) => {
-      console.error("Error logging to sheet:", err);
-    });
+  fetch(url).catch(() => {
+    console.error("Error logging to sheet");
+  });
 }
 
 /**
  * Build WhatsApp URL with session code and gclid
  */
-export function buildWhatsAppUrl({
-  phone,
-  baseText,
-  gclid,
-}: BuildWhatsAppUrlParams): string {
-  let msg = baseText && baseText.trim() ? baseText.trim() : DEFAULT_MSG;
-
-  // Append "Caso: {shortCode}" if not already present
-  if (!/caso\s*:/i.test(msg)) {
-    msg += "\nCaso: " + gclid;
-  }
-
-  const finalPhone = phone || DEFAULT_PHONE;
+export function buildWhatsAppUrl({ gclid }: BuildWhatsAppUrlParams): string {
+  const msg = `${DEFAULT_MSG}\nCaso: ${gclid}`;
 
   return (
     "https://api.whatsapp.com/send?phone=" +
-    encodeURIComponent(finalPhone) +
+    encodeURIComponent(DEFAULT_PHONE) +
     "&type=phone_number&app_absent=0&text=" +
     encodeURIComponent(msg)
   );

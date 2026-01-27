@@ -4,7 +4,7 @@ const COOKIE_DAYS = 90;
 const PARAMS_TO_SET = ["gclid", "utm_source", "utm_medium", "utm_campaign"];
 const MAX_AGE = COOKIE_DAYS * 86400; // 90 days in seconds
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const response = NextResponse.next();
   const searchParams = request.nextUrl.searchParams;
 

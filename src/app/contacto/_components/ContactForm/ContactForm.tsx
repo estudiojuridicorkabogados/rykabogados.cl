@@ -22,7 +22,7 @@ const initialState: ActionResponse = {
 export const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const tokenRef = useRef<HTMLInputElement>(null);
-  const { shortCode, gclid, logToSheet } = useTracking();
+  const { logToSheet } = useTracking();
 
   const [state, action, isPending] = useActionState(
     submitContactForm,
@@ -44,7 +44,7 @@ export const ContactForm = () => {
     const form = formRef.current;
     if (!form) return;
 
-    const handleSubmit = () => {
+    const handleSubmitTracking = () => {
       const formData = new FormData(form);
       const phone = formData.get("phone")?.toString() || "";
       const email = formData.get("email")?.toString() || "";
@@ -57,9 +57,9 @@ export const ContactForm = () => {
       });
     };
 
-    form.addEventListener("submit", handleSubmit);
+    form.addEventListener("submit", handleSubmitTracking);
     return () => {
-      form.removeEventListener("submit", handleSubmit);
+      form.removeEventListener("submit", handleSubmitTracking);
     };
   }, [logToSheet]);
 
@@ -98,8 +98,6 @@ export const ContactForm = () => {
           />
 
           <input type="hidden" name="token" ref={tokenRef} />
-          <input type="hidden" name="caso" value={shortCode} />
-          <input type="hidden" name="gclid" value={gclid} />
 
           <FloatingLabelInput
             id="name"

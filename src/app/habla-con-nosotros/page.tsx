@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { Areas } from "./_components/Areas/Areas";
 import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
 import { Contact } from "./_components/Contact/Contact";
@@ -15,7 +17,9 @@ export default function HablaConNosotros() {
       <div>
         <Hero />
 
-        <ReservaForm />
+        <Suspense>
+          <ReservaForm />
+        </Suspense>
 
         <Areas />
 

@@ -21,7 +21,7 @@ import { FormData } from "./types";
 export const ReservaForm = () => {
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const { shortCode, gclid, logToSheet } = useTracking();
+  const { logToSheet } = useTracking();
 
   const [bookingInfo, setBookingInfo] = useState<BookingInfo | null>(null);
 
@@ -142,8 +142,6 @@ export const ReservaForm = () => {
                 pending={isPending}
                 submitError={submitError}
                 onSubmit={onSubmit}
-                shortCode={shortCode}
-                gclid={gclid}
               />
             </div>
           </motion.div>
