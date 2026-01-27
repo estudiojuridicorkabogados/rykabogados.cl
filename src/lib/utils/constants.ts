@@ -24,8 +24,6 @@ export const URLS: UrlsMap = {
   instagram: () => "https://www.instagram.com/rkabogados/",
   linkedin: () =>
     "https://www.linkedin.com/company/retamales-kowalski-abogados/",
-  whatsapp: () =>
-    "http://api.whatsapp.com/send/?phone=56986395780&text=%C2%A1Hola%21+Me+gustar%C3%ADa+una+asesor%C3%ADa+laboral+gratuita&type=phone_number&app_absent=0",
 };
 
 type TeamMember = {
@@ -102,6 +100,15 @@ export const TEAM_MEMBERS: TeamMember[] = [
     phone: "+56 9 7385 3615",
     phoneLink: "tel:+56973853615",
     email: "odette.silva@rkabogados.cl",
+  },
+  {
+    name: "Kiara Jiménez Soto",
+    role: "Procuradora",
+    photo: "/images/team/kiara_jimenez.webp",
+    linkedin: "https://www.linkedin.com",
+    phone: "+56 9 8257 2369",
+    phoneLink: "tel:+56982572369",
+    email: "kiara.jimenez@rkabogados.cl",
   },
   {
     name: "Sandra Riquelme Reyes",

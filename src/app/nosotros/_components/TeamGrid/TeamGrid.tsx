@@ -25,22 +25,6 @@ export const TeamGrid = () => {
           Conoce a nuestro equipo
         </motion.h2>
 
-        {/* <motion.p
-          variants={itemVariants}
-          className="lg:text-lg text-white mb-2 lg:max-w-4xl"
-        >
-          Nuestro equipo de abogados especializados en Derecho Laboral, Civil,
-          Societario y de Familia combina experiencia, conocimiento actualizado
-          y una visión humana para entregar asesoría integral, preventiva y
-          resolutiva. Acompañamos a las empresas en el cumplimiento de la
-          normativa laboral y previsional, la gestión de conflictos, auditorías
-          y defensa ante fiscalizaciones, además de asesorar en contratos,
-          sociedades y reestructuraciones empresariales. Guiados por nuestros
-          valores —Excelencia, Lealtad e Integridad— trabajamos con cercanía y
-          profesionalismo, ofreciendo resultados sólidos y relaciones de
-          confianza duraderas.
-        </motion.p> */}
-
         <ul
           role="list"
           className="mt-8 mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
