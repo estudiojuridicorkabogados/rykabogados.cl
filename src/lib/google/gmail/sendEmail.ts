@@ -11,6 +11,14 @@ export interface EmailOptions {
 }
 
 /**
+ * Encodes subject for RFC 2047 when it contains non-ASCII (fixes mojibake in clients).
+ */
+function encodeSubject(subject: string): string {
+  if (!/[\u0080-\uFFFF]/.test(subject)) return subject;
+  return `=?UTF-8?B?${Buffer.from(subject, "utf-8").toString("base64")}?=`;
+}
+
+/**
  * Sends an email using Gmail API
  */
 export async function sendEmail({
@@ -26,7 +34,7 @@ export async function sendEmail({
     `From: ${from || "RYK Abogados"}`,
     `To: ${to}`,
     ...(replyTo ? [`Reply-To: ${replyTo}`] : []),
-    `Subject: ${subject}`,
+    `Subject: ${encodeSubject(subject)}`,
     "MIME-Version: 1.0",
     "Content-Type: text/html; charset=utf-8",
     "",

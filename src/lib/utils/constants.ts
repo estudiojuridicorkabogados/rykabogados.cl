@@ -111,6 +111,15 @@ export const TEAM_MEMBERS: TeamMember[] = [
     email: "kiara.jimenez@rkabogados.cl",
   },
   {
+    name: "Camila Gallardo Olivera",
+    role: "Abogada",
+    photo: "/images/team/camila_gallardo.webp",
+    linkedin: "https://www.linkedin.com",
+    phone: "+56 9 8822 1763",
+    phoneLink: "tel:+56988221763",
+    email: "camila.gallardo@rkabogados.cl",
+  },
+  {
     name: "Sandra Riquelme Reyes",
     role: "Of Counsel",
     photo: "/images/team/sandra.webp",
