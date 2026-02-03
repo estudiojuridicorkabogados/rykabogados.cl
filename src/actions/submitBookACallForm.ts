@@ -49,6 +49,8 @@ export async function submitBookACallForm(
 
     const santiagoEndTime = addMinutes(santiagoStartTime, 30);
 
+    console.log("santiagoStartTime", `${data.date} ${data.timeSlot}`);
+
     const result = await createGoogleCalendarEvent({
       title: "Asesoria Gratuita",
       name: data.name,

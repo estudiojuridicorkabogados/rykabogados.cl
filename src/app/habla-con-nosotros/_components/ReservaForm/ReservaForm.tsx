@@ -18,6 +18,10 @@ import {
 } from "./ReservaFormSuccessFeedback";
 import { FormData } from "./types";
 
+const formatDate = (date: Date) => {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+};
+
 export const ReservaForm = () => {
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -41,10 +45,9 @@ export const ReservaForm = () => {
 
         const token = await getCaptchaToken();
 
-        const date = `${data.date.getFullYear()}-${data.date.getMonth() + 1}-${data.date.getDate()}`;
         const sendData = {
           ...data,
-          date,
+          date: formatDate(data.date),
         };
 
         trackBookACallFormConversion();

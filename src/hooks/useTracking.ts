@@ -22,7 +22,7 @@ export function useTracking(): UseTrackingReturn {
 
   const gclid = useMemo(() => {
     const urlGclid = searchParams.get("gclid");
-    console.log("urlGclid from search params", urlGclid);
+
     if (urlGclid) {
       return urlGclid;
     }
@@ -30,10 +30,7 @@ export function useTracking(): UseTrackingReturn {
     // Then try cookie (set by middleware)
     try {
       const match = document.cookie.match(/(?:^|; )gclid=([^;]+)/);
-      console.log(
-        "urlGclid from cookie",
-        match ? decodeURIComponent(match[1]) : ""
-      );
+
       return match ? decodeURIComponent(match[1]) : "";
     } catch {
       return "";
@@ -53,7 +50,10 @@ export function useTracking(): UseTrackingReturn {
   );
 
   // Memoized buildWhatsAppUrl wrapper that includes shortCode and gclid
-  const whatsappUrl = useMemo(() => buildWhatsAppUrl({ gclid }), [gclid]);
+  const whatsappUrl = useMemo(
+    () => buildWhatsAppUrl({ gclid, shortCode: getSessionCode() }),
+    [gclid, getSessionCode()]
+  );
 
   return {
     whatsappUrl,

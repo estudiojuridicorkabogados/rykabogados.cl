@@ -15,6 +15,7 @@ export interface LogToSheetParams {
 
 interface BuildWhatsAppUrlParams {
   gclid: string;
+  shortCode: string;
 }
 
 /**
@@ -74,8 +75,10 @@ export function logToSheet({
 /**
  * Build WhatsApp URL with session code and gclid
  */
-export function buildWhatsAppUrl({ gclid }: BuildWhatsAppUrlParams): string {
-  const msg = `${DEFAULT_MSG}\nCaso: ${gclid}`;
+export function buildWhatsAppUrl({
+  shortCode,
+}: BuildWhatsAppUrlParams): string {
+  const msg = `${DEFAULT_MSG}\nCaso: ${shortCode}`;
 
   return (
     "https://api.whatsapp.com/send?phone=" +
