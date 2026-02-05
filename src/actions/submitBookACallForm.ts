@@ -1,4 +1,5 @@
 "use server";
+
 import { addMinutes } from "date-fns";
 import { fromZonedTime } from "date-fns-tz";
 
@@ -16,7 +17,8 @@ interface SubmitBookACallFormData extends Omit<FormData, "date"> {
 
 export async function submitBookACallForm(
   data: SubmitBookACallFormData,
-  reCaptchaToken: string | null
+  reCaptchaToken: string | null,
+  sessionCode: string
 ) {
   try {
     if (!reCaptchaToken) {
@@ -49,18 +51,19 @@ export async function submitBookACallForm(
 
     const santiagoEndTime = addMinutes(santiagoStartTime, 30);
 
-    console.log("santiagoStartTime", `${data.date} ${data.timeSlot}`);
-
-    const result = await createGoogleCalendarEvent({
-      title: "Asesoria Gratuita",
-      name: data.name,
-      antiguedadLaboral: data.antiguedadLaboral,
-      causalDespido: data.causalDespido,
-      notes: data.mensaje,
-      userEmail: data.email,
-      startTime: santiagoStartTime.toISOString(),
-      endTime: santiagoEndTime.toISOString(),
-    });
+    const result = await createGoogleCalendarEvent(
+      {
+        title: "Asesoria Gratuita",
+        name: data.name,
+        antiguedadLaboral: data.antiguedadLaboral,
+        causalDespido: data.causalDespido,
+        notes: data.mensaje,
+        userEmail: data.email,
+        startTime: santiagoStartTime.toISOString(),
+        endTime: santiagoEndTime.toISOString(),
+      },
+      sessionCode
+    );
 
     if (!result.htmlLink) {
       return {
@@ -69,15 +72,18 @@ export async function submitBookACallForm(
       };
     }
 
-    await dispatchNotificationEmails({
-      name: data.name,
-      userEmail: data.email,
-      phoneNumber: data.phoneNumber,
-      notes: data.mensaje,
-      causalDespido: data.causalDespido,
-      antiguedadLaboral: data.antiguedadLaboral,
-      eventHtmlLink: result.htmlLink,
-    });
+    await dispatchNotificationEmails(
+      {
+        name: data.name,
+        userEmail: data.email,
+        phoneNumber: data.phoneNumber,
+        notes: data.mensaje,
+        causalDespido: data.causalDespido,
+        antiguedadLaboral: data.antiguedadLaboral,
+        eventHtmlLink: result.htmlLink,
+      },
+      sessionCode
+    );
 
     return { success: true, message: "Reserva enviada exitosamente" };
   } catch (error) {
@@ -96,7 +102,10 @@ interface NotificationEmailArgs {
   eventHtmlLink: string;
 }
 
-async function dispatchNotificationEmails(args: NotificationEmailArgs) {
+async function dispatchNotificationEmails(
+  args: NotificationEmailArgs,
+  sessionCode: string
+) {
   const gmailOAuth2Client = await getGmailOAuth2Client();
 
   await sendEmail({
@@ -125,6 +134,7 @@ async function dispatchNotificationEmails(args: NotificationEmailArgs) {
         <p><strong>Causal de despido:</strong> ${args.causalDespido}</p>
         <p><strong>Antigüedad laboral:</strong> ${args.antiguedadLaboral}</p>
         <p><strong>Notas:</strong> ${args.notes}</p>
+        <p><strong>Codigo:</strong> ${sessionCode}</p>
       `,
     from: CONTACTO_EMAIL,
     replyTo: CONTACTO_EMAIL,

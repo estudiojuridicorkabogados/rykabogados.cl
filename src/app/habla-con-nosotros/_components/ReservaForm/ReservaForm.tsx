@@ -10,6 +10,7 @@ import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { trackBookACallFormConversion } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
+import { getSessionCode } from "@/lib/utils/tracking";
 
 import { Form } from "./Form";
 import {
@@ -52,7 +53,8 @@ export const ReservaForm = () => {
 
         trackBookACallFormConversion();
 
-        const result = await submitBookACallForm(sendData, token);
+        const sessionCode = getSessionCode();
+        const result = await submitBookACallForm(sendData, token, sessionCode);
 
         if (result.success && data.date) {
           // Log to Google Sheets

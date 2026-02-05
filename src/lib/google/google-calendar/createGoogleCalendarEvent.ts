@@ -15,7 +15,10 @@ interface EventDetails {
   causalDespido: string;
 }
 
-export async function createGoogleCalendarEvent(eventDetails: EventDetails) {
+export async function createGoogleCalendarEvent(
+  eventDetails: EventDetails,
+  sessionCode: string
+) {
   const oauth2Client = await getOAuth2Client({
     delegatedUserEmail: CONTACTO_EMAIL,
     scope: "https://www.googleapis.com/auth/calendar",
@@ -25,7 +28,7 @@ export async function createGoogleCalendarEvent(eventDetails: EventDetails) {
     .calendar({ version: "v3", auth: oauth2Client })
     .events.insert({
       calendarId: CONTACTO_EMAIL,
-      requestBody: createEventData(eventDetails),
+      requestBody: createEventData(eventDetails, sessionCode),
       sendUpdates: "all",
     });
 
@@ -35,7 +38,7 @@ export async function createGoogleCalendarEvent(eventDetails: EventDetails) {
   };
 }
 
-function createEventData(eventDetails: EventDetails) {
+function createEventData(eventDetails: EventDetails, sessionCode: string) {
   return {
     summary: eventDetails.title,
     attendees: [{ email: CAMILA_EMAIL }, { email: eventDetails.userEmail }],
@@ -45,7 +48,8 @@ function createEventData(eventDetails: EventDetails) {
     Correo: ${eventDetails.userEmail}\n
     Anos de antigüedad laboral: ${eventDetails.antiguedadLaboral}\n
     Causal de despido: ${eventDetails.causalDespido}\n
-    Cuentanos un poco sobre tu caso: ${eventDetails.notes}
+    Cuentanos un poco sobre tu caso: ${eventDetails.notes}\n
+    Codigo: ${sessionCode}\n
     `,
     start: {
       dateTime: eventDetails.startTime,

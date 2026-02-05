@@ -13,6 +13,7 @@ import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { URLS } from "@/lib/utils/constants";
+import { getSessionCode } from "@/lib/utils/tracking";
 
 const initialState: ActionResponse = {
   success: false,
@@ -98,6 +99,7 @@ export const ContactForm = () => {
           />
 
           <input type="hidden" name="token" ref={tokenRef} />
+          <input type="hidden" name="sessionCode" value={getSessionCode()} />
 
           <FloatingLabelInput
             id="name"

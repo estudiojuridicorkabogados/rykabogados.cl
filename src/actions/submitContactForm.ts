@@ -34,6 +34,7 @@ interface ContactFormData {
   mensaje?: string;
   typeOfServices?: string;
   token?: string;
+  sessionCode?: string;
 }
 
 const contactSchema = z.object({
@@ -63,7 +64,10 @@ export async function submitContactForm(
     phone: formData.get("phone") as string,
     typeOfServices: formData.get("typeOfServices") as string,
     mensaje: formData.get("mensaje") as string,
+    sessionCode: formData.get("sessionCode") as string,
   };
+
+  const sessionCode = formData.get("sessionCode") as string;
 
   const validatedData = contactSchema.safeParse(rawData);
 
@@ -80,7 +84,6 @@ export async function submitContactForm(
 
   const isValidCaptcha = await verifyCaptcha(token);
 
-  console.log("isValidCaptcha", isValidCaptcha);
   if (!isValidCaptcha) {
     return {
       success: false,
@@ -104,7 +107,7 @@ export async function submitContactForm(
     sendEmail({
       to: CONTACTO_EMAIL,
       subject: "Nueva solicitud de llamada",
-      html: createStudioEmailHtml(rawData),
+      html: createStudioEmailHtml(rawData, sessionCode),
       from: CAMILA_EMAIL,
       replyTo: CAMILA_EMAIL,
       oauth2Client: gmailOAuth2Client,
@@ -125,11 +128,15 @@ const createCustomerEmailHtml = (rawData: ContactFormData) => `
   <p>Saludos,<br><strong>RK Abogados</strong></p>
 `;
 
-const createStudioEmailHtml = (rawData: ContactFormData) => `
+const createStudioEmailHtml = (
+  rawData: ContactFormData,
+  sessionCode: string
+) => `
   <h2>Nueva solicitud de contacto de rkabogados.cl</h2>
   <p><strong>Nombre:</strong> ${rawData.name}</p>
   <p><strong>Email:</strong> ${rawData.email}</p>
   <p><strong>Teléfono:</strong> ${rawData.phone}</p>
   <p><strong>Tipo de servicios:</strong> ${rawData.typeOfServices}</p>
   <p><strong>Notas:</strong> ${rawData.mensaje}</p>
+  <p><strong>Codigo:</strong> ${sessionCode}</p>
 `;
