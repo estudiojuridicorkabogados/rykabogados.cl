@@ -48,8 +48,12 @@ const MOBILE_LINKS = [
     label: "Contacto",
   },
   {
-    href: URLS.speakWithUs(),
-    label: "Reserva una Llamada",
+    href: URLS.speakWithUsTrabajadores(),
+    label: "Reserva una Llamada (para Trabajadores)",
+  },
+  {
+    href: URLS.speakWithUsEmpresas(),
+    label: "Reserva una Llamada (para Empresas)",
   },
 ];
 

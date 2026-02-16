@@ -12,6 +12,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/habla-con-nosotros",
+        destination: "/habla-con-nosotros/trabajadores",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

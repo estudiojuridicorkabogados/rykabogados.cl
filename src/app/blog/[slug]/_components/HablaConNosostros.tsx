@@ -9,7 +9,9 @@ import { URLS } from "@/lib/utils/constants";
 export const HablaConNosotros: React.FC = () => {
   const router = useRouter();
 
-  const navigateToHablaConNosotros = () => router.push(URLS.speakWithUs());
+  // TODO: Add way to select different areas
+  const navigateToHablaConNosotrosTrabajadores = () =>
+    router.push(URLS.speakWithUsTrabajadores());
 
   return (
     <div className="bg-[#F3F0EC] p-6 lg:p-8 w-full lg:w-[340px] h-fit lg:sticky lg:top-12">
@@ -27,7 +29,7 @@ export const HablaConNosotros: React.FC = () => {
         variant="dark"
         size="sm"
         animateOnClick
-        onClick={navigateToHablaConNosotros}
+        onClick={navigateToHablaConNosotrosTrabajadores}
       >
         Reserva una llamada
       </Button>
