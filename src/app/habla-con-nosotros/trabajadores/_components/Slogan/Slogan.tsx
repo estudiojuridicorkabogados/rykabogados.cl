@@ -13,22 +13,20 @@ const containerVariants: Variants = {
     transition: {
       duration: 1,
       ease: "easeOut",
-      staggerChildren: 0.5,
-      delayChildren: 0.3,
+      staggerChildren: 0.3,
+      delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 250 },
+  hidden: { opacity: 0, x: 250 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
       duration: 0.9,
       ease: "easeOut",
-      staggerChildren: 0.3,
-      delayChildren: 0.3,
     },
   },
 };

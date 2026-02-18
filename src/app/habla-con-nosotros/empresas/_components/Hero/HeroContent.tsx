@@ -63,11 +63,11 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       >
         <Button variant="reserva-form-link" asChild>
           <a href="#reserva-form-section" onClick={handleScrollToForm}>
-            Reserva una llamada
+            Agenda una asesoría
           </a>
         </Button>
 
-        <WhatsappLink />
+        <WhatsappLink text="Contacto directo" />
       </motion.div>
     </motion.div>
   );

@@ -13,22 +13,20 @@ const containerVariants: Variants = {
     transition: {
       duration: 1,
       ease: "easeOut",
-      staggerChildren: 0.5,
-      delayChildren: 0.3,
+      staggerChildren: 0.3,
+      delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 250 },
+  hidden: { opacity: 0, x: 250 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
       duration: 0.9,
       ease: "easeOut",
-      staggerChildren: 0.3,
-      delayChildren: 0.3,
     },
   },
 };
@@ -69,20 +67,21 @@ export const Slogan = () => {
             variants={itemVariants}
             className="uppercase text-sm text-accent font-bold tracking-[3px]"
           >
-            Listos para evaluar tu caso
+            Listos para acompañar a tu empresa
           </motion.span>
           <motion.h2
             variants={itemVariants}
             className="text-3xl lg:text-4xl text-white"
           >
-            Defendemos tu derechos como si fueran nuestros.
+            Respuestas claras para decisiones legales clave.
           </motion.h2>
           <motion.span
             variants={itemVariants}
             className="text-white lg:text-xl"
           >
-            Agenda una consulta gratuita por llamada, videollamada o contáctanos
-            directamente por WhatsApp para recibir atención inmediata.
+            Agenda una asesoría inicial sin costo y obtén definiciones claras
+            para tomar decisiones informadas en materias laborales y legales
+            relevantes para tu empresa
           </motion.span>
 
           <motion.div
@@ -91,11 +90,11 @@ export const Slogan = () => {
           >
             <Button variant="reserva-form-link" asChild>
               <a href="#reserva-form-section" onClick={handleScrollToForm}>
-                Reserva una llamada
+                Agenda una asesoría
               </a>
             </Button>
 
-            <WhatsappLink />
+            <WhatsappLink text="Contacto directo" />
           </motion.div>
         </div>
       </motion.div>

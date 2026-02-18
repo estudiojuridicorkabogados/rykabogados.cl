@@ -2,7 +2,13 @@
 
 import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
 
-export const Contact = () => {
+interface ContactProps {
+  contactLabel?: string;
+}
+
+export const Contact: React.FC<ContactProps> = ({
+  contactLabel = "Reserva una llamada",
+}) => {
   const handleContactClick = () => {
     const formSection = document.getElementById("reserva-form-section");
 
@@ -11,7 +17,7 @@ export const Contact = () => {
 
   return (
     <ContactSectionLight
-      contactLabel="Reserva una llamada"
+      contactLabel={contactLabel}
       onContactClick={handleContactClick}
     />
   );

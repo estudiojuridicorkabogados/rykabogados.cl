@@ -23,7 +23,7 @@ const formatDate = (date: Date) => {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 };
 
-export const ReservaForm = () => {
+export const ReservaFormEmpresas = () => {
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const { logToSheet } = useTracking();
@@ -129,14 +129,14 @@ export const ReservaForm = () => {
                 variants={itemVariants}
                 className="text-3xl lg:text-4xl md:text-5xl font-semibold"
               >
-                Reserva una llamada gratuita con nosotros
+                Reserva una reunión con RK Abogados
               </motion.h2>
               <motion.p
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
-                ¿Necesitas orientación legal? Conéctate con nuestros abogados y
-                descubre la mejor estrategia para tu caso.
+                Acompañamos a tu empresa en la definición de estrategias legales
+                claras, preventivas y alineadas con tus objetivos.
               </motion.p>
             </div>
 

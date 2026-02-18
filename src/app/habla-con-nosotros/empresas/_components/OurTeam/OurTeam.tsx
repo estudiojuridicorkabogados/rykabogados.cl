@@ -77,11 +77,11 @@ export const OurTeam = () => {
               className="mt-4 max-w-2xl text-white/80"
             >
               Retamales Kowalski Abogados es un estudio jurídico especializado
-              en derecho laboral, integrado por un equipo de profesionales con
-              amplia experiencia en asesoría, defensa y representación en esta
-              materia. Prestamos servicios a lo largo de todo Chile, ofreciendo
-              una atención cercana, estratégica y enfocada en las necesidades de
-              cada cliente.
+              en derecho laboral, que asesora a empresas en la gestión
+              estratégica de sus relaciones laborales y contingencias legales.
+              Contamos con un equipo con amplia experiencia en asesoría
+              preventiva, negociación y defensa judicial, con cobertura a nivel
+              nacional.
             </motion.p>
           </div>
         </div>

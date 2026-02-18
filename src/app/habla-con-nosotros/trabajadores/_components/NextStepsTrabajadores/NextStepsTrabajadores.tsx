@@ -7,7 +7,7 @@ import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { STEPS } from "./constants";
 import { Step } from "./Step";
 
-export const NextSteps = () => {
+export const NextStepsTrabajadores = () => {
   return (
     <motion.section
       id="areas"

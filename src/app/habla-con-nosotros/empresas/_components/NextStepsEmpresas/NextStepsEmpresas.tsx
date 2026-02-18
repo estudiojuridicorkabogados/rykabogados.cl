@@ -7,7 +7,7 @@ import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { STEPS } from "./constants";
 import { Step } from "./Step";
 
-export const NextSteps = () => {
+export const NextStepsEmpresas = () => {
   return (
     <motion.section
       id="areas"
@@ -24,14 +24,14 @@ export const NextSteps = () => {
           </motion.h2>
 
           <motion.p variants={itemVariants} className="lg:w-1/2">
-            Si fuiste despedido injustamente, puedes obtener una indemnización
-            económica conforme a la ley. En RK Abogados te acompañamos en todo
-            el proceso, desde la primera llamada hasta el pago efectivo de la
-            sentencia o acuerdo.
+            Guiamos a tu empresa desde la evaluación inicial hasta la
+            implementación de soluciones legales o laborales, entregando
+            definiciones claras para tomar decisiones oportunas y bien
+            informadas
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-8">
           {STEPS.map((step, index) => (
             <Step key={index} step={step} />
           ))}

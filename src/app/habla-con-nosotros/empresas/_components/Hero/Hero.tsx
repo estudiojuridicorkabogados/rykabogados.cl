@@ -21,9 +21,9 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-black/70" />
 
       <HeroContent
-        label="Habla con nosotros"
-        title="¿Despido Injustificado? Consulta inicial gratuita"
-        description="En RK Abogados revisamos tu caso, analizamos tu despido y te explicamos tus derechos. Trabajamos bajo un modelo de honorarios a resultado, es decir, solo pagas si ganas."
+        label="Agenda una reunión en menos de 24 horas hábiles"
+        title="Asesoía laboral integral para empresas"
+        description="En RK Abogados acompañamos a las empresas en la gestión estratégica de sus relaciones laborales y requerimientos legales. Cuéntanos tu caso y te entregaremos una orientación clara para definir el mejor curso de acción."
       />
     </section>
   );

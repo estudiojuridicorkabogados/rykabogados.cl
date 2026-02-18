@@ -5,14 +5,12 @@ import { motion } from "motion/react";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 const AREAS = [
-  "Despido injustificado",
-  "Autodespido",
-  "Tutela de derechos fundamentales",
-  "Cobro de prestaciones",
-  "Cálculo de finiquito",
-  "Accidentes o enfermedades profesionales",
-  "Organizaciones sindicales",
-  "Asesoria laboral integral para empresas",
+  "Juicios laborales",
+  "Asesoría laboral corporativa",
+  "Capacitaciones para equipos y jefaturas",
+  "Fiscalizaciones y multas de la Inspección del Trabajo",
+  "Negociación colectiva y sindicatos",
+  "Otras materias",
 ];
 
 export const Areas = () => {
@@ -28,14 +26,14 @@ export const Areas = () => {
       <div className="section-container text-black  flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-32">
         <div className="flex-2 flex flex-col gap-2 lg:gap-8">
           <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
-            No hay nada que perder. <br />
-            Defiende lo que es tuyo.
+            Reducimos riesgos, evitamos multas, <br />
+            defendemos tu empresa.
           </motion.h2>
 
           <motion.p variants={itemVariants}>
-            Si te despidieron injustamente, puedes ser indemnizado
-            económicamente. Analizamos tu caso sin costo y solo pagas si
-            obtenemos resultados a tu favor.
+            Acompañamos a empresas en la gestión estratégica de sus relaciones
+            laborales, previniendo conflictos, reduciendo contingencias y
+            defendiendo el negocio cuando es necesario
           </motion.p>
         </div>
 

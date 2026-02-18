@@ -4,26 +4,26 @@ import { Areas } from "./_components/Areas/Areas";
 import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
 import { Contact } from "./_components/Contact/Contact";
 import { Hero } from "./_components/Hero/Hero";
-import { NextSteps } from "./_components/NextSteps/NextSteps";
+import { NextStepsEmpresas } from "./_components/NextStepsEmpresas/NextStepsEmpresas";
 import { OurTeam } from "./_components/OurTeam/OurTeam";
 import { Press } from "./_components/Press/Press";
-import { ReservaForm } from "./_components/ReservaForm/ReservaForm";
+import { ReservaFormEmpresas } from "./_components/ReservaFormEmpresas/ReservaFormEmpresas";
 import { Slogan } from "./_components/Slogan/Slogan";
 import { Videos } from "./_components/Videos/Videos";
 
-export default function HablaConNosotros() {
+export default function HablaConNosotrosEmpresas() {
   return (
     <>
       <div>
         <Hero />
 
         <Suspense>
-          <ReservaForm />
+          <ReservaFormEmpresas />
         </Suspense>
 
         <Areas />
 
-        <NextSteps />
+        <NextStepsEmpresas />
 
         <Slogan />
 
@@ -33,7 +33,7 @@ export default function HablaConNosotros() {
 
         <Press />
 
-        <Contact />
+        <Contact contactLabel="Agenda una asesoría sin costo de 30 minutos" />
 
         <ClientsReel />
       </div>
