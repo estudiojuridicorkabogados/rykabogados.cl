@@ -3,10 +3,13 @@
 import { useRef, useState } from "react";
 import { ChevronDown, HardHat, Landmark } from "lucide-react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Popover } from "radix-ui";
 
 import { classNames } from "@/lib/utils/classNames";
 import { URLS } from "@/lib/utils/constants";
+
+import { Button } from "../ui/Button";
 
 const RESERVA_LINKS = [
   {
@@ -22,6 +25,10 @@ const RESERVA_LINKS = [
 ];
 
 export const ClientLink = () => {
+  const searchParams = useSearchParams();
+
+  const enableTrabajadores = searchParams.get("paginaEmpresas") === "true";
+
   const [open, setOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -33,6 +40,10 @@ export const ClientLink = () => {
   const handleClose = () => {
     timeoutRef.current = setTimeout(() => setOpen(false), 150);
   };
+
+  if (!enableTrabajadores) {
+    return <SoloEmpresas />;
+  }
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -80,5 +91,23 @@ export const ClientLink = () => {
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
+  );
+};
+
+export const SoloEmpresas = () => {
+  const router = useRouter();
+
+  const navigateToHablaConNosotros = () => router.push(URLS.speakWithUsTrabajadores());
+
+  return (
+    <Button
+      className="w-full lg:w-fit"
+      variant="default"
+      size="sm"
+      animateOnClick
+      onClick={navigateToHablaConNosotros}
+    >
+      Reserva una Llamada
+    </Button>
   );
 };

@@ -9,6 +9,10 @@ interface HeroSectionProps {
   title: React.ReactElement | string;
   description: React.ReactElement | string;
   className?: string;
+  button?: {
+    label: string;
+    href: string;
+  };
   image: {
     src: string;
     alt: string;
@@ -20,6 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   label,
   title,
   description,
+  button,
   image,
   className = "",
   align = "bottom",
@@ -47,9 +52,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 from-35% to-black/0" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/80 from-35% to-black/0" />
 
-      <HeroContent label={label} title={title} description={description} />
+      <HeroContent
+        label={label}
+        title={title}
+        description={description}
+        button={button}
+      />
     </section>
   );
 };

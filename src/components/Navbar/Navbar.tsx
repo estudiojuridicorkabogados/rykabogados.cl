@@ -47,14 +47,16 @@ const MOBILE_LINKS = [
     href: URLS.contacts(),
     label: "Contacto",
   },
+  // @TODO: Add link to Empresas once we have the page
   {
     href: URLS.speakWithUsTrabajadores(),
-    label: "Reserva una Llamada (para Trabajadores)",
+    label: "Reserva una Llamada",
+    // label: "Reserva una Llamada (para Trabajadores)",
   },
-  {
-    href: URLS.speakWithUsEmpresas(),
-    label: "Reserva una Llamada (para Empresas)",
-  },
+  // {
+  //   href: URLS.speakWithUsEmpresas(),
+  //   label: "Reserva una Llamada (para Empresas)",
+  // },
 ];
 
 const SERVICIOS_LINKS = [

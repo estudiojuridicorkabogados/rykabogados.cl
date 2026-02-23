@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/Hero/HeroSection";
+import { URLS } from "@/lib/utils/constants";
 
 const DESCRIPTION = `
 En RK Abogados tomamos tu caso a resultado, porque creemos en la justicia y en tu derecho a ser escuchado.
@@ -12,6 +13,10 @@ export const AsesoriaTrabajadoresHero = () => {
       title="Asesoría Trabajador"
       align="top"
       description={DESCRIPTION}
+      button={{
+        label: "Agenda una asesoría",
+        href: URLS.speakWithUsTrabajadores(),
+      }}
       image={{
         src: "/images/heros/team-trabajando.webp",
         alt: "Nuestro equipo trabajando",

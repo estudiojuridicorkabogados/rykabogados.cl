@@ -4,16 +4,23 @@ import { motion } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";
 
+import { Button } from "../ui/Button";
+
 interface HeroContentProps {
   label: string;
   title: React.ReactElement | string;
   description: React.ReactElement | string;
+  button?: {
+    label: string;
+    href: string;
+  };
 }
 
 export const HeroContent: React.FC<HeroContentProps> = ({
   label,
   title,
   description,
+  button,
 }) => {
   return (
     <motion.div
@@ -43,6 +50,17 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       >
         {description}
       </motion.p>
+
+      {button && (
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col md:flex-row gap-4 mt-8"
+        >
+          <Button variant="reserva-form-link" asChild>
+            <a href={button.href}>{button.label}</a>
+          </Button>
+        </motion.div>
+      )}
     </motion.div>
   );
 };
