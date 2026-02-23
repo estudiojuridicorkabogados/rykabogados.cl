@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import {
   Disclosure,
   DisclosureButton,
@@ -18,9 +19,19 @@ import Link from "next/link";
 import { URLS } from "@/lib/utils/constants";
 
 import logoBlack from "../../../public/images/logos/logo-black.png";
+import { Button } from "../ui/Button";
 
 import { ClientLink } from "./ClientLink";
 import { HoverPopover } from "./HoverPopover";
+
+// @TODO Remove once empresas is fully enabled
+function ClientLinkFallback() {
+  return (
+    <Button className="w-full lg:w-fit" variant="default" size="sm" asChild>
+      <Link href={URLS.speakWithUsTrabajadores()}>Reserva una Llamada</Link>
+    </Button>
+  );
+}
 
 const MOBILE_LINKS = [
   {
@@ -123,7 +134,9 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex lg:items-center lg:justify-center h-full lg:w-[220px]">
-          <ClientLink />
+          <Suspense fallback={<ClientLinkFallback />}>
+            <ClientLink />
+          </Suspense>
         </div>
 
         {/* Mobile menu button */}
