@@ -2,7 +2,7 @@ import { google } from "googleapis";
 
 import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
 
-import { getOAuth2Client } from "../getOauth2Client";
+import { getCalendarOAuth2Client } from "./getCalendarOAuth2Client";
 
 interface EventDetails {
   title: string;
@@ -19,10 +19,7 @@ export async function createGoogleCalendarEventEmpresas(
   eventDetails: EventDetails,
   sessionCode: string
 ) {
-  const oauth2Client = await getOAuth2Client({
-    delegatedUserEmail: CONTACTO_EMAIL,
-    scope: "https://www.googleapis.com/auth/calendar",
-  });
+  const oauth2Client = await getCalendarOAuth2Client();
 
   const result = await google
     .calendar({ version: "v3", auth: oauth2Client })
