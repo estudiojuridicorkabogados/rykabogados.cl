@@ -33,7 +33,7 @@ export default function HablaConNosotrosEmpresas() {
 
         <Press />
 
-        <Contact contactLabel="Agenda una asesoría sin costo de 30 minutos" />
+        <Contact />
 
         <ClientsReel />
       </div>

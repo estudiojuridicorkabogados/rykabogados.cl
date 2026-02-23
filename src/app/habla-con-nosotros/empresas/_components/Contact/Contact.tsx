@@ -1,24 +1,13 @@
 "use client";
 
-import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
+import { ContactSectionEmpresas } from "@/components/ContactSectionEmpresas/ContactSectionEmpresas";
 
-interface ContactProps {
-  contactLabel?: string;
-}
-
-export const Contact: React.FC<ContactProps> = ({
-  contactLabel = "Reserva una llamada",
-}) => {
+export const Contact = () => {
   const handleContactClick = () => {
     const formSection = document.getElementById("reserva-form-section");
 
     formSection?.scrollIntoView({ behavior: "smooth" });
   };
 
-  return (
-    <ContactSectionLight
-      contactLabel={contactLabel}
-      onContactClick={handleContactClick}
-    />
-  );
+  return <ContactSectionEmpresas onContactClick={handleContactClick} />;
 };

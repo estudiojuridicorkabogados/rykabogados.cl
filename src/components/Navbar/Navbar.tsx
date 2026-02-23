@@ -24,7 +24,7 @@ import { Button } from "../ui/Button";
 import { ClientLink } from "./ClientLink";
 import { HoverPopover } from "./HoverPopover";
 
-// @TODO Remove once empresas is fully enabled
+// @TODO EMPRESA GO LIVE
 function ClientLinkFallback() {
   return (
     <Button className="w-full lg:w-fit" variant="default" size="sm" asChild>
@@ -58,7 +58,7 @@ const MOBILE_LINKS = [
     href: URLS.contacts(),
     label: "Contacto",
   },
-  // @TODO: Add link to Empresas once we have the page
+  // @TODO EMPRESA GO LIVE
   {
     href: URLS.speakWithUsTrabajadores(),
     label: "Reserva una Llamada",
