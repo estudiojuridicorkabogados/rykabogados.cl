@@ -15,7 +15,7 @@ interface EventDetails {
   causalDespido: string;
 }
 
-export async function createGoogleCalendarEvent(
+export async function createGoogleCalendarEventTrabajadores(
   eventDetails: EventDetails,
   sessionCode: string
 ) {

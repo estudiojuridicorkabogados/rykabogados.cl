@@ -97,7 +97,8 @@ export const ClientLink = () => {
 export const SoloEmpresas = () => {
   const router = useRouter();
 
-  const navigateToHablaConNosotros = () => router.push(URLS.speakWithUsTrabajadores());
+  const navigateToHablaConNosotros = () =>
+    router.push(URLS.speakWithUsTrabajadores());
 
   return (
     <Button

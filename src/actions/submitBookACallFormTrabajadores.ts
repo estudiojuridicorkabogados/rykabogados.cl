@@ -5,17 +5,17 @@ import { fromZonedTime } from "date-fns-tz";
 
 import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
-import { createGoogleCalendarEvent } from "@/lib/google/google-calendar/createGoogleCalendarEvent";
+import { createGoogleCalendarEventTrabajadores } from "@/lib/google/google-calendar/createGoogleCalendarEventTrabajadores";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
 import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
 
-import { FormData } from "../app/habla-con-nosotros/_components/ReservaForm/types";
+import { FormData } from "../app/habla-con-nosotros/trabajadores/_components/ReservaFormTrabajadores/types";
 
 interface SubmitBookACallFormData extends Omit<FormData, "date"> {
   date: string;
 }
 
-export async function submitBookACallForm(
+export async function submitBookACallFormTrabajadores(
   data: SubmitBookACallFormData,
   reCaptchaToken: string | null,
   sessionCode: string
@@ -51,7 +51,7 @@ export async function submitBookACallForm(
 
     const santiagoEndTime = addMinutes(santiagoStartTime, 30);
 
-    const result = await createGoogleCalendarEvent(
+    const result = await createGoogleCalendarEventTrabajadores(
       {
         title: "Asesoria Gratuita",
         name: data.name,
@@ -127,7 +127,7 @@ async function dispatchNotificationEmails(
     to: CAMILA_EMAIL,
     subject: "Nueva solicitud de llamada",
     html: `
-        <h2>Nueva solicitud de llamada de rkabogados.cl</h2>
+        <h2>Nueva solicitud de llamada de rkabogados.cl (Trabajadores)</h2>
         <p><strong>Nombre:</strong> ${args.name}</p>
         <p><strong>Email:</strong> ${args.userEmail}</p>
         <p><strong>Teléfono:</strong> ${args.phoneNumber}</p>

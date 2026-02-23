@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { format } from "date-fns";
 import { motion, stagger } from "motion/react";
 
-import { submitBookACallForm } from "@/actions/submitBookACallForm";
+import { submitBookACallFormEmpresas } from "@/actions/submitBookACallFormEmpresas";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { trackBookACallFormConversion } from "@/lib/utils/analytics";
@@ -54,13 +54,17 @@ export const ReservaFormEmpresas = () => {
         trackBookACallFormConversion();
 
         const sessionCode = getSessionCode();
-        const result = await submitBookACallForm(sendData, token, sessionCode);
+        const result = await submitBookACallFormEmpresas(
+          sendData,
+          token,
+          sessionCode
+        );
 
         if (result.success && data.date) {
           // Log to Google Sheets
           logToSheet({
             landing: window.location.href,
-            channel: "reserva-form",
+            channel: "reserva-form-empresa",
             phone: data.phoneNumber,
             email: data.email,
           });

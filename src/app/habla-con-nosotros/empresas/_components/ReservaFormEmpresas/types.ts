@@ -9,8 +9,8 @@ export const formSchema = z.object({
     .max(15, "Número de teléfono inválido"),
   timeSlot: z.string().min(1, "Selecciona un horario"),
   date: z.date({ message: "Selecciona una fecha" }).nullable(),
-  causalDespido: z.string().min(1, "Selecciona un causal de despido"),
-  antiguedadLaboral: z.string().min(1, "Selecciona una antigüedad laboral"),
+  motivoAsesoria: z.string().min(1, "Selecciona un motivo de la asesoría"),
+  tamanoEmpresa: z.string().min(1, "Selecciona el tamano de la empresa"),
   mensaje: z.string().min(1, "Escribe un mensaje obligatorio"),
 });
 

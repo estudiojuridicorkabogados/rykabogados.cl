@@ -14,6 +14,29 @@ interface PersonalInfoStepProps {
   control: Control<FormData>;
 }
 
+const MOTIVE_ASESORIA_OPTIONS = [
+  { id: 1, label: "Asesoría laboral preventiva y capacitaciones" },
+  { id: 2, label: "Despidos y término de contrato" },
+  { id: 3, label: "Contratos de trabajo y documentación laboral" },
+  { id: 4, label: "Remuneraciones, beneficios y cotizaciones" },
+  { id: 5, label: "Jornadas laborales, turnos y control de asistencia" },
+  { id: 6, label: "Fiscalizaciones y multas de la Inspección del Trabajo" },
+  { id: 7, label: "Juicios laborales y defensa judicial" },
+  {
+    id: 8,
+    label: "Negociación colectiva, sindicatos e investigaciones Ley Karin",
+  },
+  { id: 9, label: "Otras materias" },
+];
+
+const TAMANO_EMPRESA_OPTIONS = [
+  { id: 1, label: "1-10 trabajadores" },
+  { id: 2, label: "11-25 trabajadores" },
+  { id: 3, label: "26-50 trabajadores" },
+  { id: 4, label: "51-200 trabajadores" },
+  { id: 5, label: "Más de 200 trabajadores" },
+];
+
 export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
   register,
   errors,
@@ -46,41 +69,28 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
 
     <div className="flex flex-col md:flex-row gap-6 w-full">
       <Controller
-        name="causalDespido"
+        name="motivoAsesoria"
         control={control}
         defaultValue=""
         render={({ field }) => (
           <SelectInput
-            label="¿Causal de despido?"
-            options={[
-              { id: "art-161", label: "Art. 161 - Necesidades de la empresa" },
-              {
-                id: "art-160",
-                label: "Art. 160 - Despido sin derecho indemnización",
-              },
-              { id: "otra", label: "Otra causal" },
-            ]}
-            error={errors.causalDespido?.message}
+            label="Motivo de la asesoría"
+            options={MOTIVE_ASESORIA_OPTIONS}
+            error={errors.motivoAsesoria?.message}
             {...field}
           />
         )}
       />
 
       <Controller
-        name="antiguedadLaboral"
+        name="tamanoEmpresa"
         control={control}
         defaultValue=""
         render={({ field }) => (
           <SelectInput
-            label="Antigüedad laboral"
-            options={[
-              { id: "menos-1", label: "Menos de 1 año" },
-              { id: "1-2", label: "Entre 1 y 2 años" },
-              { id: "2-5", label: "Entre 2 y 5 años" },
-              { id: "5-10", label: "Entre 5 y 10 años" },
-              { id: "mas-10", label: "Más de 10 años" },
-            ]}
-            error={errors.antiguedadLaboral?.message}
+            label="Tamaño de la empresa"
+            options={TAMANO_EMPRESA_OPTIONS}
+            error={errors.tamanoEmpresa?.message}
             {...field}
           />
         )}

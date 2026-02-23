@@ -48,8 +48,8 @@ export const Form: React.FC<FormProps> = ({
             "name",
             "email",
             "phoneNumber",
-            "causalDespido",
-            "antiguedadLaboral",
+            "motivoAsesoria",
+            "tamanoEmpresa",
             "mensaje",
           ]
     );

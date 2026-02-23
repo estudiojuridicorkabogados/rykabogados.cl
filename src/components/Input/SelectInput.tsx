@@ -14,7 +14,7 @@ import { classNames } from "@/lib/utils/classNames";
 
 interface SelectInputProps {
   label: string;
-  options: { id: string; label: string }[];
+  options: { id: string | number; label: string }[];
   error?: string;
   placeholder?: string;
   value?: string;
