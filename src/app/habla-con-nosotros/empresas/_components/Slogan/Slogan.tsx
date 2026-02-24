@@ -51,7 +51,7 @@ export const Slogan = () => {
       viewport={{ once: true, amount: 0.8 }}
     >
       <Image
-        src="/images/heros/library.webp"
+        src="/images/heros/face.webp"
         alt="Some documents"
         sizes="100vw"
         fill

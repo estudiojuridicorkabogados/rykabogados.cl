@@ -4,9 +4,8 @@ import { motion } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";
 
-import { IStep } from "../../app/habla-con-nosotros/trabajadores/_components/NextStepsTrabajadores/constants";
-
 import { StepIcon } from "./StepIcon/StepIcon";
+import { IStep } from "./types";
 
 interface HablaConNosotrosStepProps {
   step: IStep;

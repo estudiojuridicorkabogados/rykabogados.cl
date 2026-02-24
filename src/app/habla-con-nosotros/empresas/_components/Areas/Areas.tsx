@@ -26,8 +26,7 @@ export const Areas = () => {
       <div className="section-container text-black  flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-32">
         <div className="flex-2 flex flex-col gap-2 lg:gap-8">
           <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
-            Reducimos riesgos, evitamos multas, <br />
-            defendemos tu empresa.
+            Reducimos riesgos, evitamos multas, defendemos tu empresa.
           </motion.h2>
 
           <motion.p variants={itemVariants}>

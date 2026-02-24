@@ -20,6 +20,6 @@ export const STEPS: IStep[] = [
     title: "Implementación",
     description:
       "Ejecutamos la estrategia acordada, acompañando a la empresa en la gestión e implementación de las decisiones adoptadas, resguardando la continuidad operativa y manteniendo bajo control las contingencias laborales o legales.",
-    icon: "case-file",
+    icon: "gear-shield",
   },
 ];
