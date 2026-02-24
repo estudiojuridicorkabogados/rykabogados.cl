@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IconType } from "../constants";
+import { IconType } from "../types";
 
 import { AnalysisIcon } from "./AnalysisIcon";
 import { CaseFileIcon } from "./CaseFileIcon";

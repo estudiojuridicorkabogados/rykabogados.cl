@@ -1,11 +1,4 @@
-export type IconType = "contact" | "analysis" | "case-file" | "success";
-
-export interface IStep {
-  stepNumber: string;
-  title: string;
-  description: string;
-  icon: IconType;
-}
+import { IStep } from "@/components/HablaConNosotrosStep/types";
 
 export const STEPS: IStep[] = [
   {

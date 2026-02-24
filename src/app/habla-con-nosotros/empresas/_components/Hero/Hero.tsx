@@ -11,7 +11,7 @@ export const Hero = () => {
         priority
         fill
         loading="eager"
-        src="/images/heros/tribunales.webp"
+        src="/images/heros/library.webp"
         alt="Tribunal de Santiago de Chile"
         sizes="100vw"
         className="object-cover object-top scale-110"
@@ -22,7 +22,7 @@ export const Hero = () => {
 
       <HeroContent
         label="Agenda una reunión en menos de 24 horas hábiles"
-        title="Asesoía laboral integral para empresas"
+        title="Asesoría laboral integral para empresas"
         description="En RK Abogados acompañamos a las empresas en la gestión estratégica de sus relaciones laborales y requerimientos legales. Cuéntanos tu caso y te entregaremos una orientación clara para definir el mejor curso de acción."
       />
     </section>

@@ -4,14 +4,17 @@ import { motion } from "motion/react";
 
 import { itemVariants } from "@/lib/utils/animations";
 
-import { StepIcon } from "./StepIcon/StepIcon";
-import { IStep } from "./constants";
+import { IStep } from "../../app/habla-con-nosotros/trabajadores/_components/NextStepsTrabajadores/constants";
 
-interface StepProps {
+import { StepIcon } from "./StepIcon/StepIcon";
+
+interface HablaConNosotrosStepProps {
   step: IStep;
 }
 
-export const Step: React.FC<StepProps> = ({ step }) => {
+export const HablaConNosotrosStep: React.FC<HablaConNosotrosStepProps> = ({
+  step,
+}) => {
   return (
     <motion.div
       variants={itemVariants}
