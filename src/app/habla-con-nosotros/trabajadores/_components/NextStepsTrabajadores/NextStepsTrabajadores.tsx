@@ -2,10 +2,10 @@
 
 import { motion } from "motion/react";
 
+import { HablaConNosotrosStep } from "@/components/HablaConNosotrosStep/Step";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
 import { STEPS } from "./constants";
-import { Step } from "./Step";
 
 export const NextStepsTrabajadores = () => {
   return (
@@ -33,7 +33,7 @@ export const NextStepsTrabajadores = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-8">
           {STEPS.map((step, index) => (
-            <Step key={index} step={step} />
+            <HablaConNosotrosStep key={index} step={step} />
           ))}
         </div>
       </div>

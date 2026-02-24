@@ -5,13 +5,15 @@ import { motion } from "motion/react";
 import { itemVariants } from "@/lib/utils/animations";
 
 import { StepIcon } from "./StepIcon/StepIcon";
-import { IStep } from "./constants";
+import { IStep } from "./types";
 
-interface StepProps {
+interface HablaConNosotrosStepProps {
   step: IStep;
 }
 
-export const Step: React.FC<StepProps> = ({ step }) => {
+export const HablaConNosotrosStep: React.FC<HablaConNosotrosStepProps> = ({
+  step,
+}) => {
   return (
     <motion.div
       variants={itemVariants}

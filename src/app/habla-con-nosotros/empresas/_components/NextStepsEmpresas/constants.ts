@@ -1,11 +1,4 @@
-export type IconType = "contact" | "analysis" | "case-file" | "success";
-
-export interface IStep {
-  stepNumber: string;
-  title: string;
-  description: string;
-  icon: IconType;
-}
+import { IStep } from "@/components/HablaConNosotrosStep/types";
 
 export const STEPS: IStep[] = [
   {
@@ -27,6 +20,6 @@ export const STEPS: IStep[] = [
     title: "Implementación",
     description:
       "Ejecutamos la estrategia acordada, acompañando a la empresa en la gestión e implementación de las decisiones adoptadas, resguardando la continuidad operativa y manteniendo bajo control las contingencias laborales o legales.",
-    icon: "case-file",
+    icon: "gear-shield",
   },
 ];

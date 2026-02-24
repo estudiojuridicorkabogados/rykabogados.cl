@@ -15,12 +15,12 @@ const RESERVA_LINKS = [
   {
     href: URLS.speakWithUsTrabajadores(),
     label: "Trabajadores",
-    icon: <HardHat className="size-4 stroke-current" />,
+    icon: <HardHat className="size-4 stroke-primary" />,
   },
   {
     href: URLS.speakWithUsEmpresas(),
     label: "Empresas",
-    icon: <Landmark className="size-4 stroke-current" />,
+    icon: <Landmark className="size-4 stroke-primary" />,
   },
 ];
 
@@ -75,7 +75,7 @@ export const ClientLink = () => {
           onMouseLeave={handleClose}
           className="flex flex-col justify-center bg-white z-50 px-4 rounded-sm border-black/10 border transition duration-200 ease-in-out min-w-[200px] outline-none"
         >
-          {RESERVA_LINKS.map(({ href, label, icon }) => (
+          {RESERVA_LINKS.map(({ href, label, icon: Icon }) => (
             <Link
               key={label}
               href={href}
@@ -83,7 +83,7 @@ export const ClientLink = () => {
               onClick={() => setTimeout(() => setOpen(false), 200)}
             >
               <div className="flex items-center justify-center rounded-sm">
-                {icon}
+                {Icon}
               </div>
               <span className="text-sm">{label}</span>
             </Link>
