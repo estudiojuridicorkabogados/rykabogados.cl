@@ -56,6 +56,7 @@ export async function submitBookACallFormEmpresas(
         title: "Asesoria Gratuita",
         name: data.name,
         tamanoEmpresa: data.tamanoEmpresa,
+        phoneNumber: data.phoneNumber,
         motivoAsesoria: data.motivoAsesoria,
         notes: data.mensaje,
         userEmail: data.email,

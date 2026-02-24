@@ -8,6 +8,7 @@ interface EventDetails {
   title: string;
   notes: string;
   name: string;
+  phoneNumber: string;
   userEmail: string;
   startTime: string; // ISO string
   endTime: string; // ISO string
@@ -43,6 +44,7 @@ function createEventData(eventDetails: EventDetails, sessionCode: string) {
     description: `
     Nombre: ${eventDetails.name}\n
     Correo: ${eventDetails.userEmail}\n
+    Teléfono: ${eventDetails.phoneNumber}\n
     Anos de antigüedad laboral: ${eventDetails.antiguedadLaboral}\n
     Causal de despido: ${eventDetails.causalDespido}\n
     Cuentanos un poco sobre tu caso: ${eventDetails.notes}\n

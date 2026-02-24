@@ -8,6 +8,7 @@ interface EventDetails {
   title: string;
   notes: string;
   name: string;
+  phoneNumber: string;
   userEmail: string;
   startTime: string; // ISO string
   endTime: string; // ISO string
@@ -43,6 +44,7 @@ function createEventData(eventDetails: EventDetails, sessionCode: string) {
     description: `
     Nombre: ${eventDetails.name}\n
     Correo: ${eventDetails.userEmail}\n
+    Teléfono: ${eventDetails.phoneNumber}\n
     Motivo de la asesoría: ${eventDetails.motivoAsesoria}\n
     Tamaño de la empresa: ${eventDetails.tamanoEmpresa}\n
     Cuentanos un poco sobre tu caso: ${eventDetails.notes}\n

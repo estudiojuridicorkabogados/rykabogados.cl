@@ -106,7 +106,7 @@ export async function submitContactForm(
     }),
     sendEmail({
       to: CONTACTO_EMAIL,
-      subject: "Nueva solicitud de llamada",
+      subject: "Nueva consulta de contacto",
       html: createStudioEmailHtml(rawData, sessionCode),
       from: CAMILA_EMAIL,
       replyTo: CAMILA_EMAIL,

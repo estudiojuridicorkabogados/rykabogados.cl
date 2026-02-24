@@ -55,6 +55,7 @@ export async function submitBookACallFormTrabajadores(
       {
         title: "Asesoria Gratuita",
         name: data.name,
+        phoneNumber: data.phoneNumber,
         antiguedadLaboral: data.antiguedadLaboral,
         causalDespido: data.causalDespido,
         notes: data.mensaje,
