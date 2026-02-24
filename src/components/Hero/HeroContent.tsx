@@ -56,7 +56,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
           variants={itemVariants}
           className="flex flex-col md:flex-row gap-4 mt-8"
         >
-          <Button variant="reserva-form-link" asChild>
+          <Button variant="white-outline-on-primary" asChild>
             <a href={button.href}>{button.label}</a>
           </Button>
         </motion.div>

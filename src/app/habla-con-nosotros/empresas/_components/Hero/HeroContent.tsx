@@ -61,7 +61,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
         variants={itemVariants}
         className="flex flex-col md:flex-row gap-4"
       >
-        <Button variant="reserva-form-link" asChild>
+        <Button variant="white-outline-on-primary" asChild>
           <a href="#reserva-form-section" onClick={handleScrollToForm}>
             Agenda una asesoría
           </a>

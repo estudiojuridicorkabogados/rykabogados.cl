@@ -64,7 +64,7 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
         className={classNames("group flex items-center", className)}
       >
         {showIcon && (
-          <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-black group-hover:text-white transition-colors" />
+          <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-white group-hover:text-white transition-colors" />
         )}
         {text}
       </a>

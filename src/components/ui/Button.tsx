@@ -23,11 +23,11 @@ const buttonStyles = cva(
         outline:
           "border border-gray-900 text-dark-900 bg-transparent hover:bg-gray-900 hover:text-white",
         ["white-outline-on-primary"]:
-          "border border-white text-white bg-transparent hover:bg-white hover:text-primary",
+          "border border-white/70 text-white bg-transparent hover:bg-white hover:text-primary",
         "reserva-form-link":
           "bg-white text-black hover:bg-accent border border-white hover:border-primary",
         whatsapp:
-          "bg-white text-black hover:bg-green-700 hover:text-white border border-white hover:border-green-700",
+          "bg-transparent text-white hover:bg-green-700 hover:text-white border border-white/70 hover:border-green-700",
       },
       size: {
         default: "h-10 px-8 py-2 text-xs",
@@ -70,7 +70,6 @@ export const Button: React.FC<ButtonProps> = ({
     return (
       <motion.button
         className={classNames(buttonStyles({ variant, size, className }))}
-        // aria-label="Siguiente"
         initial={false}
         whileTap={{ scale: 0.95 }}
         {...props}
