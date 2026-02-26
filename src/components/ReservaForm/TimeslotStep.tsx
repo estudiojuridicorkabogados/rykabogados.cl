@@ -60,14 +60,14 @@ export const TimeSlotStep = <
   const isFriday = selectedDate instanceof Date && selectedDate.getDay() === 5;
 
   useEffect(() => {
-    if (isFriday && selectedTimeSlot >= "16:00") {
+    if (isFriday && selectedTimeSlot >= "16:30") {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setValue("timeSlot" as Path<T>, "" as any);
     }
   }, [isFriday, selectedTimeSlot, setValue]);
 
   const availableSlots = isFriday
-    ? timeSlots.filter((slot) => slot < "16:00")
+    ? timeSlots.filter((slot) => slot < "16:30")
     : timeSlots;
 
   return (
