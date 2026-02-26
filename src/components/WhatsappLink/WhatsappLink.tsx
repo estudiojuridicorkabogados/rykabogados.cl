@@ -13,6 +13,7 @@ interface WhatsappLinkProps {
   text?: string;
   showIcon?: boolean;
   variant?: "button" | "link";
+  greenButton?: boolean;
 }
 
 const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
@@ -20,6 +21,7 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   text = "Hablemos por Whatsapp",
   showIcon = true,
   variant = "button",
+  greenButton = false,
 }) => {
   const { whatsappUrl, logToSheet, fireConversion } = useTracking();
 
@@ -55,7 +57,7 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   }
 
   return (
-    <Button variant="whatsapp" asChild>
+    <Button variant={greenButton ? "whatsapp-green" : "whatsapp"} asChild>
       <a
         href={whatsappUrl}
         onClick={handleClick}

@@ -34,7 +34,7 @@ export const HablaConNosotros: React.FC = () => {
         Reserva una llamada
       </Button>
 
-      <WhatsappLink className="w-full mt-4" />
+      <WhatsappLink greenButton className="w-full mt-4" />
     </div>
   );
 };

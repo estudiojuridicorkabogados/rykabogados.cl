@@ -28,6 +28,8 @@ const buttonStyles = cva(
           "bg-white text-black hover:bg-accent border border-white hover:border-primary",
         whatsapp:
           "bg-transparent text-white hover:bg-green-700 hover:text-white border border-white/70 hover:border-green-700",
+        "whatsapp-green":
+          "bg-green-700 text-white hover:bg-green-800 hover:text-white border border-green-700 hover:border-green-800",
       },
       size: {
         default: "h-10 px-8 py-2 text-xs",
