@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 import { getContentfulClient } from "@/lib/utils/contentful-client";
 import { ApiPost } from "@/types/global";
 
-export const revalidate = 0;
-
 export async function GET() {
   try {
     const client = getContentfulClient();

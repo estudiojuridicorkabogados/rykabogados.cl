@@ -67,13 +67,6 @@ export async function getAllPosts({
     const data = await apolloClient.query<AllPostsgQueryResposne>({
       query: GET_ALL_POSTS_QUERY,
       variables: { limit, preview: isPreview },
-      context: {
-        fetchOptions: {
-          next: {
-            revalidate: 3600,
-          },
-        },
-      },
     });
 
     return {

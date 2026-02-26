@@ -5,9 +5,6 @@ import { getAllPosts } from "@/graphql/queries/get-all-posts.query";
 import { BlogPostEntry } from "./_components/BlogPostEntry";
 import { HighlightedPost } from "./_components/HighlightedPost";
 
-// Revalidate blog list page every hour
-export const revalidate = 3600;
-
 export default async function BlogPage() {
   const { isEnabled: isPreview } = await draftMode();
 

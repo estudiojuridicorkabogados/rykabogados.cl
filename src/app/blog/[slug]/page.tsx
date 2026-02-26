@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
     const { posts } = (await res.json()) as { posts: ApiPost[] };
 
-    return posts.map(({ slug }) => ({ params: { slug } }));
+    return posts.map(({ slug }) => ({ slug }));
   } catch {
     return [];
   }

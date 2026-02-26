@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 
-import { env } from "@/lib/env";
 import { Post as PostGraphQL } from "@/types/generated/graphql";
 import { Post } from "@/types/global";
 
@@ -85,13 +84,6 @@ export async function getPost({
     const data = await apolloClient.query<PostQueryResposne>({
       query: GET_POST_QUERY,
       variables: { slug, preview: isPreview },
-      context: {
-        fetchOptions: {
-          next: {
-            revalidate: isPreview || env.DISABLE_CACHE === "true" ? 0 : 3600,
-          },
-        },
-      },
     });
 
     const post = data.data?.blogPostCollection.items[0];
