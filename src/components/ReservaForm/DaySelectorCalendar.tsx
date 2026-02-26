@@ -1,28 +1,24 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useRef, useState } from "react";
 import Calendar from "react-calendar";
-import { Control, useController } from "react-hook-form";
+import { Control, FieldValues, Path, useController } from "react-hook-form";
 import { addMonths, format, isBefore, isSameDay, isToday } from "date-fns";
 import { es } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { classNames } from "@/lib/utils/classNames";
 
-import { FormData } from "./types";
-
-interface DaySelectorCalendarProps {
-  control: Control<FormData>;
+interface DaySelectorCalendarProps<T extends FieldValues> {
+  control: Control<T>;
 }
 
-export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
+export const DaySelectorCalendar = <T extends FieldValues>({
   control,
-}) => {
+}: DaySelectorCalendarProps<T>) => {
   const {
     field: { onChange, value },
     fieldState: { error: fieldError },
   } = useController({
-    name: "date",
+    name: "date" as Path<T>,
     control,
     rules: {
       required: "Por favor selecciona una fecha",
@@ -35,6 +31,7 @@ export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
 
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const ref = useRef<any>(null);
 
   const onGoToPrevMonth = () => {
@@ -99,7 +96,10 @@ export const DaySelectorCalendar: React.FC<DaySelectorCalendarProps> = ({
         tileClassName={({ date, activeStartDate }) => {
           const isCurrentDay = isToday(date);
           const isSelected =
-            value instanceof Date ? isSameDay(date, value) : false;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (value as any) instanceof Date
+              ? isSameDay(date, value as Date)
+              : false;
 
           const isDifferentMonth =
             date.getMonth() !== activeStartDate.getMonth();

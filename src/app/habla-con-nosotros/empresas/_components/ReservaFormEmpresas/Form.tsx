@@ -6,12 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
+import { TimeSlotStep } from "@/components/ReservaForm/TimeslotStep";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { itemVariants } from "@/lib/utils/animations";
 
 import { PersonalInfoStep } from "./PersonalInfoStep";
-import { TimeSlotStep } from "./TimeslotStep";
 import { FormData, formSchema } from "./types";
 
 interface FormProps {
@@ -32,6 +32,7 @@ export const Form: React.FC<FormProps> = ({
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
     trigger,
   } = useForm<FormData>({
@@ -85,6 +86,7 @@ export const Form: React.FC<FormProps> = ({
                     register={register}
                     control={control}
                     errors={errors}
+                    setValue={setValue}
                   />
 
                   <div className="w-full flex mt-8 justify-end">
