@@ -33,7 +33,7 @@ export const AuthorAndDate: React.FC<AuthorAndDateProps> = ({
         <span className="-mt-x">
           {date ? (
             <time
-              dateTime={date || new Date().toISOString()}
+              dateTime={date}
               className="text-base/7 font-semibold capitalize"
             >
               {format(date, "MMM d, yyyy", { locale: es })}

@@ -52,7 +52,7 @@ export function useTracking(): UseTrackingReturn {
   // Memoized buildWhatsAppUrl wrapper that includes shortCode and gclid
   const whatsappUrl = useMemo(
     () => buildWhatsAppUrl({ gclid, shortCode: getSessionCode() }),
-    [gclid, getSessionCode()]
+    [gclid]
   );
 
   return {

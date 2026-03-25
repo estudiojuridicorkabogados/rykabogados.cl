@@ -20,19 +20,24 @@ export const SupportChatbot = () => {
   const { messages, status, sendMessage } = useChat();
   const [open, setOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [unread, setUnread] = useState(0);
   const endRef = useRef<HTMLDivElement | null>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+  const lastSeenMsgIdRef = useRef<string | undefined>(undefined);
 
-  // Increment unread on new assistant message if panel is closed
-  const lastAssistantMsgId = useMemo(
-    () => [...messages].reverse().find((m) => m.role === "assistant")?.id,
-    [messages]
-  );
+  const unread = useMemo(() => {
+    const assistantMessages = messages.filter((m) => m.role === "assistant");
+    if (assistantMessages.length === 0 || open) return 0;
+    const lastSeenIdx = assistantMessages.findLastIndex(
+      (m) => m.id === lastSeenMsgIdRef.current
+    );
+    return assistantMessages.length - (lastSeenIdx + 1);
+  }, [open, messages]);
 
-  useEffect(() => {
-    if (!open && lastAssistantMsgId) setUnread((c) => c + 1);
-  }, [lastAssistantMsgId, open]);
+  const markAllSeen = () => {
+    lastSeenMsgIdRef.current = [...messages]
+      .reverse()
+      .find((m) => m.role === "assistant")?.id;
+  };
 
   const handleNewMessageAdded = useDebounceCallback(() => {
     // Play notification sound for new messages
@@ -76,31 +81,24 @@ export const SupportChatbot = () => {
 
   const onSubmit = (query: string) => {
     sendMessage({ text: query });
-
-    // When user sends a message, mark as read
-    if (!open) setUnread(0);
   };
 
   useEffect(() => {
-    if (open) {
-      // Focus textarea when chat is opened
-      setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 100);
-    }
+    if (!open) return;
+    const id = setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 100);
+    return () => clearTimeout(id);
   }, [open]);
 
   const onToggleOpen = () => {
-    if (!open) {
-      setUnread(0);
-    }
-
+    if (!open) markAllSeen();
     setOpen((v) => !v);
   };
 
   const handleClose = () => {
+    markAllSeen();
     setOpen(false);
-    setUnread(0);
   };
 
   return (

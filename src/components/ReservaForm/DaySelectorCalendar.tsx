@@ -1,4 +1,6 @@
-import { useRef, useState } from "react";
+"use client";
+
+import { useMemo, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { Control, FieldValues, Path, useController } from "react-hook-form";
 import { addMonths, format, isBefore, isSameDay, isToday } from "date-fns";
@@ -25,8 +27,16 @@ export const DaySelectorCalendar = <T extends FieldValues>({
     },
   });
 
-  const [displayMonthText, setDisplayMonthText] = useState(
-    formatMonthYear(new Date())
+  const { today, maxDate } = useMemo(() => {
+    const today = new Date();
+
+    const maxDate = addMonths(today, 3);
+
+    return { today, maxDate };
+  }, []);
+
+  const [displayMonthText, setDisplayMonthText] = useState(() =>
+    formatMonthYear(today)
   );
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
@@ -41,7 +51,7 @@ export const DaySelectorCalendar = <T extends FieldValues>({
     ref.current.setActiveStartDate(prevMonthDate);
 
     setDisplayMonthText(formatMonthYear(prevMonthDate));
-    setPrevDisabled(isBefore(prevMonthDate, new Date()));
+    setPrevDisabled(isBefore(prevMonthDate, today));
     setNextDisabled(false);
   };
 
@@ -52,8 +62,7 @@ export const DaySelectorCalendar = <T extends FieldValues>({
     ref.current.setActiveStartDate(nextMonthDate);
 
     const shouldNextDisabled =
-      isSameDay(nextMonthDate, addMonths(new Date(), 3)) ||
-      isBefore(addMonths(new Date(), 3), nextMonthDate);
+      isSameDay(nextMonthDate, maxDate) || isBefore(maxDate, nextMonthDate);
 
     setDisplayMonthText(formatMonthYear(nextMonthDate));
     setNextDisabled(shouldNextDisabled);
@@ -86,8 +95,8 @@ export const DaySelectorCalendar = <T extends FieldValues>({
         ref={ref}
         value={value}
         locale="es"
-        minDate={new Date()}
-        maxDate={addMonths(new Date(), 3)}
+        minDate={today}
+        maxDate={maxDate}
         minDetail="month"
         onChange={onChange}
         formatShortWeekday={(_, date) => {

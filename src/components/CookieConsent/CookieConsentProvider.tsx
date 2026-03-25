@@ -37,7 +37,14 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
     isLoading: true,
   });
 
-  // Initialize consent state on mount
+  // @TODO Refactor initialization using useSyncExternalStore:
+  // - Replace useState + useEffect init pattern with useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  // - getSnapshot: reads getCookieConsent() / isBannerDismissed() on the client
+  // - getServerSnapshot: returns null/false (explicit SSR fallback, no hydration mismatch)
+  // - This eliminates isLoading state and the eslint-disable below
+  // Initialize consent state on mount — must be an effect since getCookieConsent/isBannerDismissed
+  // read from document.cookie / localStorage which are unavailable during SSR.
+  /* eslint-disable @eslint-react/set-state-in-effect */
   useEffect(() => {
     const existingConsent = getCookieConsent();
     const dismissed = isBannerDismissed();
@@ -74,6 +81,7 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
       });
     }
   }, []);
+  /* eslint-enable @eslint-react/set-state-in-effect */
 
   const acceptAll = () => {
     const preferences = createDefaultPreferences(true);
@@ -145,9 +153,5 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
     savePreferences,
   };
 
-  return (
-    <CookieConsentContext.Provider value={value}>
-      {children}
-    </CookieConsentContext.Provider>
-  );
+  return <CookieConsentContext value={value}>{children}</CookieConsentContext>;
 };

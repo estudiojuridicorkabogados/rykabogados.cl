@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, PropsWithChildren, useMemo, useState } from "react";
+import { PropsWithChildren, useMemo, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react";
 
@@ -79,33 +79,32 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
 
 interface SlideProps {
   children: React.ReactNode;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const Slide = forwardRef(
-  ({ children }: SlideProps, ref: React.Ref<HTMLDivElement>) => {
-    const direction = usePresenceData();
+const Slide = ({ children, ref }: SlideProps) => {
+  const direction = usePresenceData();
 
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, x: direction * 60 }}
-        animate={{
-          opacity: 1,
-          x: 0,
-          transition: {
-            delay: 0,
-            type: "spring",
-            visualDuration: 0.5,
-            bounce: 0,
-          },
-        }}
-        exit={{ opacity: 0, x: direction * -60 }}
-      >
-        {children}
-      </motion.div>
-    );
-  }
-);
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: direction * 60 }}
+      animate={{
+        opacity: 1,
+        x: 0,
+        transition: {
+          delay: 0,
+          type: "spring",
+          visualDuration: 0.5,
+          bounce: 0,
+        },
+      }}
+      exit={{ opacity: 0, x: direction * -60 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 Slide.displayName = "Slide";
 

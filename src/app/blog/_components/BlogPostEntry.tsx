@@ -48,14 +48,11 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
 
           <span className="text-accent-dark">|</span>
 
-          <time
-            dateTime={blogPost.date || new Date().toISOString()}
-            className="text-black/40"
-          >
-            {blogPost.date
-              ? format(blogPost.date, "dd.MM.yyyy", { locale: es })
-              : ""}
-          </time>
+          {blogPost.date ? (
+            <time dateTime={blogPost.date} className="text-black/40">
+              {format(blogPost.date, "dd.MM.yyyy", { locale: es })}
+            </time>
+          ) : null}
         </motion.div>
 
         <div className="group relative">

@@ -1,5 +1,5 @@
 import js from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
+import eslintReact from "@eslint-react/eslint-plugin";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import tseslint from "typescript-eslint";
 
@@ -9,16 +9,13 @@ const config = [
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
+  eslintReact.configs["recommended"],
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
     },
 
     rules: {
-      "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off",
-
       "simple-import-sort/imports": [
         "error",
         {
@@ -34,11 +31,8 @@ const config = [
       ],
 
       "simple-import-sort/exports": "error",
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
+
+      "@eslint-react/no-array-index-key": "off",
     },
   },
   {

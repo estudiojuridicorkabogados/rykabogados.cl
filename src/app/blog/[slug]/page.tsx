@@ -87,9 +87,7 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
     name: post.metaTitle || post.title || "RK Abogados - Blog Post",
     description:
       post.metaDescription || post.excerpt || "RK Abogados - Blog Post",
-    datePublished: post.date
-      ? format(new Date(post.date), "yyyy-MM-dd")
-      : undefined,
+    datePublished: post.date ? format(post.date, "yyyy-MM-dd") : undefined,
     author: {
       "@type": "Person",
       "@id": `${post.author?.name}/#Person`,
@@ -112,6 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
       <script
         type="application/ld+json"
         suppressHydrationWarning={true}
+        /* eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml */
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     </>

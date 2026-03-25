@@ -57,14 +57,11 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
 
               <span className="text-white">|</span>
 
-              <time
-                dateTime={post.date || new Date().toISOString()}
-                className="text-white"
-              >
-                {post.date
-                  ? format(post.date, "dd.MM.yyyy", { locale: es })
-                  : ""}
-              </time>
+              {post.date ? (
+                <time dateTime={post.date} className="text-white">
+                  {format(post.date, "dd.MM.yyyy", { locale: es })}
+                </time>
+              ) : null}
             </motion.div>
 
             <motion.h2

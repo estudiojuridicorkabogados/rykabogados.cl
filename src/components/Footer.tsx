@@ -9,6 +9,8 @@ import { ADDRESS, URLS } from "@/lib/utils/constants";
 
 import logoWhite from "../../public/images/logos/logo_symbol_white.png";
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 import { FacebookIcon } from "./icons/Facebook";
 import { InstagramIcon } from "./icons/Instagram";
 import { LinkedinIcon } from "./icons/Linkedin";
@@ -108,9 +110,7 @@ export const Footer = () => {
           </div>
 
           <div className="flex flex-col text-white font-medium gap-8 text-center md:text-left text-sm">
-            <span>
-              {ADDRESS}
-            </span>
+            <span>{ADDRESS}</span>
 
             <div className="flex flex-col gap-2">
               <span>
@@ -148,7 +148,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 md:mt-32 flex flex-col lg:flex-row gap-y-2 gap-x-8 lg:items-center lg:justify-between text-xs text-white/50">
-          <p>{`© ${new Date().getFullYear()} RK Abogados · Todos los derechos reservados`}</p>
+          <p>{`© ${CURRENT_YEAR} RK Abogados · Todos los derechos reservados`}</p>
 
           <button
             onClick={openSettings}

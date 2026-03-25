@@ -74,7 +74,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
 
             <AuthorAndDate blogPost={mainPost} />
 
-            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 !font-sans">
+            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-sans!">
               {mainPost.title}
             </h3>
           </Link>
@@ -99,7 +99,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
 
             <AuthorAndDate blogPost={secondaryPost} />
 
-            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-semibold !font-sans">
+            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-semibold font-sans!">
               {secondaryPost.title}
             </h3>
           </Link>
@@ -127,10 +127,7 @@ const AuthorAndDate: React.FC<{ blogPost: ShortPost }> = ({ blogPost }) => {
 
       <span className="text-accent-dark">|</span>
 
-      <time
-        dateTime={blogPost.date || new Date().toISOString()}
-        className="text-black/40"
-      >
+      <time dateTime={blogPost.date} className="text-black/40">
         {blogPost.date
           ? format(blogPost.date, "dd.MM.yyyy", { locale: es })
           : ""}

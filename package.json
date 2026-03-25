@@ -45,7 +45,7 @@
     "dotenv": "17.3.1",
     "drizzle-orm": "0.45.1",
     "drizzle-zod": "0.8.3",
-    "google-auth-library": "10.6.1",
+    "google-auth-library": "10.6.2",
     "googleapis": "171.4.0",
     "html-react-parser": "5.2.17",
     "jsdom": "29.0.1",
@@ -70,9 +70,10 @@
     "zod": "4.3.6"
   },
   "overrides": {
-    "google-auth-library": "10.6.1"
+    "google-auth-library": "10.6.2"
   },
   "devDependencies": {
+    "@eslint-react/eslint-plugin": "3.0.0",
     "@eslint/eslintrc": "3.3.5",
     "@graphql-codegen/cli": "6.2.1",
     "@graphql-codegen/client-preset": "5.2.4",
@@ -86,10 +87,9 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "drizzle-kit": "0.31.10",
-    "eslint": "9.39.2",
+    "eslint": "10.1.0",
     "eslint-config-next": "16.2.1",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-react": "7.37.5",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "prettier": "3.8.1",
     "tailwindcss": "4.2.2",

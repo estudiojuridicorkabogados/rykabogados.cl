@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -16,12 +16,6 @@ export const CookieSettingsModal = () => {
     preferences?.analytics ?? true
   );
 
-  useEffect(() => {
-    if (preferences) {
-      setAnalyticsEnabled(preferences.analytics);
-    }
-  }, [preferences]);
-
   const handleSavePreferences = () =>
     savePreferences({ analytics: analyticsEnabled });
 
@@ -29,6 +23,7 @@ export const CookieSettingsModal = () => {
     <AnimatePresence>
       {showModal && (
         <Dialog
+          key={String(showModal)}
           open={showModal}
           onClose={closeSettings}
           className="relative z-50"
