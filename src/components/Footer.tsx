@@ -110,8 +110,6 @@ export const Footer = () => {
           <div className="flex flex-col text-white font-medium gap-8 text-center md:text-left text-sm">
             <span>
               {ADDRESS}
-              <br />
-              Isidora Goyenechea 3000, piso 23, Las Condes
             </span>
 
             <div className="flex flex-col gap-2">
