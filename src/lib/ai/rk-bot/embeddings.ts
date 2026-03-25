@@ -4,8 +4,8 @@ import { cosineDistance, desc, gt, sql } from "drizzle-orm";
 
 import "server-only";
 
-import { db } from "../db";
-import { embeddings } from "../db/schema/embeddings";
+import { db } from "../../db";
+import { embeddings } from "../../db/schema/embeddings";
 
 // @TODO The initial embeddings of the RAG are made on a python environment using OpenAI's API.
 // We should make sure embeddings match (I think)
