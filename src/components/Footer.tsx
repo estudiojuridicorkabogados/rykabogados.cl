@@ -148,10 +148,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 md:mt-32 flex flex-col lg:flex-row gap-y-2 gap-x-8 lg:items-center lg:justify-between text-xs text-white/50">
-          <p>
-            &copy; {new Date().getFullYear()} RK Abogados &middot; Todos los
-            derechos reservados
-          </p>
+          <p>{`© ${new Date().getFullYear()} RK Abogados · Todos los derechos reservados`}</p>
 
           <button
             onClick={openSettings}

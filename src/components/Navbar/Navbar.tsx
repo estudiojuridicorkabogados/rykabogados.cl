@@ -95,16 +95,13 @@ export const Navbar = () => {
       className="relative z-50 bg-white h-[80px] lg:h-[100px] py-2"
     >
       <div className="container mx-auto px-6 lg:px-0 flex items-center justify-between h-full">
-        <Link
-          href="/"
-          className="relative flex items-center h-full w-[160px] lg:w-[220px]"
-        >
+        <Link href="/" className="flex items-center h-full">
           <Image
             src={logoBlack}
             alt="RK Abogados Logo"
-            fill
-            unoptimized
-            className="object-contain"
+            width={220}
+            height={45}
+            className="h-auto w-[160px] lg:w-[220px]"
           />
         </Link>
 
