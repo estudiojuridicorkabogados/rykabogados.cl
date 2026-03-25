@@ -48,7 +48,7 @@ export async function runLegalChatBot(
   ]);
 
   return streamText({
-    model: openai("gpt-4o-mini"),
+    model: openai("gpt-5.4-mini"),
     system: systemWithNoToolMention,
     stopWhen: stepCountIs(5),
     tools: {
