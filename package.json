@@ -7,6 +7,7 @@
     "build": "bun run --bun next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "bun test",
     "lint:fix": "eslint --fix",
     "format:check": "prettier --check src",
     "format": "prettier --write src",
@@ -18,8 +19,7 @@
     "db:pull": "drizzle-kit introspect",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:check": "drizzle-kit check",
-    "test": "bun test"
+    "db:check": "drizzle-kit check"
   },
   "dependencies": {
     "@ai-sdk/openai": "3.0.50",
