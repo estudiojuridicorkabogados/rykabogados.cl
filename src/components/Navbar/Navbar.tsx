@@ -101,7 +101,8 @@ export const Navbar = () => {
             alt="RK Abogados Logo"
             width={220}
             height={45}
-            className="h-auto w-[160px] lg:w-[220px]"
+            className="w-[160px] lg:w-[220px]"
+            style={{ height: "auto" }}
           />
         </Link>
 

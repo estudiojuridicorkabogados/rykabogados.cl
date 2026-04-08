@@ -33,3 +33,11 @@ export const SERVICES = [
     ],
   },
 ];
+
+export const BENEFITS = [
+  "Asesoría laboral continuada",
+  "Cumplimiento y prevención de multas",
+  "Defensa y soporte legal",
+  "Gestión de conflictos laborales",
+  "Protección de la empresa y sus activos",
+];
