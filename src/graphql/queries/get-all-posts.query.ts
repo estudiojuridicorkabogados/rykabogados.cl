@@ -97,6 +97,6 @@ export async function getAllPosts({
     };
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch post");
+    throw new Error("Failed to fetch post", { cause: error });
   }
 }

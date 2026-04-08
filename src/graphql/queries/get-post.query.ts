@@ -95,6 +95,6 @@ export async function getPost({
     return parseGraphQLPost(post);
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch post");
+    throw new Error("Failed to fetch post", { cause: error });
   }
 }
