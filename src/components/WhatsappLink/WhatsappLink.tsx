@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { useEffect, useState } from "react";
 
 import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
@@ -75,9 +75,15 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
 };
 
 export const WhatsappLink: React.FC<WhatsappLinkProps> = (props) => {
-  return (
-    <Suspense>
-      <WhatsappLinkInternal {...props} />
-    </Suspense>
-  );
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  return <WhatsappLinkInternal {...props} />;
 };

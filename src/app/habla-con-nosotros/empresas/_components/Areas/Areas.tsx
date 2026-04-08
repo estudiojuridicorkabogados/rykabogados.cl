@@ -19,7 +19,7 @@ export const Areas = () => {
       id="areas"
       initial="hidden"
       whileInView="visible"
-      className="bg-[#F7F6F6] py-16 lg:py-32"
+      className="bg-gray-60 py-16 lg:py-32"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.4 }}
     >

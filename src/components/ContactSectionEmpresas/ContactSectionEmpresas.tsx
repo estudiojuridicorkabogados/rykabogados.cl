@@ -9,7 +9,7 @@ export const ContactSectionEmpresas: React.FC<ContactSectionEmpresasProps> = ({
   onContactClick,
 }) => {
   return (
-    <section className="relative py-16 lg:py-32 bg-[#F7F6F6]">
+    <section className="relative py-16 lg:py-32 bg-gray-60">
       <div className="z-10 section-container flex flex-col lg:flex-row justify-center gap-16 lg:gap-16P">
         <div className="w-full lg:w-1/2 flex">
           <h3 className="text-3xl lg:text-5xl text-black">

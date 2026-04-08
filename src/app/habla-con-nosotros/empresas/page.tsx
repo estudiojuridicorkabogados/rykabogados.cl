@@ -10,12 +10,15 @@ import { Press } from "./_components/Press/Press";
 import { ReservaFormEmpresas } from "./_components/ReservaFormEmpresas/ReservaFormEmpresas";
 import { Slogan } from "./_components/Slogan/Slogan";
 import { Videos } from "./_components/Videos/Videos";
+import { Services } from "./_components/Services/Services";
 
 export default function HablaConNosotrosEmpresas() {
   return (
     <>
       <div>
         <Hero />
+
+        <Services />
 
         <Suspense>
           <ReservaFormEmpresas />
