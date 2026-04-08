@@ -15,10 +15,7 @@ export const PricingBenefits = () => {
       viewport={{ once: true, amount: 0.3 }}
       className="flex flex-col lg:flex-row gap-8 lg:gap-16 bg-white/60 rounded-sm px-8 py-10 lg:px-12 lg:py-14"
     >
-      <motion.h2
-        variants={itemVariants}
-        className="text-3xl shrink-0 lg:w-56"
-      >
+      <motion.h2 variants={itemVariants} className="text-3xl shrink-0 lg:w-56">
         Un Servicio jurídico flexible y trasparente
       </motion.h2>
 

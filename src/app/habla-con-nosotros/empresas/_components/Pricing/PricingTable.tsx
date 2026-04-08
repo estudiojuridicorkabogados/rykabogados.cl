@@ -30,11 +30,21 @@ export const PricingTable = () => {
         <table className="w-full min-w-[600px] border-separate border-spacing-0">
           <motion.thead variants={itemVariants}>
             <tr>
-              <th className="py-4 pr-6 text-left text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">Plan</th>
-              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">Horas Mensuales</th>
-              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">Valor Mensual</th>
-              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">Valor Hora</th>
-              <th className="py-4 pl-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">Valor Hora Aditional</th>
+              <th className="py-4 pr-6 text-left text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                Plan
+              </th>
+              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                Horas Mensuales
+              </th>
+              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                Valor Mensual
+              </th>
+              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                Valor Hora
+              </th>
+              <th className="py-4 pl-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                Valor Hora Aditional
+              </th>
             </tr>
           </motion.thead>
           <tbody>
@@ -44,12 +54,18 @@ export const PricingTable = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + i * 0.1 }}
+                transition={{
+                  duration: 0.6,
+                  ease: "easeOut",
+                  delay: 0.4 + i * 0.1,
+                }}
                 className={plan.featured ? "bg-[#FED9A5]/40" : ""}
               >
                 <td className="py-5 pr-6 border-b border-black">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm tracking-[2px] uppercase font-semibold font-sans">{plan.name}</span>
+                    <span className="text-sm tracking-[2px] uppercase font-semibold font-sans">
+                      {plan.name}
+                    </span>
                     {plan.featured && (
                       <span className="text-[10px] tracking-[1.5px] uppercase font-semibold font-sans bg-[#FED9A5] text-[#222F3F] px-2 py-0.5 rounded-sm">
                         Más Contratado
@@ -57,10 +73,18 @@ export const PricingTable = () => {
                     )}
                   </div>
                 </td>
-                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">{plan.hours}</td>
-                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">{plan.monthlyValue}</td>
-                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">{plan.hourValue}</td>
-                <td className="py-5 pl-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">{plan.additionalHour}</td>
+                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                  {plan.hours}
+                </td>
+                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                  {plan.monthlyValue}
+                </td>
+                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                  {plan.hourValue}
+                </td>
+                <td className="py-5 pl-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                  {plan.additionalHour}
+                </td>
               </motion.tr>
             ))}
           </tbody>
