@@ -38,7 +38,9 @@ export const CompanyBenefits = () => {
             <div className="shrink-0 w-9 h-9 rounded-full bg-[#FED9A5] flex items-center justify-center">
               <Checkbox />
             </div>
-            <p className="text-sm lg:text-base leading-snug font-sans! font-normal">{benefit}</p>
+            <p className="text-sm lg:text-base leading-snug font-sans! font-normal">
+              {benefit}
+            </p>
           </motion.div>
         ))}
       </div>

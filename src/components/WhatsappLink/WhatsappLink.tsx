@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
@@ -14,6 +14,7 @@ interface WhatsappLinkProps {
   showIcon?: boolean;
   variant?: "button" | "link";
   greenButton?: boolean;
+  outlinePrimary?: boolean;
 }
 
 const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
@@ -22,6 +23,7 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   showIcon = true,
   variant = "button",
   greenButton = false,
+  outlinePrimary = false,
 }) => {
   const { whatsappUrl, logToSheet, fireConversion } = useTracking();
 
@@ -57,7 +59,16 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   }
 
   return (
-    <Button variant={greenButton ? "whatsapp-green" : "whatsapp"} asChild>
+    <Button
+      variant={
+        outlinePrimary
+          ? "outline-primary"
+          : greenButton
+            ? "whatsapp-green"
+            : "whatsapp"
+      }
+      asChild
+    >
       <a
         href={whatsappUrl}
         onClick={handleClick}
@@ -66,7 +77,14 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
         className={classNames("group flex items-center", className)}
       >
         {showIcon && (
-          <WhatsappIcon className="mr-2 w-4 h-4 fill-current text-white group-hover:text-white transition-colors" />
+          <WhatsappIcon
+            className={classNames(
+              "mr-2 w-4 h-4 fill-current text-white group-hover:text-white transition-colors",
+              {
+                "fill-primary group-hover:fill-white": outlinePrimary,
+              }
+            )}
+          />
         )}
         {text}
       </a>
@@ -74,12 +92,14 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   );
 };
 
-export const WhatsappLink: React.FC<WhatsappLinkProps> = (props) => {
-  const [mounted, setMounted] = useState(false);
+const subscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export const WhatsappLink: React.FC<WhatsappLinkProps> = (props) => {
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
 
   if (!mounted) {
     return null;

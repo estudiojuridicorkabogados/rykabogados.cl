@@ -22,6 +22,8 @@ const buttonStyles = cva(
         dark: "bg-gray-900 text-white hover:bg-white hover:text-gray-900 border border-gray-900",
         outline:
           "border border-gray-900 text-dark-900 bg-transparent hover:bg-gray-900 hover:text-white",
+        "outline-primary":
+          "border border-primary text-primary bg-transparent hover:bg-primary hover:text-white",
         ["white-outline-on-primary"]:
           "border border-white/70 text-white bg-transparent hover:bg-white hover:text-primary",
         "reserva-form-link":

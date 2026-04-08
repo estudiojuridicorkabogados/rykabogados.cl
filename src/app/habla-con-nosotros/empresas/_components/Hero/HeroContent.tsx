@@ -38,21 +38,21 @@ export const HeroContent: React.FC<HeroContentProps> = ({
     >
       <motion.span
         variants={itemVariants}
-        className="uppercase text-xs lg:text-sm text-accent font-bold mb-3 lg:mb-4 tracking-[3px]"
+        className="uppercase text-xs lg:text-sm text-primary font-bold mb-3 lg:mb-4 tracking-[3px]"
       >
         {label}
       </motion.span>
 
       <motion.h1
         variants={itemVariants}
-        className="lg:max-w-4xl text-3xl lg:text-7xl mb-4 lg:mb-8 text-gray-60"
+        className="text-primary lg:max-w-4xl text-3xl lg:text-5xl 2xl:text-7xl mb-4 lg:mb-8"
       >
         {title}
       </motion.h1>
 
       <motion.p
         variants={itemVariants}
-        className="lg:text-lg text-white/90 font-light tracking-wide lg:max-w-2xl mb-16 lg:mb-8"
+        className="text-primary lg:text-lg font-light tracking-wide lg:max-w-2xl mb-16 lg:mb-8"
       >
         {description}
       </motion.p>
@@ -61,13 +61,13 @@ export const HeroContent: React.FC<HeroContentProps> = ({
         variants={itemVariants}
         className="flex flex-col md:flex-row gap-4"
       >
-        <Button variant="white-outline-on-primary" asChild>
+        <Button variant="outline-primary" asChild>
           <a href="#reserva-form-section" onClick={handleScrollToForm}>
             Agenda una asesoría
           </a>
         </Button>
 
-        <WhatsappLink text="Contacto directo" />
+        <WhatsappLink outlinePrimary={true} text="Contacto directo" />
       </motion.div>
     </motion.div>
   );

@@ -1,16 +1,15 @@
 import { Suspense } from "react";
 
-import { Areas } from "./_components/Areas/Areas";
 import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
 import { Contact } from "./_components/Contact/Contact";
 import { Hero } from "./_components/Hero/Hero";
-import { NextStepsEmpresas } from "./_components/NextStepsEmpresas/NextStepsEmpresas";
 import { OurTeam } from "./_components/OurTeam/OurTeam";
 import { Press } from "./_components/Press/Press";
+import { Pricing } from "./_components/Pricing/Pricing";
 import { ReservaFormEmpresas } from "./_components/ReservaFormEmpresas/ReservaFormEmpresas";
+import { Services } from "./_components/Services/Services";
 import { Slogan } from "./_components/Slogan/Slogan";
 import { Videos } from "./_components/Videos/Videos";
-import { Services } from "./_components/Services/Services";
 
 export default function HablaConNosotrosEmpresas() {
   return (
@@ -24,9 +23,7 @@ export default function HablaConNosotrosEmpresas() {
           <ReservaFormEmpresas />
         </Suspense>
 
-        <Areas />
-
-        <NextStepsEmpresas />
+        <Pricing />
 
         <Slogan />
 

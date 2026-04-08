@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+
 import { SERVICES } from "./constants";
 
 export const ServicesGrid = () => {
