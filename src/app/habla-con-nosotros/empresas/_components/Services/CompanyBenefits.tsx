@@ -13,26 +13,23 @@ export const CompanyBenefits = () => {
       whileInView="visible"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
-      className="flex flex-col gap-8 lg:gap-12 bg-[#FFF3E1] rounded-sm px-8 py-10 lg:px-12 lg:py-14"
+      className="flex flex-col gap-8 lg:gap-12 bg-[#FFF3E1] rounded-sm px-8 py-10 lg:px-12 lg:pt-10 lg:pb-14 shadow-sm"
     >
-      <motion.h2
-        variants={itemVariants}
-        className="text-3xl md:text-5xl lg:text-4xl font-semibold"
-      >
-        Lo Que Realmente Obtiene Tu Empresa
+      <motion.h2 variants={itemVariants} className="text-3xl font-semibold">
+        Lo que realmente obtiene tu empresa
       </motion.h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 2xl:grid-cols-5 gap-6">
         {BENEFITS.map((benefit, i) => (
           <motion.div
             key={i}
             variants={itemVariants}
-            className="flex flex-row items-center gap-4"
+            className="flex flex-row items-start gap-4"
           >
             <div className="shrink-0 w-9 h-9 rounded-full bg-[#FED9A5] flex items-center justify-center">
               <Checkbox />
             </div>
-            <p className="text-sm lg:text-base leading-snug font-sans! font-normal">
+            <p className="text-sm lg:text-sm leading-snug font-sans! font-normal">
               {benefit}
             </p>
           </motion.div>

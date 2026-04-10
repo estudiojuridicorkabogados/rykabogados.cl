@@ -24,16 +24,16 @@ export const ServicesGrid = () => {
           <motion.div
             key={i}
             variants={itemVariants}
-            className="border border-gray-300 rounded-sm p-6 lg:p-8 bg-transparent flex flex-col gap-6"
+            className="border-[0.5px] border-black/20 rounded-sm p-6 lg:p-8 bg-transparent flex flex-col gap-6"
           >
-            <h3 className="tracking-[2px] uppercase font-semibold! font-sans!">
+            <h3 className="tracking-[2px] uppercase font-semibold! font-sans! text-sm">
               {service.title}
             </h3>
             <ul className="flex flex-col gap-2">
               {service.items.map((item, j) => (
                 <li
                   key={j}
-                  className="flex items-start gap-2 text-base font-extralight"
+                  className="flex items-start gap-2 text-sm font-extralight"
                 >
                   <span className="mt-[0.65em] shrink-0 w-1 h-1 rounded-full bg-black" />
                   {item}

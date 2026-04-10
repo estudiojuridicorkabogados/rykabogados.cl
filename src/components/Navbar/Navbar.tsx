@@ -96,14 +96,15 @@ export const Navbar = () => {
     >
       <div className="container mx-auto px-6 lg:px-0 flex items-center justify-between h-full">
         <Link href="/" className="flex items-center h-full">
-          <Image
-            src={logoBlack}
-            alt="RK Abogados Logo"
-            width={220}
-            height={45}
-            className="w-[160px] lg:w-[220px]"
-            style={{ height: "auto" }}
-          />
+          <span className="block w-[160px] shrink-0 lg:w-[220px]">
+            <Image
+              src={logoBlack}
+              alt="RK Abogados Logo"
+              width={220}
+              height={45}
+              className="h-auto w-full"
+            />
+          </span>
         </Link>
 
         <div className="hidden lg:flex items-center space-x-8 text-white font-light">

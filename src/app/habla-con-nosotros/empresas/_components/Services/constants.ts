@@ -35,9 +35,9 @@ export const SERVICES = [
 ];
 
 export const BENEFITS = [
-  "Asesoría laboral continuada",
-  "Cumplimiento y prevención de multas",
-  "Defensa y soporte legal",
-  "Gestión de conflictos laborales",
-  "Protección de la empresa y sus activos",
+  "Prevención real de demandas laborales",
+  "Reducción de multas y riesgos legales",
+  "Acompañamiento legal permanente",
+  "Orden jurídico en toda la operación",
+  "Decisiones seguras con respaldo legal",
 ];

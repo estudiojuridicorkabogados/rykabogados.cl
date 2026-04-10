@@ -51,16 +51,16 @@ export const Slogan = () => {
       viewport={{ once: true, amount: 0.8 }}
     >
       <Image
-        src="/images/rk_abogados_office.webp"
+        src="/images/heros/rk_advert_banner.webp"
         alt="Oficina de RK Abogados"
         sizes="100vw"
         fill
-        className="object-cover object-[right_30%] scale-150"
+        className="object-cover"
       />
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[460px] lg:h-[360px] -bottom-1 left-0 right-0 w-full bg-primary/30 backdrop-blur-[40px] flex flex-col justify-center"
+        className="absolute h-[460px] lg:h-[360px] -bottom-1 left-0 right-0 w-full bg-primary/30 backdrop-blur-2xl flex flex-col justify-center"
       >
         <div className="w-full section-container flex flex-col gap-4 lg:gap-4 p-6 lg:p-0">
           <motion.span
@@ -71,18 +71,15 @@ export const Slogan = () => {
           </motion.span>
           <motion.h2
             variants={itemVariants}
-            className="text-3xl lg:text-4xl text-white"
+            className="text-3xl lg:text-4xl text-white md:w-1/2"
           >
             Toma decisiones legales con claridad y seguridad.
           </motion.h2>
-          <motion.span
-            variants={itemVariants}
-            className="text-white lg:text-xl"
-          >
+          <motion.p variants={itemVariants} className="text-white md:w-1/2">
             Agenda una asesoría inicial sin costo y recibe orientación concreta
             para tomar decisiones informadas, prevenir contingencias y actuar
             con respaldo legal.
-          </motion.span>
+          </motion.p>
 
           <motion.div
             variants={itemVariants}

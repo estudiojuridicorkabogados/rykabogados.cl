@@ -59,7 +59,11 @@ export const PricingTable = () => {
                   ease: "easeOut",
                   delay: 0.4 + i * 0.1,
                 }}
-                className={plan.featured ? "bg-[#FED9A5]/40" : ""}
+                className={
+                  plan.featured
+                    ? "bg-[linear-gradient(90deg,transparent_0%,#FED9A5_60%,#FED9A5_70%,transparent_100%)]"
+                    : ""
+                }
               >
                 <td className="py-5 pr-6 border-b border-black">
                   <div className="flex items-center gap-3">
@@ -67,7 +71,7 @@ export const PricingTable = () => {
                       {plan.name}
                     </span>
                     {plan.featured && (
-                      <span className="text-[10px] tracking-[1.5px] uppercase font-semibold font-sans bg-[#FED9A5] text-[#222F3F] px-2 py-0.5 rounded-sm">
+                      <span className="text-[10px] tracking-[3px] uppercase font-semibold font-sans bg-[#FED9A5] text-[#222F3F] px-2 py-0.5 rounded-sm">
                         Más Contratado
                       </span>
                     )}
