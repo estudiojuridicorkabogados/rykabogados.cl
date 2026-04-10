@@ -141,7 +141,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Noemi Ricci",
     role: "Traducción y gestión internacional",
-    photo: "/images/team/noemi_ricci.jpeg",
+    photo: "/images/team/noemi_ricci.webp",
     linkedin: "https://www.linkedin.com",
     phone: "223644258",
     phoneLink: "tel:+56223644258",
@@ -150,7 +150,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Gabriele Para",
     role: "Traducción y marketing",
-    photo: "/images/team/gabriele_para.jpeg",
+    photo: "/images/team/gabriele_para.webp",
     linkedin: "https://www.linkedin.com",
     phone: "223644258",
     phoneLink: "tel:+56223644258",

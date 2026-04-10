@@ -95,7 +95,7 @@ export const OurTeam = () => {
             role="region"
             aria-label="Miembros del equipo"
             className={classNames([
-              "flex gap-8 overflow-x-auto pb-4",
+              "flex gap-4 overflow-x-auto pb-4",
               "scroll-smooth",
               // "snap-x snap-proximity scroll-smooth snap-always",
               "[scrollbar-width:none] [-ms-overflow-style:none]",
@@ -111,7 +111,7 @@ export const OurTeam = () => {
                 key={i}
                 data-card
                 className={classNames(
-                  "snap-start shrink-0 w-[260px] md:w-[300px]",
+                  "snap-start shrink-0 w-[280px] md:w-[300px]",
                   "bg-white/5 border border-white/10 rounded-lg overflow-hidden",
                   "first:ml-6 lg:first:ml-26 xl:first:ml-40 last:mr-6"
                 )}
@@ -126,12 +126,14 @@ export const OurTeam = () => {
                     fill
                   />
                 </div>
-                <div className="p-4 flex justify-between items-start">
-                  <div>
+                <div className="p-4 flex justify-between items-start gap-2">
+                  <div className="min-w-0 flex-1">
                     <h3 className="font-sans! text-base font-semibold!">
                       {m.name}
                     </h3>
-                    <p className="text-white/80 text-sm">{m.role}</p>
+                    <p className="truncate text-white/80 text-sm md:overflow-visible md:text-clip md:whitespace-normal">
+                      {m.role}
+                    </p>
                   </div>
 
                   <a

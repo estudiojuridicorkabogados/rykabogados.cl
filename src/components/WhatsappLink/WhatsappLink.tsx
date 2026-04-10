@@ -62,7 +62,7 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
     <Button
       variant={
         outlinePrimary
-          ? "outline-primary"
+          ? "outline-primary-glass"
           : greenButton
             ? "whatsapp-green"
             : "whatsapp"

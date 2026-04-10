@@ -31,7 +31,7 @@ export const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
         defaultValue={defaultValue}
         placeholder={label}
         className={classNames([
-          "peer block w-full bg-transparent text-white text-xs lg:text-base",
+          "peer block w-full bg-transparent text-white text-base",
           "border-0 border-b border-white/60",
           "focus:border-white outline-none focus:ring-0",
           "placeholder-transparent caret-white",

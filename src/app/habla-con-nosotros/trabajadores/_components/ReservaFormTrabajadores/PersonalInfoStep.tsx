@@ -97,7 +97,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
       <textarea
         id="mensaje"
         {...register("mensaje")}
-        className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-sm lg:text-base"
+        className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-base"
         rows={3}
         placeholder="Cuéntanos un poco sobre tu caso"
       />

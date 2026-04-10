@@ -127,7 +127,7 @@ export const ContactForm = () => {
             <select
               name="typeOfServices"
               defaultValue=""
-              className="bg-transparent border-b border-white/60 text-white focus:outline-none focus:ring-0 focus:border-b"
+              className="bg-transparent border-b border-white/60 text-white text-base focus:outline-none focus:ring-0 focus:border-b"
               required
             >
               <option value="" disabled>
@@ -165,7 +165,7 @@ export const ContactForm = () => {
             <textarea
               id="mensaje"
               name="mensaje"
-              className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-sm lg:text-base"
+              className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-base"
               rows={5}
               placeholder="Describe brevemente tu caso o indícanos que tipo de asesoría necesitas"
             />

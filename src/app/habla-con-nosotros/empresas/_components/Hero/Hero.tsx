@@ -16,7 +16,7 @@ export const Hero = () => {
           src="/images/heros/cami_paolo.webp"
           alt="Camila Retamales y Paolo Castiglione trabajando"
           sizes="100vw"
-          className="object-cover object-top scale-110"
+          className="object-cover object-[20%_center] lg:object-[20%_top] lg:scale-110"
         />
 
         {/* Overlay */}
