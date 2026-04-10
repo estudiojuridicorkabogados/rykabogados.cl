@@ -31,9 +31,9 @@ export default function HablaConNosotrosEmpresas() {
 
         <OurTeam />
 
-        <HeroVideo videoId="cLt64E6BmPM" />
-
         <Videos />
+
+        <HeroVideo videoId="cLt64E6BmPM" />
 
         <Casos />
 
