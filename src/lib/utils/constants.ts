@@ -138,6 +138,24 @@ export const TEAM_MEMBERS: TeamMember[] = [
     phoneLink: "tel:+56223644258",
     email: "contacto@rkabogados.cl",
   },
+  {
+    name: "Noemi Ricci",
+    role: "Traducción y gestión internacional",
+    photo: "/images/team/noemi_ricci.jpeg",
+    linkedin: "https://www.linkedin.com",
+    phone: "223644258",
+    phoneLink: "tel:+56223644258",
+    email: "contacto@rkabogados.cl",
+  },
+  {
+    name: "Gabriele Para",
+    role: "Traducción y marketing",
+    photo: "/images/team/gabriele_para.jpeg",
+    linkedin: "https://www.linkedin.com",
+    phone: "223644258",
+    phoneLink: "tel:+56223644258",
+    email: "contacto@rkabogados.cl",
+  },
 ];
 
 export const CONTACTO_EMAIL = "contacto@rkabogados.cl";

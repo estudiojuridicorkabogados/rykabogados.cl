@@ -1,10 +1,11 @@
 import { Suspense } from "react";
 
+import { OurTeam } from "../_components/OurTeam/OurTeam";
+
+import { Casos } from "./_components/Casos/Casos";
 import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
 import { Contact } from "./_components/Contact/Contact";
 import { Hero } from "./_components/Hero/Hero";
-import { OurTeam } from "./_components/OurTeam/OurTeam";
-import { Press } from "./_components/Press/Press";
 import { Pricing } from "./_components/Pricing/Pricing";
 import { ReservaFormEmpresas } from "./_components/ReservaFormEmpresas/ReservaFormEmpresas";
 import { Services } from "./_components/Services/Services";
@@ -31,7 +32,7 @@ export default function HablaConNosotrosEmpresas() {
 
         <Videos />
 
-        <Press />
+        <Casos />
 
         <Contact />
 
