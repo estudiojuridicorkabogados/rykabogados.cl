@@ -8,12 +8,6 @@ import { SelectInput } from "@/components/Input/SelectInput";
 
 import { FormData } from "./types";
 
-interface PersonalInfoStepProps {
-  register: UseFormRegister<FormData>;
-  errors: FieldErrors<FormData>;
-  control: Control<FormData>;
-}
-
 const MOTIVE_ASESORIA_OPTIONS = [
   { id: 1, label: "Asesoría laboral preventiva y capacitaciones" },
   { id: 2, label: "Despidos y término de contrato" },
@@ -37,7 +31,13 @@ const TAMANO_EMPRESA_OPTIONS = [
   { id: 5, label: "Más de 200 trabajadores" },
 ];
 
-export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
+interface EmpresaInfoStepProps {
+  register: UseFormRegister<FormData>;
+  errors: FieldErrors<FormData>;
+  control: Control<FormData>;
+}
+
+export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
   register,
   errors,
   control,

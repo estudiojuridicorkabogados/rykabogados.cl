@@ -44,7 +44,9 @@ export const SelectInput = ({
     onChange?.(v);
   };
 
-  const selectedOption = options.find((option) => option.id === internalValue);
+  const selectedOption = options.find(
+    (option) => option.label === internalValue
+  );
 
   return (
     <div className="w-full">
@@ -86,7 +88,7 @@ export const SelectInput = ({
               {options.map((option) => (
                 <ListboxOption
                   key={option.id}
-                  value={option.id}
+                  value={option.label}
                   className="cursor-pointer group relative py-2 pr-9 pl-3 text-white/80 select-none data-focus:outline-hidden hover:bg-accent hover:text-primary"
                 >
                   <div className="flex items-center">

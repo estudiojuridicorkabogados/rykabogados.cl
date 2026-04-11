@@ -147,9 +147,9 @@ export const ReservaFormEmpresas = () => {
             <div className="flex items-center justify-center lg:w-1/2">
               <Form
                 currentStep={currentStep}
-                onNext={onNext}
                 pending={isPending}
                 submitError={submitError}
+                onNext={onNext}
                 onSubmit={onSubmit}
               />
             </div>

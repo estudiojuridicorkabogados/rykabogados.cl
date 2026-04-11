@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { itemVariants } from "@/lib/utils/animations";
 
-import { PersonalInfoStep } from "./PersonalInfoStep";
+import { EmpresaInfoStep } from "./EmpresaInfoStep";
 import { FormData, formSchema } from "./types";
 
 interface FormProps {
@@ -113,7 +113,7 @@ export const Form: React.FC<FormProps> = ({
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <PersonalInfoStep
+                  <EmpresaInfoStep
                     register={register}
                     control={control}
                     errors={errors}
