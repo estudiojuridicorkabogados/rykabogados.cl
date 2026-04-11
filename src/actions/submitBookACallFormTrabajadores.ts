@@ -115,7 +115,7 @@ async function dispatchNotificationEmails(
     from: CONTACTO_EMAIL,
     replyTo: CONTACTO_EMAIL,
     html: `
-        <h2>Hola ${args.name},</h2>
+        <p>Hola ${args.name},</p>
         <p>Hemos recibido tu solicitud de llamada.</p>
         <p>Nos pondremos en contacto contigo para confirmar la cita o proponerte un horario alternativo si el horario seleccionado no estuviera disponible.</p>
         <br>
@@ -128,7 +128,7 @@ async function dispatchNotificationEmails(
     to: CAMILA_EMAIL,
     subject: "Nueva solicitud de llamada",
     html: `
-        <h2>Nueva solicitud de llamada de rkabogados.cl (Trabajadores)</h2>
+        <p>Nueva solicitud de llamada de rkabogados.cl (Trabajadores)</p>
         <p><strong>Nombre:</strong> ${args.name}</p>
         <p><strong>Email:</strong> ${args.userEmail}</p>
         <p><strong>Teléfono:</strong> ${args.phoneNumber}</p>
