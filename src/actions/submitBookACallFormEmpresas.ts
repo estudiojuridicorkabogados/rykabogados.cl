@@ -44,6 +44,9 @@ export async function submitBookACallFormEmpresas(
       };
     }
 
+    const notes =
+      typeof data.mensaje === "string" ? data.mensaje : "";
+
     const santiagoStartTime = fromZonedTime(
       `${data.date} ${data.timeSlot}`,
       "America/Santiago"
@@ -58,7 +61,7 @@ export async function submitBookACallFormEmpresas(
         tamanoEmpresa: data.tamanoEmpresa,
         phoneNumber: data.phoneNumber,
         motivoAsesoria: data.motivoAsesoria,
-        notes: data.mensaje,
+        notes,
         userEmail: data.email,
         startTime: santiagoStartTime.toISOString(),
         endTime: santiagoEndTime.toISOString(),
@@ -78,7 +81,7 @@ export async function submitBookACallFormEmpresas(
         name: data.name,
         userEmail: data.email,
         phoneNumber: data.phoneNumber,
-        notes: data.mensaje,
+        notes,
         motivoAsesoria: data.motivoAsesoria,
         tamanoEmpresa: data.tamanoEmpresa,
         eventHtmlLink: result.htmlLink,

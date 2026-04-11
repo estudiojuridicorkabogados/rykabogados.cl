@@ -102,12 +102,12 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
         className="font-bold text-white/80 text-sm lg:text-base pt-2"
         htmlFor="mensaje"
       >
-        Mensaje
+        Mensaje (opcional)
       </label>
       <textarea
         id="mensaje"
         {...register("mensaje")}
-        className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-base"
+        className="border p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-base"
         rows={3}
         placeholder="Cuéntanos un poco sobre tu caso"
       />
