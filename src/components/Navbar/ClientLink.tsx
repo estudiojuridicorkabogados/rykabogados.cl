@@ -3,13 +3,10 @@
 import { useRef, useState } from "react";
 import { ChevronDown, HardHat, Landmark } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Popover } from "radix-ui";
 
 import { classNames } from "@/lib/utils/classNames";
 import { URLS } from "@/lib/utils/constants";
-
-import { Button } from "../ui/Button";
 
 const RESERVA_LINKS = [
   {

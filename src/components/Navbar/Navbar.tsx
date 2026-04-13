@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import {
   Disclosure,
   DisclosureButton,
@@ -19,7 +18,6 @@ import Link from "next/link";
 import { URLS } from "@/lib/utils/constants";
 
 import logoBlack from "../../../public/images/logos/logo-black.png";
-import { Button } from "../ui/Button";
 
 import { ClientLink } from "./ClientLink";
 import { HoverPopover } from "./HoverPopover";
@@ -48,14 +46,6 @@ const MOBILE_LINKS = [
   {
     href: URLS.contacts(),
     label: "Contacto",
-  },
-  {
-    href: URLS.speakWithUsTrabajadores(),
-    label: "Reserva una Llamada (para Trabajadores)",
-  },
-  {
-    href: URLS.speakWithUsEmpresas(),
-    label: "Reserva una Llamada (para Empresas)",
   },
 ];
 
@@ -153,11 +143,30 @@ export const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 onClick={() => close()}
-                className="w-full block py-4 text-sm text-black border-b border-black/10 first:pt-0 last:pb-0 last:border-none"
+                className="w-full block py-4 text-sm text-black border-b border-black/10 first:pt-0"
               >
                 {link.label}
               </Link>
             ))}
+            <div className="pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-black/40 pb-2">
+                Reserva una Llamada
+              </p>
+              <Link
+                href={URLS.speakWithUsTrabajadores()}
+                onClick={() => close()}
+                className="w-full block py-3 text-sm text-black border-b border-black/10"
+              >
+                Para Trabajadores
+              </Link>
+              <Link
+                href={URLS.speakWithUsEmpresas()}
+                onClick={() => close()}
+                className="w-full block py-3 text-sm text-black"
+              >
+                Para Empresas
+              </Link>
+            </div>
           </div>
         )}
       </DisclosurePanel>
