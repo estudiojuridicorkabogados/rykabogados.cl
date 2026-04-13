@@ -63,11 +63,7 @@ export const Form: React.FC<FormProps> = ({
 
   return (
     <motion.div variants={itemVariants} className="w-full">
-      <form
-        className="lg:h-[600px]"
-        id="reserva-form"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form id="reserva-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col">
           <motion.div
             className="flex flex-col"

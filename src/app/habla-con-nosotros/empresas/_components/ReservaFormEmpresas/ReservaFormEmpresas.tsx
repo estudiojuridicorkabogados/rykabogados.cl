@@ -93,7 +93,7 @@ export const ReservaFormEmpresas = () => {
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="py-16 lg:py-28 lg:h-screen relative">
+      <div className="py-16 lg:py-28 lg:h-[850px] relative">
         {bookingInfo && (
           <ReservaFormSuccessFeedback bookingInfo={bookingInfo} />
         )}
