@@ -8,24 +8,25 @@ export interface Video {
 export const VIDEOS: Video[] = [
   {
     id: "1",
-    title:
-      "En RK Abogados asesoramos a empresas en procesos de desvinculación laboral:",
+    title: "En RK Abogados defendemos a empresas frente a demandas laborales",
     description:
-      "Redactamos cartas de despido, calculamos indemnizaciones y brindamos apoyo ante contingencias conforme a la normativa vigente.",
-    videoUrl: "https://www.youtube.com/shorts/4L6DvTapUA0",
+      "Evaluamos estrategia, riesgos y alternativas, acompañándote durante todo el proceso judicial.",
+    videoUrl: "https://www.youtube.com/watch?v=oHp5iE3WUmk",
   },
   {
     id: "2",
-    title: "En RK Abogados, prestamos asesoría preventiva en materia laboral:",
+    title:
+      "Actualizamos el Reglamento Interno de Orden, Higiene y Seguridad de tu empresa",
     description:
-      "Revisamos contratos, reglamentos internos y nos encargamos del cumplimiento normativo de tu empresa.",
-    videoUrl: "https://youtube.com/shorts/UBB7fy4mRn4?si=j1TxLm_-8ItmbOeO",
+      "Revisamos, redactamos y actualizamos el reglamento interno conforme a la normativa vigente, para fortalecer el cumplimiento laboral y prevenir contingencias.",
+    videoUrl: "https://www.youtube.com/shorts/smzCvgJqE3A",
   },
   {
     id: "3",
-    title: "En RK Abogados defendemos a empresas frente a demandas laborales:",
+    title:
+      "En RK Abogados acompañamos a empresas en procedimientos de desvinculación:",
     description:
-      "Evaluamos la estrategia, riesgos y alternativas, acompañándote durante todo el proceso judicial.",
-    videoUrl: "https://youtube.com/shorts/zAurtGjy-oc?si=29mHqtlIvBXd2exm",
+      "Brindamos apoyo en la evaluación, preparación y ejecución de desvinculaciones, resguardando el cumplimiento normativo y reduciendo contingencias para la empresa.",
+    videoUrl: "https://www.youtube.com/shorts/7tAqYRJO3Cs",
   },
 ];

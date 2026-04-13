@@ -14,7 +14,7 @@ import { classNames } from "@/lib/utils/classNames";
 
 interface SelectInputProps {
   label: string;
-  options: { id: string | number; label: string }[];
+  options: { id: string | number; label: string; sublabel?: string }[];
   error?: string;
   placeholder?: string;
   value?: string;
@@ -91,10 +91,15 @@ export const SelectInput = ({
                   value={option.label}
                   className="cursor-pointer group relative py-2 pr-9 pl-3 text-white/80 select-none data-focus:outline-hidden hover:bg-accent hover:text-primary"
                 >
-                  <div className="flex items-center">
+                  <div className="flex flex-col items-start">
                     <span className="block font-normal group-data-selected:font-semibold">
                       {option.label}
                     </span>
+                    {option.sublabel && (
+                      <span className="text-xs group-data-selected:font-semibold">
+                        {option.sublabel}
+                      </span>
+                    )}
                   </div>
 
                   <span className="absolute inset-y-0 right-0 flex items-center pr-4 group-not-data-selected:hidden group-data-focus:text-white">

@@ -25,8 +25,8 @@ export const Hero = () => {
 
       <HeroContent
         label="Asesoría laboral integral para empresas y pymes"
-        title="Evita errores laborales que pueden costarle millones"
-        description="Somos el área legal externa de tu empresa. Soporte continuo en derecho laboral, comercial y societario."
+        title="Evita errores laborales que pueden costarte millones"
+        description="Somos el área legal externa de tu empresa. Soporte continuo en materias laborales, comerciales y societarias."
       />
 
       <PricesLink />

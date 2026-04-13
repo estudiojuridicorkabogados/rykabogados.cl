@@ -16,7 +16,7 @@ export const PricingBenefits = () => {
       className="flex flex-col lg:flex-row gap-8 lg:gap-16 bg-white rounded-sm px-8 py-10 lg:px-12 lg:py-12 shadow-sm"
     >
       <motion.h2 variants={itemVariants} className="text-3xl shrink-0 lg:w-56">
-        Un Servicio jurídico flexible y trasparente
+        Un servicio jurídico flexible y trasparente
       </motion.h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">

@@ -9,26 +9,40 @@ import { SelectInput } from "@/components/Input/SelectInput";
 import { FormData } from "./types";
 
 const MOTIVE_ASESORIA_OPTIONS = [
-  { id: 1, label: "Asesoría laboral preventiva y capacitaciones" },
-  { id: 2, label: "Despidos y término de contrato" },
-  { id: 3, label: "Contratos de trabajo y documentación laboral" },
-  { id: 4, label: "Remuneraciones, beneficios y cotizaciones" },
-  { id: 5, label: "Jornadas laborales, turnos y control de asistencia" },
-  { id: 6, label: "Fiscalizaciones y multas de la Inspección del Trabajo" },
-  { id: 7, label: "Juicios laborales y defensa judicial" },
-  {
-    id: 8,
-    label: "Negociación colectiva, sindicatos e investigaciones Ley Karin",
-  },
-  { id: 9, label: "Otras materias" },
+  { id: 1, label: "Asesoría laboral integral para empresas" },
+  { id: 2, label: "Asesoría específica o contigencias legales puntuales" },
+  { id: 3, label: "Necesito orientación general" },
+  { id: 4, label: "No estoy seguro" },
 ];
 
 const TAMANO_EMPRESA_OPTIONS = [
   { id: 1, label: "1-10 trabajadores" },
-  { id: 2, label: "11-25 trabajadores" },
-  { id: 3, label: "26-50 trabajadores" },
-  { id: 4, label: "51-200 trabajadores" },
-  { id: 5, label: "Más de 200 trabajadores" },
+  { id: 2, label: "11-50 trabajadores" },
+  { id: 3, label: "51-200 trabajadores" },
+  { id: 4, label: "Más de 200 trabajadores" },
+];
+
+const COMO_QUERES_AVANZAR_OPTIONS = [
+  {
+    id: 1,
+    label: "Primera asesoría sin costo* (30 minutos)",
+    sublabel: "Evaluamos tu caso y te proponemos una estrategia clara",
+  },
+  {
+    id: 2,
+    label: "Asesoría estratégica (30 minutos - 1.25 UF)",
+    sublabel: "Reunión enfocada en resolver tu problema puntual",
+  },
+  {
+    id: 3,
+    label: "Asesoría estratégica (60 minutos - 2.5 UF)",
+    sublabel: "Análisis completo y propuesta de estrategia legal",
+  },
+  {
+    id: 4,
+    label: "Cotizar servicio mensual o proyecto",
+    sublabel: "Asesoría continua para tu empresa",
+  },
 ];
 
 interface EmpresaInfoStepProps {
@@ -74,7 +88,7 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
         defaultValue=""
         render={({ field }) => (
           <SelectInput
-            label="Motivo de la asesoría"
+            label="¿Qué necesitas?"
             options={MOTIVE_ASESORIA_OPTIONS}
             error={errors.motivoAsesoria?.message}
             {...field}
@@ -97,6 +111,20 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
       />
     </div>
 
+    <Controller
+      name="comoQuieresAvanzar"
+      control={control}
+      defaultValue=""
+      render={({ field }) => (
+        <SelectInput
+          label="¿Cómo quieres avanzar?"
+          options={COMO_QUERES_AVANZAR_OPTIONS}
+          error={errors.comoQuieresAvanzar?.message}
+          {...field}
+        />
+      )}
+    />
+
     <div className="relative flex flex-col gap-2">
       <label
         className="font-bold text-white/80 text-sm lg:text-base pt-2"
@@ -109,7 +137,7 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
         {...register("mensaje")}
         className="border p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-base"
         rows={3}
-        placeholder="Cuéntanos un poco sobre tu caso"
+        placeholder="Describe brevemente tu caso e indícanos el nivel de urgencia. Nuestro equipo revisará tu solicitud antes de contactarte."
       />
       {errors.mensaje && (
         <p className="text-xs text-red-400">{errors.mensaje.message}</p>

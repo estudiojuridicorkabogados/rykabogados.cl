@@ -7,9 +7,13 @@ import { URLS } from "@/lib/utils/constants";
 
 interface ContactButtonProps {
   onClick?: () => void;
+  label?: string;
 }
 
-export const ContactButton: React.FC<ContactButtonProps> = ({ onClick }) => {
+export const ContactButton: React.FC<ContactButtonProps> = ({
+  onClick,
+  label = "MÁS INFORMACIÓN",
+}) => {
   const router = useRouter();
 
   const navigateToContacto = () => {
@@ -24,11 +28,11 @@ export const ContactButton: React.FC<ContactButtonProps> = ({ onClick }) => {
   return (
     <Button
       className="w-full lg:w-fit"
-      variant="outline"
+      variant="dark"
       onClick={navigateToContacto}
       animateOnClick
     >
-      MÁS INFORMACIÓN
+      {label}
     </Button>
   );
 };

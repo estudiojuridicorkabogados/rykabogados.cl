@@ -12,7 +12,7 @@ interface WhatsappLinkProps {
   className?: string;
   text?: string;
   showIcon?: boolean;
-  variant?: "button" | "link";
+  variant?: "button" | "link" | "free-text";
   greenButton?: boolean;
   outlinePrimary?: boolean;
 }
@@ -40,6 +40,23 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
     // Call existing conversion tracking for backward compatibility
     trackWhatsappConversion();
   };
+
+  if (variant === "free-text") {
+    return (
+      <a
+        href={whatsappUrl}
+        onClick={handleClick}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classNames(
+          "text-black hover:underline font-medium hover:text-primary/80 cursor-pointer flex items-center gap-2 text-sm lg:text-base"
+        )}
+      >
+        <WhatsappIcon className="w-4 h-4 fill-current text-green-700 group-hover:text-white transition-colors" />
+        {text}
+      </a>
+    );
+  }
 
   if (variant === "link") {
     return (

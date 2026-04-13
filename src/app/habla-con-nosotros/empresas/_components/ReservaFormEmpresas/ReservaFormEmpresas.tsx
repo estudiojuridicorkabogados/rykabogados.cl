@@ -133,14 +133,13 @@ export const ReservaFormEmpresas = () => {
                 variants={itemVariants}
                 className="text-3xl lg:text-4xl md:text-5xl font-semibold"
               >
-                Reserva una reunión con RK Abogados
+                Reserva reunión inicial con uno de nuestros abogados
               </motion.h2>
               <motion.p
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
-                Acompañamos a tu empresa en la definición de estrategias legales
-                claras, preventivas y alineadas con tus objetivos.
+                Un abogado te contactará en menos de <b>24 horas hábiles</b>.
               </motion.p>
             </div>
 

@@ -44,8 +44,7 @@ export async function submitBookACallFormEmpresas(
       };
     }
 
-    const notes =
-      typeof data.mensaje === "string" ? data.mensaje : "";
+    const notes = typeof data.mensaje === "string" ? data.mensaje : "";
 
     const santiagoStartTime = fromZonedTime(
       `${data.date} ${data.timeSlot}`,
@@ -61,6 +60,7 @@ export async function submitBookACallFormEmpresas(
         tamanoEmpresa: data.tamanoEmpresa,
         phoneNumber: data.phoneNumber,
         motivoAsesoria: data.motivoAsesoria,
+        comoQuieresAvanzar: data.comoQuieresAvanzar,
         notes,
         userEmail: data.email,
         startTime: santiagoStartTime.toISOString(),
@@ -84,6 +84,7 @@ export async function submitBookACallFormEmpresas(
         notes,
         motivoAsesoria: data.motivoAsesoria,
         tamanoEmpresa: data.tamanoEmpresa,
+        comoQuieresAvanzar: data.comoQuieresAvanzar,
         eventHtmlLink: result.htmlLink,
       },
       sessionCode
@@ -103,6 +104,7 @@ interface NotificationEmailArgs {
   notes: string;
   motivoAsesoria: string;
   tamanoEmpresa: string;
+  comoQuieresAvanzar: string;
   eventHtmlLink: string;
 }
 
@@ -137,6 +139,7 @@ async function dispatchNotificationEmails(
         <p><strong>Teléfono:</strong> ${args.phoneNumber}</p>
         <p><strong>Motivo de la asesoría:</strong> ${args.motivoAsesoria}</p>
         <p><strong>Tamaño de la empresa:</strong> ${args.tamanoEmpresa}</p>
+        <p><strong>Cómo quiere avanzar:</strong> ${args.comoQuieresAvanzar}</p>
         <p><strong>Notas:</strong> ${args.notes}</p>
         <p><strong>Codigo:</strong> ${sessionCode}</p>
       `,

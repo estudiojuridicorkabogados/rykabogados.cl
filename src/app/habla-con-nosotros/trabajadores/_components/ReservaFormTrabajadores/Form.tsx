@@ -124,7 +124,7 @@ export const Form: React.FC<FormProps> = ({
                       animateOnClick
                       onClick={() => null}
                       variant="white-outline-on-primary"
-                      className="w-full lg:w-40 group"
+                      className="w-full lg:w-60 group"
                       type="submit"
                       disabled={pending}
                     >
@@ -132,7 +132,7 @@ export const Form: React.FC<FormProps> = ({
                         <LoadingSpinner />
                       ) : (
                         <>
-                          Enviar{" "}
+                          Agenda tu asesoría{" "}
                           <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
                         </>
                       )}

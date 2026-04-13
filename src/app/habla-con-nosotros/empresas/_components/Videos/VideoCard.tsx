@@ -19,7 +19,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlayVideo }) => {
       className="w-full flex flex-col justify-between gap-6"
     >
       <div>
-        <h3 className="text-2xl text-black mb-2">{video.title}</h3>
+        <h3 className="text-xl text-black mb-2">{video.title}</h3>
 
         <p className="text-black">{video.description}</p>
       </div>

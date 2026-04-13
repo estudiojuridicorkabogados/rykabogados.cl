@@ -11,6 +11,7 @@ export const formSchema = z.object({
   date: z.date({ message: "Selecciona una fecha" }).nullable(),
   motivoAsesoria: z.string().min(1, "Selecciona un motivo de la asesoría"),
   tamanoEmpresa: z.string().min(1, "Selecciona el tamano de la empresa"),
+  comoQuieresAvanzar: z.string().min(1, "Selecciona cómo quieres avanzar"),
   mensaje: z.string(),
 });
 

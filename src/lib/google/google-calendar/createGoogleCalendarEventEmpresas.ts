@@ -14,6 +14,7 @@ interface EventDetails {
   endTime: string; // ISO string
   motivoAsesoria: string;
   tamanoEmpresa: string;
+  comoQuieresAvanzar: string;
 }
 
 export async function createGoogleCalendarEventEmpresas(
@@ -47,6 +48,7 @@ function createEventData(eventDetails: EventDetails, sessionCode: string) {
     Teléfono: ${eventDetails.phoneNumber}\n
     Motivo de la asesoría: ${eventDetails.motivoAsesoria}\n
     Tamaño de la empresa: ${eventDetails.tamanoEmpresa}\n
+    Cómo quiere avanzar: ${eventDetails.comoQuieresAvanzar}\n
     Cuentanos un poco sobre tu caso: ${eventDetails.notes}\n
     Codigo: ${sessionCode}\n
     `,

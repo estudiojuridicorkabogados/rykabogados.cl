@@ -33,7 +33,7 @@ export const PLANS = [
   },
   {
     name: "AVANZADO",
-    hours: "35 horas",
+    hours: "+35 horas",
     monthlyValue: "60 UF",
     hourValue: "1.7 UF",
     additionalHour: "1.9 UF",

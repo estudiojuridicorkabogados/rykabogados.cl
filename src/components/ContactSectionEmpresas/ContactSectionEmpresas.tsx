@@ -1,3 +1,5 @@
+import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
+
 import { ContactButton } from "./ContactButton";
 
 interface ContactSectionEmpresasProps {
@@ -9,29 +11,54 @@ export const ContactSectionEmpresas: React.FC<ContactSectionEmpresasProps> = ({
   onContactClick,
 }) => {
   return (
-    <section className="relative py-16 lg:py-32 bg-gray-60">
-      <div className="z-10 section-container flex flex-col lg:flex-row justify-center gap-16 lg:gap-16P">
-        <div className="w-full lg:w-1/2 flex">
-          <h3 className="text-3xl lg:text-5xl text-black">
-            Agenda una asesoría sin costo de 30 minutos
-          </h3>
+    <section className="bg-accent text-primary w-full py-14 lg:py-20">
+      <div className="section-container flex flex-col lg:flex-row items-center">
+        {/* Left column — light */}
+        <div className="pb-8 lg:pb-0 flex-1 flex items-center lg:pr-16">
+          <div className="max-w-md">
+            <h2 className="text-3xl lg:text-4xl font-serif mb-5 leading-snug text-black">
+              Agenda una asesoría inicial sin costo (30 minutos)
+            </h2>
+            <p className="text-base leading-relaxed">
+              Analizamos tu situación y te entregamos una orientación clara para
+              que tomes decisiones informadas desde el inicio.
+            </p>
+          </div>
         </div>
 
-        <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:gap-4 text-black">
-          <span className="uppercase text-sm font-bold tracking-[2px]">
-            ¿Tienes una situación legal que resolver?
-          </span>
+        {/* Right column — dark */}
+        <div className="flex-1 flex items-center border-t-2 border-primary lg:border-t-0 lg:border-l-2 lg:border-primary lg:pl-16">
+          <div className="flex flex-col gap-4 py-8">
+            <span className="uppercase text-xs text-primary font-bold tracking-[3px]">
+              ¿Tienes una situación legal que resolver?
+            </span>
 
-          <h2 className="text-3xl lg:text-4xl font-bold">
-            Agendar reunión con abogado
-          </h2>
+            <h3 className="text-2xl lg:text-4xl font-serif leading-snug">
+              Habla con un abogado hoy
+            </h3>
 
-          <p className="mb-6">
-            Conversemos. Analizamos tu caso y te entregamos orientación clara y
-            concreta para tomar decisiones informadas y con foco en tu negocio.
-          </p>
+            <p className="text-sm leading-relaxed">
+              Revisamos tu caso, identificamos riesgos y definimos los próximos
+              pasos con foco en tu empresa.
+            </p>
 
-          <ContactButton onClick={onContactClick} />
+            <div className="mt-2 flex flex-col gap-4">
+              <ContactButton
+                onClick={onContactClick}
+                label="AGENDA TU ASESORÍA →"
+              />
+
+              <p className="text-sm">
+                Primera asesoría sin costo <br />
+                Respuesta en menos de 24 horas.
+              </p>
+
+              <WhatsappLink
+                variant="free-text"
+                text="O contáctanos directamente por WhatsApp"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
