@@ -86,7 +86,7 @@ export const Slogan = () => {
           >
             <Button variant="reserva-form-link" asChild>
               <a href="#reserva-form-section" onClick={handleScrollToForm}>
-                Reserva una llamada
+                Agenda una asesoría
               </a>
             </Button>
 

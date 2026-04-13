@@ -22,8 +22,8 @@
     "db:check": "drizzle-kit check"
   },
   "dependencies": {
-    "@ai-sdk/openai": "3.0.52",
-    "@ai-sdk/react": "3.0.160",
+    "@ai-sdk/openai": "3.0.53",
+    "@ai-sdk/react": "3.0.162",
     "@apollo/client": "4.1.7",
     "@apollo/client-integration-nextjs": "0.14.5",
     "@contentful/rich-text-plain-text-renderer": "17.2.1",
@@ -35,11 +35,11 @@
     "@vercel/analytics": "2.0.1",
     "@vercel/functions": "3.4.3",
     "@vercel/speed-insights": "2.0.0",
-    "ai": "6.0.158",
+    "ai": "6.0.160",
     "babel-plugin-react-compiler": "1.0.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
-    "contentful": "11.12.0",
+    "contentful": "11.12.1",
     "date-fns": "4.1.0",
     "date-fns-tz": "3.2.0",
     "dotenv": "17.4.2",
@@ -92,7 +92,7 @@
     "eslint-config-next": "16.2.3",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-simple-import-sort": "13.0.0",
-    "prettier": "3.8.2",
+    "prettier": "3.8.3",
     "tailwindcss": "4.2.2",
     "tsx": "4.21.0",
     "typescript": "6.0.2"

@@ -7,8 +7,6 @@ import { Button } from "@/components/ui/Button";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { URLS } from "@/lib/utils/constants";
 
-import { Stats } from "./Stats";
-
 export const AboutSection = () => {
   const router = useRouter();
 
@@ -34,7 +32,7 @@ export const AboutSection = () => {
 
           <motion.p
             variants={itemVariants}
-            className="lg:text-lg text-gray-600 leading-relaxed mb-2"
+            className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:max-w-2xl"
           >
             En Retamales Kowalski Abogados brindamos soluciones jurídicas
             efectivas y personalizadas, adaptadas a las necesidades reales de
@@ -56,22 +54,6 @@ export const AboutSection = () => {
               Contáctanos
             </Button>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="flex items-center lg:h-full w-full lg:flex-1 lg:pt-4 gap-6"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-        >
-          <Stats
-            className="lg:w-[206px]"
-            title="Trabajadores"
-            value={1490}
-            startFrom={900}
-          />
-          <Stats className="lg:w-[153px]" title="Empresas" value={100} />
         </motion.div>
 
         <motion.div

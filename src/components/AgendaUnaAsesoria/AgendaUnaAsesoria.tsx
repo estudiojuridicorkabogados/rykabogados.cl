@@ -21,7 +21,15 @@ const RESERVA_LINKS = [
   },
 ];
 
-export const ClientLink = () => {
+interface AgendaUnaAsesoriaProps {
+  variant?: "white" | "dark";
+  className?: string;
+}
+
+export const AgendaUnaAsesoria: React.FC<AgendaUnaAsesoriaProps> = ({
+  variant = "white",
+  className,
+}) => {
   const [open, setOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -44,12 +52,18 @@ export const ClientLink = () => {
           "whitespace-nowrap uppercase",
           "inline-flex items-center justify-center gap-2",
           "text-xs font-medium transition-all duration-300",
-          "h-9 px-3",
-          "bg-white text-black hover:bg-gray-900 hover:text-white border border-gray-900",
-          "outline-none"
+          "h-10 px-3",
+          "outline-none",
+          {
+            "bg-white text-black hover:bg-gray-900 hover:text-white border border-gray-900":
+              variant === "white",
+            "bg-gray-900 text-white hover:bg-white hover:text-gray-900 border border-gray-900":
+              variant === "dark",
+          },
+          className
         )}
       >
-        Reserva una Llamada
+        Agenda una asesoría
         <ChevronDown
           className={classNames("size-3.5 transition-transform duration-300", {
             "rotate-180": open,
@@ -62,7 +76,7 @@ export const ClientLink = () => {
           sideOffset={4}
           onMouseEnter={handleOpen}
           onMouseLeave={handleClose}
-          className="flex flex-col justify-center bg-white z-50 px-4 rounded-sm border-black/10 border transition duration-200 ease-in-out min-w-[200px] outline-none"
+          className="flex w-(--radix-popover-trigger-width) flex-col justify-center bg-white z-50 px-4 rounded-sm border-black/10 border transition duration-200 ease-in-out outline-none"
         >
           {RESERVA_LINKS.map(({ href, label, icon: Icon }) => (
             <Link

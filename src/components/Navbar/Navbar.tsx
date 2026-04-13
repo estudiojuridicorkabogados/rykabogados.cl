@@ -18,8 +18,8 @@ import Link from "next/link";
 import { URLS } from "@/lib/utils/constants";
 
 import logoBlack from "../../../public/images/logos/logo-black.png";
+import { AgendaUnaAsesoria } from "../AgendaUnaAsesoria/AgendaUnaAsesoria";
 
-import { ClientLink } from "./ClientLink";
 import { HoverPopover } from "./HoverPopover";
 
 const MOBILE_LINKS = [
@@ -112,7 +112,7 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex lg:items-center lg:justify-center h-full lg:w-[220px]">
-          <ClientLink />
+          <AgendaUnaAsesoria variant="white" />
         </div>
 
         {/* Mobile menu button */}
@@ -150,7 +150,7 @@ export const Navbar = () => {
             ))}
             <div className="pt-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-black/40 pb-2">
-                Reserva una Llamada
+                Agenda una asesoría
               </p>
               <Link
                 href={URLS.speakWithUsTrabajadores()}

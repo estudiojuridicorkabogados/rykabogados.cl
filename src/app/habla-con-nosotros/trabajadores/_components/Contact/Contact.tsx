@@ -11,7 +11,7 @@ export const Contact = () => {
 
   return (
     <ContactSectionLight
-      contactLabel="Reserva una llamada"
+      contactLabel="Agenda una asesoría"
       onContactClick={handleContactClick}
     />
   );

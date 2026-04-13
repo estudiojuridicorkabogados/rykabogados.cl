@@ -1,18 +1,7 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-
-import { Button } from "@/components/ui/Button";
+import { AgendaUnaAsesoria } from "@/components/AgendaUnaAsesoria/AgendaUnaAsesoria";
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
-import { URLS } from "@/lib/utils/constants";
 
 export const HablaConNosotros: React.FC = () => {
-  const router = useRouter();
-
-  // TODO: Add way to select different areas
-  const navigateToHablaConNosotrosTrabajadores = () =>
-    router.push(URLS.speakWithUsTrabajadores());
-
   return (
     <div className="bg-[#F3F0EC] p-6 lg:p-8 w-full lg:w-[340px] h-fit lg:sticky lg:top-12">
       <span className="text-xl text-black mb-6 font-bold">
@@ -24,15 +13,7 @@ export const HablaConNosotros: React.FC = () => {
         la información que necesitas para tomar la mejor decisión.
       </p>
 
-      <Button
-        className="w-full"
-        variant="dark"
-        size="sm"
-        animateOnClick
-        onClick={navigateToHablaConNosotrosTrabajadores}
-      >
-        Reserva una llamada
-      </Button>
+      <AgendaUnaAsesoria variant="dark" className="lg:w-full" />
 
       <WhatsappLink greenButton className="w-full mt-4" />
     </div>
