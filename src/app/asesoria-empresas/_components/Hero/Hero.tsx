@@ -1,5 +1,5 @@
 import { HeroSection } from "@/components/Hero/HeroSection";
-// import { URLS } from "@/lib/utils/constants";
+import { URLS } from "@/lib/utils/constants";
 
 const DESCRIPTION = `
 En RK Abogados brindamos una asesoría laboral integral enfocada en la prevención, la gestión estratégica y la resolución eficiente de conflictos. Apoyamos a las organizaciones en la correcta aplicación de la normativa laboral, la elaboración de políticas internas y la construcción de relaciones laborales sólidas y sostenibles.
@@ -13,11 +13,10 @@ export const AsesoriaEmpresasHero = () => {
       title="Asesoría Empresas"
       align="top"
       description={DESCRIPTION}
-      // @TODO EMPRESA GO LIVE
-      // button={{
-      //   label: "Agenda una asesoría",
-      //   href: URLS.speakWithUsEmpresas(),
-      // }}
+      button={{
+        label: "Agenda una asesoría",
+        href: URLS.speakWithUsEmpresas(),
+      }}
       image={{
         src: "/images/heros/colonas.webp",
         alt: "Nuestro equipo trabajando",

@@ -24,15 +24,6 @@ import { Button } from "../ui/Button";
 import { ClientLink } from "./ClientLink";
 import { HoverPopover } from "./HoverPopover";
 
-// @TODO EMPRESA GO LIVE
-function ClientLinkFallback() {
-  return (
-    <Button className="w-full lg:w-fit" variant="default" size="sm" asChild>
-      <Link href={URLS.speakWithUsTrabajadores()}>Reserva una Llamada</Link>
-    </Button>
-  );
-}
-
 const MOBILE_LINKS = [
   {
     href: URLS.asesoriaTrabajadores(),
@@ -58,16 +49,14 @@ const MOBILE_LINKS = [
     href: URLS.contacts(),
     label: "Contacto",
   },
-  // @TODO EMPRESA GO LIVE
   {
     href: URLS.speakWithUsTrabajadores(),
-    label: "Reserva una Llamada",
-    // label: "Reserva una Llamada (para Trabajadores)",
+    label: "Reserva una Llamada (para Trabajadores)",
   },
-  // {
-  //   href: URLS.speakWithUsEmpresas(),
-  //   label: "Reserva una Llamada (para Empresas)",
-  // },
+  {
+    href: URLS.speakWithUsEmpresas(),
+    label: "Reserva una Llamada (para Empresas)",
+  },
 ];
 
 const SERVICIOS_LINKS = [
@@ -133,9 +122,7 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex lg:items-center lg:justify-center h-full lg:w-[220px]">
-          <Suspense fallback={<ClientLinkFallback />}>
-            <ClientLink />
-          </Suspense>
+          <ClientLink />
         </div>
 
         {/* Mobile menu button */}
