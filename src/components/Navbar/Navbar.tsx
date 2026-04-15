@@ -157,14 +157,14 @@ export const Navbar = () => {
                 onClick={() => close()}
                 className="w-full block py-3 text-sm text-black border-b border-black/10"
               >
-                Para Trabajadores
+                Trabajadores
               </Link>
               <Link
                 href={URLS.speakWithUsEmpresas()}
                 onClick={() => close()}
                 className="w-full block py-3 text-sm text-black"
               >
-                Para Empresas
+                Empresas
               </Link>
             </div>
           </div>
