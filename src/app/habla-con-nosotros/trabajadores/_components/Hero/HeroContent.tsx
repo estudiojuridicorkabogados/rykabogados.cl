@@ -45,7 +45,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
 
       <motion.h1
         variants={itemVariants}
-        className="lg:max-w-2xl text-3xl lg:text-5xl 2xl:text-7xl mb-4 lg:mb-8 text-gray-60"
+        className="text-gray-60 lg:max-w-3xl 2xl:max-w-4xl text-3xl lg:text-5xl 2xl:text-7xl mb-4 lg:mb-8"
       >
         {title}
       </motion.h1>
