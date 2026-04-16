@@ -13,6 +13,7 @@ import {
 
 interface UseTrackingReturn {
   whatsappUrl: string;
+  shortCode: string;
   logToSheet: (params: Omit<LogToSheetParams, "gclid" | "shortCode">) => void;
   fireConversion: (sendTo?: string) => void;
 }
@@ -37,26 +38,30 @@ export function useTracking(): UseTrackingReturn {
     }
   }, [searchParams]);
 
+  // Only generate a case code when a GCLID is present
+  const shortCode = useMemo(() => (gclid ? getSessionCode() : ""), [gclid]);
+
   // Memoized logToSheet wrapper that includes shortCode and gclid
   const logToSheetWrapper = useCallback(
     (params: Omit<LogToSheetParams, "gclid" | "shortCode">) => {
       logToSheet({
         ...params,
         gclid,
-        shortCode: getSessionCode(),
+        shortCode,
       });
     },
-    [gclid]
+    [gclid, shortCode]
   );
 
   // Memoized buildWhatsAppUrl wrapper that includes shortCode and gclid
   const whatsappUrl = useMemo(
-    () => buildWhatsAppUrl({ gclid, shortCode: getSessionCode() }),
-    [gclid]
+    () => buildWhatsAppUrl({ gclid, shortCode }),
+    [gclid, shortCode]
   );
 
   return {
     whatsappUrl,
+    shortCode,
     logToSheet: logToSheetWrapper,
     fireConversion,
   };

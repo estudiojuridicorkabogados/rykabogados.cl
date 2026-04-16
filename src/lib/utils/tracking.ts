@@ -78,7 +78,7 @@ export function logToSheet({
 export function buildWhatsAppUrl({
   shortCode,
 }: BuildWhatsAppUrlParams): string {
-  const msg = `${DEFAULT_MSG}\nCaso: ${shortCode}`;
+  const msg = shortCode ? `${DEFAULT_MSG}\nCaso: ${shortCode}` : DEFAULT_MSG;
 
   return (
     "https://api.whatsapp.com/send?phone=" +

@@ -10,7 +10,6 @@ import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { trackBookACallFormConversion } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
-import { getSessionCode } from "@/lib/utils/tracking";
 
 import { Form } from "./Form";
 import {
@@ -26,7 +25,7 @@ const formatDate = (date: Date) => {
 export const ReservaFormEmpresas = () => {
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const { logToSheet } = useTracking();
+  const { logToSheet, shortCode } = useTracking();
 
   const [bookingInfo, setBookingInfo] = useState<BookingInfo | null>(null);
 
@@ -53,11 +52,10 @@ export const ReservaFormEmpresas = () => {
 
         trackBookACallFormConversion();
 
-        const sessionCode = getSessionCode();
         const result = await submitBookACallFormEmpresas(
           sendData,
           token,
-          sessionCode
+          shortCode
         );
 
         if (result.success && data.date) {

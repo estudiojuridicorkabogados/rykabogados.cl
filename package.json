@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "3.0.53",
-    "@ai-sdk/react": "3.0.164",
+    "@ai-sdk/react": "3.0.167",
     "@apollo/client": "4.1.7",
     "@apollo/client-integration-nextjs": "0.14.5",
     "@contentful/rich-text-plain-text-renderer": "17.2.1",
@@ -35,7 +35,7 @@
     "@vercel/analytics": "2.0.1",
     "@vercel/functions": "3.4.3",
     "@vercel/speed-insights": "2.0.0",
-    "ai": "6.0.162",
+    "ai": "6.0.165",
     "babel-plugin-react-compiler": "1.0.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
