@@ -159,6 +159,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
 ];
 
 export const CONTACTO_EMAIL = "contacto@rkabogados.cl";
+export const NOTIFICACIONES_EMAIL = "notificaciones@rkabogados.cl";
 export const CAMILA_EMAIL = "camila.retamales@rkabogados.cl";
 
 export const ADDRESS = "Padre Mariano 82, oficina 704, Providencia";

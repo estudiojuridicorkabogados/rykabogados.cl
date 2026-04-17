@@ -4,6 +4,7 @@ import { google } from "googleapis";
 export interface EmailOptions {
   to: string;
   subject: string;
+  cc?: string;
   html: string;
   from: string;
   replyTo?: string;
@@ -26,6 +27,7 @@ export async function sendEmail({
   subject,
   html,
   from,
+  cc,
   replyTo,
   oauth2Client,
 }: EmailOptions) {
@@ -33,6 +35,7 @@ export async function sendEmail({
   const messageParts = [
     `From: ${from || "RYK Abogados"}`,
     `To: ${to}`,
+    ...(cc ? [`Cc: ${cc}`] : []),
     ...(replyTo ? [`Reply-To: ${replyTo}`] : []),
     `Subject: ${encodeSubject(subject)}`,
     "MIME-Version: 1.0",

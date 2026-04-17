@@ -7,7 +7,11 @@ import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
 import { createGoogleCalendarEventTrabajadores } from "@/lib/google/google-calendar/createGoogleCalendarEventTrabajadores";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
-import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
+import {
+  CAMILA_EMAIL,
+  CONTACTO_EMAIL,
+  NOTIFICACIONES_EMAIL,
+} from "@/lib/utils/constants";
 
 import { FormData } from "../app/habla-con-nosotros/trabajadores/_components/ReservaFormTrabajadores/types";
 
@@ -109,25 +113,27 @@ async function dispatchNotificationEmails(
 ) {
   const gmailOAuth2Client = await getGmailOAuth2Client();
 
-  await sendEmail({
-    to: args.userEmail,
-    subject: "Confirmación de tu solicitud - RK Abogados",
-    from: CONTACTO_EMAIL,
-    replyTo: CONTACTO_EMAIL,
-    html: `
+  await Promise.all([
+    sendEmail({
+      to: args.userEmail,
+      subject: "Confirmación de tu solicitud - RK Abogados",
+      from: CONTACTO_EMAIL,
+      replyTo: CONTACTO_EMAIL,
+      html: `
         <p>Hola ${args.name},</p>
         <p>Hemos recibido tu solicitud de llamada.</p>
         <p>Nos pondremos en contacto contigo para confirmar la cita o proponerte un horario alternativo si el horario seleccionado no estuviera disponible.</p>
         <br>
         <p>Saludos,<br><strong>RK Abogados</strong></p>
       `,
-    oauth2Client: gmailOAuth2Client,
-  });
+      oauth2Client: gmailOAuth2Client,
+    }),
 
-  await sendEmail({
-    to: CAMILA_EMAIL,
-    subject: "Nueva solicitud de llamada",
-    html: `
+    sendEmail({
+      to: CAMILA_EMAIL,
+      cc: NOTIFICACIONES_EMAIL,
+      subject: "Nueva solicitud de llamada",
+      html: `
         <p>Nueva solicitud de llamada de rkabogados.cl (Trabajadores)</p>
         <p><strong>Nombre:</strong> ${args.name}</p>
         <p><strong>Email:</strong> ${args.userEmail}</p>
@@ -137,8 +143,9 @@ async function dispatchNotificationEmails(
         <p><strong>Notas:</strong> ${args.notes}</p>
         <p><strong>Codigo:</strong> ${sessionCode}</p>
       `,
-    from: CONTACTO_EMAIL,
-    replyTo: CONTACTO_EMAIL,
-    oauth2Client: gmailOAuth2Client,
-  });
+      from: CONTACTO_EMAIL,
+      replyTo: CONTACTO_EMAIL,
+      oauth2Client: gmailOAuth2Client,
+    }),
+  ]);
 }
