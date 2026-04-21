@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
 
 import {
   buildWhatsAppUrl,
@@ -19,24 +18,17 @@ interface UseTrackingReturn {
 }
 
 export function useTracking(): UseTrackingReturn {
-  const searchParams = useSearchParams();
-
   const gclid = useMemo(() => {
-    const urlGclid = searchParams.get("gclid");
-
-    if (urlGclid) {
-      return urlGclid;
-    }
-
-    // Then try cookie (set by middleware)
     try {
-      const match = document.cookie.match(/(?:^|; )gclid=([^;]+)/);
+      const urlGclid = new URLSearchParams(window.location.search).get("gclid");
+      if (urlGclid) return urlGclid;
 
+      const match = document.cookie.match(/(?:^|; )gclid=([^;]+)/);
       return match ? decodeURIComponent(match[1]) : "";
     } catch {
       return "";
     }
-  }, [searchParams]);
+  }, []);
 
   // Only generate a case code when a GCLID is present
   const shortCode = useMemo(() => (gclid ? getSessionCode() : ""), [gclid]);

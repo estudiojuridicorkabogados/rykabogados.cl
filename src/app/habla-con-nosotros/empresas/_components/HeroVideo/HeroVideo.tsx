@@ -6,7 +6,7 @@ interface HeroVideoProps {
 
 export const HeroVideo: React.FC<HeroVideoProps> = ({ videoId }) => {
   return (
-    <section className="w-full h-[80vh]">
+    <section id="hero-video-section" className="w-full h-[80vh]">
       <iframe
         src={`https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&controls=0&iv_load_policy=3&start=1`}
         title="Video"

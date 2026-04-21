@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { OurTeam } from "../_components/OurTeam/OurTeam";
@@ -63,9 +62,7 @@ export default function HablaConNosotrosTrabajadores() {
       <div>
         <Hero />
 
-        <Suspense>
-          <ReservaFormTrabajadores />
-        </Suspense>
+        <ReservaFormTrabajadores />
 
         <Areas />
 
