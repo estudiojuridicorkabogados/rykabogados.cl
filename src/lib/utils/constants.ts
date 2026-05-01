@@ -57,15 +57,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
     email: "sebastian.kowalski@rkabogados.cl",
   },
   {
-    name: "Luciano Ascui Mestre",
-    role: "Abogado",
-    photo: "/images/team/luciano.webp",
-    linkedin: "https://www.linkedin.com/in/luciano-ignacio-ascui-67784a12a",
-    phone: "+56 9 7873 4201",
-    phoneLink: "tel:+56978734201",
-    email: "luciano.ascui@rkabogados.cl",
-  },
-  {
     name: "Nicole Ulloa Evert",
     role: "Abogada",
     photo: "/images/team/nicole.webp",
