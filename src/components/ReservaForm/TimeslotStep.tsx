@@ -20,25 +20,9 @@ interface TimeSlotStepProps<T extends FieldValues & FieldsWithTimeSlotAndDate> {
   register: UseFormRegister<T>;
   control: Control<T>;
   errors: FieldErrors<FieldsWithTimeSlotAndDate>;
+  availableTimeSlots: string[];
   setValue: UseFormSetValue<T>;
 }
-
-const timeSlots = [
-  "11:00",
-  "11:30",
-  "12:00",
-  "12:30",
-  "13:00",
-  "13:30",
-  "14:00",
-  "14:30",
-  "15:00",
-  "15:30",
-  "16:00",
-  "16:30",
-  "17:00",
-  "17:30",
-];
 
 export const TimeSlotStep = <
   T extends FieldValues & FieldsWithTimeSlotAndDate,
@@ -46,6 +30,7 @@ export const TimeSlotStep = <
   register,
   control,
   errors,
+  availableTimeSlots,
   setValue,
 }: TimeSlotStepProps<T>) => {
   const selectedDate = useWatch({
@@ -67,8 +52,8 @@ export const TimeSlotStep = <
   }, [isFriday, selectedTimeSlot, setValue]);
 
   const availableSlots = isFriday
-    ? timeSlots.filter((slot) => slot < "16:30")
-    : timeSlots;
+    ? availableTimeSlots.filter((slot) => slot < "16:30")
+    : availableTimeSlots;
 
   return (
     <div className="flex flex-col gap-8">

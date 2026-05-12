@@ -22,6 +22,17 @@ interface FormProps {
   onSubmit: (formData: FormData) => void;
 }
 
+const AVAILABLE_TIME_SLOTS = [
+  "12:00",
+  "12:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
+];
+
 export const Form: React.FC<FormProps> = ({
   currentStep,
   pending,
@@ -80,6 +91,7 @@ export const Form: React.FC<FormProps> = ({
                   transition={{ duration: 0.3 }}
                 >
                   <TimeSlotStep
+                    availableTimeSlots={AVAILABLE_TIME_SLOTS}
                     register={register}
                     control={control}
                     errors={errors}
