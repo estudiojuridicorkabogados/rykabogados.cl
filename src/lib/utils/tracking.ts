@@ -16,6 +16,7 @@ export interface LogToSheetParams {
 interface BuildWhatsAppUrlParams {
   gclid: string;
   shortCode: string;
+  message?: string;
 }
 
 /**
@@ -77,8 +78,10 @@ export function logToSheet({
  */
 export function buildWhatsAppUrl({
   shortCode,
+  message,
 }: BuildWhatsAppUrlParams): string {
-  const msg = shortCode ? `${DEFAULT_MSG}\nCaso: ${shortCode}` : DEFAULT_MSG;
+  const baseMsg = message ?? DEFAULT_MSG;
+  const msg = shortCode ? `${baseMsg}\nCaso: ${shortCode}` : baseMsg;
 
   return (
     "https://api.whatsapp.com/send?phone=" +
