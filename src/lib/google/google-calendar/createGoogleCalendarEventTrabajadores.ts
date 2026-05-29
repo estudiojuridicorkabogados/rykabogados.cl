@@ -1,6 +1,10 @@
 import { google } from "googleapis";
 
-import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
+import {
+  CAMILA_EMAIL,
+  CONTACTO_EMAIL,
+  NOTIFICACIONES_EMAIL,
+} from "@/lib/utils/constants";
 
 import { getCalendarOAuth2Client } from "./getCalendarOAuth2Client";
 
@@ -39,7 +43,11 @@ export async function createGoogleCalendarEventTrabajadores(
 function createEventData(eventDetails: EventDetails, sessionCode: string) {
   return {
     summary: eventDetails.title,
-    attendees: [{ email: CAMILA_EMAIL }, { email: eventDetails.userEmail }],
+    attendees: [
+      { email: CAMILA_EMAIL },
+      { email: NOTIFICACIONES_EMAIL },
+      { email: eventDetails.userEmail },
+    ],
     guestsCanModify: true,
     description: `
     Nombre: ${eventDetails.name}\n

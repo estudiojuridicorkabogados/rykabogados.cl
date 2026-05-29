@@ -135,8 +135,7 @@ async function dispatchNotificationEmails(
     }),
 
     sendEmail({
-      to: CAMILA_EMAIL,
-      cc: NOTIFICACIONES_EMAIL,
+      to: [CAMILA_EMAIL, NOTIFICACIONES_EMAIL],
       subject: "Nueva solicitud de llamada",
       html: `
           <p>Nueva solicitud de llamada de rkabogados.cl (Empresas)</p>

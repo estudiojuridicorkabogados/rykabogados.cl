@@ -1,10 +1,12 @@
 import { OAuth2Client } from "google-auth-library";
 import { google } from "googleapis";
 
+type EmailRecipient = string | string[];
+
 export interface EmailOptions {
-  to: string;
+  to: EmailRecipient;
   subject: string;
-  cc?: string;
+  cc?: EmailRecipient;
   html: string;
   from: string;
   replyTo?: string;
@@ -17,6 +19,10 @@ export interface EmailOptions {
 function encodeSubject(subject: string): string {
   if (!/[\u0080-\uFFFF]/.test(subject)) return subject;
   return `=?UTF-8?B?${Buffer.from(subject, "utf-8").toString("base64")}?=`;
+}
+
+function formatRecipients(recipients: EmailRecipient): string {
+  return Array.isArray(recipients) ? recipients.join(", ") : recipients;
 }
 
 /**
@@ -34,8 +40,8 @@ export async function sendEmail({
   // Create the email message in RFC 2822 format
   const messageParts = [
     `From: ${from || "RYK Abogados"}`,
-    `To: ${to}`,
-    ...(cc ? [`Cc: ${cc}`] : []),
+    `To: ${formatRecipients(to)}`,
+    ...(cc ? [`Cc: ${formatRecipients(cc)}`] : []),
     ...(replyTo ? [`Reply-To: ${replyTo}`] : []),
     `Subject: ${encodeSubject(subject)}`,
     "MIME-Version: 1.0",
