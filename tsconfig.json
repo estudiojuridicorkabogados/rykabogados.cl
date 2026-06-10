@@ -39,6 +39,7 @@
     "node_modules",
     ".next",
     "out",
+    "scripts",
     "src/lib/db/migrations",
     "src/**/__tests__/**"
   ]

@@ -12,6 +12,7 @@ export const env = createEnv({
     CONTENTFUL_PREVIEW_ACCESS_TOKEN: z.string().min(1),
     CONTENTFUL_PREVIEW_SECRET: z.string().min(1),
     CONTENTFUL_ACCESS_TOKEN: z.string().min(1),
+    CONTENTFUL_REVALIDATE_SECRET: z.string().min(1),
     RECAPTCHA_SECRET_KEY: z.string().min(1),
     GCP_PROJECT_NUMBER: z.string().min(1),
     GCP_SERVICE_ACCOUNT_EMAIL: z.string().min(1),
