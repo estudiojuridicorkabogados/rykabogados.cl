@@ -57,7 +57,7 @@ export async function submitBookACallFormTrabajadores(
 
     const result = await createGoogleCalendarEventTrabajadores(
       {
-        title: "Asesoria Gratuita",
+        title: "Asesoría Jurídica",
         name: data.name,
         phoneNumber: data.phoneNumber,
         antiguedadLaboral: data.antiguedadLaboral,
