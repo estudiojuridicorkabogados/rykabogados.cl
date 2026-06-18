@@ -29,7 +29,7 @@ export const FaqsContacts = () => {
             Contáctanos
           </Button>
 
-          <WhatsappLink className="w-full lg:w-fit" />
+          <WhatsappLink greenButton className="w-full lg:w-fit" />
         </div>
       </div>
     </div>
