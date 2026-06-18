@@ -1,5 +1,6 @@
 "use client";
 
+import tribunales from "@public/images/heros/tribunales.webp";
 import Image from "next/image";
 
 import { HeroContent } from "./HeroContent";
@@ -11,9 +12,10 @@ export const Hero = () => {
         priority
         fill
         loading="eager"
-        src="/images/heros/tribunales.webp"
+        src={tribunales}
         alt="Tribunal de Santiago de Chile"
         sizes="100vw"
+        placeholder="blur"
         className="object-cover object-top scale-110"
       />
 

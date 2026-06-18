@@ -1,5 +1,6 @@
 "use client";
 
+import camiPaolo from "@public/images/heros/cami_paolo.webp";
 import Image from "next/image";
 
 import { HeroContent } from "./HeroContent";
@@ -13,9 +14,10 @@ export const Hero = () => {
           priority
           fill
           loading="eager"
-          src="/images/heros/cami_paolo.webp"
+          src={camiPaolo}
           alt="Camila Retamales y Paolo Castiglione trabajando"
           sizes="100vw"
+          placeholder="blur"
           className="object-cover object-[20%_center] lg:object-[20%_top] lg:scale-110"
         />
 

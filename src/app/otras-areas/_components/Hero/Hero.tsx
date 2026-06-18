@@ -1,3 +1,5 @@
+import estudio from "@public/images/heros/estudio.webp";
+
 import { HeroSection } from "@/components/Hero/HeroSection";
 
 const DESCRIPTION = (
@@ -21,7 +23,7 @@ export const OtraAreasHero = () => {
       align="center"
       description={DESCRIPTION}
       image={{
-        src: "/images/heros/estudio.webp",
+        src: estudio,
         alt: "Nuestro equipo trabajando",
       }}
     />

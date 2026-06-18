@@ -1,3 +1,5 @@
+import teamTrabajando from "@public/images/heros/team-trabajando.webp";
+
 import { HeroSection } from "@/components/Hero/HeroSection";
 import { URLS } from "@/lib/utils/constants";
 
@@ -18,7 +20,7 @@ export const AsesoriaTrabajadoresHero = () => {
         href: URLS.speakWithUsTrabajadores(),
       }}
       image={{
-        src: "/images/heros/team-trabajando.webp",
+        src: teamTrabajando,
         alt: "Nuestro equipo trabajando",
       }}
     />

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 
 import { classNames } from "@/lib/utils/classNames";
 
@@ -14,8 +14,9 @@ interface HeroSectionProps {
     href: string;
   };
   image: {
-    src: string;
+    src: StaticImageData | string;
     alt: string;
+    blurDataURL?: string;
   };
   align?: "top" | "center" | "bottom";
 }
@@ -44,6 +45,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         alt={image.alt}
         fill
         sizes="100vw"
+        placeholder={
+          typeof image.src !== "string" || image.blurDataURL ? "blur" : "empty"
+        }
+        blurDataURL={
+          typeof image.src === "string" ? image.blurDataURL : undefined
+        }
         className={classNames("object-cover", {
           "object-top-left": align === "top",
           "object-center": align === "center",

@@ -1,3 +1,5 @@
+import colonas from "@public/images/heros/colonas.webp";
+
 import { HeroSection } from "@/components/Hero/HeroSection";
 import { URLS } from "@/lib/utils/constants";
 
@@ -18,7 +20,7 @@ export const AsesoriaEmpresasHero = () => {
         href: URLS.speakWithUsEmpresas(),
       }}
       image={{
-        src: "/images/heros/colonas.webp",
+        src: colonas,
         alt: "Nuestro equipo trabajando",
       }}
     />

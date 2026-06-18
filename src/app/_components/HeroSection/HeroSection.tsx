@@ -1,3 +1,5 @@
+import sebaCamiHome from "@public/images/heros/seba_cami_home.webp";
+
 import { HeroSection } from "@/components/Hero/HeroSection";
 
 const DESCRIPTION = `
@@ -17,7 +19,7 @@ export const HomeHero = () => {
       align="center"
       description={DESCRIPTION}
       image={{
-        src: "/images/heros/home_page.webp",
+        src: sebaCamiHome,
         alt: "Camila Retamales y Sebastian Kowalski trabajando en el estudio",
       }}
     />
