@@ -17,8 +17,8 @@ export const HomeHero = () => {
       align="center"
       description={DESCRIPTION}
       image={{
-        src: "/images/heros/santiago.webp",
-        alt: "Santiago, Chile",
+        src: "/images/heros/home_page.webp",
+        alt: "Camila Retamales y Sebastian Kowalski trabajando en el estudio",
       }}
     />
   );
