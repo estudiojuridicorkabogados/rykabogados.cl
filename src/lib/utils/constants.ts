@@ -7,7 +7,7 @@ interface UrlsMap {
 export const URLS: UrlsMap = {
   // Internal links
   home: () => "/",
-  asesoriaEmpresas: () => "/asesoria-empresas",
+  asesoriaEmpresas: () => "/habla-con-nosotros/empresas",
   asesoriaTrabajadores: () => "/asesoria-trabajadores",
   otrasAreas: () => "/otras-areas",
   nosotros: () => "/nosotros",

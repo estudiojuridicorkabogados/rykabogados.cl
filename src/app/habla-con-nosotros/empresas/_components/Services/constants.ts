@@ -19,7 +19,8 @@ export const SERVICES = [
       "Denuncias laborales e investigaciones internas",
       "Asesoría y/o acompañamiento en fiscalizaciones o comparendos de la Dirección del Trabajo",
       "Reclamo y/o reconsideración de multas laborales",
-      "Compliance laboral y respaldo documental",
+      "Compliance laboral, auditorías preventivas y planes de regularización",
+      "Implementación de la Ley N.º 21.719 sobre Protección y Tratamiento de los Datos Personales",
     ],
   },
   {

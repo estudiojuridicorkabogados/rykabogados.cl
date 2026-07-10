@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
         destination: "/habla-con-nosotros/trabajadores",
         permanent: true,
       },
+      {
+        source: "/asesoria-empresas",
+        destination: "/habla-con-nosotros/empresas",
+        permanent: true,
+      },
     ];
   },
 };

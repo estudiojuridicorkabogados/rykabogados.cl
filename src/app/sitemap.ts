@@ -2,7 +2,6 @@ import { env } from "@/lib/env";
 
 const BASE_PATHS = [
   "",
-  "/asesoria-empresas",
   "/asesoria-trabajadores",
   "/otras-areas",
   "/blog",
