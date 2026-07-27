@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { convertToModelMessages, stepCountIs, streamText, UIMessage } from "ai";
+import { convertToModelMessages, isStepCount, streamText, UIMessage } from "ai";
 
 import "server-only";
 
@@ -35,22 +35,21 @@ export async function runLegalChatBot(
     ? `INTERNAL_KB_SUMMARY:\n${kbSummary}`
     : `INTERNAL_KB_SUMMARY:\n<NO_RELEVANT_RESULTS_FOUND>`;
 
-  // Slightly stronger system instruction to synthesize and not mention tool invocation
+  // Slightly stronger system instruction to synthesize and not mention tool invocation.
+  // The hidden KB summary rides along here: the SDK rejects system messages inside
+  // `messages`, so system-level context must go through `instructions`.
   const systemWithNoToolMention = [
     systemPrompt,
     "\n\nIMPORTANT: Synthesize and summarize KB content concisely in Spanish.",
+    `\n\n${kbNote}`,
   ].join(" ");
 
-  // Convert messages and append the hidden KB summary as a system message
-  const modelMessages = await convertToModelMessages([
-    ...messages,
-    { role: "system", parts: [{ type: "text", text: kbNote }] },
-  ]);
+  const modelMessages = await convertToModelMessages(messages);
 
   return streamText({
     model: openai("gpt-5.4-mini"),
-    system: systemWithNoToolMention,
-    stopWhen: stepCountIs(5),
+    instructions: systemWithNoToolMention,
+    stopWhen: isStepCount(5),
     tools: {
       processUserInfo: processUserInfoTool,
       provideWhatsappContact: provideWhatsappContactTool,

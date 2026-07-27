@@ -1,4 +1,4 @@
-import { MockLanguageModelV3 } from "ai/test";
+import { MockLanguageModelV4 } from "ai/test";
 import { describe, expect, it, mock, spyOn } from "bun:test";
 
 // Mock server-only (throws in non-Next.js environments)
@@ -20,15 +20,18 @@ mock.module("@/lib/google/gmail/sendEmail", () => ({
 // Mock the openai provider so no real API calls are made
 mock.module("@ai-sdk/openai", () => ({
   openai: () =>
-    new MockLanguageModelV3({
+    new MockLanguageModelV4({
       doStream: async () => ({
         stream: new ReadableStream({
           start(controller) {
+            // V4 requires explicit text-start/text-end framing around deltas.
+            controller.enqueue({ type: "text-start" as const, id: "text-1" });
             controller.enqueue({
               type: "text-delta" as const,
               id: "text-1",
               delta: "Hola, ¿en qué puedo ayudarte?",
             });
+            controller.enqueue({ type: "text-end" as const, id: "text-1" });
             controller.enqueue({
               type: "finish" as const,
               finishReason: { unified: "stop" as const, raw: undefined },
@@ -129,7 +132,7 @@ describe("provideWhatsappContactTool", () => {
 // ─── runLegalChatBot ──────────────────────────────────────────────────────────
 
 describe("runLegalChatBot", () => {
-  it("returns a result with toUIMessageStreamResponse", async () => {
+  it("streams a response to completion", async () => {
     const messages = [
       {
         id: "1",
@@ -139,6 +142,13 @@ describe("runLegalChatBot", () => {
     ];
 
     const result = await runLegalChatBot(messages, WEBSITE_SYSTEM_PROMPT);
-    expect(typeof result.toUIMessageStreamResponse).toBe("function");
+
+    // Drain the stream: streamText validates the prompt lazily, so a bad prompt
+    // only surfaces once the stream is consumed.
+    const parts = [];
+    for await (const part of result.stream) parts.push(part);
+
+    expect(await result.text).toBe("Hola, ¿en qué puedo ayudarte?");
+    expect(parts.length).toBeGreaterThan(0);
   });
 });

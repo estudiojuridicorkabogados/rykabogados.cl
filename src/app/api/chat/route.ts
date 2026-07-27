@@ -1,4 +1,4 @@
-import { UIMessage } from "ai";
+import { createUIMessageStreamResponse, toUIMessageStream, UIMessage } from "ai";
 
 import { runLegalChatBot } from "@/lib/ai/rk-bot/bot";
 import { WEBSITE_SYSTEM_PROMPT } from "@/lib/ai/rk-bot/prompts";
@@ -10,5 +10,7 @@ export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
   const result = await runLegalChatBot(messages, WEBSITE_SYSTEM_PROMPT);
 
-  return result.toUIMessageStreamResponse();
+  return createUIMessageStreamResponse({
+    stream: toUIMessageStream({ stream: result.stream }),
+  });
 }
