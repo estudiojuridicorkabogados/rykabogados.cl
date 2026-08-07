@@ -12,9 +12,7 @@ export async function runLegalChatBot(
   systemPrompt: string
 ) {
   // find last user message to query the KB
-  const lastUserMessage = [...messages]
-    .reverse()
-    .find((m) => m.role === "user");
+  const lastUserMessage = messages.toReversed().find((m) => m.role === "user");
 
   const messageContent = (lastUserMessage?.parts ?? []).find(
     ({ type }) => type === "text"

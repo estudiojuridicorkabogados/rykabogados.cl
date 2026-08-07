@@ -19,7 +19,7 @@ export function ConditionalAnalytics() {
   //   return null;
   // }
 
-  /* eslint-disable @eslint-react/dom-no-dangerously-set-innerhtml */
+  /* oxlint-disable react/no-danger -- static GTM bootstrap snippets, no user input */
   return (
     <>
       {/* Google Tag Manager */}
@@ -42,5 +42,5 @@ export function ConditionalAnalytics() {
       <SpeedInsights sampleRate={0.4} />
     </>
   );
-  /* eslint-enable @eslint-react/dom-no-dangerously-set-innerhtml */
+  /* oxlint-enable react/no-danger */
 }

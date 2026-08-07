@@ -39,9 +39,9 @@ export const HoverPopover: React.FC<HoverPopoverProps> = ({ label, links }) => {
 
       <Popover.Portal>
         <Popover.Content className="z-50 mt-2 flex flex-col justify-center rounded-sm border-1 border-black/10 bg-white px-4 transition duration-200 ease-in-out">
-          {links.map(({ href, label, icon: Icon }) => (
+          {links.map(({ href, label: linkLabel, icon: Icon }) => (
             <Link
-              key={label}
+              key={linkLabel}
               href={href}
               className="hover:text-accent-dark flex items-center gap-3 border-b border-black/10 py-3 text-black transition-all last:border-0"
               onClick={handleLinkClick}
@@ -50,7 +50,7 @@ export const HoverPopover: React.FC<HoverPopoverProps> = ({ label, links }) => {
                 {Icon}
               </div>
               <div className="gap-x flex flex-col justify-center">
-                <span className="text-sm">{label}</span>
+                <span className="text-sm">{linkLabel}</span>
               </div>
             </Link>
           ))}

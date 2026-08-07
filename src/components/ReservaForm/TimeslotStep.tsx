@@ -46,7 +46,7 @@ export const TimeSlotStep = <
 
   useEffect(() => {
     if (isFriday && selectedTimeSlot >= "16:30") {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // oxlint-disable-next-line typescript/no-explicit-any -- generic PathValue<T> cannot be narrowed to ""
       setValue("timeSlot" as Path<T>, "" as any);
     }
   }, [isFriday, selectedTimeSlot, setValue]);

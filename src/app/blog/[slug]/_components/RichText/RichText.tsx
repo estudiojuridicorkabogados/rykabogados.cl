@@ -54,8 +54,8 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
     },
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (block) => {
-        const asset = richtext.assets?.find((asset) => {
-          return asset?.id === block.data.target.sys.id;
+        const asset = richtext.assets?.find((candidate) => {
+          return candidate?.id === block.data.target.sys.id;
         });
 
         if (!asset) {
@@ -109,7 +109,7 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
               [BLOCKS.PARAGRAPH]: (_, children) => children,
               [BLOCKS.LIST_ITEM]: (_, children) => children,
               [BLOCKS.OL_LIST]: (nestedListNode) => {
-                const UnTaggedChildren = documentToReactComponents(
+                const NestedChildren = documentToReactComponents(
                   nestedListNode as unknown as Document,
                   {
                     renderNode: {
@@ -130,10 +130,10 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
                   }
                 );
 
-                return <OrderedList>{UnTaggedChildren}</OrderedList>;
+                return <OrderedList>{NestedChildren}</OrderedList>;
               },
               [BLOCKS.UL_LIST]: (nestedListNode) => {
-                const UnTaggedChildren = documentToReactComponents(
+                const NestedChildren = documentToReactComponents(
                   nestedListNode as unknown as Document,
                   {
                     renderNode: {
@@ -150,7 +150,7 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
                   }
                 );
 
-                return <UnorderedList>{UnTaggedChildren}</UnorderedList>;
+                return <UnorderedList>{NestedChildren}</UnorderedList>;
               },
               [INLINES.HYPERLINK]: ({ data }, children) => (
                 <Hyperlink uri={data.uri}>{children}</Hyperlink>

@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { addMonths, format, isBefore, isSameDay, isToday } from "date-fns";
 import { es } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Calendar from "react-calendar";
+import { Calendar } from "react-calendar";
 import { Control, FieldValues, Path, useController } from "react-hook-form";
 
 import { classNames } from "@/lib/utils/classNames";
@@ -28,11 +28,9 @@ export const DaySelectorCalendar = <T extends FieldValues>({
   });
 
   const { today, maxDate } = useMemo(() => {
-    const today = new Date();
+    const now = new Date();
 
-    const maxDate = addMonths(today, 3);
-
-    return { today, maxDate };
+    return { today: now, maxDate: addMonths(now, 3) };
   }, []);
 
   const [displayMonthText, setDisplayMonthText] = useState(() =>
@@ -41,7 +39,7 @@ export const DaySelectorCalendar = <T extends FieldValues>({
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
 
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  /* oxlint-disable-next-line typescript/no-explicit-any -- react-calendar exposes no ref type */
   const ref = useRef<any>(null);
 
   const onGoToPrevMonth = () => {
@@ -105,7 +103,7 @@ export const DaySelectorCalendar = <T extends FieldValues>({
         tileClassName={({ date, activeStartDate }) => {
           const isCurrentDay = isToday(date);
           const isSelected =
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // oxlint-disable-next-line typescript/no-explicit-any -- react-hook-form field value is loosely typed
             (value as any) instanceof Date
               ? isSameDay(date, value as Date)
               : false;

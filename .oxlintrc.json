@@ -28,7 +28,9 @@
     "react/react-in-jsx-scope": "off",
     "import/no-unassigned-import": "off",
     "no-underscore-dangle": "off",
-    "promise/always-return": ["warn", { "ignoreLastCallback": true }]
+    "promise/always-return": ["warn", { "ignoreLastCallback": true }],
+    "typescript/no-explicit-any": "error",
+    "react/no-danger": "error"
   },
   "overrides": [
     {
@@ -51,6 +53,29 @@
       "rules": {
         "jsx-a11y/heading-has-content": "off",
         "react/no-unstable-nested-components": "off"
+      }
+    },
+    {
+      "files": [
+        "src/app/layout.tsx",
+        "src/app/contacto/_components/Contacts/Contacts.tsx",
+        "**/_components/RichText/Blocks.tsx",
+        "**/_components/HeroVideo/HeroVideo.tsx",
+        "**/_components/Videos/VideoModal.tsx"
+      ],
+      "rules": {
+        "react/iframe-missing-sandbox": "off"
+      }
+    },
+    {
+      "files": [
+        "**/habla-con-nosotros/**/_components/Contact/Contact.tsx",
+        "**/habla-con-nosotros/**/_components/Hero/HeroContent.tsx",
+        "**/habla-con-nosotros/**/_components/Hero/PricesLink.tsx",
+        "**/habla-con-nosotros/**/_components/Slogan/Slogan.tsx"
+      ],
+      "rules": {
+        "unicorn/consistent-function-scoping": "off"
       }
     },
     {

@@ -34,8 +34,8 @@ export const SupportChatbot = () => {
   }, [open, messages]);
 
   const markAllSeen = () => {
-    lastSeenMsgIdRef.current = [...messages]
-      .reverse()
+    lastSeenMsgIdRef.current = messages
+      .toReversed()
       .find((m) => m.role === "assistant")?.id;
   };
 

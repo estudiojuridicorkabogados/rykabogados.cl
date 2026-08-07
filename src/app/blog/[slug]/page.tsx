@@ -110,7 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
       <script
         type="application/ld+json"
         suppressHydrationWarning={true}
-        /* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml */
+        /* oxlint-disable-next-line react/no-danger -- JSON-LD built from our own Contentful data, not user input */
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     </>
