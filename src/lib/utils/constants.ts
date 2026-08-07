@@ -105,7 +105,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Joaquín Monasterio Betta",
     role: "Abogado",
-    photo: "/images/team/joaquin_monasterio_big.webp",
+    photo: "/images/team/joaquin.webp",
     linkedin: "https://www.linkedin.com/company/retamales-kowalski-abogados",
     phone: "+56 9 8822 1763",
     phoneLink: "tel:+56988221763",
