@@ -6,12 +6,13 @@
     "dev": "bun run --bun next dev",
     "build": "bun run --bun next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "oxlint",
     "test": "bun test",
-    "lint:fix": "eslint --fix",
-    "format:check": "prettier --check src",
-    "format": "prettier --write src",
+    "lint:fix": "oxlint --fix",
+    "format:check": "oxfmt --check src",
+    "format": "oxfmt src",
     "typecheck": "tsc --project tsconfig.json --noEmit",
+    "verify": "bun run lint && bun run format:check && bun run typecheck",
     "codegen": "graphql-codegen --config codegen.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "bun src/lib/db/migrate.ts",
@@ -74,9 +75,6 @@
     "google-auth-library": "11.0.0"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "5.18.3",
-    "@eslint/eslintrc": "3.3.6",
-    "@eslint/js": "10.0.1",
     "@graphql-codegen/cli": "7.2.0",
     "@graphql-codegen/client-preset": "6.1.1",
     "@graphql-codegen/typescript": "6.1.0",
@@ -89,13 +87,10 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "drizzle-kit": "0.31.10",
-    "eslint": "10.8.0",
-    "eslint-config-next": "16.3.0",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-simple-import-sort": "14.0.0",
-    "prettier": "3.9.6",
+    "oxfmt": "0.62.0",
+    "oxlint": "1.77.0",
     "tailwindcss": "4.3.3",
     "tsx": "4.23.10",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }
