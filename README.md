@@ -44,11 +44,12 @@ The official website for **R&K Abogados**, a premier law firm based in Santiago,
 - `bun run dev` - Start development server with Turbopack
 - `bun run build` - Build for production
 - `bun run start` - Start production server
-- `bun run lint` - Run ESLint
-- `bun run lint:fix` - Fix ESLint errors automatically
-- `bun run format` - Format code with Prettier
+- `bun run lint` - Run oxlint
+- `bun run lint:fix` - Fix oxlint errors automatically
+- `bun run format` - Format code with oxfmt
 - `bun run format:check` - Check code formatting
 - `bun run typecheck` - Run TypeScript type checking
+- `bun run verify` - Run lint, format:check and typecheck together
 
 ## 🚀 Deployment
 
@@ -65,7 +66,7 @@ This website is automatically deployed to [Vercel](https://vercel.com) on every 
 ## 📝 Development Notes
 
 - Uses Next.js App Router
-- Configured with ESLint and Prettier for code quality
+- Configured with oxlint and oxfmt for code quality
 - Tailwind CSS for styling with custom theme configuration
 - Environment-specific configurations available
 

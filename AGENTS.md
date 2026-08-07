@@ -14,11 +14,12 @@ This project uses **Bun** as its package manager and runtime. All commands shoul
 bun run dev          # Start development server
 bun run build        # Production build
 bun run start        # Start production server
-bun run lint         # Run ESLint
-bun run lint:fix     # Run ESLint with auto-fix
-bun run format:check # Check formatting with Prettier
-bun run format       # Format code with Prettier
+bun run lint         # Run oxlint
+bun run lint:fix     # Run oxlint with auto-fix
+bun run format:check # Check formatting with oxfmt
+bun run format       # Format code with oxfmt
 bun run typecheck    # Run TypeScript type checking
+bun run verify       # lint + format:check + typecheck
 bun run codegen      # Generate GraphQL types (graphql-codegen)
 bun run db:generate  # Generate Drizzle migrations
 bun run db:migrate   # Run Drizzle migrations
