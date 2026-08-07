@@ -109,14 +109,15 @@ export const ReservaFormEmpresas = () => {
                 className="mb-2 flex gap-8 text-xs font-bold tracking-[3px] uppercase lg:mb-4 lg:text-sm"
                 variants={itemVariants}
               >
-                <span
+                <button
+                  type="button"
                   onClick={() => setCurrentStep(1)}
                   className={classNames("text-white/40 cursor-pointer", {
                     "text-white": currentStep === 1,
                   })}
                 >
                   Paso 1
-                </span>
+                </button>
 
                 <span
                   className={classNames("text-white/40", {

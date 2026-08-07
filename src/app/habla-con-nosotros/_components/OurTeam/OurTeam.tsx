@@ -27,7 +27,7 @@ const isMacOS = (): boolean => {
 };
 
 export const OurTeam = () => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null); // Add ref
+  const scrollContainerRef = useRef<HTMLElement>(null); // Add ref
 
   // Add wheel event handler
   useEffect(() => {
@@ -90,9 +90,8 @@ export const OurTeam = () => {
         <style>{`.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
 
         <motion.div className="relative" variants={imageVariants}>
-          <div
+          <section
             ref={scrollContainerRef}
-            role="region"
             aria-label="Miembros del equipo"
             className={classNames([
               "flex gap-4 overflow-x-auto pb-4",
@@ -147,7 +146,7 @@ export const OurTeam = () => {
                 </div>
               </article>
             ))}
-          </div>
+          </section>
         </motion.div>
       </div>
     </motion.section>

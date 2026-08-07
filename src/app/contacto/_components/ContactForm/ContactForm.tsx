@@ -121,10 +121,14 @@ export const ContactForm = () => {
           />
 
           <div className="flex flex-col gap-2">
-            <label className="pt-2 text-sm font-bold text-white/80 lg:text-base">
+            <label
+              htmlFor="typeOfServices"
+              className="pt-2 text-sm font-bold text-white/80 lg:text-base"
+            >
               ¿Qué tipo de servicio buscas?
             </label>
             <select
+              id="typeOfServices"
               name="typeOfServices"
               defaultValue=""
               className="border-b border-white/60 bg-transparent text-base text-white focus:border-b focus:ring-0 focus:outline-none"

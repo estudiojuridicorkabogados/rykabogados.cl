@@ -25,10 +25,7 @@ export const TeamGrid = () => {
           Conoce a nuestro equipo
         </motion.h2>
 
-        <ul
-          role="list"
-          className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
-        >
+        <ul className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
           {TEAM_MEMBERS.map((person, i) => (
             <motion.li
               key={i}

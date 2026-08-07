@@ -46,11 +46,17 @@
     {
       "files": [
         "src/components/SupportChatbot/Message.tsx",
-        "src/app/blog/[slug]/_components/RichText/RichText.tsx"
+        "**/_components/RichText/RichText.tsx"
       ],
       "rules": {
         "jsx-a11y/heading-has-content": "off",
         "react/no-unstable-nested-components": "off"
+      }
+    },
+    {
+      "files": ["src/components/SupportChatbot/SupportChatbot.tsx"],
+      "rules": {
+        "jsx-a11y/prefer-tag-over-role": "off"
       }
     }
   ]
