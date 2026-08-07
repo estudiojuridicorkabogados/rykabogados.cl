@@ -30,19 +30,19 @@ export const PricingTable = () => {
         <table className="w-full min-w-[600px] border-separate border-spacing-0">
           <motion.thead variants={itemVariants}>
             <tr>
-              <th className="py-4 pr-6 text-left text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+              <th className="border-b border-black py-4 pr-6 text-left font-sans text-sm font-medium tracking-[2px] uppercase">
                 Plan
               </th>
-              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+              <th className="border-b border-black px-6 py-4 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                 Horas Mensuales
               </th>
-              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+              <th className="border-b border-black px-6 py-4 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                 Valor Mensual
               </th>
-              <th className="py-4 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+              <th className="border-b border-black px-6 py-4 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                 Valor Hora
               </th>
-              <th className="py-4 pl-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+              <th className="border-b border-black py-4 pl-6 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                 Valor Hora Aditional
               </th>
             </tr>
@@ -65,28 +65,28 @@ export const PricingTable = () => {
                     : ""
                 }
               >
-                <td className="py-5 pr-6 border-b border-black">
+                <td className="border-b border-black py-5 pr-6">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm tracking-[2px] uppercase font-semibold font-sans">
+                    <span className="font-sans text-sm font-semibold tracking-[2px] uppercase">
                       {plan.name}
                     </span>
                     {plan.featured && (
-                      <span className="text-[10px] tracking-[3px] uppercase font-semibold font-sans bg-[#FED9A5] text-[#222F3F] px-2 py-0.5 rounded-sm">
+                      <span className="rounded-sm bg-[#FED9A5] px-2 py-0.5 font-sans text-[10px] font-semibold tracking-[3px] text-[#222F3F] uppercase">
                         Más Contratado
                       </span>
                     )}
                   </div>
                 </td>
-                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                <td className="border-b border-black px-6 py-5 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                   {plan.hours}
                 </td>
-                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                <td className="border-b border-black px-6 py-5 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                   {plan.monthlyValue}
                 </td>
-                <td className="py-5 px-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                <td className="border-b border-black px-6 py-5 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                   {plan.hourValue}
                 </td>
-                <td className="py-5 pl-6 text-center text-sm tracking-[2px] uppercase font-medium font-sans border-b border-black">
+                <td className="border-b border-black py-5 pl-6 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                   {plan.additionalHour}
                 </td>
               </motion.tr>

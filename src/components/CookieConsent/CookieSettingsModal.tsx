@@ -44,11 +44,11 @@ export const CookieSettingsModal = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden"
+              className="w-full max-w-2xl overflow-hidden rounded-xl bg-white shadow-2xl"
             >
               {/* Header */}
-              <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                <DialogTitle className="text-2xl !font-semibold text-gray-900 !font-sans">
+              <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
+                <DialogTitle className="!font-sans text-2xl !font-semibold text-gray-900">
                   Configuración de cookies
                 </DialogTitle>
                 <p className="mt-1 text-sm text-gray-600">
@@ -57,15 +57,15 @@ export const CookieSettingsModal = () => {
               </div>
 
               {/* Content */}
-              <div className="px-6 py-6 space-y-6 max-h-[60vh] overflow-y-auto">
+              <div className="max-h-[60vh] space-y-6 overflow-y-auto px-6 py-6">
                 {/* Functional Cookies */}
-                <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <span className="text-base font-semibold text-gray-900 mb-1">
+                      <span className="mb-1 text-base font-semibold text-gray-900">
                         Cookies necesarias
                       </span>
-                      <p className="text-sm text-gray-600 leading-relaxed">
+                      <p className="text-sm leading-relaxed text-gray-600">
                         Estas cookies son esenciales para el funcionamiento
                         básico del sitio web. Incluyen cookies de sesión y
                         preferencias de usuario que no pueden ser desactivadas.
@@ -77,28 +77,28 @@ export const CookieSettingsModal = () => {
                           type="checkbox"
                           checked={true}
                           disabled={true}
-                          className="w-11 h-6 bg-primary-600 rounded-full appearance-none cursor-not-allowed opacity-60"
+                          className="bg-primary-600 h-6 w-11 cursor-not-allowed appearance-none rounded-full opacity-60"
                           readOnly
                         />
-                        <div className="absolute top-0.5 right-0.5 w-5 h-5 bg-white rounded-full shadow-sm pointer-events-none" />
+                        <div className="pointer-events-none absolute top-0.5 right-0.5 h-5 w-5 rounded-full bg-white shadow-sm" />
                       </div>
                     </div>
                   </div>
                   <div className="mt-2">
-                    <span className="inline-block px-2 py-1 text-xs font-medium text-black bg-accent rounded">
+                    <span className="bg-accent inline-block rounded px-2 py-1 text-xs font-medium text-black">
                       Siempre activas
                     </span>
                   </div>
                 </div>
 
                 {/* Analytics Cookies */}
-                <div className="border border-gray-200 rounded-lg p-4">
+                <div className="rounded-lg border border-gray-200 p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <span className="text-base font-semibold text-gray-900 mb-1">
+                      <span className="mb-1 text-base font-semibold text-gray-900">
                         Cookies de análisis y rendimiento
                       </span>
-                      <p className="text-sm text-gray-600 leading-relaxed">
+                      <p className="text-sm leading-relaxed text-gray-600">
                         Estas cookies nos permiten analizar el uso del sitio web
                         y mejorar su rendimiento. Recopilan información sobre
                         cómo los visitantes utilizan nuestro sitio, qué páginas
@@ -110,13 +110,13 @@ export const CookieSettingsModal = () => {
                       <button
                         type="button"
                         onClick={() => setAnalyticsEnabled(!analyticsEnabled)}
-                        className={`cursor-pointer relative w-11 h-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
+                        className={`focus:ring-primary-500 relative h-6 w-11 cursor-pointer rounded-full transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none ${
                           analyticsEnabled ? "bg-green-400" : "bg-gray-400"
                         }`}
                         aria-label="Toggle analytics cookies"
                       >
                         <motion.div
-                          className="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm"
+                          className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-sm"
                           animate={{
                             left: analyticsEnabled ? "22px" : "2px",
                           }}
@@ -129,11 +129,11 @@ export const CookieSettingsModal = () => {
               </div>
 
               {/* Footer */}
-              <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row gap-3 justify-end">
+              <div className="flex flex-col justify-end gap-3 border-t border-gray-200 bg-gray-50 px-6 py-4 sm:flex-row">
                 <Button
                   animateOnClick
                   variant="default"
-                  className="w-full lg:w-fit group"
+                  className="group w-full lg:w-fit"
                   type="button"
                   onClick={closeSettings}
                 >
@@ -144,7 +144,7 @@ export const CookieSettingsModal = () => {
                 <Button
                   animateOnClick
                   variant="dark"
-                  className="w-full lg:w-fit group"
+                  className="group w-full lg:w-fit"
                   type="button"
                   onClick={handleSavePreferences}
                 >

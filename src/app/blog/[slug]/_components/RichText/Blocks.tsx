@@ -10,7 +10,7 @@ export const Bold: React.FC<PropsWithChildren> = ({ children }) => (
 
 export const Blockquote: React.FC<PropsWithChildren> = ({ children }) => (
   <div
-    className="w-full lg:w-fit lg:mx-auto bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4"
+    className="w-full border-l-4 border-orange-500 bg-orange-100 p-4 text-orange-700 lg:mx-auto lg:w-fit"
     role="alert"
   >
     {children}
@@ -19,7 +19,7 @@ export const Blockquote: React.FC<PropsWithChildren> = ({ children }) => (
 
 export const Alert: React.FC<PropsWithChildren> = ({ children }) => (
   <div
-    className="w-fit mt-3 mb-8 mx-8 lg:mx-auto px-1 md:px-2 py-4 lg:p-4 bg-red-100 text-gray-700 shadow-md rounded-xl text-lg"
+    className="mx-8 mt-3 mb-8 w-fit rounded-xl bg-red-100 px-1 py-4 text-lg text-gray-700 shadow-md md:px-2 lg:mx-auto lg:p-4"
     role="alert"
   >
     {children}
@@ -27,15 +27,15 @@ export const Alert: React.FC<PropsWithChildren> = ({ children }) => (
 );
 
 export const Text: React.FC<PropsWithChildren> = ({ children }) => {
-  return <p className="text-lg mt-2 mb-2">{children}</p>;
+  return <p className="mt-2 mb-2 text-lg">{children}</p>;
 };
 
 export const UnorderedList: React.FC<PropsWithChildren> = ({ children }) => (
-  <ul className="list-disc ml-8 mt-3 text-gray-600">{children}</ul>
+  <ul className="mt-3 ml-8 list-disc text-gray-600">{children}</ul>
 );
 
 export const OrderedList: React.FC<PropsWithChildren> = ({ children }) => {
-  return <ol className="list-decimal ml-8 mt-3 text-gray-600">{children}</ol>;
+  return <ol className="mt-3 ml-8 list-decimal text-gray-600">{children}</ol>;
 };
 
 export const ListItem: React.FC<PropsWithChildren> = ({ children }) => (
@@ -64,9 +64,9 @@ export const Hyperlink: React.FC<PropsWithChildren<HyperlinkProps>> = ({
     }
 
     return (
-      <section className="w-full aspect-video mt-8">
+      <section className="mt-8 aspect-video w-full">
         <iframe
-          className="w-full h-full"
+          className="h-full w-full"
           title={`https://youtube.com/embed/${videoId}`}
           src={`https://youtube.com/embed/${videoId}`}
           allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
@@ -101,7 +101,7 @@ export const Heading: React.FC<PropsWithChildren<HeadingProps>> = ({
       return <h1 className="rich-text-heading text-5xl">{children}</h1>;
     case 2:
       return (
-        <h2 className="rich-text-heading text-2xl lg:text-4xl mt-8 lg:mt-12">
+        <h2 className="rich-text-heading mt-8 text-2xl lg:mt-12 lg:text-4xl">
           {children}
         </h2>
       );
@@ -139,7 +139,7 @@ export const Asset: React.FC<{ asset: RichTextAsset }> = ({ asset }) => {
       style={{ maxWidth: `${asset.width}px` }}
     >
       <Image
-        className="w-screen loading-background"
+        className="loading-background w-screen"
         src={url}
         alt={
           description?.replace(/<\/?[^>]+(>|$)/g, "") || "image from the post"
@@ -149,7 +149,7 @@ export const Asset: React.FC<{ asset: RichTextAsset }> = ({ asset }) => {
         width={asset.width || 0}
       />
       {title ? (
-        <p className="mt-2 px-4 text-gray-600 text-xs italic">{parse(title)}</p>
+        <p className="mt-2 px-4 text-xs text-gray-600 italic">{parse(title)}</p>
       ) : null}
     </div>
   );

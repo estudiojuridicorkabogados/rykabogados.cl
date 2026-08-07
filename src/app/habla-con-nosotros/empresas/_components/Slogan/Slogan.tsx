@@ -47,7 +47,7 @@ export const Slogan = () => {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      className="relative w-screen h-[590px] lg:h-[490px] overflow-hidden"
+      className="relative h-[590px] w-screen overflow-hidden lg:h-[490px]"
       viewport={{ once: true, amount: 0.8 }}
     >
       <Image
@@ -60,18 +60,18 @@ export const Slogan = () => {
 
       <motion.div
         variants={containerVariants}
-        className="absolute h-[480px] lg:h-[390px] -bottom-1 left-0 right-0 w-full bg-primary/30 backdrop-blur-2xl flex flex-col justify-center"
+        className="bg-primary/30 absolute right-0 -bottom-1 left-0 flex h-[480px] w-full flex-col justify-center backdrop-blur-2xl lg:h-[390px]"
       >
-        <div className="w-full section-container flex flex-col gap-4 lg:gap-4 p-6 lg:p-0">
+        <div className="section-container flex w-full flex-col gap-4 p-6 lg:gap-4 lg:p-0">
           <motion.span
             variants={itemVariants}
-            className="uppercase text-sm text-accent font-bold tracking-[3px]"
+            className="text-accent text-sm font-bold tracking-[3px] uppercase"
           >
             Listos para acompañar a tu empresa
           </motion.span>
           <motion.h2
             variants={itemVariants}
-            className="text-3xl lg:text-4xl text-white md:w-1/2"
+            className="text-3xl text-white md:w-1/2 lg:text-4xl"
           >
             Toma decisiones legales con claridad y seguridad.
           </motion.h2>
@@ -83,7 +83,7 @@ export const Slogan = () => {
 
           <motion.div
             variants={itemVariants}
-            className="mt-4 flex flex-col md:flex-row gap-4"
+            className="mt-4 flex flex-col gap-4 md:flex-row"
           >
             <Button variant="white-outline-on-primary" asChild>
               <a href="#reserva-form-section" onClick={handleScrollToForm}>

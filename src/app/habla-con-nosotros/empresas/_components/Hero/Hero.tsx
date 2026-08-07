@@ -8,7 +8,7 @@ import { PricesLink } from "./PricesLink";
 
 export const Hero = () => {
   return (
-    <section className="relative h-auto py-16 lg:h-[80vh] flex items-center justify-center overflow-hidden">
+    <section className="relative flex h-auto items-center justify-center overflow-hidden py-16 lg:h-[80vh]">
       <div className="absolute inset-0 overflow-hidden">
         <Image
           priority
@@ -18,7 +18,7 @@ export const Hero = () => {
           alt="Camila Retamales y Paolo Castiglione trabajando"
           sizes="100vw"
           placeholder="blur"
-          className="object-cover object-[20%_center] lg:object-[20%_top] lg:scale-110"
+          className="object-cover object-[20%_center] lg:scale-110 lg:object-[20%_top]"
         />
 
         {/* Overlay */}

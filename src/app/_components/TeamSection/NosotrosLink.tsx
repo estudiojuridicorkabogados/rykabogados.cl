@@ -15,12 +15,12 @@ export const NosotrosLink = () => {
     <Button
       animateOnClick
       variant="white-outline-on-primary"
-      className="w-full lg:w-fit group"
+      className="group w-full lg:w-fit"
       type="button"
       onClick={navigateToNosostros}
     >
       Conoce a nuestro equipo{" "}
-      <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
+      <LongArrowRight className="group-hover:stroke-primary group-hover:animate-wiggle ml-2 stroke-white" />
     </Button>
   );
 };

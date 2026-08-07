@@ -57,7 +57,7 @@ export const OurTeam = () => {
       id="nuestro-equipo"
       initial="hidden"
       whileInView="visible"
-      className="w-full bg-primary text-white"
+      className="bg-primary w-full text-white"
       transition={{
         delayChildren: stagger(0.3),
       }}
@@ -68,7 +68,7 @@ export const OurTeam = () => {
           <div>
             <motion.h2
               variants={itemVariants}
-              className="text-3xl lg:text-4xl md:text-5xl font-semibold"
+              className="text-3xl font-semibold md:text-5xl lg:text-4xl"
             >
               Nuestro Equipo
             </motion.h2>
@@ -116,7 +116,7 @@ export const OurTeam = () => {
                   "first:ml-6 lg:first:ml-26 xl:first:ml-40 last:mr-6"
                 )}
               >
-                <div className="relative hidden lg:block h-[320px] bg-white/5">
+                <div className="relative hidden h-[320px] bg-white/5 lg:block">
                   <Image
                     src={m.photo}
                     alt={`${m.name} - ${m.role}`}
@@ -126,12 +126,12 @@ export const OurTeam = () => {
                     fill
                   />
                 </div>
-                <div className="p-4 flex justify-between items-start gap-2">
+                <div className="flex items-start justify-between gap-2 p-4">
                   <div className="min-w-0 flex-1">
                     <h3 className="font-sans! text-base font-semibold!">
                       {m.name}
                     </h3>
-                    <p className="truncate text-white/80 text-sm md:overflow-visible md:text-clip md:whitespace-normal">
+                    <p className="truncate text-sm text-white/80 md:overflow-visible md:text-clip md:whitespace-normal">
                       {m.role}
                     </p>
                   </div>

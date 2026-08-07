@@ -5,7 +5,7 @@ export const SuccessIcon = () => {
       id="Layer_2"
       data-name="Layer 2"
       viewBox="0 0 49.91 50.03"
-      className="h-12 fill-none stroke-[1.09px] stroke-accent-dark"
+      className="stroke-accent-dark h-12 fill-none stroke-[1.09px]"
     >
       <g id="Layer_1-2" data-name="Layer 1">
         <circle cx="22.08" cy="27.95" r="21.54" />

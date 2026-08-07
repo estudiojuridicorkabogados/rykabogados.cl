@@ -5,19 +5,19 @@ import { NosotrosLink } from "./NosotrosLink";
 
 export const TeamSection = () => {
   return (
-    <section className="py-16 lg:py-24 bg-primary">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 mx-auto px-6 lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl">
-        <div className="w-full lg:w-1/2 h-[390px] relative">
+    <section className="bg-primary py-16 lg:py-24">
+      <div className="mx-auto flex flex-col gap-8 px-6 lg:max-w-6xl lg:flex-row lg:gap-16 2xl:w-7xl 2xl:max-w-7xl">
+        <div className="relative h-[390px] w-full lg:w-1/2">
           <Image
             src="/images/team.webp"
             alt="Equipo de RK Abogados"
             fill
-            className="object-cover rounded"
+            className="rounded object-cover"
           />
         </div>
 
-        <div className="w-full lg:w-1/2 flex flex-col gap-4">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-60">
+        <div className="flex w-full flex-col gap-4 lg:w-1/2">
+          <h2 className="text-gray-60 text-4xl font-bold lg:text-5xl">
             Nosostros
           </h2>
 

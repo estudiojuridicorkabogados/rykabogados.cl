@@ -165,7 +165,7 @@ export const RichText: React.FC<{ richtext: RichTextType }> = ({
   };
 
   return (
-    <article className="flex flex-col gap-y-2 text-2xl break-words font-merriweather">
+    <article className="font-merriweather flex flex-col gap-y-2 text-2xl break-words">
       {documentToReactComponents(richtext.json, options)}
     </article>
   );

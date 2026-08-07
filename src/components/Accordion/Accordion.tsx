@@ -48,14 +48,14 @@ export const Accordion: React.FC<AccordionProps> = ({
             key={entry.title}
             as={motion.div}
             variants={itemVariants}
-            className="border-t last:border-b border-gray-900 first:pt-0 last:pb-0"
+            className="border-t border-gray-900 first:pt-0 last:border-b last:pb-0"
             onHoverStart={() => onHoverStart?.(i)}
             onHoverEnd={() => onHoverEnd?.(i)}
           >
             {({ open }) => (
               <>
                 <motion.dt variants={itemVariants}>
-                  <DisclosureButton className="group flex w-full items-start justify-between text-left text-gray-900 cursor-pointer pl-1 py-6">
+                  <DisclosureButton className="group flex w-full cursor-pointer items-start justify-between py-6 pl-1 text-left text-gray-900">
                     <span
                       className={classNames(
                         "transition-all delay-300 duration-75 md:text-lg"
@@ -63,14 +63,14 @@ export const Accordion: React.FC<AccordionProps> = ({
                     >
                       {showNumbers ? `${i + 1}.` : ""} {entry.title}
                     </span>
-                    <span className="flex h-7 justify-center items-center mr-4">
+                    <span className="mr-4 flex h-7 items-center justify-center">
                       <PlusIcon
                         aria-hidden="true"
                         className="size-4 group-data-open:hidden"
                       />
                       <MinusIcon
                         aria-hidden="true"
-                        className="w-4 h-2 group-not-data-open:hidden"
+                        className="h-2 w-4 group-not-data-open:hidden"
                       />
                     </span>
                   </DisclosureButton>

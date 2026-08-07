@@ -3,9 +3,9 @@ import { convertToModelMessages, isStepCount, streamText, UIMessage } from "ai";
 
 import "server-only";
 
+import { findRelevantContent } from "./embeddings";
 import { processUserInfoTool } from "./tools/processUserInfoTool";
 import { provideWhatsappContactTool } from "./tools/provideWhatsappContactTool";
-import { findRelevantContent } from "./embeddings";
 
 export async function runLegalChatBot(
   messages: UIMessage[],

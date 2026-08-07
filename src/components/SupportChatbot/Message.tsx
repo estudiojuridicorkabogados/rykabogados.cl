@@ -1,5 +1,5 @@
-import ReactMarkdown from "react-markdown";
 import { UIMessage } from "ai";
+import ReactMarkdown from "react-markdown";
 
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
 import { classNames } from "@/lib/utils/classNames";

@@ -12,7 +12,7 @@ export const SERVICES = [
           indebidamente una causal del artículo 160, o porque no señaló ninguna
           causal válida. Entre las causales más frecuentes se encuentran:
         </p>
-        <ul className="list-disc list-inside space-y-2 p-8">
+        <ul className="list-inside list-disc space-y-2 p-8">
           <li>
             Falta de probidad o acoso: conductas graves como la deshonestidad,
             el acoso sexual o laboral, las injurias o actos violentos contra el

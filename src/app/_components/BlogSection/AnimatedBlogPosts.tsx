@@ -26,20 +26,20 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col container mx-auto px-6 w-full lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl gap-y-6 lg:gap-y-8"
+      className="container mx-auto flex w-full flex-col gap-y-6 px-6 lg:w-6xl lg:max-w-6xl lg:gap-y-8 2xl:w-7xl 2xl:max-w-7xl"
     >
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-0 lg:gap-4">
           <motion.span
             variants={itemVariants}
-            className="uppercase text-sm text-accent-dark font-bold tracking-[3px] pl-1"
+            className="text-accent-dark pl-1 text-sm font-bold tracking-[3px] uppercase"
           >
             Más información
           </motion.span>
 
           <motion.h2
             variants={itemVariants}
-            className="text-4xl lg:text-5xl font-bold text-[#0B142D] leading-tight"
+            className="text-4xl leading-tight font-bold text-[#0B142D] lg:text-5xl"
           >
             Nuestros Artículos
           </motion.h2>
@@ -48,33 +48,33 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
         <motion.div variants={itemVariants} className="hidden lg:flex">
           <Link
             href="/blog"
-            className="items-center gap-2 group text-black uppercase text-xs font-bold hover:text-accent-dark transition-colors duration-200"
+            className="group hover:text-accent-dark items-center gap-2 text-xs font-bold text-black uppercase transition-colors duration-200"
           >
             Ver más artículos
-            <LongArrowRight className="ml-2 inline-block stroke-black group-hover:stroke-accent-dark group-hover:animate-wiggle transition-colors duration-200" />
+            <LongArrowRight className="group-hover:stroke-accent-dark group-hover:animate-wiggle ml-2 inline-block stroke-black transition-colors duration-200" />
           </Link>
         </motion.div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col gap-8 lg:flex-row">
         <motion.div variants={itemVariants} className="w-full lg:w-2/3">
           <Link
             href={`/blog/${mainPost.slug}`}
-            className="w-full flex flex-col"
+            className="flex w-full flex-col"
           >
-            <div className="relative w-full lg:h-[360px] aspect-square lg:aspect-video">
+            <div className="relative aspect-square w-full lg:aspect-video lg:h-[360px]">
               <Image
                 fill
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 src={mainPost.mainImage?.url || "/images/default-image.jpg"}
                 alt={mainPost.mainImage?.title || "Blog Post Image"}
-                className="object-cover rounded"
+                className="rounded object-cover"
               />
             </div>
 
             <AuthorAndDate blogPost={mainPost} />
 
-            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-sans!">
+            <h3 className="mt-2 line-clamp-2 font-sans! text-xl text-black lg:text-2xl">
               {mainPost.title}
             </h3>
           </Link>
@@ -83,9 +83,9 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
         <motion.div variants={itemVariants} className="w-full lg:w-1/3">
           <Link
             href={`/blog/${secondaryPost.slug}`}
-            className="w-full flex flex-col"
+            className="flex w-full flex-col"
           >
-            <div className="relative lg:h-[360px] aspect-square rounded">
+            <div className="relative aspect-square rounded lg:h-[360px]">
               <Image
                 fill
                 src={
@@ -93,13 +93,13 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
                 }
                 sizes="(max-width: 1024px) 100vw, 33vw"
                 alt={secondaryPost.mainImage?.title || "Blog Post Image"}
-                className="object-cover rounded"
+                className="rounded object-cover"
               />
             </div>
 
             <AuthorAndDate blogPost={secondaryPost} />
 
-            <h3 className="mt-2 text-xl lg:text-2xl text-black line-clamp-2 font-semibold font-sans!">
+            <h3 className="mt-2 line-clamp-2 font-sans! text-xl font-semibold text-black lg:text-2xl">
               {secondaryPost.title}
             </h3>
           </Link>
@@ -108,9 +108,9 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
 
       <motion.div
         variants={itemVariants}
-        className="flex lg:hidden items-center gap-2 w-full"
+        className="flex w-full items-center gap-2 lg:hidden"
       >
-        <Link href="/blog" className="text-black uppercase text-xs font-bold">
+        <Link href="/blog" className="text-xs font-bold text-black uppercase">
           Ver más artículos
         </Link>
 

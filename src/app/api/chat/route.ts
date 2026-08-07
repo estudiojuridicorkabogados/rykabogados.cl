@@ -1,4 +1,8 @@
-import { createUIMessageStreamResponse, toUIMessageStream, UIMessage } from "ai";
+import {
+  createUIMessageStreamResponse,
+  toUIMessageStream,
+  UIMessage,
+} from "ai";
 
 import { runLegalChatBot } from "@/lib/ai/rk-bot/bot";
 import { WEBSITE_SYSTEM_PROMPT } from "@/lib/ai/rk-bot/prompts";

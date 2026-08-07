@@ -10,23 +10,23 @@ export const metadata: Metadata = {
 
 export default function PoliticasDePrivacidadPage() {
   return (
-    <div className="bg-white w-full">
-      <div className="container mx-auto px-4 py-16 max-w-4xl">
+    <div className="w-full bg-white">
+      <div className="container mx-auto max-w-4xl px-4 py-16">
         <div className="lg:max-w-4xl">
-          <h1 className="text-4xl lg:text-5xl font-bold text-[#252525] mb-8">
+          <h1 className="mb-8 text-4xl font-bold text-[#252525] lg:text-5xl">
             Políticas de Privacidad y Protección de Datos Personales
           </h1>
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 1. Introducción y marco normativo
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 La presente <b>Política de Privacidad</b> tiene por objeto
                 informar a los clientes, usuarios y visitantes del sitio web{" "}
                 <a
-                  className="underline text-primary font-bold"
+                  className="text-primary font-bold underline"
                   href="https://www.rkabogados.cl"
                 >
                   www.rkabogados.cl
@@ -35,11 +35,11 @@ export default function PoliticasDePrivacidadPage() {
                 los datos personales que se recopilan a través de sus
                 formularios, plataformas o mecanismos de interacción digital.
               </p>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 El tratamiento de datos personales se efectúa en cumplimiento de
                 las siguientes normas y recomendaciones aplicables en Chile:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <ul className="list-disc space-y-2 pl-6 text-gray-700">
                 <li>La Ley N° 19.628 sobre Protección de la Vida Privada.</li>
                 <li>
                   El artículo 19 N°4 de la Constitución Política de la República
@@ -64,22 +64,22 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 2. ¿Quiénes somos?
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 Retamales Kowalski Abogados Limitada, RUT 77.703.086-8, es una
                 sociedad constituida conforme a la legislación chilena, con
                 domicilio en {ADDRESS}, comuna de Providencia, Región
                 Metropolitana.
               </p>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 La sociedad desarrolla sus actividades bajo el nombre comercial
                 RK Abogados, un estudio jurídico chileno dedicado a la
                 prestación de servicios de asesoría y representación legal en
                 distintas áreas del Derecho.
               </p>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 RK Abogados actúa como responsable del tratamiento de datos
                 personales, conforme al artículo 2 letra n) de la Ley N° 19.628.
                 Los datos recolectados a través del sitio web son tratados con
@@ -95,10 +95,10 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 3. Conceptos básicos
               </h2>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <ul className="list-disc space-y-2 pl-6 text-gray-700">
                 <li>
                   <strong>Dato personal:</strong> toda información sobre una
                   persona natural identificada o identificable, tales como
@@ -119,14 +119,14 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 4. Información que recopilamos
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 RK Abogados recolecta información personal en los siguientes
                 casos:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+              <ul className="mb-4 list-disc space-y-2 pl-6 text-gray-700">
                 <li>
                   Cuando el usuario completa formularios de contacto,
                   suscripción o postulación disponibles en el sitio web.
@@ -140,10 +140,10 @@ export default function PoliticasDePrivacidadPage() {
                   cookies o tecnologías similares.
                 </li>
               </ul>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 La información puede incluir, entre otros:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+              <ul className="mb-4 list-disc space-y-2 pl-6 text-gray-700">
                 <li>Nombre, RUT, domicilio, correo electrónico y teléfono.</li>
                 <li>Nacionalidad, profesión y fecha de nacimiento.</li>
                 <li>
@@ -162,14 +162,14 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 5. Finalidades del tratamiento
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 Los datos personales se utilizan exclusivamente para las
                 siguientes finalidades:
               </p>
-              <ol className="list-decimal pl-6 text-gray-700 space-y-2">
+              <ol className="list-decimal space-y-2 pl-6 text-gray-700">
                 <li>
                   Responder consultas o solicitudes de contacto realizadas por
                   los usuarios del sitio web.
@@ -189,7 +189,7 @@ export default function PoliticasDePrivacidadPage() {
                 <li>
                   Elaborar estadísticas internas y bases de datos
                   institucionales, con el objeto de:
-                  <ul className="list-disc pl-6 text-gray-700 space-y-2 mt-2">
+                  <ul className="mt-2 list-disc space-y-2 pl-6 text-gray-700">
                     <li>
                       Analizar tendencias generales sobre el uso del sitio y las
                       consultas recibidas.
@@ -209,7 +209,7 @@ export default function PoliticasDePrivacidadPage() {
                   siempre que el usuario lo haya autorizado expresamente.
                 </li>
               </ol>
-              <p className="text-gray-700 mt-4">
+              <p className="mt-4 text-gray-700">
                 En todos los casos, los datos se tratan conforme al principio de
                 finalidad previsto en la Ley N° 20.575, es decir, solo se
                 utilizarán para los fines específicos para los cuales fueron
@@ -219,14 +219,14 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 6. Base legal del tratamiento
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 El tratamiento de datos personales efectuado por RK Abogados se
                 fundamenta en:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <ul className="list-disc space-y-2 pl-6 text-gray-700">
                 <li>
                   El consentimiento expreso del titular, conforme al artículo 4
                   de la Ley N° 19.628.
@@ -243,23 +243,23 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 7. Uso de cookies
               </h2>
-              <h3 className="text-xl font-semibold text-[#252525] mb-3">
+              <h3 className="mb-3 text-xl font-semibold text-[#252525]">
                 ¿Qué son las cookies?
               </h3>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 Las cookies son pequeños archivos de texto que se almacenan en
                 el navegador del usuario cuando visita un sitio web. Permiten el
                 funcionamiento técnico del sitio, optimizan la experiencia de
                 navegación y ayudan a obtener información estadística anónima
                 sobre el comportamiento de los usuarios.
               </p>
-              <h3 className="text-xl lg:text-xl font-semibold text-[#252525] mb-3">
+              <h3 className="mb-3 text-xl font-semibold text-[#252525] lg:text-xl">
                 Tipos de cookies utilizadas
               </h3>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+              <ul className="mb-4 list-disc space-y-2 pl-6 text-gray-700">
                 <li>
                   Cookies esenciales o técnicas: necesarias para el
                   funcionamiento básico del sitio y la navegación segura. No
@@ -282,10 +282,10 @@ export default function PoliticasDePrivacidadPage() {
                   previa autorización expresa.
                 </li>
               </ul>
-              <h3 className="text-xl lg:text-xl font-semibold text-[#252525] mb-3">
+              <h3 className="mb-3 text-xl font-semibold text-[#252525] lg:text-xl">
                 Consentimiento y control
               </h3>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 El usuario puede aceptar, rechazar o configurar las cookies
                 desde el banner de consentimiento o desde su navegador. Las
                 cookies no esenciales permanecerán desactivadas por defecto, y
@@ -301,14 +301,14 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 9. Comunicación a terceros
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 RK Abogados no comparte ni cede datos personales a terceros,
                 salvo que:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <ul className="list-disc space-y-2 pl-6 text-gray-700">
                 <li>Exista autorización expresa del titular.</li>
                 <li>
                   Sea necesario para la correcta prestación del servicio
@@ -319,21 +319,21 @@ export default function PoliticasDePrivacidadPage() {
                   cumplimiento de la ley.
                 </li>
               </ul>
-              <p className="text-gray-700 mt-4">
+              <p className="mt-4 text-gray-700">
                 En tales casos, el estudio exigirá al tercero el cumplimiento de
                 estándares de seguridad equivalentes.
               </p>
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 10. Derechos del titular de los datos
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 De acuerdo con los artículos 12 y siguientes de la Ley N°
                 19.628, el titular de los datos personales tiene derecho a:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <ul className="list-disc space-y-2 pl-6 text-gray-700">
                 <li>
                   Acceder a la información que RK Abogados posee sobre él.
                 </li>
@@ -350,22 +350,22 @@ export default function PoliticasDePrivacidadPage() {
                 </li>
                 <li>Revocar el consentimiento, en cualquier momento.</li>
               </ul>
-              <p className="text-gray-700 mt-4">
+              <p className="mt-4 text-gray-700">
                 El ejercicio de estos derechos es gratuito y no puede ser
                 limitado por acto o convención.
               </p>
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 11. Ejercicio de derechos y contacto
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 Para ejercer los derechos de acceso, rectificación, cancelación,
                 oposición o revocación, el titular puede contactar al estudio
                 en:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <ul className="list-disc space-y-2 pl-6 text-gray-700">
                 <li>Correo electrónico: contacto@rkabogados.cl</li>
                 <li>
                   Dirección postal: {ADDRESS}, Providencia, Santiago, Chile.
@@ -378,20 +378,20 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 12. Conservación de los datos
               </h2>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 Los datos personales recolectados por RK Abogados serán
                 conservados por un período máximo de tres (3) años, contados
                 desde la última interacción del titular con el estudio jurídico
                 o desde la finalización de la relación contractual o profesional
                 que dio origen a su recolección.
               </p>
-              <p className="text-gray-700 mb-4">
+              <p className="mb-4 text-gray-700">
                 Este plazo se justifica en la necesidad de:
               </p>
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <ul className="list-disc space-y-2 pl-6 text-gray-700">
                 <li>
                   Mantener respaldos de comunicaciones y antecedentes jurídicos
                   vinculados a consultas o servicios prestados.
@@ -405,7 +405,7 @@ export default function PoliticasDePrivacidadPage() {
                   exijan conservar ciertos registros por un período determinado.
                 </li>
               </ul>
-              <p className="text-gray-700 mt-4">
+              <p className="mt-4 text-gray-700">
                 Transcurrido dicho plazo, los datos serán eliminados de forma
                 segura o anonimizados, de modo que no sea posible identificar al
                 titular. La eliminación se realizará conforme a las medidas
@@ -415,7 +415,7 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 13. Actualización de la Política
               </h2>
               <p className="text-gray-700">
@@ -427,7 +427,7 @@ export default function PoliticasDePrivacidadPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#252525] mb-4">
+              <h2 className="mb-4 text-2xl font-bold text-[#252525] lg:text-3xl">
                 14. Vigencia
               </h2>
               <p className="text-gray-700">
@@ -438,7 +438,7 @@ export default function PoliticasDePrivacidadPage() {
               </p>
             </section>
 
-            <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="mt-12 border-t border-gray-200 pt-8">
               <p className="text-sm text-gray-600">
                 <strong>Última actualización:</strong> Octubre de 2025
               </p>

@@ -12,11 +12,11 @@ export const ContactSectionEmpresas: React.FC<ContactSectionEmpresasProps> = ({
 }) => {
   return (
     <section className="bg-accent text-primary w-full py-14 lg:py-20">
-      <div className="section-container flex flex-col lg:flex-row items-center">
+      <div className="section-container flex flex-col items-center lg:flex-row">
         {/* Left column — light */}
-        <div className="pb-8 lg:pb-0 flex-1 flex items-center lg:pr-16">
+        <div className="flex flex-1 items-center pb-8 lg:pr-16 lg:pb-0">
           <div className="max-w-md">
-            <h2 className="text-3xl lg:text-4xl font-serif mb-5 leading-snug text-black">
+            <h2 className="mb-5 font-serif text-3xl leading-snug text-black lg:text-4xl">
               Agenda una asesoría inicial sin costo (30 minutos)
             </h2>
             <p className="text-base leading-relaxed">
@@ -27,13 +27,13 @@ export const ContactSectionEmpresas: React.FC<ContactSectionEmpresasProps> = ({
         </div>
 
         {/* Right column — dark */}
-        <div className="flex-1 flex items-center border-t-2 border-primary lg:border-t-0 lg:border-l-2 lg:border-primary lg:pl-16">
+        <div className="border-primary lg:border-primary flex flex-1 items-center border-t-2 lg:border-t-0 lg:border-l-2 lg:pl-16">
           <div className="flex flex-col gap-4 py-8">
-            <span className="uppercase text-xs text-primary font-bold tracking-[3px]">
+            <span className="text-primary text-xs font-bold tracking-[3px] uppercase">
               ¿Tienes una situación legal que resolver?
             </span>
 
-            <h3 className="text-2xl lg:text-4xl font-serif leading-snug">
+            <h3 className="font-serif text-2xl leading-snug lg:text-4xl">
               Habla con un abogado hoy
             </h3>
 

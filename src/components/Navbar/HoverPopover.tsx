@@ -28,7 +28,7 @@ export const HoverPopover: React.FC<HoverPopoverProps> = ({ label, links }) => {
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
-      <Popover.Trigger className="text-black hover:text-accent-dark transition-colors cursor-pointer focus:outline-0 active:outline-0 flex items-center gap-2">
+      <Popover.Trigger className="hover:text-accent-dark flex cursor-pointer items-center gap-2 text-black transition-colors focus:outline-0 active:outline-0">
         {label}
         <ChevronDown
           className={classNames("size-4 transition-rotate duration-500", {
@@ -38,18 +38,18 @@ export const HoverPopover: React.FC<HoverPopoverProps> = ({ label, links }) => {
       </Popover.Trigger>
 
       <Popover.Portal>
-        <Popover.Content className="mt-2 flex flex-col justify-center bg-white z-50 px-4 rounded-sm border-black/10 border-1 transition duration-200 ease-in-out">
+        <Popover.Content className="z-50 mt-2 flex flex-col justify-center rounded-sm border-1 border-black/10 bg-white px-4 transition duration-200 ease-in-out">
           {links.map(({ href, label, icon: Icon }) => (
             <Link
               key={label}
               href={href}
-              className="text-black hover:text-accent-dark transition-all flex items-center gap-3 border-b border-black/10 last:border-0 py-3"
+              className="hover:text-accent-dark flex items-center gap-3 border-b border-black/10 py-3 text-black transition-all last:border-0"
               onClick={handleLinkClick}
             >
               <div className="flex items-center justify-center rounded-sm">
                 {Icon}
               </div>
-              <div className="flex flex-col gap-x justify-center">
+              <div className="gap-x flex flex-col justify-center">
                 <span className="text-sm">{label}</span>
               </div>
             </Link>

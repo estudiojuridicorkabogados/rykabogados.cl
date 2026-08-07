@@ -7,7 +7,7 @@ import { HeroContent } from "./HeroContent";
 
 export const Hero = () => {
   return (
-    <section className="relative h-auto py-16 lg:h-[80vh] flex items-center justify-center overflow-hidden">
+    <section className="relative flex h-auto items-center justify-center overflow-hidden py-16 lg:h-[80vh]">
       <Image
         priority
         fill
@@ -16,7 +16,7 @@ export const Hero = () => {
         alt="Tribunal de Santiago de Chile"
         sizes="100vw"
         placeholder="blur"
-        className="object-cover object-top scale-110"
+        className="scale-110 object-cover object-top"
       />
 
       {/* Overlay */}

@@ -39,9 +39,9 @@ export const Stats: React.FC<StatsProps> = ({
   }, [isInView, count, value]);
 
   return (
-    <div ref={ref} className="flex flex-col flex-1 text-black">
+    <div ref={ref} className="flex flex-1 flex-col text-black">
       <h5 className="text-base font-bold">{title}</h5>
-      <span className="flex gap-1 items-center">
+      <span className="flex items-center gap-1">
         <motion.pre
           initial="hidden"
           whileInView="visible"

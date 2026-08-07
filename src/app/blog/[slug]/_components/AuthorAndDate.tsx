@@ -18,12 +18,12 @@ export const AuthorAndDate: React.FC<AuthorAndDateProps> = ({
 }) => {
   return (
     <div className="flex flex-row gap-4">
-      <div className="h-13 w-13 bg-gray-300 relative rounded-full">
+      <div className="relative h-13 w-13 rounded-full bg-gray-300">
         <Image
           fill
           src={author?.photo?.url || ""}
           alt={author?.photo?.title || author?.photo?.description || "Autore"}
-          className="object-cover rounded-full"
+          className="rounded-full object-cover"
         />
       </div>
 

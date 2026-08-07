@@ -20,13 +20,13 @@ export const CookieBanner = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg"
+          className="fixed right-0 bottom-0 left-0 z-50 border-t border-gray-200 bg-white shadow-lg"
         >
-          <div className="container mx-auto px-4 py-6 max-w-7xl">
+          <div className="container mx-auto max-w-7xl px-4 py-6">
             <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
               {/* Content */}
               <div className="flex-1">
-                <h3 className="text-lg !font-sans font-semibold text-gray-900 mb-2">
+                <h3 className="mb-2 !font-sans text-lg font-semibold text-gray-900">
                   Usamos cookies
                 </h3>
                 <p className="text-sm text-gray-600">
@@ -36,7 +36,7 @@ export const CookieBanner = () => {
                   personalizarlas.{" "}
                   <Link
                     href={URLS.cookiePolicy()}
-                    className="underline items-center gap-2 group text-black text-sm font-bold hover:text-accent-dark transition-colors duration-200"
+                    className="group hover:text-accent-dark items-center gap-2 text-sm font-bold text-black underline transition-colors duration-200"
                   >
                     Más información
                   </Link>
@@ -48,7 +48,7 @@ export const CookieBanner = () => {
                 <Button
                   animateOnClick
                   variant="default"
-                  className="w-full lg:w-fit group"
+                  className="group w-full lg:w-fit"
                   type="button"
                   onClick={openSettings}
                 >
@@ -58,7 +58,7 @@ export const CookieBanner = () => {
                 <Button
                   animateOnClick
                   variant="dark"
-                  className="w-full lg:w-fit group"
+                  className="group w-full lg:w-fit"
                   type="button"
                   onClick={acceptAll}
                 >

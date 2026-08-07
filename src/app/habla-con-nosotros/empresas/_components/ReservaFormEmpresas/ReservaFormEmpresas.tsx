@@ -85,13 +85,13 @@ export const ReservaFormEmpresas = () => {
       id="reserva-form-section"
       initial="hidden"
       whileInView="visible"
-      className="w-full bg-primary text-white"
+      className="bg-primary w-full text-white"
       transition={{
         delayChildren: stagger(0.3),
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="py-16 lg:py-28 lg:h-[850px] relative">
+      <div className="relative py-16 lg:h-[850px] lg:py-28">
         {bookingInfo && (
           <ReservaFormSuccessFeedback bookingInfo={bookingInfo} />
         )}
@@ -106,7 +106,7 @@ export const ReservaFormEmpresas = () => {
           >
             <div className="lg:w-1/3">
               <motion.div
-                className="uppercase flex gap-8 text-xs lg:text-sm font-bold mb-2 lg:mb-4 tracking-[3px]"
+                className="mb-2 flex gap-8 text-xs font-bold tracking-[3px] uppercase lg:mb-4 lg:text-sm"
                 variants={itemVariants}
               >
                 <span
@@ -129,7 +129,7 @@ export const ReservaFormEmpresas = () => {
 
               <motion.h2
                 variants={itemVariants}
-                className="text-3xl lg:text-4xl md:text-5xl font-semibold"
+                className="text-3xl font-semibold md:text-5xl lg:text-4xl"
               >
                 Reserva reunión inicial con uno de nuestros abogados
               </motion.h2>

@@ -12,12 +12,12 @@ const RESERVA_LINKS = [
   {
     href: URLS.speakWithUsTrabajadores(),
     label: "Trabajadores",
-    icon: <HardHat className="size-4 stroke-primary" />,
+    icon: <HardHat className="stroke-primary size-4" />,
   },
   {
     href: URLS.speakWithUsEmpresas(),
     label: "Empresas",
-    icon: <Landmark className="size-4 stroke-primary" />,
+    icon: <Landmark className="stroke-primary size-4" />,
   },
 ];
 
@@ -76,13 +76,13 @@ export const AgendaUnaAsesoria: React.FC<AgendaUnaAsesoriaProps> = ({
           sideOffset={4}
           onMouseEnter={handleOpen}
           onMouseLeave={handleClose}
-          className="flex w-(--radix-popover-trigger-width) flex-col justify-center bg-white z-50 px-4 rounded-sm border-black/10 border transition duration-200 ease-in-out outline-none"
+          className="z-50 flex w-(--radix-popover-trigger-width) flex-col justify-center rounded-sm border border-black/10 bg-white px-4 transition duration-200 ease-in-out outline-none"
         >
           {RESERVA_LINKS.map(({ href, label, icon: Icon }) => (
             <Link
               key={label}
               href={href}
-              className="text-black hover:text-accent-dark transition-all flex items-center gap-3 border-b border-black/10 last:border-0 py-3"
+              className="hover:text-accent-dark flex items-center gap-3 border-b border-black/10 py-3 text-black transition-all last:border-0"
               onClick={() => setTimeout(() => setOpen(false), 200)}
             >
               <div className="flex items-center justify-center rounded-sm">

@@ -26,7 +26,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="fixed inset-0 bg-black/80 z-50"
+                className="fixed inset-0 z-50 bg-black/80"
                 onClick={onClose}
               />
             </Dialog.Overlay>
@@ -37,20 +37,20 @@ export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 max-w-md mx-4 bg-white rounded-lg shadow-xl overflow-hidden h-5/6 aspect-[9/16]"
+                className="fixed top-1/2 left-1/2 z-50 mx-4 aspect-[9/16] h-5/6 max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg bg-white shadow-xl"
               >
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b">
+                <div className="flex items-center justify-between border-b p-4">
                   <Dialog.Title className="font-semibold text-black">
                     {video.title}
                   </Dialog.Title>
                   <Dialog.Close asChild>
                     <button
-                      className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                      className="cursor-pointer rounded-full p-2 transition-colors hover:bg-gray-100"
                       aria-label="Cerrar modal"
                       onClick={onClose}
                     >
-                      <XIcon className="w-4 h-4 text-black" />
+                      <XIcon className="h-4 w-4 text-black" />
                     </button>
                   </Dialog.Close>
                 </div>
@@ -58,7 +58,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
                 <iframe
                   src={getEmbedUrl(video.videoUrl)}
                   title={video.title}
-                  className="w-full h-full"
+                  className="h-full w-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />

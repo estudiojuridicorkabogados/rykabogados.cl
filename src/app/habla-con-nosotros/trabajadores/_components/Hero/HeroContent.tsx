@@ -38,28 +38,28 @@ export const HeroContent: React.FC<HeroContentProps> = ({
     >
       <motion.span
         variants={itemVariants}
-        className="uppercase text-xs lg:text-sm text-accent font-bold mb-3 lg:mb-4 tracking-[3px]"
+        className="text-accent mb-3 text-xs font-bold tracking-[3px] uppercase lg:mb-4 lg:text-sm"
       >
         {label}
       </motion.span>
 
       <motion.h1
         variants={itemVariants}
-        className="text-gray-60 lg:max-w-3xl 2xl:max-w-4xl text-3xl lg:text-5xl 2xl:text-7xl mb-4 lg:mb-8"
+        className="text-gray-60 mb-4 text-3xl lg:mb-8 lg:max-w-3xl lg:text-5xl 2xl:max-w-4xl 2xl:text-7xl"
       >
         {title}
       </motion.h1>
 
       <motion.p
         variants={itemVariants}
-        className="lg:text-lg text-white/90 font-light tracking-wide lg:max-w-2xl mb-16 lg:mb-8"
+        className="mb-16 font-light tracking-wide text-white/90 lg:mb-8 lg:max-w-2xl lg:text-lg"
       >
         {description}
       </motion.p>
 
       <motion.div
         variants={itemVariants}
-        className="flex flex-col md:flex-row gap-4"
+        className="flex flex-col gap-4 md:flex-row"
       >
         <Button variant="white-outline-on-primary" asChild>
           <a href="#reserva-form-section" onClick={handleScrollToForm}>

@@ -60,7 +60,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="es-CL" className={dmSans.variable}>
-      <body className="antialiased bg-white">
+      <body className="bg-white antialiased">
         {/* Google Tag Manager (noscript) */}
 
         <noscript>

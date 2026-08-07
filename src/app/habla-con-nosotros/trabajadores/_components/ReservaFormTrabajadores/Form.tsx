@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
+import { useForm } from "react-hook-form";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { TimeSlotStep } from "@/components/ReservaForm/TimeslotStep";
@@ -99,17 +99,17 @@ export const Form: React.FC<FormProps> = ({
                     setValue={setValue}
                   />
 
-                  <div className="w-full flex mt-8 justify-end">
+                  <div className="mt-8 flex w-full justify-end">
                     <Button
                       animateOnClick
                       variant="white-outline-on-primary"
-                      className="w-full lg:w-fit group"
+                      className="group w-full lg:w-fit"
                       type="button"
                       disabled={pending}
                       onClick={nextStep}
                     >
                       Próximo{" "}
-                      <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
+                      <LongArrowRight className="group-hover:stroke-primary group-hover:animate-wiggle ml-2 stroke-white" />
                     </Button>
                   </div>
                 </motion.div>
@@ -129,12 +129,12 @@ export const Form: React.FC<FormProps> = ({
                     errors={errors}
                   />
 
-                  <div className="w-full flex mt-12 justify-end">
+                  <div className="mt-12 flex w-full justify-end">
                     <Button
                       animateOnClick
                       onClick={() => null}
                       variant="white-outline-on-primary"
-                      className="w-full lg:w-60 group"
+                      className="group w-full lg:w-60"
                       type="submit"
                       disabled={pending}
                     >
@@ -143,7 +143,7 @@ export const Form: React.FC<FormProps> = ({
                       ) : (
                         <>
                           Agenda tu asesoría{" "}
-                          <LongArrowRight className="ml-2 stroke-white group-hover:stroke-primary group-hover:animate-wiggle" />
+                          <LongArrowRight className="group-hover:stroke-primary group-hover:animate-wiggle ml-2 stroke-white" />
                         </>
                       )}
                     </Button>

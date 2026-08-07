@@ -27,27 +27,27 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
     >
       <motion.h1
         variants={itemVariants}
-        className="relative text-3xl lg:text-5xl font-bold text-black z-10"
+        className="relative z-10 text-3xl font-bold text-black lg:text-5xl"
       >
         Publicaciones
       </motion.h1>
 
       <motion.div
         variants={itemVariants}
-        className="relative w-full aspect-4/5 lg:aspect-auto lg:h-[450px] rounded-2xl"
+        className="relative aspect-4/5 w-full rounded-2xl lg:aspect-auto lg:h-[450px]"
       >
         <Link href={`/blog/${post.slug}`}>
-          <div className="absolute inset-0 bg-black/30 rounded-2xl z-1" />
+          <div className="absolute inset-0 z-1 rounded-2xl bg-black/30" />
 
           <Image
             src={post.mainImage?.url || ""}
             alt={post.mainImage?.description || ""}
-            className="object-cover w-full h-full rounded-2xl"
+            className="h-full w-full rounded-2xl object-cover"
             fill
             sizes="(max-width: 1024px) 100vw, 80vw"
           />
 
-          <div className="backdrop-blur-xl absolute bottom-4 left-4 right-4 w-fit rounded-2xl overflow-hidden flex flex-col justify-end items-start gap-3 p-4 lg:p-6 z-10">
+          <div className="absolute right-4 bottom-4 left-4 z-10 flex w-fit flex-col items-start justify-end gap-3 overflow-hidden rounded-2xl p-4 backdrop-blur-xl lg:p-6">
             {/* <div className="backdrop-blur-xl absolute inset-0 flex flex-col justify-end items-start gap-4 p-4 lg:p-8 z-10"> */}
             <motion.div
               variants={itemVariants}
@@ -66,23 +66,23 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
 
             <motion.h2
               variants={itemVariants}
-              className="text-xl lg:text-3xl font-bold text-white line-clamp-4 lg:w-2/3"
+              className="line-clamp-4 text-xl font-bold text-white lg:w-2/3 lg:text-3xl"
             >
               {post.title}
             </motion.h2>
             <motion.p
               variants={itemVariants}
-              className="hidden md:flex text-white line-clamp-3 text-sm lg:text-medium lg:w-2/3"
+              className="lg:text-medium line-clamp-3 hidden text-sm text-white md:flex lg:w-2/3"
             >
               {post.excerpt}
             </motion.p>
 
             <motion.div variants={itemVariants}>
-              <div className="flex items-center gap-2 group hover:cursor-pointer">
-                <span className="text-white uppercase text-xs font-bold group-hover:text-accent-dark transition-colors duration-200 tracking-[3px]">
+              <div className="group flex items-center gap-2 hover:cursor-pointer">
+                <span className="group-hover:text-accent-dark text-xs font-bold tracking-[3px] text-white uppercase transition-colors duration-200">
                   Leer más
                 </span>
-                <LongArrowRight className="ml-2 inline-block stroke-white group-hover:stroke-accent-dark group-hover:animate-wiggle transition-colors duration-200" />
+                <LongArrowRight className="group-hover:stroke-accent-dark group-hover:animate-wiggle ml-2 inline-block stroke-white transition-colors duration-200" />
               </div>
             </motion.div>
           </div>

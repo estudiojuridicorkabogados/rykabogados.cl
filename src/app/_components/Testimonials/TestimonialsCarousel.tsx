@@ -36,16 +36,16 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
   };
 
   return (
-    <div className="w-full lg:w-4xl h-full lg:max-w-4xl px-6 py-6 flex flex-col justify-between relative rounded-2xl">
+    <div className="relative flex h-full w-full flex-col justify-between rounded-2xl px-6 py-6 lg:w-4xl lg:max-w-4xl">
       <div className="relative overflow-hidden">
-        <div className="text-white font-bold uppercase text-xs lg:text-sm mb-4 tracking-[3px]">
+        <div className="mb-4 text-xs font-bold tracking-[3px] text-white uppercase lg:text-sm">
           {title}
         </div>
 
         <div className="relative w-full">
           <AnimatePresence custom={direction} initial={false} mode="popLayout">
             <Slide key={selectedItem.index}>
-              <p className="text-2xl lg:text-2xl font-medium pb-8 line-clamp-5">
+              <p className="line-clamp-5 pb-8 text-2xl font-medium lg:text-2xl">
                 &ldquo;{selectedItem.quote}&rdquo;
               </p>
             </Slide>
@@ -53,7 +53,7 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
         </div>
       </div>
 
-      <div className="w-full flex items-center justify-between mt-2">
+      <div className="mt-2 flex w-full items-center justify-between">
         <AnimatePresence custom={direction} initial={false} mode="popLayout">
           <Slide key={selectedItem.index}>
             <div>
@@ -63,13 +63,13 @@ export const TestimonalsCarousel: React.FC<TestimonalsCarouselProps> = ({
           </Slide>
         </AnimatePresence>
 
-        <div className="flex gap-2 ml-auto">
+        <div className="ml-auto flex gap-2">
           <RoundButton onClick={() => setSlide(-1)}>
-            <ChevronLeftIcon className="w-5 h-5" />
+            <ChevronLeftIcon className="h-5 w-5" />
           </RoundButton>
 
           <RoundButton onClick={() => setSlide(1)}>
-            <ChevronRightIcon className="w-5 h-5" />
+            <ChevronRightIcon className="h-5 w-5" />
           </RoundButton>
         </div>
       </div>
@@ -119,7 +119,7 @@ const RoundButton: React.FC<PropsWithChildren<RoundButtonProps>> = ({
   return (
     <motion.button
       initial={false}
-      className="cursor-pointer p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-10"
+      className="z-10 cursor-pointer rounded-full bg-white/10 p-2 transition-colors duration-200 hover:bg-white/20"
       aria-label="Siguiente"
       whileFocus={{ outline: `2px solid red` }}
       whileTap={{ scale: 0.9 }}

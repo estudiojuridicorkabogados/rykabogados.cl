@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 
 export default function FaqsPage() {
   return (
-    <div className="bg-white w-full py-8 lg:py-16">
-      <div className="px-6 lg:min-w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl mx-auto">
+    <div className="w-full bg-white py-8 lg:py-16">
+      <div className="mx-auto px-6 lg:max-w-6xl lg:min-w-6xl 2xl:w-7xl 2xl:max-w-7xl">
         <div className="lg:max-w-4xl">
-          <h1 className="text-3xl lg:text-5xl font-bold text-[#252525] mb-4 lg:mb-8">
+          <h1 className="mb-4 text-3xl font-bold text-[#252525] lg:mb-8 lg:text-5xl">
             Preguntas Frecuentes
           </h1>
 
-          <p className="text-base lg:text-lg text-gray-700 mb-12">
+          <p className="mb-12 text-base text-gray-700 lg:text-lg">
             Aquí encontrarás respuestas a las preguntas más comunes sobre
             nuestros servicios legales. Si no encuentras la información que
             buscas, no dudes en contactarnos o utilizar el chatbot en la parte

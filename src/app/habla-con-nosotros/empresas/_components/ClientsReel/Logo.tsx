@@ -10,7 +10,7 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ logo, ariaHidden }) => (
-  <div className="relative w-[120px] md:w-[180px] h-[70px] md:h-[100px] flex-shrink-0 opacity-100 transition-opacity duration-300 mr-8 lg:mr-12">
+  <div className="relative mr-8 h-[70px] w-[120px] flex-shrink-0 opacity-100 transition-opacity duration-300 md:h-[100px] md:w-[180px] lg:mr-12">
     <Image
       src={logo.src}
       alt={logo.alt}

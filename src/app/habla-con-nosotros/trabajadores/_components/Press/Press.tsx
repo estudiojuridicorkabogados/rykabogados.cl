@@ -22,16 +22,16 @@ export const Press: React.FC = () => {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      className="bg-white py-16 lg:py-28 lg:min-h-[690px]"
+      className="bg-white py-16 lg:min-h-[690px] lg:py-28"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="section-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="px-0 space-y-12">
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+          <div className="space-y-12 px-0">
             <motion.h2
               variants={itemVariants}
-              className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black"
+              className="text-3xl font-semibold text-black md:text-5xl lg:text-4xl"
             >
               Lo que hemos conseguido con nuestros clientes
             </motion.h2>
@@ -48,7 +48,7 @@ export const Press: React.FC = () => {
             </div>
           </div>
 
-          <div className="overflow-hidden lg:overflow-visible relative flex items-center justify-center w-full lg:w-auto h-[450px] lg:h-full">
+          <div className="relative flex h-[450px] w-full items-center justify-center overflow-hidden lg:h-full lg:w-auto lg:overflow-visible">
             {PRESS_ITEMS.map((item, index) => (
               <PressImage
                 key={item.id}

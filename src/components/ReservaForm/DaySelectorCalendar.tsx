@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import Calendar from "react-calendar";
-import { Control, FieldValues, Path, useController } from "react-hook-form";
 import { addMonths, format, isBefore, isSameDay, isToday } from "date-fns";
 import { es } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Calendar from "react-calendar";
+import { Control, FieldValues, Path, useController } from "react-hook-form";
 
 import { classNames } from "@/lib/utils/classNames";
 
@@ -70,12 +70,12 @@ export const DaySelectorCalendar = <T extends FieldValues>({
   };
 
   return (
-    <div className="space-y-4 relative">
-      <div className="flex justify-between items-center mb-2">
+    <div className="relative space-y-4">
+      <div className="mb-2 flex items-center justify-between">
         <span className="font-semibold text-white capitalize">
           {displayMonthText}
         </span>
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <MonthSelectorButton
             direction="prev"
             disabled={prevDisabled}
@@ -127,7 +127,7 @@ export const DaySelectorCalendar = <T extends FieldValues>({
       />
 
       {fieldError && (
-        <p className="absolute bottom-0 text-red-400 text-sm mt-1">
+        <p className="absolute bottom-0 mt-1 text-sm text-red-400">
           {fieldError.message}
         </p>
       )}
@@ -148,7 +148,7 @@ const MonthSelectorButton: React.FC<MonthSeletorButtonProps> = ({
 }) => {
   return (
     <button
-      className="flex items-center justify-center size-8 hover:bg-white/10 rounded-full cursor-pointer disabled:cursor-not-allowed"
+      className="flex size-8 cursor-pointer items-center justify-center rounded-full hover:bg-white/10 disabled:cursor-not-allowed"
       disabled={disabled}
       type="button"
       onClick={onClick}

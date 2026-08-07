@@ -56,7 +56,7 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
   errors,
   control,
 }) => (
-  <div className="space-y-10 mt-8">
+  <div className="mt-8 space-y-10">
     <FloatingLabelInput
       id="name"
       {...register("name")}
@@ -64,7 +64,7 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
       error={errors.name?.message}
     />
 
-    <div className="flex flex-col md:flex-row gap-8 w-full">
+    <div className="flex w-full flex-col gap-8 md:flex-row">
       <FloatingLabelInput
         id="email"
         {...register("email")}
@@ -81,7 +81,7 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
       />
     </div>
 
-    <div className="flex flex-col md:flex-row gap-6 w-full">
+    <div className="flex w-full flex-col gap-6 md:flex-row">
       <Controller
         name="motivoAsesoria"
         control={control}
@@ -127,7 +127,7 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
 
     <div className="relative flex flex-col gap-2">
       <label
-        className="font-bold text-white/80 text-sm lg:text-base pt-2"
+        className="pt-2 text-sm font-bold text-white/80 lg:text-base"
         htmlFor="mensaje"
       >
         Mensaje (opcional)
@@ -135,7 +135,7 @@ export const EmpresaInfoStep: React.FC<EmpresaInfoStepProps> = ({
       <textarea
         id="mensaje"
         {...register("mensaje")}
-        className="border p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-base"
+        className="resize-none border border-white/60 bg-black/30 p-2 text-base transition-colors outline-none focus:border-white focus:ring-0"
         rows={3}
         placeholder="Describe brevemente tu caso e indícanos el nivel de urgencia. Nuestro equipo revisará tu solicitud antes de contactarte."
       />

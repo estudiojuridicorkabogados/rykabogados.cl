@@ -15,11 +15,11 @@ const accordionEntries = CASOS_ITEMS.map((caso) => ({
       {caso.montoRiesgo && caso.montoFinal ? (
         <div className="space-y-1 text-sm">
           <div className="flex gap-2">
-            <span className="text-black/50 shrink-0">Monto en Riesgo:</span>
+            <span className="shrink-0 text-black/50">Monto en Riesgo:</span>
             <span className="font-medium text-black">{caso.montoRiesgo}</span>
           </div>
           <div className="flex gap-2">
-            <span className="text-black/50 shrink-0">
+            <span className="shrink-0 text-black/50">
               Monto Final Tras Defensa:
             </span>
             <span className="font-medium text-black">{caso.montoFinal}</span>
@@ -27,13 +27,13 @@ const accordionEntries = CASOS_ITEMS.map((caso) => ({
         </div>
       ) : caso.resultado ? (
         <div className="flex gap-2 text-sm">
-          <span className="text-black/50 shrink-0">Resultado:</span>
+          <span className="shrink-0 text-black/50">Resultado:</span>
           <span className="font-medium text-black uppercase">
             {caso.resultado}
           </span>
         </div>
       ) : null}
-      <div className="text-sm space-y-1">
+      <div className="space-y-1 text-sm">
         <span className="font-medium text-black">Logro Clave: </span>
         <span className="text-black/50">{caso.logroClave}</span>
       </div>
@@ -46,16 +46,16 @@ export const Casos: React.FC = () => {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      className="bg-white py-16 lg:py-28 lg:min-h-[690px]"
+      className="bg-white py-16 lg:min-h-[690px] lg:py-28"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="section-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="px-0 space-y-2">
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+          <div className="space-y-2 px-0">
             <motion.h2
               variants={itemVariants}
-              className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black"
+              className="text-3xl font-semibold text-black md:text-5xl lg:text-4xl"
             >
               Casos de éxito empresarial.
             </motion.h2>

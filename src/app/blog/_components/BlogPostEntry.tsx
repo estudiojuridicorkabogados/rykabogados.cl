@@ -24,17 +24,17 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col w-full"
+      className="flex w-full flex-col"
     >
       <motion.div
         variants={itemVariants}
-        className="relative w-full aspect-video sm:aspect-2/1 lg:aspect-square rounded-2xl bg-gray-100"
+        className="relative aspect-video w-full rounded-2xl bg-gray-100 sm:aspect-2/1 lg:aspect-square"
       >
         <Image
           fill
           src={mainImage?.url || "/default-image.jpg"}
           alt={mainImage?.title || "Blog Post Image"}
-          className="object-cover rounded-2xl"
+          className="rounded-2xl object-cover"
           sizes="(max-width: 1024px) 100vw, 33vw"
         />
       </motion.div>
@@ -58,7 +58,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
         <div className="group relative">
           <motion.h3
             variants={itemVariants}
-            className="mt-1 lg:mt-2 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 font-sans!"
+            className="mt-1 font-sans! text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 lg:mt-2"
           >
             <Link href={(blogPost.href || "#") as Route}>
               <span className="absolute inset-0" />
@@ -67,7 +67,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
           </motion.h3>
           <motion.p
             variants={itemVariants}
-            className="mt-1 lg:mt-3 line-clamp-2 text-sm/6 text-gray-600 leading-5"
+            className="mt-1 line-clamp-2 text-sm/6 leading-5 text-gray-600 lg:mt-3"
           >
             {blogPost.excerpt}
           </motion.p>
@@ -79,15 +79,15 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
 
 export const BlogPostEntrySkeleton: React.FC = () => {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <div className="w-full">
-        <div className="loading-background-animation w-full aspect-video sm:aspect-2/1 lg:aspect-square rounded-2xl" />
+        <div className="loading-background-animation aspect-video w-full rounded-2xl sm:aspect-2/1 lg:aspect-square" />
       </div>
 
-      <div className="max-w-xl w-full mt-6 ">
+      <div className="mt-6 w-full max-w-xl">
         <div className="loading-background-animation h-4 w-2/3" />
 
-        <div className="flex flex-col gap-3 mt-3">
+        <div className="mt-3 flex flex-col gap-3">
           {Array.from({ length: 3 }).map((_, index) => (
             <div
               key={index}

@@ -52,7 +52,7 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
           "text-black hover:underline font-medium hover:text-primary/80 cursor-pointer flex items-center gap-2 text-sm lg:text-base"
         )}
       >
-        <WhatsappIcon className="w-4 h-4 fill-current text-green-700 group-hover:text-white transition-colors" />
+        <WhatsappIcon className="h-4 w-4 fill-current text-green-700 transition-colors group-hover:text-white" />
         {text}
       </a>
     );

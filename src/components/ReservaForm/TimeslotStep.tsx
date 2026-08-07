@@ -59,23 +59,23 @@ export const TimeSlotStep = <
     <div className="flex flex-col gap-8">
       <DaySelectorCalendar control={control} />
 
-      <div className="relative grid grid-cols-3 lg:grid-cols-7 gap-3">
+      <div className="relative grid grid-cols-3 gap-3 lg:grid-cols-7">
         {availableSlots.map((slot) => (
           <label key={slot} className="cursor-pointer">
             <input
               {...register("timeSlot" as Path<T>)}
               type="radio"
               value={slot}
-              className="sr-only peer"
+              className="peer sr-only"
             />
-            <div className="p-2 rounded-sm border border-white/20 transition-colors text-center peer-checked:bg-white peer-checked:text-primary hover:bg-white/10 peer-checked:hover:bg-white">
+            <div className="peer-checked:text-primary rounded-sm border border-white/20 p-2 text-center transition-colors peer-checked:bg-white hover:bg-white/10 peer-checked:hover:bg-white">
               {slot}
             </div>
           </label>
         ))}
 
         {errors.timeSlot && (
-          <p className="absolute -bottom-7 text-red-400 text-sm mt-1">
+          <p className="absolute -bottom-7 mt-1 text-sm text-red-400">
             {errors.timeSlot.message}
           </p>
         )}

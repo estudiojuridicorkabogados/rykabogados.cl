@@ -53,17 +53,17 @@ const SERVICIOS_LINKS = [
   {
     href: URLS.asesoriaTrabajadores(),
     label: "Asesoría Trabajadores",
-    icon: <HardHat className="size-4 stroke-primary" />,
+    icon: <HardHat className="stroke-primary size-4" />,
   },
   {
     href: URLS.asesoriaEmpresas(),
     label: "Asesoría Empresas",
-    icon: <Landmark className="size-4 stroke-primary" />,
+    icon: <Landmark className="stroke-primary size-4" />,
   },
   {
     href: URLS.otrasAreas(),
     label: "Otras Áreas",
-    icon: <BriefcaseBusiness className="size-4 stroke-primary" />,
+    icon: <BriefcaseBusiness className="stroke-primary size-4" />,
   },
 ];
 
@@ -71,10 +71,10 @@ export const Navbar = () => {
   return (
     <Disclosure
       as="nav"
-      className="relative z-50 bg-white h-[80px] lg:h-[100px] py-2"
+      className="relative z-50 h-[80px] bg-white py-2 lg:h-[100px]"
     >
-      <div className="container mx-auto px-6 lg:px-0 flex items-center justify-between h-full">
-        <Link href="/" className="flex items-center h-full">
+      <div className="container mx-auto flex h-full items-center justify-between px-6 lg:px-0">
+        <Link href="/" className="flex h-full items-center">
           <span className="block w-[160px] shrink-0 lg:w-[220px]">
             <Image
               src={logoBlack}
@@ -86,38 +86,38 @@ export const Navbar = () => {
           </span>
         </Link>
 
-        <div className="hidden lg:flex items-center space-x-8 text-white font-light">
+        <div className="hidden items-center space-x-8 font-light text-white lg:flex">
           <HoverPopover label="Servicios" links={SERVICIOS_LINKS} />
 
           <Link
             href={URLS.nosotros()}
-            className="text-black hover:text-accent-dark transition-colors"
+            className="hover:text-accent-dark text-black transition-colors"
           >
             Nosotros
           </Link>
 
           <Link
             href={URLS.blog()}
-            className="text-black hover:text-accent-dark transition-colors"
+            className="hover:text-accent-dark text-black transition-colors"
           >
             Blog
           </Link>
 
           <Link
             href={URLS.contacts()}
-            className="text-black hover:text-accent-dark transition-colors"
+            className="hover:text-accent-dark text-black transition-colors"
           >
             Contacto
           </Link>
         </div>
 
-        <div className="hidden lg:flex lg:items-center lg:justify-center h-full lg:w-[220px]">
+        <div className="hidden h-full lg:flex lg:w-[220px] lg:items-center lg:justify-center">
           <AgendaUnaAsesoria variant="white" />
         </div>
 
         {/* Mobile menu button */}
         <div className="flex lg:hidden">
-          <DisclosureButton className="outline-none group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:outline-accent-dark">
+          <DisclosureButton className="group focus:outline-accent-dark relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 outline-none hover:bg-white/5 hover:text-white focus:outline-2">
             <span className="absolute -inset-0.5" />
             <span className="sr-only">Abrir el menú principal</span>
             <MenuIcon
@@ -137,32 +137,32 @@ export const Navbar = () => {
         className="origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
       >
         {({ close }) => (
-          <div className="bg-white space-y-1 px-6 pt-6 pb-6">
+          <div className="space-y-1 bg-white px-6 pt-6 pb-6">
             {MOBILE_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => close()}
-                className="w-full block py-4 text-sm text-black border-b border-black/10 first:pt-0"
+                className="block w-full border-b border-black/10 py-4 text-sm text-black first:pt-0"
               >
                 {link.label}
               </Link>
             ))}
             <div className="pt-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-black/40 pb-2">
+              <p className="pb-2 text-xs font-semibold tracking-wider text-black/40 uppercase">
                 Agenda una asesoría
               </p>
               <Link
                 href={URLS.speakWithUsTrabajadores()}
                 onClick={() => close()}
-                className="w-full block py-3 text-sm text-black border-b border-black/10"
+                className="block w-full border-b border-black/10 py-3 text-sm text-black"
               >
                 Trabajadores
               </Link>
               <Link
                 href={URLS.speakWithUsEmpresas()}
                 onClick={() => close()}
-                className="w-full block py-3 text-sm text-black"
+                className="block w-full py-3 text-sm text-black"
               >
                 Empresas
               </Link>

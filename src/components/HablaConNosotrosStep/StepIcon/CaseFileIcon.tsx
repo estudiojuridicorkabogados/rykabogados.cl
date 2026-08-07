@@ -5,7 +5,7 @@ export const CaseFileIcon = () => {
       id="Layer_2"
       data-name="Layer 2"
       viewBox="0 0 41.49 46.27"
-      className="h-12 fill-none stroke-[1.09px] stroke-accent-dark"
+      className="stroke-accent-dark h-12 fill-none stroke-[1.09px]"
     >
       <g id="Layer_1-2" data-name="Layer 1">
         <g>

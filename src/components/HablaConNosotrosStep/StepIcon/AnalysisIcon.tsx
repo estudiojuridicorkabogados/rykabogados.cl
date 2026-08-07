@@ -5,7 +5,7 @@ export const AnalysisIcon = () => {
       id="Layer_2"
       data-name="Layer 2"
       viewBox="0 0 57.17 51.54"
-      className="h-12 fill-none stroke-[1.09px] stroke-accent-dark"
+      className="stroke-accent-dark h-12 fill-none stroke-[1.09px]"
     >
       <g id="Layer_1-2" data-name="Layer 1">
         <rect

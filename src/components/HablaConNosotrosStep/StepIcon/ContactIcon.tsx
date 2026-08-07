@@ -5,7 +5,7 @@ export const ContactIcon = () => {
       id="Layer_2"
       data-name="Layer 2"
       viewBox="0 0 57.66 57.59"
-      className="h-12 fill-none stroke-[1.09px] stroke-accent-dark"
+      className="stroke-accent-dark h-12 fill-none stroke-[1.09px]"
     >
       <g id="Layer_1-2" data-name="Layer 1">
         <path d="M36.07,22.56s.05,0,.07,0" />

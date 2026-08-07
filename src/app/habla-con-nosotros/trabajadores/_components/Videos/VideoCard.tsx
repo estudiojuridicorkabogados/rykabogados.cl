@@ -16,21 +16,21 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlayVideo }) => {
   return (
     <motion.div
       variants={itemVariants}
-      className="w-full flex flex-col justify-between gap-6"
+      className="flex w-full flex-col justify-between gap-6"
     >
       <div>
-        <h3 className="text-2xl text-black mb-2">{video.title}</h3>
+        <h3 className="mb-2 text-2xl text-black">{video.title}</h3>
 
         <p className="text-black">{video.description}</p>
       </div>
 
       <motion.button
-        className="w-full group flex items-center gap-3 text-black cursor-pointer transition-all border border-primary border-solid rounded-full px-2 py-2 hover:bg-primary hover:text-accent"
+        className="group border-primary hover:bg-primary hover:text-accent flex w-full cursor-pointer items-center gap-3 rounded-full border border-solid px-2 py-2 text-black transition-all"
         initial={false}
         whileTap={{ scale: 1.1 }}
         onClick={() => onPlayVideo(video)}
       >
-        <div className="w-[30px] h-[30px] bg-accent rounded-full flex items-center justify-center">
+        <div className="bg-accent flex h-[30px] w-[30px] items-center justify-center rounded-full">
           <PlayIcon />
         </div>
         Reproducir video

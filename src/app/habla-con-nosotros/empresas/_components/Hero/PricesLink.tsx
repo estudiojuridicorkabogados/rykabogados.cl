@@ -13,14 +13,14 @@ export const PricesLink = () => {
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
-      className="absolute -bottom-4 lg:right-[max(1.5rem,calc((100vw-72rem)/2))] z-10"
+      className="absolute -bottom-4 z-10 lg:right-[max(1.5rem,calc((100vw-72rem)/2))]"
     >
       <a
         href="#prices"
         onClick={handleScrollToPrices}
-        className="flex items-center gap-1 bg-[#FED9A5] text-black rounded-t-lg px-4 lg:px-8 pt-2 lg:pt-4 pb-5 lg:pb-6 cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-2"
+        className="flex cursor-pointer items-center gap-1 rounded-t-lg bg-[#FED9A5] px-4 pt-2 pb-5 text-black transition-transform duration-200 ease-out hover:-translate-y-2 lg:px-8 lg:pt-4 lg:pb-6"
       >
-        <span className="text-xs lg:text-sm tracking-[2px] uppercase font-semibold">
+        <span className="text-xs font-semibold tracking-[2px] uppercase lg:text-sm">
           Planes mensuales desde 11 UF
         </span>
 
@@ -29,7 +29,7 @@ export const PricesLink = () => {
           height="18"
           viewBox="0 0 9 18"
           fill="none"
-          className="w-2 h-3"
+          className="h-3 w-2"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path

@@ -19,7 +19,7 @@ export const EmpresasServices = () => {
       }}
       viewport={{ once: true, amount: 0.1 }}
     >
-      <div className="flex flex-col gap-12 lg:gap-8 mx-auto lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl px-6 lg:px-8">
+      <div className="mx-auto flex flex-col gap-12 px-6 lg:max-w-6xl lg:gap-8 lg:px-8 2xl:w-7xl 2xl:max-w-7xl">
         <motion.h2
           variants={itemVariants}
           className="text-4xl font-bold text-black"

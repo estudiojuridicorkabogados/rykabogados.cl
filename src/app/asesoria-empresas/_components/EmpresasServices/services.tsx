@@ -72,7 +72,7 @@ export const SERVICES = [
       <div>
         Nuestros profesionales le brindarán la más completa asesoría jurídica
         laboral, abarcando, entre otras materias, lo relacionado a:
-        <ul className="list-disc pl-5 mt-3">
+        <ul className="mt-3 list-disc pl-5">
           <li>
             Confección o revisión de contratos de trabajo o anexos. Asesoría
             para la desvinculación de trabajadores

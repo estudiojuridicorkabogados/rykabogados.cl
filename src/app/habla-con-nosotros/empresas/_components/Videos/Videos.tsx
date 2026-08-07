@@ -30,12 +30,12 @@ export const Videos = () => {
           <div className="section-container flex flex-col gap-8 px-6 lg:px-0">
             <motion.h2
               variants={itemVariants}
-              className="text-3xl lg:text-4xl md:text-5xl font-semibold text-black max-w-[440px] mb-8 lg:mb-12"
+              className="mb-8 max-w-[440px] text-3xl font-semibold text-black md:text-5xl lg:mb-12 lg:text-4xl"
             >
               Videos que hemos preparado para ti
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-16 lg:gap-y-20 lg:gap-x-20">
+            <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:gap-x-20 lg:gap-y-20 xl:grid-cols-3">
               {VIDEOS.slice(0, 5).map((video, index) => (
                 <VideoCard
                   key={video.id || index}

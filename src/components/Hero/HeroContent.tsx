@@ -28,25 +28,25 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
-      className="relative z-10 mx-auto lg:w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl px-6 flex flex-col"
+      className="relative z-10 mx-auto flex flex-col px-6 lg:w-6xl lg:max-w-6xl 2xl:w-7xl 2xl:max-w-7xl"
     >
       <motion.span
         variants={itemVariants}
-        className="hero-title uppercase text-xs lg:text-sm text-accent font-bold mb-2 lg:mb-4 tracking-[3px]"
+        className="hero-title text-accent mb-2 text-xs font-bold tracking-[3px] uppercase lg:mb-4 lg:text-sm"
       >
         {label}
       </motion.span>
 
       <motion.h1
         variants={itemVariants}
-        className="hero-title lg:max-w-3xl text-5xl lg:text-7xl mb-4 lg:mb-6 text-gray-60"
+        className="hero-title text-gray-60 mb-4 text-5xl lg:mb-6 lg:max-w-3xl lg:text-7xl"
       >
         {title}
       </motion.h1>
 
       <motion.p
         variants={itemVariants}
-        className="hero-description lg:text-lg text-white/90 font-base tracking-wide lg:max-w-2xl"
+        className="hero-description font-base tracking-wide text-white/90 lg:max-w-2xl lg:text-lg"
       >
         {description}
       </motion.p>
@@ -54,7 +54,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       {button && (
         <motion.div
           variants={itemVariants}
-          className="flex flex-col md:flex-row gap-4 mt-8"
+          className="mt-8 flex flex-col gap-4 md:flex-row"
         >
           <Button variant="white-outline-on-primary" asChild>
             <a href={button.href}>{button.label}</a>

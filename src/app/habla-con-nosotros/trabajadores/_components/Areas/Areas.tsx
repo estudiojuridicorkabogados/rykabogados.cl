@@ -25,8 +25,8 @@ export const Areas = () => {
       variants={containerVariants}
       viewport={{ once: true, amount: 0.4 }}
     >
-      <div className="section-container text-black  flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-32">
-        <div className="flex-2 flex flex-col gap-2 lg:gap-8">
+      <div className="section-container flex flex-col gap-8 text-black lg:flex-row lg:gap-16 xl:gap-32">
+        <div className="flex flex-2 flex-col gap-2 lg:gap-8">
           <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
             No hay nada que perder. <br />
             Defiende lo que es tuyo.
@@ -39,13 +39,13 @@ export const Areas = () => {
           </motion.p>
         </div>
 
-        <div className="flex-1 flex items-center">
+        <div className="flex flex-1 items-center">
           <ul className="list-disc pl-5">
             {AREAS.map((area, i) => (
               <motion.li
                 variants={itemVariants}
                 key={i}
-                className="lg:text-xl mb-2 last:mb-0"
+                className="mb-2 last:mb-0 lg:text-xl"
               >
                 {area}
               </motion.li>

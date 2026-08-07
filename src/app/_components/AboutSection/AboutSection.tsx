@@ -13,10 +13,10 @@ export const AboutSection = () => {
   const navigateToContacto = () => router.push(URLS.contacts());
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="lg:max-w-6xl 2xl:max-w-7xl xl:w-7xl  mx-auto px-6 flex flex-col lg:flex-row gap-y-8 gap-x-24 items-start">
+    <section className="bg-white py-16 lg:py-24">
+      <div className="mx-auto flex flex-col items-start gap-x-24 gap-y-8 px-6 lg:max-w-6xl lg:flex-row xl:w-7xl 2xl:max-w-7xl">
         <motion.div
-          className="flex flex-col gap-6 flex-1"
+          className="flex flex-1 flex-col gap-6"
           initial="hidden"
           whileInView="visible"
           variants={containerVariants}
@@ -25,14 +25,14 @@ export const AboutSection = () => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl lg:text-5xl font-bold text-[#0B142D] leading-tight"
+            className="text-4xl leading-tight font-bold text-[#0B142D] lg:text-5xl"
           >
             Nuestra Misión
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
-            className="lg:text-lg text-gray-600 leading-relaxed mb-2 lg:max-w-2xl"
+            className="mb-2 leading-relaxed text-gray-600 lg:max-w-2xl lg:text-lg"
           >
             En Retamales Kowalski Abogados brindamos soluciones jurídicas
             efectivas y personalizadas, adaptadas a las necesidades reales de
@@ -58,7 +58,7 @@ export const AboutSection = () => {
 
         <motion.div
           variants={itemVariants}
-          className="w-full flex mt-4 lg:hidden"
+          className="mt-4 flex w-full lg:hidden"
         >
           <Button
             className="w-full"

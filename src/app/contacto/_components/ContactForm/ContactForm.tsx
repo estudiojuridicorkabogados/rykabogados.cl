@@ -75,8 +75,8 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className="flex-2 flex flex-col justify-end h-full">
-      <div className="flex flex-col gap-4 lg:gap-8 text-white">
+    <div className="flex h-full flex-2 flex-col justify-end">
+      <div className="flex flex-col gap-4 text-white lg:gap-8">
         <h1 className="text-5xl">Contáctanos</h1>
         <p className="lg:max-w-2/3">
           Déjanos tus datos y un abogado de nuestro equipo te contactará
@@ -86,7 +86,7 @@ export const ContactForm = () => {
         <form
           ref={formRef}
           action={action}
-          className="max-w-[450px] flex flex-col gap-6 mt-4"
+          className="mt-4 flex max-w-[450px] flex-col gap-6"
         >
           {/* Honeypot for bots */}
           <input
@@ -121,13 +121,13 @@ export const ContactForm = () => {
           />
 
           <div className="flex flex-col gap-2">
-            <label className="font-bold text-white/80 text-sm lg:text-base pt-2">
+            <label className="pt-2 text-sm font-bold text-white/80 lg:text-base">
               ¿Qué tipo de servicio buscas?
             </label>
             <select
               name="typeOfServices"
               defaultValue=""
-              className="bg-transparent border-b border-white/60 text-white text-base focus:outline-none focus:ring-0 focus:border-b"
+              className="border-b border-white/60 bg-transparent text-base text-white focus:border-b focus:ring-0 focus:outline-none"
               required
             >
               <option value="" disabled>
@@ -157,7 +157,7 @@ export const ContactForm = () => {
 
           <div className="flex flex-col gap-2">
             <label
-              className="font-bold text-white/80 text-sm lg:text-base pt-2"
+              className="pt-2 text-sm font-bold text-white/80 lg:text-base"
               htmlFor="mensaje"
             >
               Mensaje
@@ -165,7 +165,7 @@ export const ContactForm = () => {
             <textarea
               id="mensaje"
               name="mensaje"
-              className="border-1 p-2 bg-black/30 resize-none transition-colors border-white/60 focus:border-white outline-none focus:ring-0 text-base"
+              className="resize-none border-1 border-white/60 bg-black/30 p-2 text-base transition-colors outline-none focus:border-white focus:ring-0"
               rows={5}
               placeholder="Describe brevemente tu caso o indícanos que tipo de asesoría necesitas"
             />
@@ -178,7 +178,7 @@ export const ContactForm = () => {
               name="dataConsent"
               required
             />
-            <label htmlFor="dataConsent" className="text-white/80 text-xs">
+            <label htmlFor="dataConsent" className="text-xs text-white/80">
               Acepto{" "}
               <a
                 href={URLS.privacyPolicy()}
@@ -196,7 +196,7 @@ export const ContactForm = () => {
             disabled={isPending || state.success}
             animateOnClick
             onClick={handleClick}
-            className="w-full lg:w-40 mt-4"
+            className="mt-4 w-full lg:w-40"
             type="button"
             variant="white-outline-on-primary"
           >

@@ -35,7 +35,7 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
         alt="Chat"
         width={70}
         height={70}
-        className="object-cover max-w-none w-[70px] h-[70px] mb-4"
+        className="mb-4 h-[70px] w-[70px] max-w-none object-cover"
       />
 
       {/* Unread badge */}

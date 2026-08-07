@@ -21,15 +21,15 @@ export const HablaConNosotrosStep: React.FC<HablaConNosotrosStepProps> = ({
         y: -5,
         transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
-      className="bg-gray-60 flex flex-col items-start p-6 rounded-sm w-full h-full gap-6 shadow-md"
+      className="bg-gray-60 flex h-full w-full flex-col items-start gap-6 rounded-sm p-6 shadow-md"
       // className="bg-[#fff3e1] flex flex-col items-start p-6 rounded-sm w-full h-full gap-6 shadow-md"
     >
       <StepIcon icon={step.icon} />
 
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex w-full flex-col gap-2">
         <div className="font-serif text-5xl text-black">{step.stepNumber}</div>
 
-        <div className="font-bold text-black text-xl">{step.title}</div>
+        <div className="text-xl font-bold text-black">{step.title}</div>
 
         <div className="font-normal text-black">{step.description}</div>
       </div>

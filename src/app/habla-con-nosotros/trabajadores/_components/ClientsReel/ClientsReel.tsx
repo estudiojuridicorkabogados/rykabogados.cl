@@ -7,16 +7,16 @@ import { Logo } from "./Logo";
 
 export const ClientsReel: React.FC = () => {
   return (
-    <div className="bg-accent relative h-[130px] md:h-[120px] flex items-center">
+    <div className="bg-accent relative flex h-[130px] items-center md:h-[120px]">
       <Marquee pauseOnHover speed={50}>
         {LOGOS.map((logo, i) => (
           <Logo key={`logo-a-${i}`} logo={logo} />
         ))}
       </Marquee>
 
-      <div className="absolute top-0 left-0 w-24 md:w-[80px] h-full pointer-events-none z-10 bg-gradient-to-r from-accent via-accent/80 to-transparent" />
+      <div className="from-accent via-accent/80 pointer-events-none absolute top-0 left-0 z-10 h-full w-24 bg-gradient-to-r to-transparent md:w-[80px]" />
 
-      <div className="absolute top-0 right-0 w-24 md:w-[80px] h-full pointer-events-none z-10 bg-gradient-to-r from-transparent via-accent/80 to-accent" />
+      <div className="via-accent/80 to-accent pointer-events-none absolute top-0 right-0 z-10 h-full w-24 bg-gradient-to-r from-transparent md:w-[80px]" />
     </div>
   );
 };

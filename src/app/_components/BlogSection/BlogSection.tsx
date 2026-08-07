@@ -17,7 +17,7 @@ export const BlogSection = async () => {
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-gray-50">
+    <section className="bg-gray-50 py-16 lg:py-24">
       <AnimatedBlogPosts mainPost={posts[0]} secondaryPost={posts[1]} />
     </section>
   );

@@ -46,12 +46,12 @@ export const ChatbotInput: React.FC<ChatbotSupportInputProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white px-2 py-4 w-full shrink-0 z-20"
+      className="z-20 w-full shrink-0 bg-white px-2 py-4"
     >
       <div className="flex items-start gap-2">
         <textarea
           ref={textareaRef}
-          className=" transition-all flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-base sm:text-sm outline-none text-gray-900 placeholder:text-gray-500 focus:border-primary focus:ring-1 focus:ring-primary"
+          className="focus:border-primary focus:ring-primary flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 transition-all outline-none placeholder:text-gray-500 focus:ring-1 sm:text-sm"
           value={input}
           rows={2}
           style={{ resize: "none" }}
@@ -61,7 +61,7 @@ export const ChatbotInput: React.FC<ChatbotSupportInputProps> = ({
         />
         <button
           type="submit"
-          className="flex items-center justify-center bg-primary h-9 w-9 rounded-full text-sm font-medium shadow-sm outline-none"
+          className="bg-primary flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium shadow-sm outline-none"
           aria-label="Enviar mensaje"
         >
           <SendIcon className="size-4 stroke-white" />

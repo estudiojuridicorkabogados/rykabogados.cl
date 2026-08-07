@@ -9,7 +9,7 @@ import { TEAM_MEMBERS } from "@/lib/utils/constants";
 
 export const TeamGrid = () => {
   return (
-    <div className="py-16 lg:py-28 bg-primary">
+    <div className="bg-primary py-16 lg:py-28">
       <motion.div
         className="section-container flex flex-col gap-4"
         initial="hidden"
@@ -20,22 +20,22 @@ export const TeamGrid = () => {
       >
         <motion.h2
           variants={itemVariants}
-          className="text-4xl lg:text-5xl font-bold text-white leading-tight"
+          className="text-4xl leading-tight font-bold text-white lg:text-5xl"
         >
           Conoce a nuestro equipo
         </motion.h2>
 
         <ul
           role="list"
-          className="mt-8 mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
+          className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
         >
           {TEAM_MEMBERS.map((person, i) => (
             <motion.li
               key={i}
               variants={itemVariants}
-              className="bg-white/5 rounded-2xl border-white/10 border"
+              className="rounded-2xl border border-white/10 bg-white/5"
             >
-              <div className="aspect-14/13 w-full rounded-2xl outline-1 -outline-offset-1 outline-black/5 dark:outline-white/10 relative">
+              <div className="relative aspect-14/13 w-full rounded-2xl outline-1 -outline-offset-1 outline-black/5 dark:outline-white/10">
                 <Image
                   alt={person.name}
                   src={person.photo}
@@ -45,22 +45,22 @@ export const TeamGrid = () => {
                 />
               </div>
 
-              <div className="flex flex-row justify-between gap-3 my-5 w-full px-5">
-                <div className="flex flex-col gap-1 w-full">
-                  <div className="flex flex-row items-center justify-between gap-3 w-full">
-                    <h3 className="font-sans! font-bold! text-base text-white">
+              <div className="my-5 flex w-full flex-row justify-between gap-3 px-5">
+                <div className="flex w-full flex-col gap-1">
+                  <div className="flex w-full flex-row items-center justify-between gap-3">
+                    <h3 className="font-sans! text-base font-bold! text-white">
                       {person.name}
                     </h3>
                   </div>
 
-                  <p className="text-white/80 text-sm italic mb-4">
+                  <p className="mb-4 text-sm text-white/80 italic">
                     {person.role}
                   </p>
 
                   <a
                     href={`mailto:${person.email}`}
                     target="_blank"
-                    className="cursor-pointer text-sm text-white/80 hover:text-accent transition-colors duration-300"
+                    className="hover:text-accent cursor-pointer text-sm text-white/80 transition-colors duration-300"
                     rel="noreferrer"
                   >
                     {person.email}
@@ -68,7 +68,7 @@ export const TeamGrid = () => {
                   <a
                     href={person.phoneLink}
                     target="_blank"
-                    className="cursor-pointer text-sm text-white/80 mb-2 hover:text-accent transition-colors duration-300"
+                    className="hover:text-accent mb-2 cursor-pointer text-sm text-white/80 transition-colors duration-300"
                     rel="noreferrer"
                   >
                     {person.phone}
@@ -79,7 +79,7 @@ export const TeamGrid = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <LinkedinSquareIcon className="size-5 fill-white/50 hover:fill-accent transition-colors duration-300" />
+                    <LinkedinSquareIcon className="hover:fill-accent size-5 fill-white/50 transition-colors duration-300" />
                   </a>
 
                   {/* <a

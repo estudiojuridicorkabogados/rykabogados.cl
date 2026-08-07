@@ -17,10 +17,10 @@ export default async function BlogPage() {
   });
 
   return (
-    <div className="lg:mx-auto lg:min-w-6xl lg:max-w-6xl 2xl:max-w-7xl 2xl:w-7xl 2xl:min-w-7xl px-6 lg:px-8">
+    <div className="px-6 lg:mx-auto lg:max-w-6xl lg:min-w-6xl lg:px-8 2xl:w-7xl 2xl:max-w-7xl 2xl:min-w-7xl">
       <HighlightedPost post={posts[0]} />
 
-      <div className="w-full mx-auto lg:border-t lg:border-black/10 mt-16 lg:pt-16 grid grid-cols-1 lg:grid-cols-3 gap-x-10 gap-y-16 lg:mx-0 lg:max-w-none">
+      <div className="mx-auto mt-16 grid w-full grid-cols-1 gap-x-10 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:border-t lg:border-black/10 lg:pt-16">
         {posts.slice(1).map((post) => (
           <BlogPostEntry key={post.slug} blogPost={post} />
         ))}

@@ -118,9 +118,9 @@ export const SupportChatbot = () => {
         role="dialog"
         aria-label="Support chat"
       >
-        <div className="relative bg-linear-to-b from-[#FED9A591] via-[#FED9A500] to-[#FBFBFC] via-20% to-25% flex-1 flex flex-col min-h-0">
+        <div className="relative flex min-h-0 flex-1 flex-col bg-linear-to-b from-[#FED9A591] via-[#FED9A500] via-20% to-[#FBFBFC] to-25%">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-6 text-white shrink-0">
+          <div className="flex shrink-0 items-center justify-between px-6 py-6 text-white">
             <div className="flex items-center gap-2">
               <Image
                 src={logoBlack}
@@ -134,19 +134,19 @@ export const SupportChatbot = () => {
             <button
               type="button"
               onClick={handleClose}
-              className="cursor-pointer inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-white/10 focus:outline-none"
+              className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md hover:bg-white/10 focus:outline-none"
               aria-label="Cerrar chat"
             >
-              <PlusIcon className="rotate-45 size-4" />
+              <PlusIcon className="size-4 rotate-45" />
             </button>
           </div>
 
           {/* Messages */}
           <div
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto px-6 py-3 pb-4 mt-2"
+            className="mt-2 flex-1 overflow-y-auto px-6 py-3 pb-4"
           >
-            <p className="font-medium text-xl text-black mb-4 leading-[25px] max-w-4/5">
+            <p className="mb-4 max-w-4/5 text-xl leading-[25px] font-medium text-black">
               Bienvenido a RK Abogados. ¿Cómo prefieres hablar con nosotros?
             </p>
 

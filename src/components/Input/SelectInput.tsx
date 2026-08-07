@@ -56,7 +56,7 @@ export const SelectInput = ({
         ) : null}
 
         <div className="w-full">
-          <Label className="font-bold text-white/80 text-base pt-2">
+          <Label className="pt-2 text-base font-bold text-white/80">
             {label}
           </Label>
           <div className="relative mt-2">
@@ -89,7 +89,7 @@ export const SelectInput = ({
                 <ListboxOption
                   key={option.id}
                   value={option.label}
-                  className="cursor-pointer group relative py-2 pr-9 pl-3 text-white/80 select-none data-focus:outline-hidden hover:bg-accent hover:text-primary"
+                  className="group hover:bg-accent hover:text-primary relative cursor-pointer py-2 pr-9 pl-3 text-white/80 select-none data-focus:outline-hidden"
                 >
                   <div className="flex flex-col items-start">
                     <span className="block font-normal group-data-selected:font-semibold">
@@ -105,7 +105,7 @@ export const SelectInput = ({
                   <span className="absolute inset-y-0 right-0 flex items-center pr-4 group-not-data-selected:hidden group-data-focus:text-white">
                     <CheckIcon
                       aria-hidden="true"
-                      className="size-5 stroke-accent"
+                      className="stroke-accent size-5"
                     />
                   </span>
                 </ListboxOption>
