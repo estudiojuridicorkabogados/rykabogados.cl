@@ -5,7 +5,7 @@ import { BlogPosting, WithContext } from "schema-dts";
 
 import { JsonLd } from "@/components/JsonLd/JsonLd";
 import { getPost } from "@/graphql/queries/get-post.query";
-import { env } from "@/lib/env";
+import { fetchPostRoutes } from "@/lib/contentful/post-routes";
 import { buildBreadcrumbJsonLd, ORGANIZATION_ID } from "@/lib/seo/jsonLd";
 import {
   absoluteUrl,
@@ -14,7 +14,6 @@ import {
   SITE_NAME,
 } from "@/lib/seo/site";
 import { URLS } from "@/lib/utils/constants";
-import { ApiPost } from "@/types/global";
 
 import { BlogPost } from "./_components/BlogPost";
 import { RelatedPosts } from "./_components/RelatedPosts";
@@ -24,15 +23,9 @@ interface BlogPostPageParams {
 }
 
 export async function generateStaticParams() {
-  try {
-    const res = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/posts`);
+  const posts = await fetchPostRoutes();
 
-    const { posts } = (await res.json()) as { posts: ApiPost[] };
-
-    return posts.map(({ slug }) => ({ slug }));
-  } catch {
-    return [];
-  }
+  return posts.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({

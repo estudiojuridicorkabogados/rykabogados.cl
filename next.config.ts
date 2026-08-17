@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["lightningcss"],
   typedRoutes: true,
   reactCompiler: true,
+  experimental: {
+    // Run the React Compiler as native code inside Turbopack instead of through
+    // Babel. Removes the need for babel-plugin-react-compiler.
+    turbopackRustReactCompiler: true,
+  },
   images: {
     remotePatterns: [
       {

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
+import { fetchPostRoutes } from "@/lib/contentful/post-routes";
 import { absoluteUrl } from "@/lib/seo/site";
-import { getContentfulClient } from "@/lib/utils/contentful-client";
 
 // Regenerate hourly so newly published posts appear without waiting for a
 // rebuild. The Contentful webhook (/api/revalidate) also busts this path.
@@ -21,36 +21,13 @@ const BASE_PATHS = [
   "/politica-cookies",
 ];
 
-interface PostRoute {
-  slug: string;
-  lastModified: string;
-}
-
-async function fetchPostRoutes(): Promise<PostRoute[]> {
-  try {
-    const client = getContentfulClient();
-
-    const result = await client.getEntries({
-      content_type: "blogPost",
-      limit: 1000,
-      order: ["-sys.updatedAt"],
-      select: ["fields.slug", "sys.updatedAt"],
-    });
-
-    return result.items
-      .filter((post) => !!post.fields.slug)
-      .map((post) => ({
-        slug: post.fields.slug as unknown as string,
-        lastModified: post.sys.updatedAt,
-      }));
-  } catch (error) {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Degrade to the static routes rather than 500-ing the sitemap if Contentful
+  // is unreachable at request time.
+  const postRoutes = await fetchPostRoutes().catch((error: unknown) => {
     console.error("Error fetching post routes:", error);
     return [];
-  }
-}
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const postRoutes = await fetchPostRoutes();
+  });
 
   const newestPostDate = postRoutes[0]?.lastModified;
 

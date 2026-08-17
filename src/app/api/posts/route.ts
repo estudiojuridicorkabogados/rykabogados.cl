@@ -1,22 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { getContentfulClient } from "@/lib/utils/contentful-client";
-import { ApiPost } from "@/types/global";
+import { fetchPostRoutes } from "@/lib/contentful/post-routes";
 
 export async function GET() {
   try {
-    const client = getContentfulClient();
-
-    const result = await client.getEntries({
-      content_type: "blogPost",
-      include: 2,
-      select: ["fields.slug", "sys.updatedAt"],
-    });
-
-    const posts: ApiPost[] = result?.items.map((post) => ({
-      lastModified: post.sys.updatedAt,
-      slug: post.fields.slug as unknown as string,
-    }));
+    const posts = await fetchPostRoutes();
 
     return NextResponse.json({
       success: true,
