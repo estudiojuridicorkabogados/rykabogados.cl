@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
         destination: "/habla-con-nosotros/empresas",
         permanent: true,
       },
+      {
+        // Post was published on an auto-generated Contentful slug and renamed.
+        source: "/blog/untitled-entry-2026-01-05-at-17-48-39",
+        destination: "/blog/contrato-de-trabajo-en-chile",
+        permanent: true,
+      },
     ];
   },
 };
