@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { Metadata } from "next";
 import { draftMode } from "next/headers";
+import { notFound } from "next/navigation";
 import { BlogPosting, WithContext } from "schema-dts";
 
 import { JsonLd } from "@/components/JsonLd/JsonLd";
@@ -86,6 +87,12 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
   const { isEnabled: isPreview } = await draftMode();
 
   const post = await getPost({ slug, isPreview });
+
+  // Unknown slug: render not-found.tsx with a 404 rather than throwing into the
+  // error boundary. A Contentful failure still throws from getPost.
+  if (!post) {
+    notFound();
+  }
 
   const url = absoluteUrl(URLS.blogPost(post.slug || slug));
   const jsonLd: WithContext<BlogPosting> = {

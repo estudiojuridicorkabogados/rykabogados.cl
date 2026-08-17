@@ -74,27 +74,32 @@ const GET_POST_QUERY = gql`
   }
 `;
 
+/**
+ * Returns `null` when no entry matches the slug, so the caller can render a 404.
+ *
+ * Throws when the query itself fails. These two cases must stay distinct: a
+ * Contentful outage that resolved to `null` would 404 every post at once and
+ * get them deindexed.
+ */
 export async function getPost({
   slug,
   isPreview = false,
-}: GetPostParams): Promise<Post> {
+}: GetPostParams): Promise<Post | null> {
+  let data;
+
   try {
     const apolloClient = getApolloServerClient({ isPreview });
 
-    const data = await apolloClient.query<PostQueryResposne>({
+    data = await apolloClient.query<PostQueryResposne>({
       query: GET_POST_QUERY,
       variables: { slug, preview: isPreview },
     });
-
-    const post = data.data?.blogPostCollection.items[0];
-
-    if (!post) {
-      throw new Error("Post not found");
-    }
-
-    return parseGraphQLPost(post);
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch post", { cause: error });
   }
+
+  const post = data.data?.blogPostCollection.items[0];
+
+  return post ? parseGraphQLPost(post) : null;
 }
