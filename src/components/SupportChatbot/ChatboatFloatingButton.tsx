@@ -28,11 +28,11 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
         },
         "flex items-center justify-center",
       ])}
-      aria-label={open ? "Hide chat" : "Open chat"}
+      aria-label={open ? "Cerrar chat de ayuda" : "Abrir chat de ayuda"}
     >
       <Image
         src="/images/support_chat.webp"
-        alt="Chat"
+        alt=""
         width={70}
         height={70}
         className="mb-4 h-[70px] w-[70px] max-w-none object-cover"

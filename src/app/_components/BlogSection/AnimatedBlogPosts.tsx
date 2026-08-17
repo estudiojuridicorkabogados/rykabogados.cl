@@ -67,7 +67,7 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
                 fill
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 src={mainPost.mainImage?.url || "/images/default-image.jpg"}
-                alt={mainPost.mainImage?.title || "Blog Post Image"}
+                alt={mainPost.mainImage?.description || mainPost.title || ""}
                 className="rounded object-cover"
               />
             </div>
@@ -92,7 +92,11 @@ export const AnimatedBlogPosts: React.FC<AnimatedBlogPostsProps> = ({
                   secondaryPost.mainImage?.url || "/images/default-image.jpg"
                 }
                 sizes="(max-width: 1024px) 100vw, 33vw"
-                alt={secondaryPost.mainImage?.title || "Blog Post Image"}
+                alt={
+                  secondaryPost.mainImage?.description ||
+                  secondaryPost.title ||
+                  ""
+                }
                 className="rounded object-cover"
               />
             </div>

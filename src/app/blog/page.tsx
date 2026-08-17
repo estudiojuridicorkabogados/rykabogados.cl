@@ -1,12 +1,27 @@
 import { draftMode } from "next/headers";
 
 import { getAllPosts } from "@/graphql/queries/get-all-posts.query";
+import { buildPageMetadata } from "@/lib/seo/site";
 
 import { BlogPostEntry } from "./_components/BlogPostEntry";
 import { HighlightedPost } from "./_components/HighlightedPost";
 
 // Revalidate blog list page every 24 hours
 export const revalidate = 86400;
+
+export const metadata = buildPageMetadata({
+  title: "Blog Laboral | Noticias y Guías de Derecho del Trabajo | RK Abogados",
+  description:
+    "Artículos sobre derecho laboral chileno escritos por nuestros abogados: finiquitos, despidos, Ley Karin, teletrabajo, jornada laboral y dictámenes de la Dirección del Trabajo.",
+  path: "/blog",
+  keywords: [
+    "blog derecho laboral chile",
+    "noticias laborales chile",
+    "código del trabajo chile",
+    "dirección del trabajo dictámenes",
+    "ley karin",
+  ],
+});
 
 export default async function BlogPage() {
   const { isEnabled: isPreview } = await draftMode();

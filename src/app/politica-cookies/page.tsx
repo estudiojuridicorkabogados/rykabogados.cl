@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
+import { buildPageMetadata } from "@/lib/seo/site";
 import { URLS } from "@/lib/utils/constants";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Política de Cookies | RK Abogados",
   description:
-    "Información sobre el uso de cookies en el sitio web de RK Abogados. Conoce qué cookies utilizamos y cómo gestionarlas.",
-};
+    "Información sobre el uso de cookies en el sitio web de RK Abogados: qué cookies utilizamos, para qué sirven y cómo gestionarlas o revocar tu consentimiento.",
+  path: "/politica-cookies",
+});
 
 export default function PoliticaCookiesPage() {
   return (

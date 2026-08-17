@@ -1,15 +1,29 @@
-import type { Metadata } from "next";
-
 import { Accordion } from "@/components/Accordion/Accordion";
+import { JsonLd } from "@/components/JsonLd/JsonLd";
+import { buildFaqJsonLd } from "@/lib/seo/jsonLd";
+import { buildPageMetadata } from "@/lib/seo/site";
 
 import { FAQS } from "./_components/constant";
 import { FaqsContacts } from "./_components/FaqsContacts";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Preguntas Frecuentes | RK Abogados",
   description:
-    "Preguntas frecuentes de RK Abogados. Encuentra respuestas a las consultas más comunes sobre nuestros servicios legales.",
-};
+    "Respuestas a las consultas más comunes sobre nuestros servicios legales: costo de la primera consulta, documentos necesarios, plazos, formas de pago y cobertura en todo Chile.",
+  path: "/faqs",
+  keywords: [
+    "preguntas frecuentes abogados",
+    "cuánto cuesta un abogado laboral chile",
+    "consulta gratuita abogado laboral",
+  ],
+});
+
+const faqEntries = FAQS.filter(
+  (faq) => faq.plainAnswer || typeof faq.description === "string"
+).map((faq) => ({
+  question: faq.title,
+  answer: faq.plainAnswer ?? (faq.description as string),
+}));
 
 export default function FaqsPage() {
   return (
@@ -32,6 +46,8 @@ export default function FaqsPage() {
       <Accordion entries={FAQS} />
 
       <FaqsContacts />
+
+      <JsonLd schema={buildFaqJsonLd(faqEntries)} />
     </div>
   );
 }

@@ -1,4 +1,11 @@
-export const FAQS = [
+interface Faq {
+  title: string;
+  description: string | React.ReactNode;
+  /** Plain-text answer, used for FAQPage structured data when `description` is JSX. */
+  plainAnswer?: string;
+}
+
+export const FAQS: Faq[] = [
   {
     title: "¿Qué es RK Abogados?",
     description:
@@ -11,6 +18,8 @@ export const FAQS = [
   },
   {
     title: "¿Cuánto cuesta una consulta inicial?",
+    plainAnswer:
+      "Ofrecemos una primera consulta gratuita de 30 minutos para trabajadores con el fin de evaluar su caso. En el caso de empresas, la consulta inicial tiene un costo que se informa previamente según el tipo de asunto. Los honorarios posteriores se determinan según la complejidad y alcance del servicio requerido.",
     description: (
       <>
         <p>
@@ -34,6 +43,8 @@ export const FAQS = [
   },
   {
     title: "¿Qué documentos debo llevar a la primera consulta?",
+    plainAnswer:
+      "Le recomendamos traer todos los antecedentes relacionados con su caso, tales como contratos de trabajo, liquidaciones, cartas de despido, comunicaciones, correos electrónicos, facturas, documentación de la empresa y cualquier evidencia o registro que permita analizar su situación de forma completa. Si no cuenta con todos los documentos, igualmente podemos orientarlo sobre cómo obtenerlos.",
     description: (
       <>
         <p>

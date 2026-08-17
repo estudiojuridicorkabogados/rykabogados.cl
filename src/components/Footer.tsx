@@ -69,9 +69,9 @@ export const Footer = () => {
             <div className="relative mt-2 h-[40px] w-full md:h-[89px] md:w-[179px] lg:mb-8">
               <Image
                 src={logoWhite}
-                alt="logo"
+                alt="RK Abogados"
                 fill
-                sizes="(max-width: 1024px) 100vw, 320px"
+                sizes="(max-width: 768px) 60vw, 179px"
                 className="object-contain"
               />
             </div>

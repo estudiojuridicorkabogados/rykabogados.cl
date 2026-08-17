@@ -33,7 +33,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
         <Image
           fill
           src={mainImage?.url || "/default-image.jpg"}
-          alt={mainImage?.title || "Blog Post Image"}
+          alt={mainImage?.description || blogPost.title || ""}
           className="rounded-2xl object-cover"
           sizes="(max-width: 1024px) 100vw, 33vw"
         />

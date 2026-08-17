@@ -7,14 +7,17 @@ import { CookieBanner } from "@/components/CookieConsent/CookieBanner";
 import { CookieConsentProvider } from "@/components/CookieConsent/CookieConsentProvider";
 import { CookieSettingsModal } from "@/components/CookieConsent/CookieSettingsModal";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd/JsonLd";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { env } from "@/lib/env";
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo/jsonLd";
+import { DEFAULT_DESCRIPTION, SITE_URL } from "@/lib/seo/site";
 import { dmSans } from "@/lib/utils/fonts";
 
 import "./globals.css";
 
-// @TODO Improve metadata
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "RK Abogados | Excelencia, Lealtad e Integridad",
   keywords: [
     "abogados",
@@ -26,8 +29,18 @@ export const metadata: Metadata = {
     "abogados chile santiago",
     "abogados r&k",
   ],
-  description:
-    "RK Abogados es un estudio jurídico que ofrece sus servicios a lo largo de todo Chile, conformado por un equipo de abogados especializados que resuelven...",
+  description: DEFAULT_DESCRIPTION,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   // icons: {
   //   icon: [
   //     { url: "/favicon.ico", sizes: "any" },
@@ -98,6 +111,8 @@ export default async function RootLayout({
           strategy="lazyOnload"
           src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         />
+
+        <JsonLd schema={[buildOrganizationJsonLd(), buildWebSiteJsonLd()]} />
       </body>
     </html>
   );

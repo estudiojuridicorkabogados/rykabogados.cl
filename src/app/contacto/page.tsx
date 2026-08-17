@@ -1,7 +1,22 @@
 import { Suspense } from "react";
 
+import { buildPageMetadata } from "@/lib/seo/site";
+
 import { ContactForm } from "./_components/ContactForm/ContactForm";
 import { Contacts } from "./_components/Contacts/Contacts";
+
+export const metadata = buildPageMetadata({
+  title: "Contacto | RK Abogados — Providencia, Santiago",
+  description:
+    "Contacta a RK Abogados: Padre Mariano 82, oficina 704, Providencia. Llámanos al +56 2 2364 4258, escríbenos a contacto@rkabogados.cl o completa el formulario y te respondemos en 24 horas hábiles.",
+  path: "/contacto",
+  keywords: [
+    "contacto abogado laboral",
+    "abogados providencia",
+    "teléfono rk abogados",
+    "estudio jurídico santiago contacto",
+  ],
+});
 
 export default function Contacto() {
   return (

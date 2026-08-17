@@ -13,7 +13,7 @@ export const TestimonialsSection: React.FC = () => {
     >
       <Image
         src={tribunal}
-        alt="Tribunal de Justicia"
+        alt="Bandera de Chile flameando"
         fill
         sizes="100vw"
         className="object-cover"

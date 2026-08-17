@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-
+import { buildPageMetadata } from "@/lib/seo/site";
 import { ADDRESS } from "@/lib/utils/constants";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Política de Privacidad | RK Abogados",
   description:
-    "Política de privacidad y protección de datos personales de RK Abogados.",
-};
+    "Política de privacidad y protección de datos personales de RK Abogados, conforme a la Ley N° 19.628 sobre Protección de la Vida Privada.",
+  path: "/politicas-de-privacidad",
+});
 
 export default function PoliticasDePrivacidadPage() {
   return (

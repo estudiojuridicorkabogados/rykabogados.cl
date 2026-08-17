@@ -41,7 +41,7 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
 
           <Image
             src={post.mainImage?.url || ""}
-            alt={post.mainImage?.description || ""}
+            alt={post.mainImage?.description || post.title || ""}
             className="h-full w-full rounded-2xl object-cover"
             fill
             sizes="(max-width: 1024px) 100vw, 80vw"
