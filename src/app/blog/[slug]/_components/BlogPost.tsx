@@ -7,7 +7,7 @@ import { containerVariants, itemVariants } from "@/lib/utils/animations";
 import { Post } from "@/types/global";
 
 import { AuthorAndDate } from "./AuthorAndDate";
-import { HablaConNosotros } from "./HablaConNosostros";
+import { HablaConNosotros } from "./HablaConNosotros";
 import { RichText } from "./RichText/RichText";
 
 interface BlogPostProps {

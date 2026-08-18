@@ -18,7 +18,7 @@ export const TeamSection = () => {
 
         <div className="flex w-full flex-col gap-4 lg:w-1/2">
           <h2 className="text-gray-60 text-4xl font-bold lg:text-5xl">
-            Nosostros
+            Nosotros
           </h2>
 
           <p className="text-gray-60">

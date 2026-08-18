@@ -1,7 +1,7 @@
 import { ContactSectionLight } from "@/components/ContactSectionLight/ContactSectionLight";
 import { buildPageMetadata } from "@/lib/seo/site";
 
-import { NosostrosHero } from "./_components/Hero/Hero";
+import { NosotrosHero } from "./_components/Hero/Hero";
 import { TeamGrid } from "./_components/TeamGrid/TeamGrid";
 
 export const metadata = buildPageMetadata({
@@ -26,7 +26,7 @@ export const metadata = buildPageMetadata({
 export default function NosotrosPage() {
   return (
     <div>
-      <NosostrosHero />
+      <NosotrosHero />
 
       <TeamGrid />
 

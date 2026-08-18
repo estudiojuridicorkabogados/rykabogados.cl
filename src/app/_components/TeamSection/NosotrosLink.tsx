@@ -9,7 +9,7 @@ import { URLS } from "@/lib/utils/constants";
 export const NosotrosLink = () => {
   const router = useRouter();
 
-  const navigateToNosostros = () => router.push(URLS.nosotros());
+  const navigateToNosotros = () => router.push(URLS.nosotros());
 
   return (
     <Button
@@ -17,7 +17,7 @@ export const NosotrosLink = () => {
       variant="white-outline-on-primary"
       className="group w-full lg:w-fit"
       type="button"
-      onClick={navigateToNosostros}
+      onClick={navigateToNosotros}
     >
       Conoce a nuestro equipo{" "}
       <LongArrowRight className="group-hover:stroke-primary group-hover:animate-wiggle ml-2 stroke-white" />

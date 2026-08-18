@@ -257,11 +257,11 @@ A local `formatDate` manually builds a `"yyyy-MM-dd"` string. `date-fns` is alre
 
 ---
 
-### TASK-21 · Fix: Typo "Nosostros" in `TeamSection`
+### TASK-21 · Fix: Typo "Nosotros" in `TeamSection`
 **Files:** `src/app/_components/TeamSection/TeamSection.tsx:21`
 **Complexity:** Trivial
 
-- [ ] Fix `Nosostros` → `Nosotros` in the heading
+- [ ] Fix `Nosotros` → `Nosotros` in the heading
 
 ---
 

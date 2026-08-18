@@ -2,7 +2,7 @@ import equipo from "@public/images/heros/equipo.webp";
 
 import { HeroSection } from "@/components/Hero/HeroSection";
 
-export const NosostrosHero = () => {
+export const NosotrosHero = () => {
   return (
     <HeroSection
       label="Conócenos"
