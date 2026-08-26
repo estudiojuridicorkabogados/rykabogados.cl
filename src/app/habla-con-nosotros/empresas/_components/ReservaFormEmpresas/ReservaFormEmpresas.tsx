@@ -132,13 +132,19 @@ export const ReservaFormEmpresas = () => {
                 variants={itemVariants}
                 className="text-3xl font-semibold md:text-5xl lg:text-4xl"
               >
-                Reserva reunión inicial con uno de nuestros abogados
+                Reserva reunión inicial con uno de nuestros abogados*
               </motion.h2>
               <motion.p
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
                 Un abogado te contactará en menos de <b>24 horas hábiles</b>.
+              </motion.p>
+              <motion.p
+                variants={itemVariants}
+                className="mt-2 text-xs text-white/60"
+              >
+                *No siempre es gratuita.
               </motion.p>
             </div>
 

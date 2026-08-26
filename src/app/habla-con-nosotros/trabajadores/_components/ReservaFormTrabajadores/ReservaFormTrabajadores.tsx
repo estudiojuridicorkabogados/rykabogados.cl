@@ -132,7 +132,7 @@ export const ReservaFormTrabajadores = () => {
                 variants={itemVariants}
                 className="text-3xl font-semibold md:text-5xl lg:text-4xl"
               >
-                Reserva una llamada gratuita con nosotros
+                Reserva una llamada gratuita con nosotros*
               </motion.h2>
               <motion.p
                 variants={itemVariants}
@@ -140,6 +140,12 @@ export const ReservaFormTrabajadores = () => {
               >
                 ¿Necesitas orientación legal? Conéctate con nuestros abogados y
                 descubre la mejor estrategia para tu caso.
+              </motion.p>
+              <motion.p
+                variants={itemVariants}
+                className="mt-2 text-xs text-white/60"
+              >
+                *No siempre es gratuita.
               </motion.p>
             </div>
 
