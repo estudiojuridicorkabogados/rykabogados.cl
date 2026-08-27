@@ -26,7 +26,7 @@ export const Hero = () => {
         label="Defensa laboral para trabajadores"
         title={
           <>
-            <span>Crees que tu despido fue injustificado? </span>
+            <span>¿Crees que tu despido fue injustificado? </span>
             <br />
             <span>Evaluamos tu caso sin costo</span>
           </>
