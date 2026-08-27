@@ -5,13 +5,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import {
-  BriefcaseBusiness,
-  HardHat,
-  Landmark,
-  Menu as MenuIcon,
-  XIcon,
-} from "lucide-react";
+import { Menu as MenuIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -53,17 +47,14 @@ const SERVICIOS_LINKS = [
   {
     href: URLS.asesoriaTrabajadores(),
     label: "Asesoría Trabajadores",
-    icon: <HardHat className="stroke-primary size-4" />,
   },
   {
     href: URLS.asesoriaEmpresas(),
     label: "Asesoría Empresas",
-    icon: <Landmark className="stroke-primary size-4" />,
   },
   {
     href: URLS.otrasAreas(),
     label: "Otras Áreas",
-    icon: <BriefcaseBusiness className="stroke-primary size-4" />,
   },
 ];
 
