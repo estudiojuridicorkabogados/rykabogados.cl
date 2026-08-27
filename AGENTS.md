@@ -71,3 +71,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Agent Browser
+
+- `agent-browser` is a local devDependency here, not a global install.
+- Prefix every `agent-browser` command with `bunx` (e.g.
+  `bunx agent-browser --session "$SESSION" --restore --headed --enable react-devtools open <url>`),
+  since the binary lives in `node_modules/.bin` and is not on `PATH`.
+- Use the `next-dev-loop` skill to verify runtime behavior after editing app code — it combines
+  `/_next/mcp` (via the `next-devtools-mcp` server configured in `.mcp.json`) with `agent-browser`.
