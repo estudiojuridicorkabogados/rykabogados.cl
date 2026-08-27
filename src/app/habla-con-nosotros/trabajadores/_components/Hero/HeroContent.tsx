@@ -34,7 +34,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
-      className="section-container relative z-10 flex flex-col  lg:w-4xl xl:w-7xl 2xl:w-7xl"
+      className="section-container relative z-10 flex flex-col lg:w-4xl xl:w-7xl 2xl:w-7xl"
     >
       <motion.span
         variants={itemVariants}

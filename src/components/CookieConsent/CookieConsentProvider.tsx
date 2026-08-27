@@ -3,8 +3,8 @@
 import React, {
   createContext,
   PropsWithChildren,
-  useEffect,
   useState,
+  useSyncExternalStore,
 } from "react";
 
 import type {
@@ -25,61 +25,74 @@ import {
 export const CookieConsentContext =
   createContext<CookieConsentContextValue | null>(null);
 
+// No external events change cookie/localStorage consent outside of this
+// component's own actions, so there's nothing to subscribe to.
+const subscribe = () => () => {};
+
+// getCookieConsent/isBannerDismissed read document.cookie / localStorage,
+// which are unavailable during SSR — useSyncExternalStore's getServerSnapshot
+// covers that render, then the client snapshot below applies on hydration.
+// getSnapshot must return a stable reference across calls (React compares by
+// Object.is), so the result is computed once and cached — nothing else in
+// this module ever mutates cookie/localStorage out from under it.
+let cachedInitialState: CookieConsentState | undefined;
+
+function getInitialState(): CookieConsentState {
+  if (cachedInitialState) return cachedInitialState;
+
+  const existingConsent = getCookieConsent();
+  const dismissed = isBannerDismissed();
+
+  if (existingConsent && isConsentValid(existingConsent)) {
+    cachedInitialState = {
+      preferences: existingConsent,
+      hasConsent: true,
+      hasAnalyticsConsent: existingConsent.analytics,
+      showBanner: false,
+      showModal: false,
+      isLoading: false,
+    };
+  } else if (dismissed) {
+    cachedInitialState = {
+      preferences: null,
+      hasConsent: false,
+      hasAnalyticsConsent: false,
+      showBanner: false,
+      showModal: false,
+      isLoading: false,
+    };
+  } else {
+    cachedInitialState = {
+      preferences: null,
+      hasConsent: false,
+      hasAnalyticsConsent: false,
+      showBanner: true,
+      showModal: false,
+      isLoading: false,
+    };
+  }
+
+  return cachedInitialState;
+}
+
+const SERVER_STATE: CookieConsentState = {
+  preferences: null,
+  hasConsent: false,
+  hasAnalyticsConsent: false,
+  showBanner: false,
+  showModal: false,
+  isLoading: true,
+};
+
 export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [state, setState] = useState<CookieConsentState>({
-    preferences: null,
-    hasConsent: false,
-    hasAnalyticsConsent: false,
-    showBanner: false,
-    showModal: false,
-    isLoading: true,
-  });
-
-  // @TODO Refactor initialization using useSyncExternalStore:
-  // - Replace useState + useEffect init pattern with useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
-  // - getSnapshot: reads getCookieConsent() / isBannerDismissed() on the client
-  // - getServerSnapshot: returns null/false (explicit SSR fallback, no hydration mismatch)
-  // - This eliminates the isLoading state and the set-state-in-effect pattern below
-  // Initialize consent state on mount — must be an effect since getCookieConsent/isBannerDismissed
-  // read from document.cookie / localStorage which are unavailable during SSR.
-  useEffect(() => {
-    const existingConsent = getCookieConsent();
-    const dismissed = isBannerDismissed();
-
-    if (existingConsent && isConsentValid(existingConsent)) {
-      // User has valid consent
-      setState({
-        preferences: existingConsent,
-        hasConsent: true,
-        hasAnalyticsConsent: existingConsent.analytics,
-        showBanner: false,
-        showModal: false,
-        isLoading: false,
-      });
-    } else if (dismissed) {
-      // User dismissed banner, no consent given
-      setState({
-        preferences: null,
-        hasConsent: false,
-        hasAnalyticsConsent: false,
-        showBanner: false,
-        showModal: false,
-        isLoading: false,
-      });
-    } else {
-      // First visit or expired consent - show banner
-      setState({
-        preferences: null,
-        hasConsent: false,
-        hasAnalyticsConsent: false,
-        showBanner: true,
-        showModal: false,
-        isLoading: false,
-      });
-    }
-  }, []);
+  const initialState = useSyncExternalStore(
+    subscribe,
+    getInitialState,
+    () => SERVER_STATE
+  );
+  const [state, setState] = useState<CookieConsentState>(initialState);
 
   const acceptAll = () => {
     const preferences = createDefaultPreferences(true);

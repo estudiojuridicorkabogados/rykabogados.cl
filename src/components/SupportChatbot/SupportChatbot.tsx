@@ -22,21 +22,23 @@ export const SupportChatbot = () => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const endRef = useRef<HTMLDivElement | null>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
-  const lastSeenMsgIdRef = useRef<string | undefined>(undefined);
+  const [lastSeenMsgId, setLastSeenMsgId] = useState<string | undefined>(
+    undefined
+  );
 
   const unread = useMemo(() => {
     const assistantMessages = messages.filter((m) => m.role === "assistant");
     if (assistantMessages.length === 0 || open) return 0;
     const lastSeenIdx = assistantMessages.findLastIndex(
-      (m) => m.id === lastSeenMsgIdRef.current
+      (m) => m.id === lastSeenMsgId
     );
     return assistantMessages.length - (lastSeenIdx + 1);
-  }, [open, messages]);
+  }, [open, messages, lastSeenMsgId]);
 
   const markAllSeen = () => {
-    lastSeenMsgIdRef.current = messages
-      .toReversed()
-      .find((m) => m.role === "assistant")?.id;
+    setLastSeenMsgId(
+      messages.toReversed().find((m) => m.role === "assistant")?.id
+    );
   };
 
   const handleNewMessageAdded = useDebounceCallback(() => {
@@ -59,7 +61,7 @@ export const SupportChatbot = () => {
     if (!open) return;
 
     handleNewMessageAdded();
-  }, [open, status, messages, handleNewMessageAdded]);
+  }, [open, handleNewMessageAdded]);
 
   useEffect(() => {
     const container = messagesContainerRef.current;
@@ -77,7 +79,7 @@ export const SupportChatbot = () => {
 
     container.addEventListener("wheel", handleWheel, { passive: false });
     return () => container.removeEventListener("wheel", handleWheel);
-  }, [open]);
+  }, []);
 
   const onSubmit = (query: string) => {
     sendMessage({ text: query });
