@@ -23,15 +23,36 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-black/70" />
 
       <HeroContent
-        label="Habla con nosotros"
+        label="Defensa laboral para trabajadores"
         title={
           <>
-            <span>¿Despido Injustificado?</span>
+            <span>Crees que tu despido fue injustificado? </span>
             <br />
-            <span>Consulta inicial gratuita</span>
+            <span>Evaluamos tu caso sin costo</span>
           </>
         }
-        description="En RK Abogados revisamos tu caso, analizamos tu despido y te explicamos tus derechos. Trabajamos bajo un modelo de honorarios a resultado, es decir, solo pagas si ganas."
+        description={
+          <>
+            <p className="mt-4">
+              Efectuamos un análisis de las causales de término y tus
+              antecedentes laborales para entregarte claridad sobre tus
+              derechos. En los casos aceptados, ofrecemos la alternativa de
+              pactar honorarios a resultado, cobrando únicamente si obtenemos un
+              beneficio económico para ti.
+            </p>
+            <p className="mt-4">
+              Revisamos tu despido y finiquito para explicarte qué puedes
+              reclamar, los plazos y los próximos pasos. Si contamos con
+              antecedentes suficientes, estimamos preliminarmente el monto de
+              una eventual demanda.
+            </p>
+            {/* <p className="mt-4">
+              Atendemos en todo Chile, preferentemente por videollamada, y en
+              los casos evaluados y aceptados podemos trabajar con honorarios a
+              resultado.
+            </p> */}
+          </>
+        }
       />
     </section>
   );

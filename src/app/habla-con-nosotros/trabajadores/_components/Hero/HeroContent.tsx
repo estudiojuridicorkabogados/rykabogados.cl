@@ -34,7 +34,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.3 }}
-      className="section-container relative z-10 flex flex-col lg:w-4xl xl:w-7xl 2xl:w-7xl"
+      className="section-container relative z-10 flex flex-col  lg:w-4xl xl:w-7xl 2xl:w-7xl"
     >
       <motion.span
         variants={itemVariants}
@@ -45,17 +45,17 @@ export const HeroContent: React.FC<HeroContentProps> = ({
 
       <motion.h1
         variants={itemVariants}
-        className="text-gray-60 mb-4 text-3xl lg:mb-8 lg:max-w-3xl lg:text-5xl 2xl:max-w-4xl 2xl:text-7xl"
+        className="text-gray-60 mb-4 text-3xl lg:mb-8 lg:max-w-4xl lg:text-5xl 2xl:max-w-4xl 2xl:text-7xl"
       >
         {title}
       </motion.h1>
 
-      <motion.p
+      <motion.div
         variants={itemVariants}
-        className="mb-16 font-light tracking-wide text-white/90 lg:mb-8 lg:max-w-2xl lg:text-lg"
+        className="mb-16 font-light tracking-wide text-white/90 lg:mb-8 lg:max-w-4xl lg:text-lg 2xl:max-w-4xl"
       >
         {description}
-      </motion.p>
+      </motion.div>
 
       <motion.div
         variants={itemVariants}

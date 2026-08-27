@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { motion, stagger } from "motion/react";
 
 import { submitBookACallFormEmpresas } from "@/actions/submitBookACallFormEmpresas";
+import { InfoModal } from "@/components/InfoModal/InfoModal";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { trackBookACallFormConversion } from "@/lib/utils/analytics";
@@ -91,7 +92,7 @@ export const ReservaFormEmpresas = () => {
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="relative py-16 lg:h-[850px] lg:py-28">
+      <div className="relative py-16 lg:py-28">
         {bookingInfo && (
           <ReservaFormSuccessFeedback bookingInfo={bookingInfo} />
         )}
@@ -112,9 +113,12 @@ export const ReservaFormEmpresas = () => {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(1)}
-                  className={classNames("text-white/40 cursor-pointer", {
-                    "text-white": currentStep === 1,
-                  })}
+                  className={classNames(
+                    "text-white/40 uppercase cursor-pointer",
+                    {
+                      "text-white": currentStep === 1,
+                    }
+                  )}
                 >
                   Paso 1
                 </button>
@@ -132,20 +136,33 @@ export const ReservaFormEmpresas = () => {
                 variants={itemVariants}
                 className="text-3xl font-semibold md:text-5xl lg:text-4xl"
               >
-                Reserva reunión inicial con uno de nuestros abogados*
+                Agenda una reunión con nuestro equipo
               </motion.h2>
               <motion.p
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
-                Un abogado te contactará en menos de <b>24 horas hábiles</b>.
+                Selecciona el horario que más te acomode. En el siguiente paso
+                podrás elegir la modalidad de reunión o asesoría que mejor
+                responda a las necesidades de tu empresa.
+              </motion.p>
+              <motion.p
+                variants={itemVariants}
+                className="mt-4 max-w-2xl text-white/80"
+              >
+                Un abogado te contactará dentro de las próximas{" "}
+                <b>24 horas hábiles</b> para confirmar la reserva y solicitar,
+                si corresponde, los antecedentes necesarios.
               </motion.p>
               <motion.p
                 variants={itemVariants}
                 className="mt-2 text-xs text-white/60"
               >
-                *No siempre es gratuita.
+                *Las reuniones y asesorías están sujetas a confirmación,
+                disponibilidad y condiciones generales del servicio.
               </motion.p>
+
+              <MasInformacionEmpresasModal />
             </div>
 
             <div className="flex items-center justify-center lg:w-1/2">
@@ -161,5 +178,56 @@ export const ReservaFormEmpresas = () => {
         </div>
       </div>
     </motion.section>
+  );
+};
+
+const MasInformacionEmpresasModal = () => {
+  return (
+    <motion.div variants={itemVariants} className="mt-2">
+      <InfoModal
+        triggerLabel="Ver condiciones generales del servicio"
+        title="Condiciones generales del servicio"
+      >
+        <p>
+          Las reuniones se realizan preferentemente por videollamada o,
+          alternativamente, por llamada telefónica o de forma presencial, según
+          disponibilidad y coordinación previa.
+        </p>
+        <p>
+          En el siguiente paso se informarán la duración, el alcance y el valor
+          de cada modalidad.
+        </p>
+        <p>
+          El análisis y las recomendaciones se elaborarán sobre la base de la
+          información y los documentos disponibles, por lo que podrán variar si
+          posteriormente se proporcionan nuevos antecedentes.
+        </p>
+        <p>
+          Salvo que se indique expresamente lo contrario, una reunión no incluye
+          revisión documental exhaustiva, redacción de contratos o escritos,
+          auditorías, realización de gestiones ni representación judicial o
+          administrativa. Estos servicios podrán cotizarse separadamente.
+        </p>
+        <p>
+          La reserva o realización de una reunión no implica que RK Abogados
+          haya aceptado asumir una representación. La contratación comenzará
+          cuando el estudio confirme por escrito la aceptación del asunto, el
+          cliente apruebe la propuesta de servicios y se formalicen los
+          documentos correspondientes.
+        </p>
+        <p>
+          RK Abogados podrá no aceptar una solicitud cuando exista un conflicto
+          de interés, el asunto esté fuera de sus áreas de trabajo, falten
+          antecedentes indispensables, los plazos o la disponibilidad del equipo
+          impidan una atención responsable, o la solicitud resulte contraria a
+          la ley o a la ética profesional. Estas decisiones se adoptarán
+          conforme a criterios profesionales, objetivos y no discriminatorios.
+        </p>
+        <p>
+          Nuestro compromiso es entregar una asesoría o evaluación clara,
+          responsable y confidencial.
+        </p>
+      </InfoModal>
+    </motion.div>
   );
 };

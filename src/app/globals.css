@@ -148,7 +148,7 @@ h6 {
 }
 
 .section-container {
-  @apply px-6 lg:mx-auto lg:max-w-4xl lg:px-0 xl:max-w-6xl 2xl:w-7xl 2xl:max-w-7xl;
+  @apply px-6 lg:mx-auto lg:w-6xl lg:max-w-6xl lg:px-0 xl:max-w-6xl 2xl:w-7xl 2xl:max-w-7xl;
 }
 
 .hero-title {
