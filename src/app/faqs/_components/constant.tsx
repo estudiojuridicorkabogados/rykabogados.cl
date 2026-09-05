@@ -253,7 +253,7 @@ export const FAQS: Faq[] = [
     title:
       "¿Cómo se determinan los honorarios y cuáles son los medios de pago?",
     plainAnswer:
-      "Antes de iniciar cualquier servicio pagado informaremos su alcance, honorarios, forma de cálculo y eventuales gastos asociados. Medios de pago: efectivo, transferencia bancaria o link de pago. Modalidades de contratación y honorarios: Asesoría (precio fijo por una reunión con duración y alcance previamente definidos), Cotización por proyecto (honorarios asociados a entregables, etapas y plazos específicos), Tarifa por hora (cobro según el tiempo efectivamente destinado al servicio), Plan mensual para empresas (bolsa de horas con presupuesto y reporte mensual), Honorarios a resultado (disponibles únicamente para determinados casos de trabajadores previamente admitidos; el porcentaje se aplica al beneficio económico efectivamente obtenido y queda establecido por escrito), y Cuotas o pagos por etapas (podrán acordarse según las características y duración del servicio). Los honorarios profesionales son distintos de los gastos externos, como aranceles, notarías, receptores, peritajes, traslados o costos administrativos. Cuando corresponda, estos gastos serán informados separadamente.",
+      "Antes de iniciar cualquier servicio pagado informaremos su alcance, honorarios, forma de cálculo y eventuales gastos asociados. Medios de pago: Transferencia bancaria o link de pago. No aceptamos pagos en efectivo. Modalidades de contratación y honorarios: Asesoría (precio fijo por una reunión con duración y alcance previamente definidos), Cotización por proyecto (honorarios asociados a entregables, etapas y plazos específicos), Tarifa por hora (cobro según el tiempo efectivamente destinado al servicio), Plan mensual para empresas (bolsa de horas con presupuesto y reporte mensual), Honorarios a resultado (disponibles únicamente para determinados casos de trabajadores previamente admitidos; el porcentaje se aplica al beneficio económico efectivamente obtenido y queda establecido por escrito), y Cuotas o pagos por etapas (podrán acordarse según las características y duración del servicio). Los honorarios profesionales son distintos de los gastos externos, como aranceles, notarías, receptores, peritajes, traslados o costos administrativos. Cuando corresponda, estos gastos serán informados separadamente.",
     description: (
       <>
         <p>
@@ -261,8 +261,8 @@ export const FAQS: Faq[] = [
           honorarios, forma de cálculo y eventuales gastos asociados.
         </p>
         <p className="mt-4">
-          <strong>Medios de pago:</strong> efectivo, transferencia bancaria o
-          link de pago.
+          <strong>Medios de pago:</strong> transferencia bancaria o link de
+          pago. No aceptamos pagos en efectivo.
         </p>
         <p className="mt-4">
           <strong>Modalidades de contratación y honorarios:</strong>
