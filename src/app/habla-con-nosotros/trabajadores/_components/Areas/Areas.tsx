@@ -12,7 +12,6 @@ const AREAS = [
   "Cálculo de finiquito",
   "Accidentes o enfermedades profesionales",
   "Organizaciones sindicales",
-  "Asesoría laboral integral para empresas",
 ];
 
 export const Areas = () => {
