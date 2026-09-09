@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 import {
   buildWhatsAppUrl,
-  fireConversion,
   getSessionCode,
   logToSheet,
   LogToSheetParams,
@@ -20,7 +19,6 @@ interface UseTrackingReturn {
   whatsappUrl: string;
   shortCode: string;
   logToSheet: (params: Omit<LogToSheetParams, "gclid" | "shortCode">) => void;
-  fireConversion: (sendTo?: string) => void;
 }
 
 export function useTracking(): UseTrackingReturn {
@@ -73,6 +71,5 @@ export function useTracking(): UseTrackingReturn {
     whatsappUrl,
     shortCode,
     logToSheet: logToSheetWrapper,
-    fireConversion,
   };
 }

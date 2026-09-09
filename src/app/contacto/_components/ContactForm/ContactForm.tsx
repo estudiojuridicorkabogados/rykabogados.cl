@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
+import { trackContactFormSubmission } from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 import { getSessionCode } from "@/lib/utils/tracking";
 
@@ -37,32 +38,19 @@ export const ContactForm = () => {
           "Un miembro de nuestro equipo se pondrá en contacto pronto",
         duration: 8000,
       });
-    }
-  }, [state.success]);
 
-  // Add form submission tracking
-  useEffect(() => {
-    const form = formRef.current;
-    if (!form) return;
+      trackContactFormSubmission();
 
-    const handleSubmitTracking = () => {
-      const formData = new FormData(form);
-      const phone = formData.get("phone")?.toString() || "";
-      const email = formData.get("email")?.toString() || "";
-
+      const form = formRef.current;
+      const formData = form ? new FormData(form) : null;
       logToSheet({
         landing: window.location.href,
         channel: "contacto-form",
-        phone,
-        email,
+        phone: formData?.get("phone")?.toString() || "",
+        email: formData?.get("email")?.toString() || "",
       });
-    };
-
-    form.addEventListener("submit", handleSubmitTracking);
-    return () => {
-      form.removeEventListener("submit", handleSubmitTracking);
-    };
-  }, [logToSheet]);
+    }
+  }, [state.success, logToSheet]);
 
   const handleClick = async () => {
     const token = await getCaptchaToken();

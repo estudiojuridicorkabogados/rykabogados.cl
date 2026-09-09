@@ -25,19 +25,14 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   greenButton = false,
   outlinePrimary = false,
 }) => {
-  const { whatsappUrl, logToSheet, fireConversion } = useTracking();
+  const { whatsappUrl, logToSheet } = useTracking();
 
   const handleClick = () => {
-    // Log to Google Sheets
     logToSheet({
       landing: window.location.href,
       channel: "whatsapp",
     });
 
-    // Fire conversion
-    fireConversion();
-
-    // Call existing conversion tracking for backward compatibility
     trackWhatsappConversion();
   };
 

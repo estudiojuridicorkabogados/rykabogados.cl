@@ -8,7 +8,7 @@ import { submitBookACallFormEmpresas } from "@/actions/submitBookACallFormEmpres
 import { InfoModal } from "@/components/InfoModal/InfoModal";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
-import { trackBookACallFormConversion } from "@/lib/utils/analytics";
+import { trackEmpresasBookACallFormConversion } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
@@ -51,8 +51,6 @@ export const ReservaFormEmpresas = () => {
           date: formatDate(data.date),
         };
 
-        trackBookACallFormConversion();
-
         const result = await submitBookACallFormEmpresas(
           sendData,
           token,
@@ -60,6 +58,8 @@ export const ReservaFormEmpresas = () => {
         );
 
         if (result.success && data.date) {
+          trackEmpresasBookACallFormConversion();
+
           // Log to Google Sheets
           logToSheet({
             landing: window.location.href,

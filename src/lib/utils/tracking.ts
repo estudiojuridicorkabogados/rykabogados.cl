@@ -90,28 +90,3 @@ export function buildWhatsAppUrl({
     encodeURIComponent(msg)
   );
 }
-
-/**
- * Fire Google Ads conversion event
- */
-export function fireConversion(sendTo?: string): void {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  const DEFAULT_SEND_TO = "AW-11083927345/yTHYCP_x0MobELGenaUp"; // From analytics.ts
-  const conversionId = sendTo || DEFAULT_SEND_TO;
-
-  if (typeof window.gtag === "function" && conversionId) {
-    try {
-      window.gtag("event", "conversion", {
-        send_to: conversionId,
-        value: 1.0,
-        currency: "CLP",
-      });
-    } catch (e) {
-      // Silent fail
-      console.error("Error firing conversion:", e);
-    }
-  }
-}
