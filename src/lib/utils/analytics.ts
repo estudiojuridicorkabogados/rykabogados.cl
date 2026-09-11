@@ -42,21 +42,36 @@ function normalizeEmail(email?: string) {
 /**
  * Google matches on E.164. Chilean numbers get typed every which way —
  * "9 8639 5780", "+56 9 8639 5780", "986395780" — so keep the digits and
- * prepend +56 unless a country code is already there. A local number is 9
- * digits, so only 11+ can carry one.
+ * prepend +56 when it's a local 9-digit number.
+ *
+ * Anything that doesn't resolve to a plausible number is dropped rather than
+ * guessed at: the form only checks length 7-15, so typos get through, and a
+ * fabricated number can't match anyone. It also makes the User-Provided Data
+ * tag fail, which takes the valid email down with it.
  */
 function normalizePhone(phone?: string) {
-  const digits = phone?.replace(/\D/g, "");
+  const raw = phone?.trim();
+  const digits = raw?.replace(/\D/g, "");
 
-  if (!digits) {
+  if (!raw || !digits) {
     return undefined;
   }
 
-  if (digits.length >= 11 && digits.startsWith("56")) {
+  // Typed with a country code — trust it, within E.164's own bounds.
+  if (raw.startsWith("+")) {
+    return digits.length >= 8 && digits.length <= 15 ? `+${digits}` : undefined;
+  }
+
+  // Chilean national numbers are 9 digits, with or without the country code.
+  if (digits.length === 9) {
+    return `+56${digits}`;
+  }
+
+  if (digits.length === 11 && digits.startsWith("56")) {
     return `+${digits}`;
   }
 
-  return `+56${digits.replace(/^0+/, "")}`;
+  return undefined;
 }
 
 function splitName(name?: string) {
