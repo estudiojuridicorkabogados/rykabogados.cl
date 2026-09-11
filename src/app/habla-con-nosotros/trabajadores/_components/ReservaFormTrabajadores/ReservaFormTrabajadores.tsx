@@ -58,7 +58,11 @@ export const ReservaFormTrabajadores = () => {
         );
 
         if (result.success && data.date) {
-          trackTrabajadoresBookACallFormConversion();
+          trackTrabajadoresBookACallFormConversion({
+            name: data.name,
+            email: data.email,
+            phone: data.phoneNumber,
+          });
 
           // Log to Google Sheets
           logToSheet({

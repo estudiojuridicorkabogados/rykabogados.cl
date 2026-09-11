@@ -58,7 +58,11 @@ export const ReservaFormEmpresas = () => {
         );
 
         if (result.success && data.date) {
-          trackEmpresasBookACallFormConversion();
+          trackEmpresasBookACallFormConversion({
+            name: data.name,
+            email: data.email,
+            phone: data.phoneNumber,
+          });
 
           // Log to Google Sheets
           logToSheet({

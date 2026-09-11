@@ -39,15 +39,19 @@ export const ContactForm = () => {
         duration: 8000,
       });
 
-      trackContactFormSubmission();
-
       const form = formRef.current;
       const formData = form ? new FormData(form) : null;
+      const name = formData?.get("name")?.toString() || "";
+      const phone = formData?.get("phone")?.toString() || "";
+      const email = formData?.get("email")?.toString() || "";
+
+      trackContactFormSubmission({ name, email, phone });
+
       logToSheet({
         landing: window.location.href,
         channel: "contacto-form",
-        phone: formData?.get("phone")?.toString() || "",
-        email: formData?.get("email")?.toString() || "",
+        phone,
+        email,
       });
     }
   }, [state.success, logToSheet]);
