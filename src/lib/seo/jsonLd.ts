@@ -25,7 +25,7 @@ export function buildOrganizationJsonLd(): WithContext<LegalService> {
     logo: absoluteUrl("/images/logos/logo-black.png"),
     image: absoluteUrl("/images/rk_abogados_office.webp"),
     email: CONTACTO_EMAIL,
-    telephone: "+56223644258",
+    telephone: "+56233808828",
     vatID: "77.703.086-8",
     address: {
       "@type": "PostalAddress",

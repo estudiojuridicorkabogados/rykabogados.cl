@@ -134,8 +134,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Of Counsel",
     photo: "/images/team/sandra.webp",
     linkedin: "https://www.linkedin.com/in/sandra-riquelme-3b259188",
-    phone: "223644258",
-    phoneLink: "tel:+56223644258",
+    phone: "233808828",
+    phoneLink: "tel:+56233808828",
     email: "contacto@rkabogados.cl",
   },
 
@@ -144,8 +144,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Of Counsel",
     photo: "/images/team/nico.webp",
     linkedin: "https://www.linkedin.com/in/nicol%C3%A1s-m-18144385",
-    phone: "223644258",
-    phoneLink: "tel:+56223644258",
+    phone: "233808828",
+    phoneLink: "tel:+56233808828",
     email: "contacto@rkabogados.cl",
   },
   {
@@ -153,8 +153,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Traducción y gestión internacional",
     photo: "/images/team/noemi_ricci.webp",
     linkedin: "https://www.linkedin.com/company/retamales-kowalski-abogados",
-    phone: "223644258",
-    phoneLink: "tel:+56223644258",
+    phone: "233808828",
+    phoneLink: "tel:+56233808828",
     email: "contacto@rkabogados.cl",
   },
   {
@@ -162,8 +162,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Traducción y marketing",
     photo: "/images/team/gabriele_para.webp",
     linkedin: "https://www.linkedin.com/company/retamales-kowalski-abogados",
-    phone: "223644258",
-    phoneLink: "tel:+56223644258",
+    phone: "233808828",
+    phoneLink: "tel:+56233808828",
     email: "contacto@rkabogados.cl",
   },
 ];

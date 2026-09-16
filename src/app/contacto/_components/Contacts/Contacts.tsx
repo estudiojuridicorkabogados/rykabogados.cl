@@ -10,7 +10,7 @@ export const Contacts = () => {
       <div className="flex flex-col">
         <span className="font-bold">Hablemos</span>
         <span>
-          Tel <a href="tel:+56223644258">+56 2 2364 4258</a> -{" "}
+          Tel <a href="tel:+56233808828">+56 2 3380 8828</a> -{" "}
           <a href="tel:+56986395780">+56 9 8639 5780</a>
         </span>
         <a

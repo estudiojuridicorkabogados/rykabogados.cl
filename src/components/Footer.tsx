@@ -114,7 +114,7 @@ export const Footer = () => {
 
             <div className="flex flex-col gap-2">
               <span>
-                Tel <a href="tel:+56223644258">2 23644258</a> -{" "}
+                Tel <a href="tel:+56233808828">2 33808828</a> -{" "}
                 <a href="tel:+56986395780">9 86395780</a>
               </span>
 
