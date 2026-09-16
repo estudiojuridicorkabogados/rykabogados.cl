@@ -1,6 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -8,6 +7,7 @@ import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { formatSantiago } from "@/lib/utils/dates";
 import { ShortPost } from "@/types/global";
 
 interface AnimatedBlogPostsProps {
@@ -133,7 +133,7 @@ const AuthorAndDate: React.FC<{ blogPost: ShortPost }> = ({ blogPost }) => {
 
       <time dateTime={blogPost.date} className="text-black/40">
         {blogPost.date
-          ? format(blogPost.date, "dd.MM.yyyy", { locale: es })
+          ? formatSantiago(blogPost.date, "dd.MM.yyyy", { locale: es })
           : ""}
       </time>
     </div>

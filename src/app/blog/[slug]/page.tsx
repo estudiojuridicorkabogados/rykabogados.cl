@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
@@ -15,6 +14,7 @@ import {
   SITE_NAME,
 } from "@/lib/seo/site";
 import { URLS } from "@/lib/utils/constants";
+import { formatSantiago } from "@/lib/utils/dates";
 
 import { BlogPost } from "./_components/BlogPost";
 import { RelatedPosts } from "./_components/RelatedPosts";
@@ -103,8 +103,12 @@ export default async function BlogPostPage({ params }: BlogPostPageParams) {
     name: post.metaTitle || post.title || "RK Abogados - Blog Post",
     description:
       post.metaDescription || post.excerpt || "RK Abogados - Blog Post",
-    datePublished: post.date ? format(post.date, "yyyy-MM-dd") : undefined,
-    dateModified: post.date ? format(post.date, "yyyy-MM-dd") : undefined,
+    datePublished: post.date
+      ? formatSantiago(post.date, "yyyy-MM-dd")
+      : undefined,
+    dateModified: post.date
+      ? formatSantiago(post.date, "yyyy-MM-dd")
+      : undefined,
     inLanguage: "es-CL",
     author: {
       "@type": "Person",

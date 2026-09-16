@@ -1,7 +1,7 @@
-import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import Image from "next/image";
 
+import { formatSantiago } from "@/lib/utils/dates";
 import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { Maybe } from "@/types/generated/graphql";
 import { Author } from "@/types/global";
@@ -38,7 +38,7 @@ export const AuthorAndDate: React.FC<AuthorAndDateProps> = ({
               dateTime={date}
               className="text-base/7 font-semibold capitalize"
             >
-              {format(date, "MMM d, yyyy", { locale: es })}
+              {formatSantiago(date, "MMM d, yyyy", { locale: es })}
             </time>
           ) : null}
           {" • "}

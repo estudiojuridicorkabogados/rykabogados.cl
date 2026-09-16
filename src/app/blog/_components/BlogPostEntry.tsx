@@ -1,6 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { motion } from "motion/react";
 import { Route } from "next";
@@ -8,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { formatSantiago } from "@/lib/utils/dates";
 import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { ShortPost } from "@/types/global";
 
@@ -58,7 +58,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({
 
           {blogPost.date ? (
             <time dateTime={blogPost.date} className="text-black/40">
-              {format(blogPost.date, "dd.MM.yyyy", { locale: es })}
+              {formatSantiago(blogPost.date, "dd.MM.yyyy", { locale: es })}
             </time>
           ) : null}
         </motion.div>

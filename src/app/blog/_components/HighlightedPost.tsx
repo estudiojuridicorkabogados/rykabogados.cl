@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -9,6 +8,7 @@ import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { formatSantiago } from "@/lib/utils/dates";
 import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { ShortPost } from "@/types/global";
 
@@ -58,7 +58,7 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
 
               {post.date ? (
                 <time dateTime={post.date} className="text-white">
-                  {format(post.date, "dd.MM.yyyy", { locale: es })}
+                  {formatSantiago(post.date, "dd.MM.yyyy", { locale: es })}
                 </time>
               ) : null}
             </motion.div>
