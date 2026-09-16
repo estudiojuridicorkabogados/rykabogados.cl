@@ -9,6 +9,7 @@ import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { ShortPost } from "@/types/global";
 
 interface HighlightedPostProps {
@@ -17,38 +18,36 @@ interface HighlightedPostProps {
 
 export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      variants={containerVariants}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex flex-col gap-6 lg:gap-8"
-    >
-      <motion.h1
-        variants={itemVariants}
-        className="relative z-10 text-3xl font-bold text-black lg:text-5xl"
-      >
+    <div className="flex flex-col gap-6 lg:gap-8">
+      <h1 className="relative z-10 text-3xl font-bold text-black lg:text-5xl">
         Publicaciones
-      </motion.h1>
+      </h1>
 
-      <motion.div
-        variants={itemVariants}
-        className="relative aspect-4/5 w-full rounded-2xl lg:aspect-auto lg:h-[450px]"
-      >
+      <div className="relative aspect-4/5 w-full rounded-2xl bg-gray-300 lg:aspect-auto lg:h-[450px]">
         <Link href={`/blog/${post.slug}`}>
           <div className="absolute inset-0 z-1 rounded-2xl bg-black/30" />
 
           <Image
-            src={post.mainImage?.url || ""}
+            src={optimizedContentfulImageUrl(post.mainImage?.url) || ""}
             alt={post.mainImage?.description || post.title || ""}
             className="h-full w-full rounded-2xl object-cover"
             fill
+            priority
             sizes="(max-width: 1024px) 100vw, 80vw"
           />
 
-          <div className="absolute right-4 bottom-4 left-4 z-10 flex w-fit flex-col items-start justify-end gap-3 overflow-hidden rounded-2xl p-4 backdrop-blur-xl lg:p-6">
-            {/* <div className="backdrop-blur-xl absolute inset-0 flex flex-col justify-end items-start gap-4 p-4 lg:p-8 z-10"> */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={containerVariants}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{
+              duration: 0.8,
+              staggerChildren: 0.2,
+              ease: "easeOut",
+            }}
+            className="absolute right-4 bottom-4 left-4 z-10 flex w-fit flex-col items-start justify-end gap-3 overflow-hidden rounded-2xl p-4 backdrop-blur-xl lg:p-6"
+          >
             <motion.div
               variants={itemVariants}
               className="flex items-center gap-x-2 text-sm lg:text-base"
@@ -85,9 +84,9 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
                 <LongArrowRight className="group-hover:stroke-accent-dark group-hover:animate-wiggle ml-2 inline-block stroke-white transition-colors duration-200" />
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </Link>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };

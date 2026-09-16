@@ -8,18 +8,23 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { ShortPost } from "@/types/global";
 
 interface BlogPostEntryProps {
   blogPost: ShortPost;
+  priority?: boolean;
 }
 
-export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
+export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({
+  blogPost,
+  priority = false,
+}) => {
   const mainImage = blogPost.mainImage;
 
   return (
     <motion.article
-      initial="hidden"
+      initial={priority ? false : "hidden"}
       whileInView="visible"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
@@ -28,14 +33,17 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({ blogPost }) => {
     >
       <motion.div
         variants={itemVariants}
-        className="relative aspect-video w-full rounded-2xl bg-gray-100 sm:aspect-2/1 lg:aspect-square"
+        className="relative aspect-video w-full rounded-2xl bg-gray-300 sm:aspect-2/1 lg:aspect-square"
       >
         <Image
           fill
-          src={mainImage?.url || "/default-image.jpg"}
+          src={
+            optimizedContentfulImageUrl(mainImage?.url) || "/default-image.jpg"
+          }
           alt={mainImage?.description || blogPost.title || ""}
           className="rounded-2xl object-cover"
           sizes="(max-width: 1024px) 100vw, 33vw"
+          priority={priority}
         />
       </motion.div>
 

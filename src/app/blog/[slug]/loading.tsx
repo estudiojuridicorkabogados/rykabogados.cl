@@ -1,3 +1,5 @@
+import { BlogPostEntrySkeleton } from "../_components/BlogPostEntry";
+
 import { RandomLineLengthSkeleton } from "./_components/RandomLineLengthSkeleton";
 
 export default function BlogPostPageLoading() {
@@ -18,6 +20,16 @@ export default function BlogPostPageLoading() {
 
         <div className="loading-background-animation sticky top-12 hidden h-[340px] w-[340px] p-8 lg:block" />
       </div>
+
+      <section className="mx-auto mt-20 lg:px-8">
+        <div className="loading-background-animation h-8 w-64" />
+
+        <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-16 lg:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <BlogPostEntrySkeleton key={index} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

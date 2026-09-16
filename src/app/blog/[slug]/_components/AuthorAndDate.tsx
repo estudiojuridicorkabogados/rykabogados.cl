@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import Image from "next/image";
 
+import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { Maybe } from "@/types/generated/graphql";
 import { Author } from "@/types/global";
 
@@ -21,8 +22,9 @@ export const AuthorAndDate: React.FC<AuthorAndDateProps> = ({
       <div className="relative h-13 w-13 rounded-full bg-gray-300">
         <Image
           fill
-          src={author?.photo?.url || ""}
+          src={optimizedContentfulImageUrl(author?.photo?.url) || ""}
           alt={author?.photo?.title || author?.photo?.description || "Autore"}
+          sizes="52px"
           className="rounded-full object-cover"
         />
       </div>

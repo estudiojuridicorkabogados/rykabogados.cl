@@ -1,9 +1,6 @@
-"use client";
-
-import { motion } from "motion/react";
 import Image from "next/image";
 
-import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { Post } from "@/types/global";
 
 import { AuthorAndDate } from "./AuthorAndDate";
@@ -18,33 +15,21 @@ const Tags = ["Trabajo", "Empresa", "Reforma"];
 
 export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      variants={containerVariants}
-      viewport={{ once: true, amount: 0 }}
-      transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="mx-auto px-6 text-base/7 text-gray-700 lg:max-w-6xl lg:px-8 2xl:w-7xl 2xl:max-w-7xl"
-    >
-      <motion.h1
-        variants={itemVariants}
-        className="relative z-10 mb-8 text-3xl text-black lg:text-5xl"
-      >
+    <div className="mx-auto px-6 text-base/7 text-gray-700 lg:max-w-6xl lg:px-8 2xl:w-7xl 2xl:max-w-7xl">
+      <h1 className="relative z-10 mb-8 text-3xl text-black lg:text-5xl">
         {post.title}
-      </motion.h1>
+      </h1>
 
-      <motion.div
-        variants={itemVariants}
-        className="relative aspect-square w-full rounded-2xl lg:aspect-auto lg:h-[450px]"
-      >
+      <div className="relative aspect-square w-full rounded-2xl bg-gray-300 lg:aspect-auto lg:h-[450px]">
         <Image
-          src={post.mainImage?.url || ""}
+          src={optimizedContentfulImageUrl(post.mainImage?.url) || ""}
           alt={post.mainImage?.description || post.title || ""}
           fill
+          priority
           sizes="(max-width: 1024px) 100vw, 80vw"
-          className="rounded-xl object-cover"
+          className="rounded-2xl object-cover"
         />
-      </motion.div>
+      </div>
 
       <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:gap-16">
         <div className="flex-1">
@@ -80,6 +65,6 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           confianza.
         </p>
       </blockquote>
-    </motion.div>
+    </div>
   );
 };
