@@ -1,6 +1,18 @@
+import { RecaptchaScript } from "@/components/Recaptcha/RecaptchaScript";
 import { buildPageMetadata } from "@/lib/seo/site";
 
 import { OurTeam } from "../_components/OurTeam/OurTeam";
+
+import { Casos } from "./_components/Casos/Casos";
+import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
+import { Contact } from "./_components/Contact/Contact";
+import { Hero } from "./_components/Hero/Hero";
+import { HeroVideo } from "./_components/HeroVideo/HeroVideo";
+import { Pricing } from "./_components/Pricing/Pricing";
+import { ReservaFormEmpresas } from "./_components/ReservaFormEmpresas/ReservaFormEmpresas";
+import { Services } from "./_components/Services/Services";
+import { Slogan } from "./_components/Slogan/Slogan";
+import { Videos } from "./_components/Videos/Videos";
 
 export const metadata = buildPageMetadata({
   title: "Asesoría Legal para Empresas | Reserva una Consulta | RK Abogados",
@@ -24,17 +36,6 @@ export const metadata = buildPageMetadata({
     alt: "Abogados de RK Abogados asesorando a empresa",
   },
 });
-
-import { Casos } from "./_components/Casos/Casos";
-import { ClientsReel } from "./_components/ClientsReel/ClientsReel";
-import { Contact } from "./_components/Contact/Contact";
-import { Hero } from "./_components/Hero/Hero";
-import { HeroVideo } from "./_components/HeroVideo/HeroVideo";
-import { Pricing } from "./_components/Pricing/Pricing";
-import { ReservaFormEmpresas } from "./_components/ReservaFormEmpresas/ReservaFormEmpresas";
-import { Services } from "./_components/Services/Services";
-import { Slogan } from "./_components/Slogan/Slogan";
-import { Videos } from "./_components/Videos/Videos";
 
 export default function HablaConNosotrosEmpresas() {
   return (
@@ -62,6 +63,8 @@ export default function HablaConNosotrosEmpresas() {
 
         <ClientsReel />
       </div>
+
+      <RecaptchaScript />
 
       <style>
         {`     

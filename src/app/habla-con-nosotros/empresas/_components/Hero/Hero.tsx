@@ -11,7 +11,7 @@ export const Hero = () => {
     <section className="relative flex h-auto items-center justify-center overflow-hidden py-16 lg:h-[80vh]">
       <div className="absolute inset-0 overflow-hidden">
         <Image
-          priority
+          preload
           fill
           loading="eager"
           src={camiPaolo}

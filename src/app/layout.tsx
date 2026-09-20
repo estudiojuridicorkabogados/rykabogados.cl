@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import Script from "next/script";
 
 import { ConditionalAnalytics } from "@/components/Analytics/ConditionalAnalytics";
 import { CookieBanner } from "@/components/CookieConsent/CookieBanner";
@@ -9,7 +8,7 @@ import { CookieSettingsModal } from "@/components/CookieConsent/CookieSettingsMo
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd/JsonLd";
 import { Navbar } from "@/components/Navbar/Navbar";
-import { env } from "@/lib/env";
+import { SupportChatbot } from "@/components/SupportChatbot/SupportChatbot";
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo/jsonLd";
 import { DEFAULT_DESCRIPTION, SITE_URL } from "@/lib/seo/site";
 import { dmSans } from "@/lib/utils/fonts";
@@ -46,16 +45,6 @@ export const metadata: Metadata = {
 const DynamicToaster = dynamic(() => import("sonner").then((m) => m.Toaster), {
   loading: () => <div className="sr-only">Loading toaster</div>,
 });
-
-const SupportChatbot = dynamic(
-  () =>
-    import("@/components/SupportChatbot/SupportChatbot").then(
-      (m) => m.SupportChatbot
-    ),
-  {
-    loading: () => <div className="sr-only">Loading chat…</div>,
-  }
-);
 
 export default async function RootLayout({
   children,
@@ -96,12 +85,6 @@ export default async function RootLayout({
 
           <ConditionalAnalytics />
         </CookieConsentProvider>
-
-        <Script
-          async
-          strategy="lazyOnload"
-          src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-        />
 
         <JsonLd schema={[buildOrganizationJsonLd(), buildWebSiteJsonLd()]} />
       </body>

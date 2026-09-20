@@ -6,12 +6,15 @@ import { classNames } from "@/lib/utils/classNames";
 
 interface ChatboatFloatingButtonProps {
   onToggleOpen: () => void;
+  /** Warms the lazily loaded chat panel chunk before the click lands. */
+  onPreload?: () => void;
   open: boolean;
   unread: number;
 }
 
 export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
   onToggleOpen,
+  onPreload,
   open,
   unread,
 }) => {
@@ -19,6 +22,9 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
     <button
       type="button"
       onClick={onToggleOpen}
+      onPointerEnter={onPreload}
+      onFocus={onPreload}
+      onTouchStart={onPreload}
       className={classNames([
         "z-50 cursor-pointer fixed bottom-4 right-4 ring-black/5 transition-all duration-200 ease-out overflow-visible",
         "h-14 w-14 rounded-full bg-primary border border-accent-dark text-white shadow-lg ring-1",

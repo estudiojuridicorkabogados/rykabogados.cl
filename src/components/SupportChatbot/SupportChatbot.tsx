@@ -1,181 +1,52 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useChat } from "@ai-sdk/react";
-import Image from "next/image";
-
-import { useDebounceCallback } from "@/hooks/useDebounceCallback";
-import { classNames } from "@/lib/utils/classNames";
-
-import logoBlack from "../../../public/images/logos/logo-black.png";
-import { PlusIcon } from "../icons/Plus";
+import { useCallback, useState } from "react";
+import dynamic from "next/dynamic";
 
 import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
-import { ChatbotInput } from "./ChatbotInput";
-import { InitialBotMessage } from "./InitialBotMessage";
-import { Message } from "./Message";
-import { MessageLoading } from "./MessageLoading";
+
+/**
+ * Loaded on demand, from inside a Client Component so that code splitting
+ * actually happens — a Server Component calling dynamic() on a Client
+ * Component does not split it out (see the Next.js lazy-loading guide), which
+ * is why the AI SDK used to ship on every page.
+ */
+const ChatbotPanel = dynamic(
+  () => import("./ChatbotPanel").then((m) => m.ChatbotPanel),
+  { ssr: false }
+);
+
+/** Warm the chunk on intent, so the click itself feels instant. */
+const preloadPanel = () => {
+  void import("./ChatbotPanel");
+};
 
 export const SupportChatbot = () => {
-  const { messages, status, sendMessage } = useChat();
   const [open, setOpen] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const endRef = useRef<HTMLDivElement | null>(null);
-  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
-  const [lastSeenMsgId, setLastSeenMsgId] = useState<string | undefined>(
-    undefined
-  );
-
-  const unread = useMemo(() => {
-    const assistantMessages = messages.filter((m) => m.role === "assistant");
-    if (assistantMessages.length === 0 || open) return 0;
-    const lastSeenIdx = assistantMessages.findLastIndex(
-      (m) => m.id === lastSeenMsgId
-    );
-    return assistantMessages.length - (lastSeenIdx + 1);
-  }, [open, messages, lastSeenMsgId]);
-
-  const markAllSeen = () => {
-    setLastSeenMsgId(
-      messages.toReversed().find((m) => m.role === "assistant")?.id
-    );
-  };
-
-  const handleNewMessageAdded = useDebounceCallback(() => {
-    // Play notification sound for new messages
-    const audio = new Audio("/sounds/bot-pop-up.mp3");
-    audio.volume = 0.5;
-    audio.play().catch(() => {
-      // Handle autoplay restrictions silently
-    });
-
-    if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTo({
-        top: messagesContainerRef.current.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, 100);
-
-  useEffect(() => {
-    if (!open) return;
-
-    handleNewMessageAdded();
-  }, [open, handleNewMessageAdded]);
-
-  useEffect(() => {
-    const container = messagesContainerRef.current;
-    if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      const { scrollTop, scrollHeight, clientHeight } = container;
-      const isAtTop = scrollTop === 0;
-      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
-
-      if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
-        e.preventDefault();
-      }
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => container.removeEventListener("wheel", handleWheel);
-  }, []);
-
-  const onSubmit = (query: string) => {
-    sendMessage({ text: query });
-  };
-
-  useEffect(() => {
-    if (!open) return;
-    const id = setTimeout(() => {
-      textareaRef.current?.focus();
-    }, 100);
-    return () => clearTimeout(id);
-  }, [open]);
+  const [unread, setUnread] = useState(0);
+  // Once opened the panel stays mounted, so the conversation survives closing.
+  const [activated, setActivated] = useState(false);
 
   const onToggleOpen = () => {
-    if (!open) markAllSeen();
+    setActivated(true);
     setOpen((v) => !v);
   };
 
-  const handleClose = () => {
-    markAllSeen();
-    setOpen(false);
-  };
+  const handleClose = useCallback(() => setOpen(false), []);
 
   return (
     <>
-      {/* Chat Panel */}
-      <div
-        className={classNames([
-          "fixed top-0 left-0 right-0 h-dvh md:h-[80vh] md:top-auto md:left-auto md:bottom-4 md:right-4 z-50 origin-bottom-right transition-all duration-200 ease-out",
-          "w-screen sm:w-[24rem] md:rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col",
-          "bg-white",
-          {
-            "opacity-100 translate-y-0 scale-100 pointer-events-auto": open,
-            "opacity-0 translate-y-2 scale-95 pointer-events-none": !open,
-          },
-        ])}
-        aria-hidden={!open}
-        role="dialog"
-        aria-label="Support chat"
-      >
-        <div className="relative flex min-h-0 flex-1 flex-col bg-linear-to-b from-[#FED9A591] via-[#FED9A500] via-20% to-[#FBFBFC] to-25%">
-          {/* Header */}
-          <div className="flex shrink-0 items-center justify-between px-6 py-6 text-white">
-            <div className="flex items-center gap-2">
-              <Image
-                src={logoBlack}
-                alt="RK Abogados"
-                unoptimized
-                width={120}
-                height={50}
-              />
-            </div>
+      {activated && (
+        <ChatbotPanel
+          open={open}
+          onClose={handleClose}
+          onUnreadChange={setUnread}
+        />
+      )}
 
-            <button
-              type="button"
-              onClick={handleClose}
-              className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md hover:bg-white/10 focus:outline-none"
-              aria-label="Cerrar chat"
-            >
-              <PlusIcon className="size-4 rotate-45" />
-            </button>
-          </div>
-
-          {/* Messages */}
-          <div
-            ref={messagesContainerRef}
-            className="mt-2 flex-1 overflow-y-auto px-6 py-3 pb-4"
-          >
-            <p className="mb-4 max-w-4/5 text-xl leading-[25px] font-medium text-black">
-              Bienvenido a RK Abogados. ¿Cómo prefieres hablar con nosotros?
-            </p>
-
-            <div
-              className="space-y-2"
-              aria-live="polite"
-              aria-relevant="additions"
-            >
-              <InitialBotMessage open={open} />
-
-              {messages.map((message) => (
-                <Message key={message.id} message={message} />
-              ))}
-
-              {status === "submitted" && <MessageLoading />}
-
-              <div ref={endRef} />
-            </div>
-          </div>
-        </div>
-
-        <ChatbotInput textareaRef={textareaRef} onSubmit={onSubmit} />
-      </div>
-
-      {/* Floating Launcher Button */}
       <ChatboatFloatingButton
         onToggleOpen={onToggleOpen}
+        onPreload={preloadPanel}
         open={open}
         unread={unread}
       />

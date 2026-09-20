@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import { RecaptchaScript } from "@/components/Recaptcha/RecaptchaScript";
 import { buildPageMetadata } from "@/lib/seo/site";
 
 import { ContactForm } from "./_components/ContactForm/ContactForm";
@@ -30,6 +31,8 @@ export default function Contacto() {
           <Contacts />
         </div>
       </div>
+
+      <RecaptchaScript />
 
       <style>
         {`     

@@ -25,7 +25,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           src={optimizedContentfulImageUrl(post.mainImage?.url) || ""}
           alt={post.mainImage?.description || post.title || ""}
           fill
-          priority
+          preload
           sizes="(max-width: 1024px) 100vw, 80vw"
           className="rounded-2xl object-cover"
         />

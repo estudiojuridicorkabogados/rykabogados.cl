@@ -43,7 +43,7 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({
           alt={mainImage?.description || blogPost.title || ""}
           className="rounded-2xl object-cover"
           sizes="(max-width: 1024px) 100vw, 33vw"
-          priority={priority}
+          preload={priority}
         />
       </motion.div>
 

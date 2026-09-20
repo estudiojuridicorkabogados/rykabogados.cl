@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
     turbopackRustReactCompiler: true,
   },
   images: {
+    // AVIF first: typically 25-35% smaller than WebP for these photographic
+    // heroes, and the hero is the LCP element on every page.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",

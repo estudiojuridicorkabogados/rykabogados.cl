@@ -1,3 +1,4 @@
+import { RecaptchaScript } from "@/components/Recaptcha/RecaptchaScript";
 import { buildPageMetadata } from "@/lib/seo/site";
 
 import { OurTeam } from "../_components/OurTeam/OurTeam";
@@ -59,6 +60,8 @@ export default function HablaConNosotrosTrabajadores() {
 
         <ClientsReel />
       </div>
+
+      <RecaptchaScript />
 
       <style>
         {`     

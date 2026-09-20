@@ -32,7 +32,7 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
             alt={post.mainImage?.description || post.title || ""}
             className="h-full w-full rounded-2xl object-cover"
             fill
-            priority
+            preload
             sizes="(max-width: 1024px) 100vw, 80vw"
           />
 
