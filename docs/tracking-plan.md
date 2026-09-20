@@ -18,9 +18,10 @@ Status: draft, under review.
 6. [Phase 5: Build the funnel reports](#phase-5-build-the-funnel-reports)
 7. [Phase 6: One-page dashboard (stretch)](#phase-6-one-page-dashboard-stretch)
 8. [Phase 7: Watch, then review](#phase-7-watch-then-review)
-9. [What the client gets, and effort](#9-what-the-client-gets-and-effort)
-10. [After this: getting the most out of it](#10-after-this-getting-the-most-out-of-it)
-11. [Plain-language glossary](#11-plain-language-glossary)
+9. [Phase 8: Read the reports automatically (recurring, optional)](#phase-8-read-the-reports-automatically-recurring-optional)
+10. [What the client gets, and effort](#9-what-the-client-gets-and-effort)
+11. [After this: getting the most out of it](#10-after-this-getting-the-most-out-of-it)
+12. [Plain-language glossary](#11-plain-language-glossary)
 
 ---
 
@@ -449,6 +450,64 @@ Funnels need a few hundred visits per step to say anything reliable. The month i
 
 ---
 
+## Phase 8: Read the reports automatically (recurring, optional)
+
+| | |
+| --- | --- |
+| **Where** | This repository: a skill plus MCP server configuration. Nothing in the site, nothing in the client's accounts beyond read access. |
+| **Effort** | One day to set up, then roughly an hour a month to run and edit the output |
+| **Result** | A written analysis once a month — what changed, what is out of line, what to try next — drafted from the live data and reviewed by a human before it goes anywhere near the client. |
+
+Phase 7 is one reading, once. The reports only pay for themselves if somebody keeps reading them, and the honest reason that does not happen is that opening five funnels and a Search Console property costs an hour nobody has. This phase removes that hour and makes phase 7 repeat every month.
+
+Analytics, Search Console, Google Ads and the Google Sheet can all be connected to Claude through MCP servers, which means the model reads the real numbers through the APIs rather than a screenshot or a summary somebody typed. A skill in this repository fixes the questions asked each time, so one month's run is comparable with the next.
+
+### What connects, and how
+
+| Source | How | Status |
+| --- | --- | --- |
+| Analytics (GA4) | Google's own MCP server over the Data API | Ready. The important one: every phase 2 signal, its labels and the funnels live here. |
+| Search Console | Community MCP server over the Search Console API | Ready. Queries, impressions, CTR per page. |
+| Google Ads | Community MCP server over the Google Ads API | **Needs a developer token with Basic Access**, approved manually by Google. Days, not hours. Start the request early or the first runs have no spend data. |
+| Google Sheet (Caso codes) | Service account, or a Sheets MCP server | Ready. This is where the case outcomes live once section 10's first item happens. |
+| Tag Manager | Official API | Useful for configuration audits — has a signal stopped firing since the last release — rather than for reporting. |
+| Looker Studio | — | No read API, and none needed. It is a presentation layer over the same sources this reads directly. |
+
+### The skill
+
+`.claude/skills/monthly-report/` holds the questions, not the answers. Fixed, so nothing drifts between runs:
+
+- Step-by-step funnel movement against the previous month, per campaign and per device.
+- Campaigns whose cost per contact sits outside their own recent range.
+- Forms, fields and devices with an error rate above their baseline.
+- Scroll depth on the landing pages and the blog: where reading stops, and whether the form sits below that point.
+- Search Console queries that gained or lost position on pages that produce contacts.
+- Anything that moved more than the month's noise, stated with the number.
+
+Run it with `/loop` locally, or as a scheduled cloud agent. Output is a draft, always: it goes to the client only after someone has read it and removed what does not hold up.
+
+### What to be careful about
+
+**Cadence: monthly, on everything, for now.** At this traffic a weekly reading is mostly noise, and a report that cries wolf gets ignored by the third one. If ad spend grows enough that a month is too long to wait on a campaign going wrong, split it then — spend weekly, funnel monthly — and not before.
+
+**The consent undercount applies here too.** The model reads the same partial data as everybody else. It has to be told that in the skill, or it will read a consent-driven step down as a collapse in demand.
+
+**Read-only access.** Every connection is read. Nothing in this phase writes to Ads, Analytics or the Sheet. The offline-conversion upload in section 10 is a separate piece of work with a separate decision behind it.
+
+### Checklist
+
+- [ ] Google Ads developer token requested (do this first — approval is the long pole)
+- [ ] MCP servers configured in `.mcp.json`, read-only credentials
+- [ ] Skill written with the fixed question set and the consent caveat
+- [ ] Two runs compared by hand against the Analytics interface before anything is sent to the client
+- [ ] Cadence and delivery format agreed with the firm
+
+### Pricing
+
+Not part of the core scope and not part of the EUR 1,000. It belongs to the monthly follow-up conversation: the setup day plus the recurring hour a month is what a retainer would cover. Offer it after the client has read the phase 7 review, not before — the point lands when they have seen one analysis and want the next one without asking.
+
+---
+
 ## 9. What the client gets, and effort
 
 Source material for the client document, not the client document itself. The client version is written in Spanish, drops every file path and event name, and leads with what the firm gets rather than what we build. What follows is the substance to draw from, in English, so the scope is unambiguous to whoever implements it.
@@ -476,6 +535,9 @@ Effort is in working days; pricing goes on top.
 > **Optional**
 >
 > - **One-page dashboard** combining advertising spend with results: cost per booked call, per campaign, week by week. Shared as a link, no login into Analytics needed.
+> - **A monthly reading of the reports**, done by hand and with AI reading the live data, with suggestions on what to change to get more contacts. The first one is included; continuing every month is a separate arrangement.
+> - **Custom tables in Looker (EUR 200)**, for questions Analytics cannot answer — above all which Google searches bring people who actually make contact. Left for later, since the tables are built around questions that only surface once you have read the reports.
+> - **Telling Google which contacts became real clients.** The join is already built into the work above; what is missing is a column in your sheet where somebody marks each booking as a case or not, kept up to date within 90 days of the click. Half a day on our side, quoted when you decide. The single highest-value step in the whole project, and the only one that depends on a habit rather than on software.
 >
 > **What does not change**
 >
@@ -500,7 +562,7 @@ Effort is in working days; pricing goes on top.
 | 6 | Optional dashboard | 1 |
 | | **With dashboard** | **7 – 7.5** |
 
-Consider offering phase 7 as the start of a small monthly retainer (an hour or two per month) rather than a one-off: the reports only pay for themselves if someone reads them and acts.
+Consider offering phase 7 as the start of a small monthly retainer (an hour or two per month) rather than a one-off: the reports only pay for themselves if someone reads them and acts. Phase 8 is what makes that retainer cheap enough to be worth selling — one day of setup, then about an hour a month.
 
 ### Pricing
 
@@ -508,11 +570,14 @@ Friend price, with the regular price shown alongside on the proposal so the disc
 
 | | Friend price | Regular price |
 | --- | ---: | ---: |
-| Core (phases 1 to 5 and 7) | EUR 800 | EUR 2,500 |
-| With dashboard (adds phase 6) | EUR 1,100 | EUR 3,200 |
-| Monthly follow-up | EUR 100 | EUR 250 |
+| Core (phases 1 to 5 and 7) | EUR 1,000 | EUR 2,500 |
+| Dashboard (phase 6), quoted separately | EUR 300 | EUR 700 |
+| Custom Looker tables (Search Console × Analytics and similar blends), future | EUR 200 | EUR 500 |
+| Monthly follow-up, including phase 8 | EUR 100 | EUR 250 |
 
-The 20 September revision added about a day of work — scroll depth, page-to-page tracking, the chatbot breakdown, attribution for non-Google traffic, the advertising consent category and the two policy pages. **The price is unchanged**; the extra is absorbed as part of the friend rate. Worth saying out loud in the conversation, since the scope visibly grew: the regular-price column is what it would have cost.
+The dashboard is quoted on its own and decided after the client has used the funnels for two or three weeks — not bundled into the core figure, so declining it is easy and costs nothing.
+
+The 20 September revision added about a day of work — scroll depth, page-to-page tracking, the chatbot breakdown, attribution for non-Google traffic, the advertising consent category and the two policy pages. The friend price went from EUR 800 to EUR 1,000 to cover part of it; the rest is absorbed. Worth saying out loud in the conversation, since the scope visibly grew: the regular-price column is what it would have cost.
 
 ---
 
@@ -524,7 +589,13 @@ In rough order of value. None of these are in the effort above.
 
 This is the biggest lever by far. Today Ads optimises towards "someone clicked WhatsApp" or "someone booked". Neither is a client: some bookings are no-shows, some WhatsApp clicks never send a message. Google can be told, after the fact, which clicks became actual cases. It then finds more people like those, and stops paying for the ones that only click.
 
-The Caso code already in the Sheet is exactly the join key needed, and after phase 2 it exists for every visitor rather than only Google ad clicks. What remains is a place for the firm to mark each booking or conversation as "became a client" or not (the existing Google Sheet is enough), and a small routine that sends that back to Ads. Roughly two days. Requires the firm to actually mark the outcomes, which is the hard part. Note that this runs entirely between the Sheet and Google Ads; it needs nothing from Analytics.
+The Caso code already in the Sheet is exactly the join key needed, and after phase 2 it exists for every visitor rather than only Google ad clicks. What remains is a place for the firm to mark each booking or conversation as "became a client" or not (the existing Google Sheet is enough), and the upload back to Ads.
+
+**Half a day, not the two days estimated earlier.** Google Ads reads offline conversions on a schedule straight from a Google Sheet, so this is a conversion action plus a correctly shaped sheet plus a scheduled import — no code. It only grows if the sheet's shape has to change.
+
+Two constraints to state before promising anything. Ads accepts an outcome only within **90 days of the click**, so a case that qualifies after six months cannot be sent. And an upload needs either a Google click ID or, for form and chatbot leads, hashed email and phone — which phase 2 already sends, so coverage is good for Google traffic and nil for Instagram or organic. For those the Sheet improves the firm's own reporting and nothing else.
+
+The hard part remains the firm actually marking the outcomes. Runs entirely between the Sheet and Google Ads; needs nothing from Analytics. Offer it at the phase 7 review, once it is visible whether the outcome column is being filled in.
 
 ### Tell Ads what a contact is worth
 
@@ -542,7 +613,15 @@ Phone clicks will be tracked, but a click is not a call. Google Ads can show a f
 
 With Search Console connected in phase 1, the funnels can be filtered to visitors who arrived from Google search, which shows whether the blog brings people who go on to contact the firm.
 
-One limitation to know about before promising anything: the Search Console link only feeds two fixed reports inside Analytics, and its data — the search phrases, impressions, click-through rate — **cannot be used inside the funnel reports**. Google does not allow it. Question-level analysis ("which search phrases bring people who then book?") has to be done in Looker Studio, phase 6, by combining the two sources on the landing page. Worth doing, but it is dashboard work, not a funnel filter.
+One limitation to know about before promising anything: the Search Console link only feeds two fixed reports inside Analytics, and its data — the search phrases, impressions, click-through rate — **cannot be used inside the funnel reports**. Google does not allow it. Question-level analysis ("which search phrases bring people who then book?") is the custom-tables item below, not a funnel filter.
+
+### Custom tables in Looker — EUR 200
+
+Some questions cannot be answered inside Analytics at all, because Google will not let the sources be crossed. The one that matters most: **which Google searches bring people who go on to contact the firm** — not which bring visits, which bring contacts. Search Console and Analytics can only be joined in Looker Studio, on the landing page. The same applies to any table that has to pull from several sources at once: campaigns, searches, on-site behaviour, the Caso sheet.
+
+Distinct from the phase 6 dashboard, and the client document says so explicitly. The dashboard is one fixed page, spend against results, the same every week. These are blends built for a specific question.
+
+Priced at EUR 200 and deliberately left for later. Most of the effort is discovery — working out which questions the firm actually wants answered — and those only surface after a few weeks of reading the funnels. Quoting it now means guessing at the tables.
 
 ### Keep the data clean
 
