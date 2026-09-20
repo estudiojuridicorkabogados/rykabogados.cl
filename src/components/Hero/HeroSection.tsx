@@ -40,6 +40,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     >
       <Image
         preload
+        // Chrome starts images at Low priority and only boosts them after
+        // layout. The LCP hero cannot wait for that, and `preload` alone does
+        // not set it — Lighthouse measured this image at prio=Low.
+        fetchPriority="high"
+        loading="eager"
         src={image.src}
         alt={image.alt}
         fill

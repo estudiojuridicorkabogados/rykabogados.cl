@@ -30,6 +30,8 @@ export const HighlightedPost: React.FC<HighlightedPostProps> = ({ post }) => {
             className="h-full w-full rounded-2xl object-cover"
             fill
             preload
+            fetchPriority="high"
+            loading="eager"
             sizes="(max-width: 1024px) 100vw, 80vw"
           />
 

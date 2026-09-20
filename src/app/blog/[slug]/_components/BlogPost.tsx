@@ -26,6 +26,8 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           alt={post.mainImage?.description || post.title || ""}
           fill
           preload
+          fetchPriority="high"
+          loading="eager"
           sizes="(max-width: 1024px) 100vw, 80vw"
           className="rounded-2xl object-cover"
         />

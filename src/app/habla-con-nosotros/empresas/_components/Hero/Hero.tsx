@@ -12,8 +12,9 @@ export const Hero = () => {
       <div className="absolute inset-0 overflow-hidden">
         <Image
           preload
-          fill
+          fetchPriority="high"
           loading="eager"
+          fill
           src={camiPaolo}
           alt="Camila Retamales y Paolo Castiglione trabajando"
           sizes="100vw"

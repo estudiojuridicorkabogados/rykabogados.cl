@@ -10,8 +10,9 @@ export const Hero = () => {
     <section className="relative flex h-auto items-center justify-center overflow-hidden py-16 lg:h-[80vh]">
       <Image
         preload
-        fill
+        fetchPriority="high"
         loading="eager"
+        fill
         src={tribunales}
         alt="Tribunal de Santiago de Chile"
         sizes="100vw"
