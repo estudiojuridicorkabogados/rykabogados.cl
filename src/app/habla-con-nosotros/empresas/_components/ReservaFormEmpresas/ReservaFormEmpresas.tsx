@@ -2,17 +2,29 @@
 
 import { useState, useTransition } from "react";
 import { format } from "date-fns";
-import { motion, stagger } from "motion/react";
+import { stagger } from "motion/react";
+import * as m from "motion/react-m";
+import dynamic from "next/dynamic";
 
 import { submitBookACallFormEmpresas } from "@/actions/submitBookACallFormEmpresas";
 import { InfoModal } from "@/components/InfoModal/InfoModal";
+import { BookingFormSkeleton } from "@/components/ReservaForm/BookingFormSkeleton";
+import { useDeferredMount } from "@/hooks/useDeferredMount";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { trackEmpresasBookACallFormConversion } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
-import { Form } from "./Form";
+/**
+ * react-calendar, react-hook-form and Zod are ~143KB gzipped between them and
+ * none of it is needed to paint this page. Deferred rather than removed —
+ * the form still has to be ready the moment anyone reaches it.
+ */
+const Form = dynamic(() => import("./Form").then((mod) => mod.Form), {
+  ssr: false,
+  loading: () => <BookingFormSkeleton />,
+});
 import {
   BookingInfo,
   ReservaFormSuccessFeedback,
@@ -31,6 +43,8 @@ export const ReservaFormEmpresas = () => {
   const [bookingInfo, setBookingInfo] = useState<BookingInfo | null>(null);
 
   const [currentStep, setCurrentStep] = useState(1);
+
+  const { ref: formRef, ready: formReady } = useDeferredMount<HTMLDivElement>();
 
   const onNext = () => setCurrentStep(currentStep + 1);
 
@@ -86,7 +100,7 @@ export const ReservaFormEmpresas = () => {
   };
 
   return (
-    <motion.section
+    <m.section
       id="reserva-form-section"
       initial="hidden"
       whileInView="visible"
@@ -102,7 +116,7 @@ export const ReservaFormEmpresas = () => {
         )}
 
         <div className="section-container">
-          <motion.div
+          <m.div
             key="step1"
             className="flex flex-col gap-16 md:flex-row md:justify-between"
             animate={{ opacity: 1, y: 0 }}
@@ -110,7 +124,7 @@ export const ReservaFormEmpresas = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="lg:w-1/3">
-              <motion.div
+              <m.div
                 className="mb-2 flex gap-8 text-xs font-bold tracking-[3px] uppercase lg:mb-4 lg:text-sm"
                 variants={itemVariants}
               >
@@ -134,60 +148,67 @@ export const ReservaFormEmpresas = () => {
                 >
                   Paso 2
                 </span>
-              </motion.div>
+              </m.div>
 
-              <motion.h2
+              <m.h2
                 variants={itemVariants}
                 className="text-3xl font-semibold md:text-5xl lg:text-4xl"
               >
                 Agenda una reunión con nuestro equipo
-              </motion.h2>
-              <motion.p
+              </m.h2>
+              <m.p
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
                 Selecciona el horario que más te acomode. En el siguiente paso
                 podrás elegir la modalidad de reunión o asesoría que mejor
                 responda a las necesidades de tu empresa.
-              </motion.p>
-              <motion.p
+              </m.p>
+              <m.p
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
                 Un abogado te contactará dentro de las próximas{" "}
                 <b>24 horas hábiles</b> para confirmar la reserva y solicitar,
                 si corresponde, los antecedentes necesarios.
-              </motion.p>
-              <motion.p
+              </m.p>
+              <m.p
                 variants={itemVariants}
                 className="mt-2 text-xs text-white/60"
               >
                 *Las reuniones y asesorías están sujetas a confirmación,
                 disponibilidad y condiciones generales del servicio.
-              </motion.p>
+              </m.p>
 
               <MasInformacionEmpresasModal />
             </div>
 
-            <div className="flex items-center justify-center lg:w-1/2">
-              <Form
-                currentStep={currentStep}
-                pending={isPending}
-                submitError={submitError}
-                onNext={onNext}
-                onSubmit={onSubmit}
-              />
+            <div
+              ref={formRef}
+              className="flex items-center justify-center lg:w-1/2"
+            >
+              {formReady ? (
+                <Form
+                  currentStep={currentStep}
+                  pending={isPending}
+                  submitError={submitError}
+                  onNext={onNext}
+                  onSubmit={onSubmit}
+                />
+              ) : (
+                <BookingFormSkeleton />
+              )}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };
 
 const MasInformacionEmpresasModal = () => {
   return (
-    <motion.div variants={itemVariants} className="mt-2">
+    <m.div variants={itemVariants} className="mt-2">
       <InfoModal
         triggerLabel="Ver condiciones generales del servicio"
         title="Condiciones generales del servicio"
@@ -232,6 +253,6 @@ const MasInformacionEmpresasModal = () => {
           responsable y confidencial.
         </p>
       </InfoModal>
-    </motion.div>
+    </m.div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 
 import { LinkedinSquareIcon } from "@/components/icons/LinkedinSquare";
@@ -10,7 +10,7 @@ import { TEAM_MEMBERS } from "@/lib/utils/constants";
 export const TeamGrid = () => {
   return (
     <div className="bg-primary py-16 lg:py-28">
-      <motion.div
+      <m.div
         className="section-container flex flex-col gap-4"
         initial="hidden"
         whileInView="visible"
@@ -18,16 +18,16 @@ export const TeamGrid = () => {
         viewport={{ once: true }}
         transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
       >
-        <motion.h2
+        <m.h2
           variants={itemVariants}
           className="text-4xl leading-tight font-bold text-white lg:text-5xl"
         >
           Conoce a nuestro equipo
-        </motion.h2>
+        </m.h2>
 
         <ul className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
           {TEAM_MEMBERS.map((person, i) => (
-            <motion.li
+            <m.li
               key={i}
               variants={itemVariants}
               className="rounded-2xl border border-white/10 bg-white/5"
@@ -89,10 +89,10 @@ export const TeamGrid = () => {
                   </a> */}
                 </div>
               </div>
-            </motion.li>
+            </m.li>
           ))}
         </ul>
-      </motion.div>
+      </m.div>
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 
 import { ConditionalAnalytics } from "@/components/Analytics/ConditionalAnalytics";
 import { CookieBanner } from "@/components/CookieConsent/CookieBanner";
 import { CookieConsentProvider } from "@/components/CookieConsent/CookieConsentProvider";
-import { CookieSettingsModal } from "@/components/CookieConsent/CookieSettingsModal";
+import { CookieSettingsModalLoader } from "@/components/CookieConsent/CookieSettingsModalLoader";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd/JsonLd";
+import { LazyMotionProvider } from "@/components/Motion/LazyMotionProvider";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { SupportChatbot } from "@/components/SupportChatbot/SupportChatbot";
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo/jsonLd";
@@ -42,10 +42,6 @@ export const metadata: Metadata = {
   },
 };
 
-const DynamicToaster = dynamic(() => import("sonner").then((m) => m.Toaster), {
-  loading: () => <div className="sr-only">Loading toaster</div>,
-});
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -66,25 +62,23 @@ export default async function RootLayout({
           />
         </noscript>
 
-        <CookieConsentProvider>
-          <Navbar />
+        <LazyMotionProvider>
+          <CookieConsentProvider>
+            <Navbar />
 
-          <div className="bg-white">
-            <DynamicToaster position="bottom-center" />
+            <div className="bg-white">{children}</div>
 
-            {children}
-          </div>
+            <Footer />
 
-          <Footer />
+            <SupportChatbot />
 
-          <SupportChatbot />
+            <CookieBanner />
 
-          <CookieBanner />
+            <CookieSettingsModalLoader />
 
-          <CookieSettingsModal />
-
-          <ConditionalAnalytics />
-        </CookieConsentProvider>
+            <ConditionalAnalytics />
+          </CookieConsentProvider>
+        </LazyMotionProvider>
 
         <JsonLd schema={[buildOrganizationJsonLd(), buildWebSiteJsonLd()]} />
       </body>

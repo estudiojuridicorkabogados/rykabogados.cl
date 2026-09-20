@@ -2,7 +2,8 @@
 
 import { PropsWithChildren, useMemo, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react";
+import { AnimatePresence, usePresenceData, wrap } from "motion/react";
+import * as m from "motion/react-m";
 
 import { Testimonial } from "./types";
 
@@ -86,7 +87,7 @@ const Slide = ({ children, ref }: SlideProps) => {
   const direction = usePresenceData();
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, x: direction * 60 }}
       animate={{
@@ -102,7 +103,7 @@ const Slide = ({ children, ref }: SlideProps) => {
       exit={{ opacity: 0, x: direction * -60 }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -117,7 +118,7 @@ const RoundButton: React.FC<PropsWithChildren<RoundButtonProps>> = ({
   onClick,
 }) => {
   return (
-    <motion.button
+    <m.button
       initial={false}
       className="z-10 cursor-pointer rounded-full bg-white/10 p-2 transition-colors duration-200 hover:bg-white/20"
       aria-label="Siguiente"
@@ -126,6 +127,6 @@ const RoundButton: React.FC<PropsWithChildren<RoundButtonProps>> = ({
       onClick={onClick}
     >
       {children}
-    </motion.button>
+    </m.button>
   );
 };

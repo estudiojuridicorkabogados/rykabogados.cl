@@ -1,49 +1,17 @@
-"use client";
-
 import React from "react";
-import { motion, Variants } from "motion/react";
 import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
+import { Reveal } from "@/components/Reveal/Reveal";
 import { URLS } from "@/lib/utils/constants";
-
-const containerVariants: Variants = {
-  hidden: { y: 400 },
-  visible: {
-    y: 0,
-    transition: {
-      duration: 1.4,
-      ease: "easeOut",
-      staggerChildren: 0.5,
-      delayChildren: 0.9,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 250 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.9,
-      ease: "easeOut",
-      staggerChildren: 0.5,
-      delayChildren: 0.9,
-    },
-  },
-};
 
 export const PracticeAreasSection = () => {
   return (
-    <motion.section
+    <section
       id="areas-de-practica"
-      initial="hidden"
-      whileInView="visible"
       className="relative h-[1050px] w-screen overflow-hidden lg:h-[700px]"
-      viewport={{ once: true, amount: 0.1 }}
     >
       <Image
         src="/images/documents.webp"
@@ -53,10 +21,7 @@ export const PracticeAreasSection = () => {
         className="object-cover"
       />
 
-      <motion.div
-        variants={containerVariants}
-        className="bg-primary/60 absolute right-0 bottom-0 left-0 flex h-[950px] w-full flex-col justify-center backdrop-blur-[50px] lg:h-[520px]"
-      >
+      <div className="bg-primary/60 absolute right-0 bottom-0 left-0 flex h-[950px] w-full flex-col justify-center backdrop-blur-[50px] lg:h-[520px]">
         <div className="mx-auto flex w-full flex-col gap-4 p-6 lg:w-6xl lg:max-w-6xl lg:gap-8 lg:py-8 xl:max-w-7xl 2xl:w-7xl">
           <span className="text-accent text-sm font-bold tracking-[3px] uppercase">
             Áreas de desempeño
@@ -81,8 +46,8 @@ export const PracticeAreasSection = () => {
             />
           </div>
         </div>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 
@@ -97,10 +62,7 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
   description,
   link,
 }) => (
-  <motion.div
-    variants={itemVariants}
-    className="flex flex-col justify-between gap-4"
-  >
+  <Reveal className="flex flex-col justify-between gap-4">
     <div className="flex flex-col gap-4">
       <h2 className="text-2xl font-bold text-white lg:text-5xl">{title}</h2>
       <p className="text-sm text-white lg:text-base">{description}</p>
@@ -113,5 +75,5 @@ const PracticeArea: React.FC<PracticeAreaProps> = ({
       Ver más{" "}
       <LongArrowRight className="stroke-accent group-hover:animate-wiggle ml-2" />
     </Link>
-  </motion.div>
+  </Reveal>
 );

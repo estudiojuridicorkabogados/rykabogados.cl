@@ -1,12 +1,9 @@
-"use client";
-
 import { es } from "date-fns/locale";
-import { motion } from "motion/react";
 import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { containerVariants, itemVariants } from "@/lib/utils/animations";
+import { Reveal } from "@/components/Reveal/Reveal";
 import { formatSantiago } from "@/lib/utils/dates";
 import { optimizedContentfulImageUrl } from "@/lib/utils/images";
 import { ShortPost } from "@/types/global";
@@ -23,16 +20,9 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({
   const mainImage = blogPost.mainImage;
 
   return (
-    <motion.article
-      initial={priority ? false : "hidden"}
-      whileInView="visible"
-      variants={containerVariants}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }}
-      className="flex w-full flex-col"
-    >
-      <motion.div
-        variants={itemVariants}
+    <article className="flex w-full flex-col">
+      <Reveal
+        immediate={priority}
         className="relative aspect-video w-full rounded-2xl bg-gray-300 sm:aspect-2/1 lg:aspect-square"
       >
         <Image
@@ -45,11 +35,12 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({
           sizes="(max-width: 1024px) 100vw, 33vw"
           preload={priority}
         />
-      </motion.div>
+      </Reveal>
 
       <div className="w-full lg:max-w-xl">
-        <motion.div
-          variants={itemVariants}
+        <Reveal
+          immediate={priority}
+          index={1}
           className="mt-4 flex items-center gap-x-2 text-sm lg:text-base"
         >
           <span className="text-black/60">{blogPost.author?.name}</span>
@@ -61,27 +52,31 @@ export const BlogPostEntry: React.FC<BlogPostEntryProps> = ({
               {formatSantiago(blogPost.date, "dd.MM.yyyy", { locale: es })}
             </time>
           ) : null}
-        </motion.div>
+        </Reveal>
 
         <div className="group relative">
-          <motion.h3
-            variants={itemVariants}
+          <Reveal
+            as="h3"
+            immediate={priority}
+            index={2}
             className="mt-1 font-sans! text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 lg:mt-2"
           >
             <Link href={(blogPost.href || "#") as Route}>
               <span className="absolute inset-0" />
               {blogPost.title}
             </Link>
-          </motion.h3>
-          <motion.p
-            variants={itemVariants}
+          </Reveal>
+          <Reveal
+            as="p"
+            immediate={priority}
+            index={3}
             className="mt-1 line-clamp-2 text-sm/6 leading-5 text-gray-600 lg:mt-3"
           >
             {blogPost.excerpt}
-          </motion.p>
+          </Reveal>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 };
 

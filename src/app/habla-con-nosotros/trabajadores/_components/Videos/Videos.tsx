@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, stagger } from "motion/react";
+import { stagger } from "motion/react";
+import * as m from "motion/react-m";
 
 import { itemVariants } from "@/lib/utils/animations";
 
@@ -16,7 +17,7 @@ export const Videos = () => {
 
   return (
     <>
-      <motion.section
+      <m.section
         id="videos"
         initial="hidden"
         whileInView="visible"
@@ -28,12 +29,12 @@ export const Videos = () => {
       >
         <div className="py-16 lg:py-28">
           <div className="section-container flex flex-col gap-8 px-6 lg:px-0">
-            <motion.h2
+            <m.h2
               variants={itemVariants}
               className="mb-8 max-w-[440px] text-3xl font-semibold text-black md:text-5xl lg:mb-12 lg:text-4xl"
             >
               Videos que hemos preparado para ti
-            </motion.h2>
+            </m.h2>
 
             <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:gap-x-20 lg:gap-y-20 xl:grid-cols-3">
               {VIDEOS.slice(0, 5).map((video, index) => (
@@ -46,7 +47,7 @@ export const Videos = () => {
             </div>
           </div>
         </div>
-      </motion.section>
+      </m.section>
 
       <VideoModal video={selectedVideo} onClose={handleCloseModal} />
     </>

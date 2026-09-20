@@ -2,7 +2,8 @@
 
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { useForm } from "react-hook-form";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
@@ -70,21 +71,21 @@ export const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <motion.div variants={itemVariants} className="w-full">
+    <m.div variants={itemVariants} className="w-full">
       <form
         className="lg:h-[600px]"
         id="reserva-form"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col">
-          <motion.div
+          <m.div
             className="flex flex-col"
             animate={{ height: "auto" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <AnimatePresence mode="wait">
               {currentStep === 1 && (
-                <motion.div
+                <m.div
                   key="step1"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -112,11 +113,11 @@ export const Form: React.FC<FormProps> = ({
                       <LongArrowRight className="group-hover:stroke-primary group-hover:animate-wiggle ml-2 stroke-white" />
                     </Button>
                   </div>
-                </motion.div>
+                </m.div>
               )}
 
               {currentStep === 2 && (
-                <motion.div
+                <m.div
                   key="step2"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -148,12 +149,12 @@ export const Form: React.FC<FormProps> = ({
                       )}
                     </Button>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         </div>
       </form>
-    </motion.div>
+    </m.div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
@@ -8,20 +8,20 @@ import { BENEFITS } from "./constants";
 
 export const CompanyBenefits = () => {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       className="flex flex-col gap-8 rounded-sm bg-[#FFF3E1] px-8 py-10 shadow-sm lg:gap-12 lg:px-12 lg:pt-10 lg:pb-14"
     >
-      <motion.h2 variants={itemVariants} className="text-3xl font-semibold">
+      <m.h2 variants={itemVariants} className="text-3xl font-semibold">
         Lo que realmente obtiene tu empresa
-      </motion.h2>
+      </m.h2>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5 2xl:grid-cols-5">
         {BENEFITS.map((benefit, i) => (
-          <motion.div
+          <m.div
             key={i}
             variants={itemVariants}
             className="flex flex-row items-start gap-4"
@@ -32,10 +32,10 @@ export const CompanyBenefits = () => {
             <p className="font-sans! text-sm leading-snug font-normal lg:text-sm">
               {benefit}
             </p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

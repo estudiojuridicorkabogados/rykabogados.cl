@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { InfoIcon, XIcon } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 
 interface InfoModalProps {
   triggerLabel: string;
@@ -38,7 +39,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({
             onClose={() => setIsOpen(false)}
             className="relative z-50"
           >
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -48,7 +49,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({
 
             <div className="fixed inset-0 flex items-center justify-center p-4">
               <DialogPanel
-                as={motion.div}
+                as={m.div}
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}

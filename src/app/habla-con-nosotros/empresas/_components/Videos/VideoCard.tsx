@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { itemVariants } from "@/lib/utils/animations";
 
@@ -14,7 +14,7 @@ interface VideoCardProps {
 
 export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlayVideo }) => {
   return (
-    <motion.div
+    <m.div
       variants={itemVariants}
       className="flex w-full flex-col justify-between gap-6"
     >
@@ -24,7 +24,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlayVideo }) => {
         <p className="text-black">{video.description}</p>
       </div>
 
-      <motion.button
+      <m.button
         className="group border-primary hover:bg-primary hover:text-accent flex w-full cursor-pointer items-center gap-3 rounded-full border border-solid px-2 py-2 text-black transition-all"
         initial={false}
         whileTap={{ scale: 1.1 }}
@@ -34,8 +34,8 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlayVideo }) => {
           <PlayIcon />
         </div>
         Reproducir video
-      </motion.button>
-    </motion.div>
+      </m.button>
+    </m.div>
   );
 };
 

@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, stagger, Variants } from "motion/react";
+import { stagger } from "motion/react";
+import type { Variants } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 
 import { LinkedinSquareIcon } from "@/components/icons/LinkedinSquare";
@@ -53,7 +55,7 @@ export const OurTeam = () => {
   }, []);
 
   return (
-    <motion.section
+    <m.section
       id="nuestro-equipo"
       initial="hidden"
       whileInView="visible"
@@ -66,13 +68,13 @@ export const OurTeam = () => {
       <div className="py-16 lg:py-28">
         <div className="section-container mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <motion.h2
+            <m.h2
               variants={itemVariants}
               className="text-3xl font-semibold md:text-5xl lg:text-4xl"
             >
               Nuestro Equipo
-            </motion.h2>
-            <motion.p
+            </m.h2>
+            <m.p
               variants={itemVariants}
               className="mt-4 max-w-2xl text-white/80"
             >
@@ -82,14 +84,14 @@ export const OurTeam = () => {
               Contamos con un equipo con amplia experiencia en asesoría
               preventiva, negociación y defensa judicial, con cobertura a nivel
               nacional.
-            </motion.p>
+            </m.p>
           </div>
         </div>
 
         {/* hide scrollbar for WebKit */}
         <style>{`.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
 
-        <motion.div className="relative" variants={imageVariants}>
+        <m.div className="relative" variants={imageVariants}>
           <section
             ref={scrollContainerRef}
             aria-label="Miembros del equipo"
@@ -105,7 +107,7 @@ export const OurTeam = () => {
               WebkitOverflowScrolling: "touch",
             }}
           >
-            {TEAM_MEMBERS.map((m, i) => (
+            {TEAM_MEMBERS.map((member, i) => (
               <article
                 key={i}
                 data-card
@@ -117,8 +119,8 @@ export const OurTeam = () => {
               >
                 <div className="relative hidden h-[320px] bg-white/5 lg:block">
                   <Image
-                    src={m.photo}
-                    alt={`${m.name} - ${m.role}`}
+                    src={member.photo}
+                    alt={`${member.name} - ${member.role}`}
                     className="object-cover"
                     loading="lazy"
                     sizes="(max-width: 768px) 260px, (max-width: 1024px) 300px, 320px"
@@ -128,15 +130,15 @@ export const OurTeam = () => {
                 <div className="flex items-start justify-between gap-2 p-4">
                   <div className="min-w-0 flex-1">
                     <h3 className="font-sans! text-base font-semibold!">
-                      {m.name}
+                      {member.name}
                     </h3>
                     <p className="truncate text-sm text-white/80 md:overflow-visible md:text-clip md:whitespace-normal">
-                      {m.role}
+                      {member.role}
                     </p>
                   </div>
 
                   <a
-                    href={m.linkedin}
+                    href={member.linkedin}
                     target="_blank"
                     className="pt-2"
                     rel="noopener noreferrer"
@@ -147,8 +149,8 @@ export const OurTeam = () => {
               </article>
             ))}
           </section>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };

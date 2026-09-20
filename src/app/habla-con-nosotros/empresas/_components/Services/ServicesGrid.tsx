@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
@@ -8,20 +8,20 @@ import { SERVICES } from "./constants";
 
 export const ServicesGrid = () => {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.2 }}
       className="flex flex-col gap-8 lg:gap-12"
     >
-      <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
+      <m.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
         Servicios
-      </motion.h2>
+      </m.h2>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {SERVICES.map((service, i) => (
-          <motion.div
+          <m.div
             key={i}
             variants={itemVariants}
             className="flex flex-col gap-6 rounded-sm border-[0.5px] border-black/20 bg-transparent p-6 lg:p-8"
@@ -40,9 +40,9 @@ export const ServicesGrid = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </m.div>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 };

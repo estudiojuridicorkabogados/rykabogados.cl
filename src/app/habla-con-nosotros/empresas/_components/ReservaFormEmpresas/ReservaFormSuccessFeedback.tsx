@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 
 export interface BookingInfo {
   date: string;
@@ -14,13 +14,13 @@ export const ReservaFormSuccessFeedback: React.FC<
   ReservaFormSuccessFeedbackProps
 > = ({ bookingInfo }) => {
   return (
-    <motion.div
+    <m.div
       className="absolute inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-xs"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <motion.div
+      <m.div
         className="bg-primary flex h-fit w-7xl max-w-3xl flex-col items-center justify-center gap-8 rounded-lg border border-white/20 p-8 px-4 text-center text-white md:px-8 lg:px-32 lg:py-16"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -42,7 +42,7 @@ export const ReservaFormSuccessFeedback: React.FC<
             <p className="text-lg text-white/80">{bookingInfo?.timeSlot}</p>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 };

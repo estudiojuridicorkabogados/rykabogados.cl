@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 
 import { Button } from "../ui/Button";
 
@@ -29,7 +30,7 @@ export const CookieSettingsModal = () => {
           className="relative z-50"
         >
           {/* Backdrop */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -40,7 +41,7 @@ export const CookieSettingsModal = () => {
           {/* Full-screen container */}
           <div className="fixed inset-0 flex items-center justify-center p-4">
             <DialogPanel
-              as={motion.div}
+              as={m.div}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -115,7 +116,7 @@ export const CookieSettingsModal = () => {
                         }`}
                         aria-label="Toggle analytics cookies"
                       >
-                        <motion.div
+                        <m.div
                           className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-sm"
                           animate={{
                             left: analyticsEnabled ? "22px" : "2px",

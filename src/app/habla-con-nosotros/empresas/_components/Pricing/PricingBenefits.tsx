@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
@@ -8,20 +8,20 @@ import { PRICING_BENEFITS } from "./constants";
 
 export const PricingBenefits = () => {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
       viewport={{ once: true, amount: 0.3 }}
       className="flex flex-col gap-8 rounded-sm bg-white px-8 py-10 shadow-sm lg:flex-row lg:gap-16 lg:px-12 lg:py-12"
     >
-      <motion.h2 variants={itemVariants} className="shrink-0 text-3xl lg:w-56">
+      <m.h2 variants={itemVariants} className="shrink-0 text-3xl lg:w-56">
         Un servicio jurídico flexible y trasparente
-      </motion.h2>
+      </m.h2>
 
       <div className="grid flex-1 grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {PRICING_BENEFITS.map((benefit, i) => (
-          <motion.div
+          <m.div
             key={i}
             variants={itemVariants}
             className="flex flex-row items-start gap-4"
@@ -32,10 +32,10 @@ export const PricingBenefits = () => {
             <p className="pt-1 font-sans! text-sm leading-snug font-normal">
               {benefit}
             </p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

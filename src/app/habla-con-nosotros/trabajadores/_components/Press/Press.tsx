@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { Accordion } from "@/components/Accordion/Accordion";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
@@ -19,7 +19,7 @@ export const Press: React.FC = () => {
   };
 
   return (
-    <motion.section
+    <m.section
       initial="hidden"
       whileInView="visible"
       className="bg-white py-16 lg:min-h-[690px] lg:py-28"
@@ -29,12 +29,12 @@ export const Press: React.FC = () => {
       <div className="section-container">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           <div className="space-y-12 px-0">
-            <motion.h2
+            <m.h2
               variants={itemVariants}
               className="text-3xl font-semibold text-black md:text-5xl lg:text-4xl"
             >
               Lo que hemos conseguido con nuestros clientes
-            </motion.h2>
+            </m.h2>
 
             <div className="space-y-0">
               <Accordion
@@ -59,6 +59,6 @@ export const Press: React.FC = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };

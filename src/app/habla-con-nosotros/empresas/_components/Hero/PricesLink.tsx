@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 export const PricesLink = () => {
   const handleScrollToPrices = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -9,7 +9,7 @@ export const PricesLink = () => {
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
@@ -39,6 +39,6 @@ export const PricesLink = () => {
           />
         </svg>
       </a>
-    </motion.div>
+    </m.div>
   );
 };

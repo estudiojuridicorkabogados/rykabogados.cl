@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { Accordion } from "@/components/Accordion/Accordion";
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
@@ -43,7 +43,7 @@ const accordionEntries = CASOS_ITEMS.map((caso) => ({
 
 export const Casos: React.FC = () => {
   return (
-    <motion.section
+    <m.section
       initial="hidden"
       whileInView="visible"
       className="bg-white py-16 lg:min-h-[690px] lg:py-28"
@@ -53,16 +53,16 @@ export const Casos: React.FC = () => {
       <div className="section-container">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           <div className="space-y-2 px-0">
-            <motion.h2
+            <m.h2
               variants={itemVariants}
               className="text-3xl font-semibold text-black md:text-5xl lg:text-4xl"
             >
               Casos de éxito empresarial.
-            </motion.h2>
+            </m.h2>
 
-            <motion.p variants={itemVariants} className="text-black md:w-1/2">
+            <m.p variants={itemVariants} className="text-black md:w-1/2">
               Selección de sentencias ganadas y resultados de alto impacto.
-            </motion.p>
+            </m.p>
 
             <div className="space-y-0">
               <Accordion
@@ -75,6 +75,6 @@ export const Casos: React.FC = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };

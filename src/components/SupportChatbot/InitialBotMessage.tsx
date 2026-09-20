@@ -1,4 +1,5 @@
-import { motion, Variants } from "framer-motion";
+import type { Variants } from "motion/react";
+import * as m from "motion/react-m";
 
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
 import { containerVariants } from "@/lib/utils/animations";
@@ -27,7 +28,7 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
@@ -36,16 +37,16 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
     >
       <div>
         <div className="flex flex-col items-start gap-2">
-          <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
+          <m.div className="chatbot-msg agent-msg" variants={itemVariants}>
             ¡Hola! 👋 Soy el asistente virtual de RK Abogados. ¿En qué puedo
             asistirte hoy?
-          </motion.div>
+          </m.div>
 
-          <motion.div className="chatbot-msg agent-msg" variants={itemVariants}>
+          <m.div className="chatbot-msg agent-msg" variants={itemVariants}>
             O <WhatsappLink variant="link" text="Hablemos por whatsapp 📲" />
-          </motion.div>
+          </m.div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

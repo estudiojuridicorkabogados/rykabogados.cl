@@ -2,17 +2,29 @@
 
 import { useState, useTransition } from "react";
 import { format } from "date-fns";
-import { motion, stagger } from "motion/react";
+import { stagger } from "motion/react";
+import * as m from "motion/react-m";
+import dynamic from "next/dynamic";
 
 import { submitBookACallFormTrabajadores } from "@/actions/submitBookACallFormTrabajadores";
 import { InfoModal } from "@/components/InfoModal/InfoModal";
+import { BookingFormSkeleton } from "@/components/ReservaForm/BookingFormSkeleton";
+import { useDeferredMount } from "@/hooks/useDeferredMount";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import { trackTrabajadoresBookACallFormConversion } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
-import { Form } from "./Form";
+/**
+ * react-calendar, react-hook-form and Zod are ~143KB gzipped between them and
+ * none of it is needed to paint this page. Deferred rather than removed —
+ * the form still has to be ready the moment anyone reaches it.
+ */
+const Form = dynamic(() => import("./Form").then((mod) => mod.Form), {
+  ssr: false,
+  loading: () => <BookingFormSkeleton />,
+});
 import {
   BookingInfo,
   ReservaFormSuccessFeedback,
@@ -31,6 +43,8 @@ export const ReservaFormTrabajadores = () => {
   const [bookingInfo, setBookingInfo] = useState<BookingInfo | null>(null);
 
   const [currentStep, setCurrentStep] = useState(1);
+
+  const { ref: formRef, ready: formReady } = useDeferredMount<HTMLDivElement>();
 
   const onNext = () => setCurrentStep(currentStep + 1);
 
@@ -86,7 +100,7 @@ export const ReservaFormTrabajadores = () => {
   };
 
   return (
-    <motion.section
+    <m.section
       id="reserva-form-section"
       initial="hidden"
       whileInView="visible"
@@ -102,7 +116,7 @@ export const ReservaFormTrabajadores = () => {
         )}
 
         <div className="section-container">
-          <motion.div
+          <m.div
             key="step1"
             className="flex flex-col gap-16 md:flex-row md:justify-between"
             animate={{ opacity: 1, y: 0 }}
@@ -110,7 +124,7 @@ export const ReservaFormTrabajadores = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="lg:w-1/3">
-              <motion.div
+              <m.div
                 className="mb-2 flex gap-8 text-xs font-bold tracking-[3px] uppercase lg:mb-4 lg:text-sm"
                 variants={itemVariants}
               >
@@ -134,30 +148,30 @@ export const ReservaFormTrabajadores = () => {
                 >
                   Paso 2
                 </span>
-              </motion.div>
+              </m.div>
 
-              <motion.h2
+              <m.h2
                 variants={itemVariants}
                 className="text-3xl font-semibold md:text-5xl lg:text-4xl"
               >
                 Reserva una videollamada gratuita* con nosotros
-              </motion.h2>
-              <motion.p
+              </m.h2>
+              <m.p
                 variants={itemVariants}
                 className="mt-4 max-w-2xl text-white/80"
               >
                 ¿Necesitas orientación legal? Conéctate con nuestros abogados y
                 descubre la mejor estrategia para tu caso.
-              </motion.p>
-              <motion.p
+              </m.p>
+              <m.p
                 variants={itemVariants}
                 className="mt-2 text-xs text-white/60"
               >
                 *La evaluación inicial gratuita tiene una duración de 30
                 minutos, se otorga previa revisión del caso y está sujeta a sus
                 condiciones de acceso y alcance.
-              </motion.p>
-              <motion.div variants={itemVariants} className="mt-2">
+              </m.p>
+              <m.div variants={itemVariants} className="mt-2">
                 <InfoModal
                   triggerLabel="Ver condiciones de la evaluación inicial gratuita"
                   title="Condiciones de la evaluación inicial gratuita"
@@ -214,21 +228,28 @@ export const ReservaFormTrabajadores = () => {
                     informarán por escrito antes de contratar.
                   </p>
                 </InfoModal>
-              </motion.div>
+              </m.div>
             </div>
 
-            <div className="flex items-center justify-center lg:w-1/2">
-              <Form
-                currentStep={currentStep}
-                onNext={onNext}
-                pending={isPending}
-                submitError={submitError}
-                onSubmit={onSubmit}
-              />
+            <div
+              ref={formRef}
+              className="flex items-center justify-center lg:w-1/2"
+            >
+              {formReady ? (
+                <Form
+                  currentStep={currentStep}
+                  onNext={onNext}
+                  pending={isPending}
+                  submitError={submitError}
+                  onSubmit={onSubmit}
+                />
+              ) : (
+                <BookingFormSkeleton />
+              )}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };

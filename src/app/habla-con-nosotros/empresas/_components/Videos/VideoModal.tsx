@@ -2,7 +2,8 @@
 
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 
 import { XIcon } from "@/components/icons/X";
 
@@ -21,7 +22,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
         <Dialog.Root open={!!video} onOpenChange={onClose}>
           <Dialog.Portal>
             <Dialog.Overlay asChild>
-              <motion.div
+              <m.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -32,7 +33,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
             </Dialog.Overlay>
 
             <Dialog.Content asChild>
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -62,7 +63,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
-              </motion.div>
+              </m.div>
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>

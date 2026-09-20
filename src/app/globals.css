@@ -158,3 +158,93 @@ h6 {
 .hero-description {
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3); /* horiz offset, vert offset, blur, color */
 }
+
+/*
+ * Scroll reveal, replacing the motion `initial="hidden"` + `whileInView`
+ * pattern. That pattern cost 44KB gzipped on every page and served the markup
+ * with `opacity:0`, so content was invisible until hydration finished and
+ * could never be an LCP candidate. See docs/lcp-performance-plan.md.
+ *
+ * Content ships visible. Only an element that JavaScript has confirmed is
+ * below the fold ever gets hidden, so slow or failed hydration degrades to
+ * plain visible content, and above-the-fold content never flashes.
+ */
+.reveal {
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  transition-delay: calc(var(--reveal-i, 0) * 0.15s);
+}
+
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+}
+
+.reveal-hidden.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/*
+ * Above-the-fold entrance. Pure CSS so it runs at first paint instead of
+ * waiting for hydration, and so the hero text is never served invisible.
+ */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-enter {
+  animation: hero-enter 0.6s ease-out both;
+  animation-delay: calc(var(--hero-i, 0) * 0.12s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: none;
+  }
+}
+
+/* Cookie banner slide-in, replacing motion's AnimatePresence. */
+@keyframes cookie-banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cookie-banner {
+  animation: cookie-banner-in 0.3s ease-out both;
+}
+
+.cookie-banner[data-closing="true"] {
+  animation: cookie-banner-in 0.3s ease-out reverse both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-banner,
+  .cookie-banner[data-closing="true"] {
+    animation: none;
+  }
+}

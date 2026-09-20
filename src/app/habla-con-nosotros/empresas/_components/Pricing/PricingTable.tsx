@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { containerVariants, itemVariants } from "@/lib/utils/animations";
 
@@ -8,7 +8,7 @@ import { PLANS } from "./constants";
 
 export const PricingTable = () => {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
@@ -16,19 +16,19 @@ export const PricingTable = () => {
       className="flex flex-col gap-8 lg:gap-12"
     >
       <div className="flex flex-col gap-2 lg:gap-8">
-        <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
+        <m.h2 variants={itemVariants} className="text-3xl lg:text-5xl">
           Tarifas y Planes
-        </motion.h2>
+        </m.h2>
 
-        <motion.p variants={itemVariants} className="lg:w-1/3">
+        <m.p variants={itemVariants} className="lg:w-1/3">
           Acompañamos a tu empresa en la definición de estrategias legales
           claras, preventivas y alineadas con tus objetivos.
-        </motion.p>
+        </m.p>
       </div>
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-[600px] border-separate border-spacing-0">
-          <motion.thead variants={itemVariants}>
+          <m.thead variants={itemVariants}>
             <tr>
               <th className="border-b border-black py-4 pr-6 text-left font-sans text-sm font-medium tracking-[2px] uppercase">
                 Plan
@@ -46,10 +46,10 @@ export const PricingTable = () => {
                 Valor Hora Aditional
               </th>
             </tr>
-          </motion.thead>
+          </m.thead>
           <tbody>
             {PLANS.map((plan, i) => (
-              <motion.tr
+              <m.tr
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -89,11 +89,11 @@ export const PricingTable = () => {
                 <td className="border-b border-black py-5 pl-6 text-center font-sans text-sm font-medium tracking-[2px] uppercase">
                   {plan.additionalHour}
                 </td>
-              </motion.tr>
+              </m.tr>
             ))}
           </tbody>
         </table>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

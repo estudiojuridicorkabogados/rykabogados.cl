@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { itemVariants } from "@/lib/utils/animations";
 
@@ -15,7 +15,7 @@ export const HablaConNosotrosStep: React.FC<HablaConNosotrosStepProps> = ({
   step,
 }) => {
   return (
-    <motion.div
+    <m.div
       variants={itemVariants}
       whileHover={{
         y: -5,
@@ -33,6 +33,6 @@ export const HablaConNosotrosStep: React.FC<HablaConNosotrosStepProps> = ({
 
         <div className="font-normal text-black">{step.description}</div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

@@ -6,7 +6,7 @@ Why Google Search Console reports Largest Contentful Paint as poor on both mobil
 
 Prepared 20 September 2026.
 
-Status: diagnosis complete and evidenced. Phase 1 and the mechanical part of phase 2 are done and verified locally; awaiting a preview deploy for real measurement. Phase 3 not started.
+Status: phases 1 and 2 done; phase 3 done for the pages organic search lands on. The `habla-con-nosotros` ad landing pages are the remaining outlier. Awaiting a preview deploy for real measurement.
 
 ## Contents
 
@@ -111,7 +111,7 @@ This phase is where essentially all of the LCP improvement lives. Everything aft
 
 1. **Gate the chatbot behind a real user gesture.** *(done)* `ChatbotPanel.tsx` now holds `useChat` and everything heavy; `SupportChatbot.tsx` is a small Client Component that renders only the launcher and `dynamic(..., { ssr: false })`-imports the panel on first click, warming the chunk on pointer-enter, focus and touch-start so the click feels instant. The panel stays mounted once opened, so a conversation survives closing. Render only `ChatboatFloatingButton` on first load and `import()` the component that calls `useChat` when the button is first clicked. This removes roughly 130 KB compressed and 460 KB decoded from every page on the site. It is the single biggest win available and it changes nothing a visitor can perceive until they open the chat, at which point a brief loading state is entirely acceptable.
 2. **Load reCAPTCHA only where there is a form.** *(done)* New `src/components/Recaptcha/RecaptchaScript.tsx`, mounted on `/contacto`, `/habla-con-nosotros/trabajadores` and `/habla-con-nosotros/empresas` — the only three routes that call `getCaptchaToken()`, and, reassuringly, already the only three with a `.grecaptcha-badge` visibility override. Move the `<Script>` out of the root layout into the contact and reserva routes. This removes 354 KB from blog and policy pages, which is where most organic search traffic lands and therefore where Search Console is most likely judging us.
-3. **Not started.** Establish whether Apollo Client is needed on the client at all. Blog content is fetched server-side. If nothing genuinely needs the client runtime, 166 KB leaves the bundle.
+3. **Dropped — this was never an opportunity.** Apollo measures **0 KB** on every landing page; it is server-side only. The 166 KB Apollo chunk exists in the build but no visitor downloads it on a first load. The original diagnosis in section 3 was wrong to list it. Blog content is fetched server-side. If nothing genuinely needs the client runtime, 166 KB leaves the bundle.
 
 ## Phase 2: Cheap multipliers
 
@@ -123,23 +123,76 @@ This phase is where essentially all of the LCP improvement lives. Everything aft
 
 ## Phase 3: Correctness cleanup
 
-7. **Make above-the-fold content visible before hydration.** Replace `whileInView` with `initial="hidden"` on hero content with a CSS-only animation, or at minimum drop `initial="hidden"` for the hero. Then apply the treatment from `93180e9` to the remaining files.
+7. **Done for search landing pages.** `HeroContent` is now a server component with a CSS `@keyframes` entrance that runs at first paint. A shared `Reveal` component (`src/components/Reveal/Reveal.tsx`) replaces the `whileInView` pattern using one IntersectionObserver and a CSS transition.
+
+   Two traps worth remembering. Content is served **visible** and only hidden once JavaScript has confirmed the element is below the fold, so slow or failed hydration degrades to readable content rather than a blank page. And the observer uses `rootMargin: "100000px 0px -5% 0px"`, which makes "intersecting" mean "has been reached" rather than "is on screen": with an ordinary root, a jump that carries the viewport straight past an element — an anchor link, a restored scroll position, a flick on a phone — crosses no threshold, the callback never fires, and the content stays invisible for the rest of the session. That bug was caught in testing, not in review.
 8. **Consider removing `motion` from static sections.** Most of these are simple fade-ups that CSS handles for free, and `motion` is 46 KB compressed.
 
-## Measured result so far
+## Measured result
 
-Both builds measured identically — same harness, same throttling, `next start` on loopback:
+Browser-measured, Slow 4G + 4x CPU, cold cache, `next start`, identical harness for both builds:
 
 | Page | JS before | JS after | LCP before | LCP after |
 |---|---|---|---|---|
-| `/` | 770 KB | **295 KB** (−62%) | 1260ms | 996ms |
-| `/blog/contrato-de-trabajo-en-chile` | 777 KB | **314 KB** (−60%) | 1808ms | 1360ms |
+| `/` | 770 KB | **260 KB** (-66%) | 1260ms | 996ms |
+| `/blog/contrato-de-trabajo-en-chile` | 777 KB | **268 KB** (-66%) | 1808ms | 1448ms |
+| `/blog` | — | 269 KB | — | 1228ms |
+| `/nosotros` | — | 262 KB | — | 1060ms |
+| `/habla-con-nosotros/trabajadores` | — | **926 KB** | — | 1272ms |
 
-Verified by inspection of the built output rather than inferred: no chunk referenced by the homepage contains the AI SDK or Zod any more, and reCAPTCHA now appears on three routes instead of all of them.
+First contentful paint moved from ~810ms to ~850ms — flat, because on loopback the stylesheet was never contended in the first place. On production it was taking 1.3 seconds to arrive purely through contention, and that is where the removed payload should show up.
 
-**The LCP figures in that table understate the real win, and should not be quoted.** Loopback does not reproduce the bandwidth contention described in section 3 — the same old build measures 1260ms on localhost and 2656ms on production, a gap far larger than the 60ms of TTFB between them. Removing 475 KB of JavaScript matters in proportion to how contended the link is, and on loopback it is barely contended at all. The payload numbers are the transferable result; the LCP numbers need a preview deploy to be meaningful.
+Verified structurally rather than inferred:
 
-Functionally verified in a real browser: the launcher renders, clicking it loads the panel chunk and opens it, the initial bot message and WhatsApp link render, the textarea and send button are present, closing restores the launcher, and the page logs no errors.
+- No chunk on `/`, `/blog`, `/blog/[slug]` or `/nosotros` contains the AI SDK, Zod, sonner or the animation library. Confirmed with a positive control: the same scan still finds the animation library on `/habla-con-nosotros/trabajadores`, which has not been converted.
+- reCAPTCHA appears on three routes instead of all of them.
+- `opacity:0` in the served HTML: `/` went from 17 to **0**, `/blog` to 0. The hero `<h1>` now ships as `class="hero-enter ..."` with no inline opacity, so the copy is readable before hydration.
+- AVIF is being served and is **25.6 KB against WebP's 38.1 KB** for the hero — 33% smaller.
+
+**Do not quote the LCP column.** Loopback reproduces neither the bandwidth contention of section 3 nor production's HTTP/2 multiplexing; `next start` serves over HTTP/1.1, so these runs are dominated by connection queueing that production does not have. The same old build measures 1260ms here and 2656ms on production. The payload and structural numbers are the transferable results.
+
+### Phase 3b: LazyMotion
+
+Converting every animation to CSS was the wrong shape of fix for the rest of the site — too many files, too much regression risk on pages that genuinely animate. Instead the remaining components use motion's own `LazyMotion`, copied from `valtiberina.travel`:
+
+- `src/components/Motion/` holds the provider, with `domAnimation` (not `domMax` — nothing here drags) re-exported from its own module so the feature chunk carries only the feature set, and a `loadMotionFeatures` callback so it is fetched after hydration.
+- `LazyMotionProvider` wraps the root layout with `strict`, which makes a stray `motion.*` element throw in development.
+- All 40 remaining files import `* as m from "motion/react-m"`. This entry point matters: `m` re-exported from the `motion/react` index drags the full runtime into every chunk that touches it, and the split silently does not happen.
+- `Variants` is now a type-only import in five files, which removes their runtime edge to the index entirely.
+- `src/app/_components/Parallax.tsx` was dead code (nothing imported it) and is deleted.
+
+The homepage carousel is loaded on approach through `TestimonialsCarouselLoader`, with a static first slide as the fallback so there is no layout shift. It is the only component left on the homepage needing `AnimatePresence`, and it sits below the fold.
+
+Result on the homepage: **260 KB to 240 KB**. Less than the 44 KB the animation library appeared to cost, because `AnimatePresence`, `stagger` and friends are still imported from the index by components elsewhere, and the core runtime still ships. The remaining motion payload is now three chunks of 14 KB, 33 KB and 6 KB rather than one of 133 KB.
+
+### Phase 4: the habla-con-nosotros pages
+
+**A 183 KB gzipped chunk of Node polyfills was being shipped to browsers.** `src/lib/google/re-captcha/getCaptchaToken.ts` is imported by three client components, and it imported `@/lib/env`, which does `import "dotenv/config"`. Once that module is reachable from the client graph the bundler follows it and pulls in dotenv plus the Node polyfills — `Buffer`, and a full crypto/elliptic-curve implementation. The chunk was 684 KB raw, and it was the largest single thing on `/contacto` and both booking pages, bigger than react-dom.
+
+It was visible in the very first analysis as "a 183 KB chunk containing zod" and dismissed. The giveaway, once looked at properly, was a string of elliptic-curve constants and 137 references to `jwt` in a chunk that a law firm's contact form has no business carrying.
+
+`getCaptchaToken` now reads `process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY` directly, which Next inlines at build time. Nothing else client-reachable imports `@/lib/env`. That alone took the booking pages from 914 KB to 778 KB.
+
+**The booking form is deferred, not removed.** react-calendar, react-hook-form and Zod are ~143 KB gzipped between them and all three are genuinely needed — but none of it is needed to paint the page. `useForm` drives both wizard steps, so the dependency cannot be split per-step without restructuring; the whole `<Form>` is loaded through `next/dynamic` instead, behind `useDeferredMount`.
+
+That hook races two signals and takes whichever fires first. Intersection alone is wrong here: the form sits directly beneath the hero, so waiting for a scroll would make the first interaction on a paid landing page feel slow. Idle alone is wrong too — on a busy page it may not fire before the user arrives. Racing them keeps 143 KB off the path the hero image competes for while still having the form ready on arrival. A skeleton sized to the real form holds the space so nothing shifts.
+
+| Page | JS before | JS after | Critical-path JS |
+|---|---|---|---|
+| `/habla-con-nosotros/trabajadores` | 1032 KB | 783 KB | **311 KB** |
+| `/habla-con-nosotros/empresas` | — | 783 KB | **308 KB** |
+| `/contacto` | — | 605 KB | **270 KB** |
+| `/` | 770 KB | 242 KB | **257 KB** |
+
+"Critical-path JS" is what the initial HTML references — what actually competes with the LCP image. The deferred form chunk is confirmed absent from it on both booking pages. The totals still include reCAPTCHA, which is ~354 KB on the three form pages and is required there.
+
+The full booking flow was walked end to end after the change: pick a day, pick a time slot, "Próximo", and step 2 renders with all six fields and working validation. No console errors.
+
+### Still outstanding
+
+- reCAPTCHA is ~354 KB on the three form pages. It is `lazyOnload` so it lands after LCP, but it is the biggest remaining item on those routes and worth questioning: v3 runs on every page view, and the site already has a honeypot-free server-side validation path.
+- Item 2.6 (Contentful double-optimization, and the `must-revalidate` header that appears to cause the image-optimizer cache misses) is untouched. The blog LCP image still waited 856 ms for its first byte on production.
+- `AnimatePresence` and `stagger` are still imported from the `motion/react` index in a dozen components, which is why LazyMotion returned less than its headline figure.
 
 ## How we will know it worked
 

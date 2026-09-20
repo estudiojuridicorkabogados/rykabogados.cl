@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { motion } from "motion/react";
 
 import { classNames } from "@/lib/utils/classNames";
 
@@ -72,20 +71,14 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const Comp = asChild ? Slot : "button";
 
-  if (Comp === "button" && animateOnClick) {
-    return (
-      <motion.button
-        className={classNames(buttonStyles({ variant, size, className }))}
-        initial={false}
-        whileTap={{ scale: 0.95 }}
-        {...props}
-      />
-    );
-  }
-
   return (
     <Comp
-      className={classNames(buttonStyles({ variant, size, className }))}
+      className={classNames(
+        buttonStyles({ variant, size, className }),
+        // Replaces motion's whileTap={{ scale: 0.95 }}; `transition-all` above
+        // already covers the easing.
+        { "active:scale-95": animateOnClick && !asChild }
+      )}
       {...props}
     />
   );

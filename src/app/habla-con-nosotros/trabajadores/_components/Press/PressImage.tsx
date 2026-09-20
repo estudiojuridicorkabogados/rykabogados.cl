@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 
 import { itemVariants } from "@/lib/utils/animations";
@@ -19,7 +19,7 @@ export const PressImage: React.FC<PressImageProps> = ({
   highlighted,
 }) => {
   return (
-    <motion.div
+    <m.div
       variants={itemVariants}
       className={classNames(
         "absolute shadow-[2px_6px_7px_0px_rgba(0,0,0,0.25)]",
@@ -45,6 +45,6 @@ export const PressImage: React.FC<PressImageProps> = ({
           }
         )}
       />
-    </motion.div>
+    </m.div>
   );
 };

@@ -5,7 +5,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
@@ -46,7 +46,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         {entries.map((entry, i) => (
           <Disclosure
             key={entry.title}
-            as={motion.div}
+            as={m.div}
             variants={itemVariants}
             className="border-t border-gray-900 first:pt-0 last:border-b last:pb-0"
             onHoverStart={() => onHoverStart?.(i)}
@@ -54,7 +54,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           >
             {({ open }) => (
               <>
-                <motion.dt variants={itemVariants}>
+                <m.dt variants={itemVariants}>
                   <DisclosureButton className="group flex w-full cursor-pointer items-start justify-between py-6 pl-1 text-left text-gray-900">
                     <span
                       className={classNames(
@@ -74,10 +74,10 @@ export const Accordion: React.FC<AccordionProps> = ({
                       />
                     </span>
                   </DisclosureButton>
-                </motion.dt>
+                </m.dt>
                 <DisclosurePanel
                   static
-                  as={motion.dd}
+                  as={m.dd}
                   initial={false}
                   animate={open ? "open" : "collapsed"}
                   variants={{
