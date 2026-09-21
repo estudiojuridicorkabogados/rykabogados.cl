@@ -3,13 +3,13 @@
 import { useCallback, useMemo } from "react";
 import { usePathname } from "next/navigation";
 
+import { useSessionCode } from "@/hooks/useSessionCode";
 import {
   CLICK_ID_PARAMS,
   readCampaignCookie,
 } from "@/lib/utils/campaignParams";
 import {
   buildWhatsAppUrl,
-  getSessionCode,
   logToSheet,
   LogToSheetParams,
 } from "@/lib/utils/tracking";
@@ -59,8 +59,13 @@ export function useTracking(): UseTrackingReturn {
     }
   }, []);
 
-  // Only generate a case code for visits that came from an ad click
-  const shortCode = useMemo(() => (clickId ? getSessionCode() : ""), [clickId]);
+  /**
+   * Every visitor gets a Caso code, not only the ones who arrived on an ad.
+   * While it was conditional on a click reference, an organic or Meta visitor
+   * who wrote on WhatsApp arrived with nothing to quote, so that conversation
+   * could never be matched to the Sheet row it belongs to.
+   */
+  const shortCode = useSessionCode();
 
   // Memoized logToSheet wrapper that includes shortCode and gclid
   const logToSheetWrapper = useCallback(
