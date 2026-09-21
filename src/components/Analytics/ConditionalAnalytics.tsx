@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { DeferredGoogleTagManager } from "./DeferredGoogleTagManager";
+import { TrackingParamsCapture } from "./TrackingParamsCapture";
 
 export function ConditionalAnalytics() {
   // const { hasAnalyticsConsent, isLoading } = useCookieConsent();
@@ -20,6 +21,8 @@ export function ConditionalAnalytics() {
 
   return (
     <>
+      <TrackingParamsCapture />
+
       <DeferredGoogleTagManager />
 
       <Analytics />
