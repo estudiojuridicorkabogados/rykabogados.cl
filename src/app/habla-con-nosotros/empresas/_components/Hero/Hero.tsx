@@ -1,5 +1,3 @@
-"use client";
-
 import camiPaolo from "@public/images/heros/cami_paolo.webp";
 import Image from "next/image";
 

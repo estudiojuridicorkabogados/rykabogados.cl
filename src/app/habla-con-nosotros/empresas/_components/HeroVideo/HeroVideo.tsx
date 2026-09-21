@@ -1,5 +1,3 @@
-"use client";
-
 interface HeroVideoProps {
   videoId: string;
 }

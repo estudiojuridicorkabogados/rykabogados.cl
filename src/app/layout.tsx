@@ -4,7 +4,8 @@ import { ConditionalAnalytics } from "@/components/Analytics/ConditionalAnalytic
 import { CookieBanner } from "@/components/CookieConsent/CookieBanner";
 import { CookieConsentProvider } from "@/components/CookieConsent/CookieConsentProvider";
 import { CookieSettingsModalLoader } from "@/components/CookieConsent/CookieSettingsModalLoader";
-import { Footer } from "@/components/Footer";
+import { Footer } from "@/components/Footer/Footer";
+import { FooterGate } from "@/components/Footer/FooterGate";
 import { JsonLd } from "@/components/JsonLd/JsonLd";
 import { LazyMotionProvider } from "@/components/Motion/LazyMotionProvider";
 import { Navbar } from "@/components/Navbar/Navbar";
@@ -68,7 +69,9 @@ export default async function RootLayout({
 
             <div className="bg-white">{children}</div>
 
-            <Footer />
+            <FooterGate>
+              <Footer />
+            </FooterGate>
 
             <SupportChatbot />
 

@@ -1,19 +1,17 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-import { useCookieConsent } from "@/components/CookieConsent/useCookieConsent";
 import { ADDRESS, URLS } from "@/lib/utils/constants";
 
-import logoWhite from "../../public/images/logos/logo_symbol_white.png";
+import logoWhite from "../../../public/images/logos/logo_symbol_white.png";
+
+import { CookieSettingsButton } from "./CookieSettingsButton";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-import { FacebookIcon } from "./icons/Facebook";
-import { InstagramIcon } from "./icons/Instagram";
-import { LinkedinIcon } from "./icons/Linkedin";
+import { FacebookIcon } from "../icons/Facebook";
+import { InstagramIcon } from "../icons/Instagram";
+import { LinkedinIcon } from "../icons/Linkedin";
 
 const PAGE_LINKS = [
   {
@@ -54,13 +52,6 @@ const FORMALIDAD_LINKS = [
 ];
 
 export const Footer = () => {
-  const pathname = usePathname();
-  const { openSettings } = useCookieConsent();
-
-  if (pathname === "/contacto") {
-    return null;
-  }
-
   return (
     <footer className="bg-[#252525] pt-16 pb-8 text-white">
       <div className="container mx-auto px-6">
@@ -150,13 +141,7 @@ export const Footer = () => {
         <div className="mt-12 flex flex-col gap-x-8 gap-y-2 text-xs text-white/50 md:mt-32 lg:flex-row lg:items-center lg:justify-between">
           <p>{`© ${CURRENT_YEAR} RK Abogados · Todos los derechos reservados`}</p>
 
-          <button
-            onClick={openSettings}
-            className="cursor-pointer text-left text-white/50 transition-colors hover:text-white lg:text-center"
-            type="button"
-          >
-            Configurar cookies
-          </button>
+          <CookieSettingsButton />
         </div>
       </div>
     </footer>

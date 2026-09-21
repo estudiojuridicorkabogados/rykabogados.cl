@@ -1,5 +1,3 @@
-"use client";
-
 import tribunales from "@public/images/heros/tribunales.webp";
 import Image from "next/image";
 
