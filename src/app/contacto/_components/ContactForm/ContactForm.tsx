@@ -24,12 +24,32 @@ const initialState: ActionResponse = {
 export const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const tokenRef = useRef<HTMLInputElement>(null);
+  const sessionCodeRef = useRef<HTMLInputElement>(null);
   const { logToSheet } = useTracking();
 
   const [state, action, isPending] = useActionState(
     submitContactForm,
     initialState
   );
+
+  /**
+   * getSessionCode reads and writes sessionStorage, so it cannot run while
+   * rendering. It used to be called inline in the hidden input's `value`,
+   * which had two consequences: /contacto is a statically prerendered page,
+   * so the server took the SSR branch and baked one throwaway random code
+   * into the HTML every visitor then received, and the browser replaced it
+   * with a different one at hydration. Filling the field from an effect
+   * leaves render pure and lets the code be resolved once, in the only place
+   * that has the storage to resolve it from.
+   *
+   * On mount rather than in handleClick so the value is there whichever way
+   * the form ends up being submitted.
+   */
+  useEffect(() => {
+    if (sessionCodeRef.current) {
+      sessionCodeRef.current.value = getSessionCode();
+    }
+  }, []);
 
   useEffect(() => {
     if (state.success) {
@@ -94,7 +114,7 @@ export const ContactForm = () => {
             />
 
             <input type="hidden" name="token" ref={tokenRef} />
-            <input type="hidden" name="sessionCode" value={getSessionCode()} />
+            <input type="hidden" name="sessionCode" ref={sessionCodeRef} />
 
             <FloatingLabelInput
               id="name"
