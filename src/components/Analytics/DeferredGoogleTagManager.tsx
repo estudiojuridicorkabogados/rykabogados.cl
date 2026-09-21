@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Script from "next/script";
 
+import { hasCampaignParam } from "@/lib/utils/campaignParams";
+
 const GOOGLE_TAG_MANAGER_ID = "GTM-PC49T6MC";
 
 /**
@@ -11,15 +13,31 @@ const GOOGLE_TAG_MANAGER_ID = "GTM-PC49T6MC";
  * 3.2s of Total Blocking Time on desktop in Lighthouse. None of it is needed
  * to render anything.
  *
- * It is safe to defer here specifically because nothing on the site calls
- * `gtag` directly: conversions go through `window.dataLayer.push()`
- * (src/lib/utils/analytics.ts), and pushes made before GTM arrives sit in the
- * array and are replayed when it initialises. `gclid` is captured by our own
- * code in src/lib/utils/tracking.ts, not by GTM, so ad attribution does not
- * depend on load order either.
+ * It is safe to defer here for our own conversions specifically because
+ * nothing on the site calls `gtag` directly: they go through
+ * `window.dataLayer.push()` (src/lib/utils/analytics.ts), and pushes made
+ * before GTM arrives sit in the array and are replayed when it initialises.
  *
- * Loading starts on the first sign of a real visitor, with a timer as a
- * backstop so sessions that never interact are still counted.
+ * Google's own attribution is a different matter, and deferring did break it.
+ * The Google tag derives the `_gcl_aw` cookie by reading `gclid` off
+ * `document.location` at the moment it initialises — not from the cookie we
+ * write. Defer it past a client-side navigation and it reads a URL the router
+ * has already stripped the parameter from, so `_gcl_aw` is never written and
+ * the conversion reaches Ads with no click to attribute it to. Measured
+ * against a production build: a visitor landing on `/?gclid=...` who clicks
+ * through before GTM loads lost `_gcl_aw` on every run, while the same visit
+ * without the navigation kept it. `next dev` hides this, because compiling a
+ * route on demand is slow enough to let GTM win a race it loses in production.
+ *
+ * Hence the two paths below. Campaign visits load the tag at hydration, which
+ * gets it in flight during the seconds a visitor spends reading before they
+ * click anywhere. Everyone else keeps the deferral: they are the majority of
+ * sessions, they carry nothing to attribute, and the Total Blocking Time saved
+ * is the point of this component. Paid traffic is the wrong place to spend a
+ * Lighthouse score.
+ *
+ * For those, loading starts on the first sign of a real visitor, with a timer
+ * as a backstop so sessions that never interact are still counted.
  */
 const INTERACTION_EVENTS = [
   "pointerdown",
@@ -40,6 +58,11 @@ export const DeferredGoogleTagManager = () => {
     // rather than dropped.
     window.dataLayer = window.dataLayer || [];
 
+    // A campaign visit carries its click reference in the URL, and only for as
+    // long as the visitor stays on this page — so it does not wait to be
+    // earned by an interaction. Everyone else keeps the deferral.
+    const isCampaignVisit = hasCampaignParam(window.location.search);
+
     let timer: ReturnType<typeof setTimeout>;
 
     const start = () => {
@@ -54,11 +77,15 @@ export const DeferredGoogleTagManager = () => {
       }
     }
 
-    for (const event of INTERACTION_EVENTS) {
-      window.addEventListener(event, start, { once: true, passive: true });
+    if (!isCampaignVisit) {
+      for (const event of INTERACTION_EVENTS) {
+        window.addEventListener(event, start, { once: true, passive: true });
+      }
     }
 
-    timer = setTimeout(start, FALLBACK_MS);
+    // Scheduled rather than set outright: a campaign visit still leaves
+    // hydration to finish before the 506KB lands on the main thread.
+    timer = setTimeout(start, isCampaignVisit ? 0 : FALLBACK_MS);
 
     return cleanup;
   }, []);

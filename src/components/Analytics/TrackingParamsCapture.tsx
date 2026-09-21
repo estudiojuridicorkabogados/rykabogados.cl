@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 
-const PARAMS = ["gclid", "utm_source", "utm_medium", "utm_campaign"] as const;
+import { CAMPAIGN_PARAMS } from "@/lib/utils/campaignParams";
+
 const COOKIE_DAYS = 90;
 const MAX_AGE = COOKIE_DAYS * 86400;
 
@@ -26,7 +27,7 @@ export const TrackingParamsCapture = () => {
       const search = new URLSearchParams(window.location.search);
       const secure = window.location.protocol === "https:" ? "; Secure" : "";
 
-      for (const param of PARAMS) {
+      for (const param of CAMPAIGN_PARAMS) {
         const value = search.get(param);
         if (!value) continue;
 
