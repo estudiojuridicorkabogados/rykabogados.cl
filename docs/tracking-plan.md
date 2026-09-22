@@ -396,6 +396,7 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 
 - [ ] Enhanced measurement: form interactions off, scroll off, page views on navigation verified
 - [ ] Tag Manager: `rk_.*` trigger, data layer variables for the labels, one GA4 event tag
+- [ ] Tag Manager: "Include user-provided data from your website" ticked on the three form conversion tags, pointing at the existing variable — Google's recommended shape, and it removes the dependency on the User-provided Data Event tag whose "Failed" status misleads. Verify with one send, then pause that tag a week later if Ads diagnostics stay "Excellent"
 - [x] Ads diagnostics: Formulario Contacto received user-provided data from the 22 September test send within the hour — all three forms confirmed, nothing in the container to change
 - [ ] Analytics: twelve custom dimensions registered (see step 2)
 - [ ] Analytics: four key events marked
