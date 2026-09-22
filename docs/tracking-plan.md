@@ -388,10 +388,21 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 - [x] Cookie inventory written (`docs/cookie-inventory.md`)
 - [x] `docs/consent-mode-runbook.md` written for the container work
 - [x] `docs/client-brief.md` — what the firm has to hear and decide
-- [ ] **Tag Manager: consent settings on, tags reviewed, container published**
-      — the runbook. Do not publish before the code is live
-- [ ] Verified on a preview: declined visit sets no Google cookies, signals
-      still arrive as cookieless pings
+- [x] Tag Manager: consent overview on, all eight tags reviewed and left on
+      "No additional consent required" — they are all Google-built and carry
+      their own checks. The eighth turned out to be the Conversion Linker
+- [ ] **Tag Manager: container published** — the last step. Nothing changes
+      functionally, since "Not set" and "No additional consent required"
+      behave identically at fire time; it records the review
+- [x] Verified on production, 22 September 2026, Tag Assistant plus DevTools,
+      clean profile for each state:
+      - consent default is dataLayer event **1**, ahead of `rk_page_view` at 6
+      - both `Set` commands land (`ads_data_redaction`, `url_passthrough`)
+      - undecided: four types denied, `functionality`/`security` granted
+      - **reject**: update denies all four, conversion tag **fires** with
+        `gcs=G100`, and no `_ga`, `_gcl_*`, `rk_caso`, `gclid` or `rk_ft_*`
+      - **accept**: update grants all four, `gcs=G111`, cookies appear
+      - **partial** (analytics on, advertising off): `gcs=G101`, `_ga` only
 - [x] Measured: the ad click reference does **not** survive navigation for a
       declining visitor. `url_passthrough` decorates `<a>` clicks and Next's
       `<Link>` router takes the click first. Tested on production, incognito,

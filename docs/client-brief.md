@@ -190,6 +190,15 @@ without reading it. Whether that trade is worth making is a judgement about
 the firm's own risk appetite, which is theirs. Switching either category to
 start off is one word.
 
+**One piece of evidence rather than theory, from our own testing on
+22 September.** Because both switches start on, "Guardar preferencias" and
+"Aceptar todas" are the same action unless the visitor successfully moves a
+switch — and a missed click does not fail visibly, it just silently grants
+everything. That happened to us while verifying the site, to someone who knew
+exactly what he was trying to do and was watching for it. It produced a result
+that read as "accept everything" when "analytics only" was intended. A visitor
+skimming the panel has considerably less chance of noticing.
+
 A refusal is remembered for thirty days rather than a year, so someone who
 declines is asked again in a month. Deliberately not shorter: a refusal that
 expires overnight turns the banner into a daily toll, and wearing someone down
