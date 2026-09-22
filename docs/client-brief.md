@@ -168,6 +168,12 @@ decisions" with the date and delete it from the Spanish.
 
 ## Internal record
 
+**Dates here are Santiago time** (`America/Santiago`), like every document
+beside this one — the firm's clock, and the zone the Analytics property is set
+to, so a date written here means the same day in a report. This is written from
+Cyprus, six hours ahead: anything done between midnight and 06:00 there belongs
+to the *previous* day in Santiago. Convert before writing the date down.
+
 ### Answered decisions
 
 | Date | Decision | Outcome |
@@ -177,7 +183,7 @@ decisions" with the date and delete it from the Spanish.
 | 2026-09-22 | Whether the site's own attribution cookies honour the banner | Yes, gated behind the advertising category |
 | 2026-09-22 | Whether the switches in "Personalizar" start on | Yes, both, pending the firm's answer to decision 2 above |
 | 2026-09-22 | Whether the case reference survives a withdrawal of consent | Yes — a reference already quoted on WhatsApp keeps working; the campaign cookies are cleared |
-| 2026-09-22 | Go-live date, and therefore the phase 7 reporting baseline | 22 September 2026, set by the deploy rather than chosen |
+| 2026-09-22 | Go-live date, and therefore the phase 7 reporting baseline | 22 September 2026, ~13:00 Santiago (19:00 Cyprus), set by the deploy rather than chosen |
 
 ### Where each decision lands in the code
 
