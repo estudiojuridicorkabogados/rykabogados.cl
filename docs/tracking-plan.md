@@ -346,6 +346,10 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 ### Checklist
 
 - [x] Advertising category added to types, modal and stored cookie
+- [x] Both optional switches start on in the settings modal — the firm's call,
+      with the argument against it in `docs/client-brief.md`. Nothing is
+      granted until they confirm; the stored and Consent Mode defaults are
+      still denied
 - [x] **A way to decline at all** — there was none. `rejectAll` writes a record
       and the button lives in the settings modal. Not on the banner: nothing in
       force requires a first-layer reject here, and the reasoning is in

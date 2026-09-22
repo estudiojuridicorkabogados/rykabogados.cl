@@ -51,6 +51,19 @@ full note.
 Within the modal, reject and confirm are the same component with the same
 variant, so their relative weight is not a matter of opinion.
 
+## The switches start on
+
+Both optional categories are pre-ticked for a visitor who has not chosen yet.
+That is a decision the firm made knowingly, recorded in `docs/client-brief.md`
+with the argument against it — Ley 21.719 requires consent to be _inequívoca_
+and _Planet49_ (C-673/17) held a pre-ticked box is not consent. If it is ever
+revisited, it is one word per category in `CookieSettingsModal.tsx`.
+
+It does not change what is stored. Nothing is granted until "Confirmar
+elecciones" is pressed: `createDefaultPreferences()` still denies everything,
+and so does the Consent Mode default. A visitor who never opens the panel is
+denied.
+
 ## Storage
 
 `cookie-consent`, `path=/`, `SameSite=Lax`, `Secure` over https:

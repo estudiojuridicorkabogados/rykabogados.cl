@@ -87,11 +87,25 @@ export const CookieSettingsModal = () => {
   const { showModal, closeSettings, savePreferences, rejectAll, preferences } =
     useCookieConsent();
 
+  // Both switches start on for a visitor who has not chosen yet.
+  //
+  // This is a pre-ticked box, and it is the firm's decision rather than a
+  // default that fell out of the code — recorded in docs/client-brief.md so
+  // they can revisit it. Worth knowing what it rests on: Ley 21.719 requires
+  // consent to be "inequívoca", which is the precise word a pre-ticked box
+  // fails, and the CJEU settled the same point in Planet49 (C-673/17). It is
+  // the one consent question with an actual answer in the statute.
+  //
+  // What it does NOT change, and must not: nothing is granted until the
+  // visitor presses "Confirmar elecciones". A visitor who never opens this
+  // modal, or who closes it, stays denied — the stored default in
+  // createDefaultPreferences and the Consent Mode default are both still
+  // denied for everything.
   const [analyticsEnabled, setAnalyticsEnabled] = useState(
     preferences?.analytics ?? true
   );
   const [advertisingEnabled, setAdvertisingEnabled] = useState(
-    preferences?.advertising ?? false
+    preferences?.advertising ?? true
   );
 
   // Re-seed each time the modal opens, not only the first time.
@@ -108,7 +122,7 @@ export const CookieSettingsModal = () => {
     setWasOpen(showModal);
     if (showModal) {
       setAnalyticsEnabled(preferences?.analytics ?? true);
-      setAdvertisingEnabled(preferences?.advertising ?? false);
+      setAdvertisingEnabled(preferences?.advertising ?? true);
     }
   }
 

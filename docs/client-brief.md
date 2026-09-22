@@ -28,6 +28,7 @@ Each blocks something. The recommendation is ours; the decision is theirs.
 | **Whether "Personalizar" becomes "Configurar o rechazar"** | Yes | See the legal note below. One string |
 | **Whether to re-ask people who accepted in 2025** | No | They accepted analytics before advertising was a separate question, and now read as having declined advertising. If the firm wants a fresh answer, it is one constant |
 | **Declining costs them the case reference on that enquiry** | Accept it | Explained below. If they cannot live with it, the fallback is to keep the reference and drop only the campaign cookies — half a day |
+| **Both switches in "Personalizar" start ON** | Their call, and they should make it knowingly — see below | Switching either to start OFF is one word each |
 | **Wording of the cookie and privacy policy pages** | They write, we supply the facts | `docs/cookie-inventory.md` is the technical input. This is their liability, not ours |
 
 ### The legal note on the reject button
@@ -48,6 +49,32 @@ read art. 12 the same way once it starts issuing guidance. Renaming
 makes the decline path visible from the first screen. **If the firm ever
 markets to Spain or the EU, this has to be revisited and the button goes on the
 banner.**
+
+### The note on the pre-ticked switches
+
+Inside "Personalizar", both optional categories — analytics and advertising —
+start switched **on**. A visitor who opens that panel and presses "Confirmar
+elecciones" without touching anything grants both.
+
+This one has a clearer answer against it than the reject-button question did,
+and the firm should decide it rather than inherit it. There, no rule existed.
+Here, Ley 21.719 requires consent to be *inequívoca* — unambiguous — which is
+the precise word a pre-ticked box fails, and the European Court of Justice
+settled the identical point in *Planet49* (C-673/17, 2019): a pre-ticked
+checkbox is not consent. Chile's wording is borrowed from the same source, so
+an agency reading it the same way would not be a surprise.
+
+Two things that are **not** affected, and that keep this narrower than it
+sounds:
+
+- Nothing is granted until the visitor presses "Confirmar elecciones". Someone
+  who never opens the panel, or who closes it, remains fully denied.
+- "Aceptar todas" and "Rechazar todas" are unaffected — they mean what they say.
+
+So the exposure is limited to visitors who open the detail panel and confirm
+without reading it. Whether that trade is worth making is a judgement about
+the firm's own risk appetite, which is theirs. Switching either category to
+start off is one word.
 
 A refusal is remembered for thirty days rather than a year, so someone who
 declines is asked again in a month. Deliberately not shorter: a refusal that
@@ -144,6 +171,7 @@ conversation it happened in.
 | 2026-09-22 | Whether chatbot leads get their own Ads conversion action | Yes, and primary, but created only after phase 7 shows the volume |
 | 2026-09-22 | Reject button on the banner itself | No — modal only. Revisit if the firm markets to the EU |
 | 2026-09-22 | Whether the site's own attribution cookies honour the banner | Yes, gated behind the advertising category |
+| 2026-09-22 | Whether the switches in "Personalizar" start on | Yes, both — see the note above. Flagged to the firm rather than decided for them |
 
 ---
 
