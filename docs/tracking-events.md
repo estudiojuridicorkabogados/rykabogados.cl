@@ -177,6 +177,33 @@ arrives with an empty `ft_source` and `google.com` in `ft_referrer`, and a
 formula or the script turns that into "google / organic". Keeping the site to
 raw values means a change of classification is a Sheet edit, not a release.
 
+**Apps Script change.** The web app receives the parameters as
+`e.parameter.<name>` in `doGet`. Whatever the existing row-building line looks
+like, append the eight first-touch values to it in this order, and add eight
+matching header cells to the sheet. Until this is deployed the site's extra
+parameters are ignored, so there is no urgency and nothing breaks.
+
+```js
+// inside doGet(e), where the row is assembled:
+const p = e.parameter;
+const firstTouch = [
+  p.ft_source   || "",
+  p.ft_medium   || "",
+  p.ft_campaign || "",
+  p.ft_content  || "",
+  p.ft_term     || "",
+  p.ft_landing  || "",
+  p.ft_referrer || "",
+  p.ft_ts       || "",
+];
+sheet.appendRow([...existingColumns, ...firstTouch]);
+```
+
+Header cells, in the same order: `ft_source`, `ft_medium`, `ft_campaign`,
+`ft_content`, `ft_term`, `ft_landing`, `ft_referrer`, `ft_ts`. After editing,
+**Deploy → Manage deployments → edit → New version**, or the running URL keeps
+serving the old code.
+
 `wbraid` and `gbraid` are what Google Ads sends instead of `gclid` from iOS
 when tracking permissions are restricted — the same click under a different
 name. Reading only `gclid`, as the site did until September 2026, made every

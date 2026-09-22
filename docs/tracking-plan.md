@@ -149,7 +149,7 @@ One change was published on its own: an exception trigger (`Page Hostname contai
 
 ---
 
-## Phase 2: Make the site report every step — code complete, awaiting preview testing
+## Phase 2: Make the site report every step — live since 22 September 2026
 
 | | |
 | --- | --- |
@@ -269,14 +269,21 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 - [x] Caso code generated for every visitor
 - [x] First touch stored in a 90-day cookie, for every first visit
 - [x] First touch sent with every Sheet row (`ft_*` parameters)
-- [ ] Apps Script updated to write the `ft_*` columns — **outstanding**, lives
-      in the client's Google account, not in this repository
+- [ ] Apps Script updated to write the `ft_*` columns — lives in the client's
+      Google account, not in this repository; the paste-ready change is in
+      `docs/tracking-events.md` under "The Sheet row"
 - [x] Labels reset on every dataLayer push
 - [x] Contact form: native validation reported as `rk_form_error`, not as a submit
 - [x] Consent banner reload removed (pulled forward from phase 3)
 - [x] Sheet channel typo fixed
 - [x] Tag Manager ID moved to an environment variable
-- [ ] Tested on preview, desktop and phone — **outstanding**, needs a deploy
+- [x] Tested on production, desktop, 22 September 2026, with Tag Assistant:
+      label reset visible between consecutive events, both Ads conversions
+      fired on their events, enhanced conversions rated "Excellent" in Ads
+      for Trabajadores and Contacto the same day, contact form's native
+      validation reported as `rk_form_error`, no reload on consent
+- [ ] Phone walk: one form start and one WhatsApp tap from a mobile,
+      confirmed by the Sheet row and the Ads diagnostics staying healthy
 - [x] Smoke test — `bun run test:tracking`, an agent-browser walk of the
       trabajadores form asserting the `rk_*` sequence. Not in a pipeline:
       this repo has no CI, and the Playwright spec on `feat/e2e-tests` is
