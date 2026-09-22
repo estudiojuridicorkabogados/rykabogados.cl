@@ -122,11 +122,47 @@ describe("isConsentValid", () => {
     expect(isConsentValid(createDefaultPreferences())).toBe(true);
   });
 
-  test("a record older than a year is not", () => {
-    const old = createDefaultPreferences();
+  test("an acceptance older than a year is not", () => {
+    const old = createDefaultPreferences({ analytics: true });
     old.timestamp = new Date(Date.now() - 400 * 86_400_000).toISOString();
 
     expect(isConsentValid(old)).toBe(false);
+  });
+
+  /**
+   * A refusal is kept for thirty days rather than a year, so the banner asks
+   * again in a month. Deliberately not a day: see REJECTION_MAX_AGE.
+   */
+  test("a refusal lapses after thirty days so the visitor is asked again", () => {
+    const refusal = createDefaultPreferences();
+    refusal.timestamp = new Date(Date.now() - 31 * 86_400_000).toISOString();
+
+    expect(isConsentValid(refusal)).toBe(false);
+  });
+
+  test("a refusal still stands inside the thirty days", () => {
+    const refusal = createDefaultPreferences();
+    refusal.timestamp = new Date(Date.now() - 20 * 86_400_000).toISOString();
+
+    expect(isConsentValid(refusal)).toBe(true);
+  });
+
+  test("an acceptance of the same age is untouched by the refusal window", () => {
+    const accepted = createDefaultPreferences({ analytics: true });
+    accepted.timestamp = new Date(Date.now() - 90 * 86_400_000).toISOString();
+
+    expect(isConsentValid(accepted)).toBe(true);
+  });
+
+  /**
+   * Granting one category and refusing the other is an answer, not a refusal.
+   * They engaged with the question, so it keeps the full year.
+   */
+  test("a partial choice is not a refusal", () => {
+    const partial = createDefaultPreferences({ analytics: true });
+    partial.timestamp = new Date(Date.now() - 60 * 86_400_000).toISOString();
+
+    expect(isConsentValid(partial)).toBe(true);
   });
 
   test("null is not consent", () => {

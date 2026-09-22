@@ -3,7 +3,44 @@ import { CONSENT_COOKIE_NAME } from "@/lib/utils/consent";
 import { CookieConsentPreferences } from "./types";
 
 const DISMISSED_KEY = "cookie-banner-dismissed";
-const COOKIE_MAX_AGE = 365 * 24 * 60 * 60; // 1 year in seconds
+
+const DAY = 24 * 60 * 60;
+
+/** How long a record that grants something is kept. */
+const CONSENT_MAX_AGE = 365 * DAY;
+
+/**
+ * How long a record that grants nothing is kept, before the banner asks again.
+ *
+ * Shorter than an acceptance on purpose: someone who declines in September may
+ * feel differently in a month, and a year of silence is a long time to hold
+ * them to one click. Thirty days.
+ *
+ * Not one day, which was the first suggestion and is the thing to avoid. A
+ * refusal that evaporates overnight turns the banner into a daily toll, and
+ * wearing someone down until they accept is the textbook reason consent stops
+ * counting as freely given. CNIL recommends keeping a refusal about six months
+ * for exactly that reason. Chile has no rule on it yet — Ley 21.719 sets no
+ * storage period and the agency has issued no cookie guidance — but "libre" is
+ * a requirement it does state, and a monthly prompt is defensible in a way a
+ * daily one is not.
+ *
+ * Move this if the firm wants to; it is the only place the period is written.
+ * Going much below a week is where the argument gets hard to make.
+ */
+const REJECTION_MAX_AGE = 30 * DAY;
+
+/**
+ * A record that grants nothing is a refusal, and is kept for less time.
+ *
+ * A partial choice — analytics yes, advertising no — is not a refusal. They
+ * engaged with the question and granted something, so it keeps the full year.
+ */
+function maxAgeFor(preferences: CookieConsentPreferences): number {
+  const grantedSomething = preferences.analytics || preferences.advertising;
+
+  return grantedSomething ? CONSENT_MAX_AGE : REJECTION_MAX_AGE;
+}
 
 /** The shape records are written in today. */
 const CONSENT_VERSION = 2;
@@ -76,7 +113,7 @@ export function setCookieConsent(preferences: CookieConsentPreferences): void {
   const secure = window.location.protocol === "https:" ? "; Secure" : "";
   const value = encodeURIComponent(JSON.stringify(preferences));
 
-  document.cookie = `${CONSENT_COOKIE_NAME}=${value}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax${secure}`;
+  document.cookie = `${CONSENT_COOKIE_NAME}=${value}; path=/; max-age=${maxAgeFor(preferences)}; SameSite=Lax${secure}`;
 }
 
 /**
@@ -152,12 +189,15 @@ export function createDefaultPreferences({
 }
 
 /**
- * Check if consent is still valid (not expired, and not from a shape we have
- * decided to re-ask about).
+ * Check if the stored answer still stands — not expired, and not from a shape
+ * we have decided to ask about again.
  *
- * The expiry check is belt and braces for clock skew: setCookieConsent writes
- * max-age for the same year, so a record the browser still hands us is valid
- * by construction.
+ * The age check mirrors the cookie's own max-age rather than duplicating a
+ * number, so a refusal stops counting after thirty days and an acceptance
+ * after a year. It is mostly belt and braces for clock skew: the browser drops
+ * the cookie at the same boundary, so a record we can still read is usually
+ * valid by construction. Mostly — a record written before the two periods
+ * diverged carries a year of max-age and is re-checked here.
  */
 export function isConsentValid(
   preferences: CookieConsentPreferences | null
@@ -166,10 +206,8 @@ export function isConsentValid(
 
   if ((preferences.version ?? 1) < REPROMPT_BELOW_VERSION) return false;
 
-  const consentDate = new Date(preferences.timestamp);
-  const now = new Date();
-  const daysSinceConsent =
-    (now.getTime() - consentDate.getTime()) / (1000 * 60 * 60 * 24);
+  const secondsSinceConsent =
+    (Date.now() - new Date(preferences.timestamp).getTime()) / 1000;
 
-  return daysSinceConsent < 365; // Valid for 1 year
+  return secondsSinceConsent < maxAgeFor(preferences);
 }
