@@ -24,10 +24,18 @@ export const env = createEnv({
     NEXT_PUBLIC_ENVIRONMENT: z.enum(["local", "production"]),
     NEXT_PUBLIC_BASE_URL: z.string().min(1),
     NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().min(1),
+    /**
+     * Defaulted to the live container so nothing breaks before the variable is
+     * set in Vercel. It exists so a staging deployment can point at a separate
+     * container without a code change — the alternative being the ID written
+     * into two files, which is where it was.
+     */
+    NEXT_PUBLIC_GTM_ID: z.string().min(1).default("GTM-PC49T6MC"),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+    NEXT_PUBLIC_GTM_ID: process.env.NEXT_PUBLIC_GTM_ID,
   },
 });

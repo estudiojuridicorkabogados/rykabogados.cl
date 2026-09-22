@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import Script from "next/script";
 
+import { env } from "@/lib/env";
 import { hasCampaignParam } from "@/lib/utils/campaignParams";
 
-const GOOGLE_TAG_MANAGER_ID = "GTM-PC49T6MC";
+const GOOGLE_TAG_MANAGER_ID = env.NEXT_PUBLIC_GTM_ID;
 
 /**
  * GTM pulls ~506KB across gtm.js and two gtag containers (AW-11083927345 and

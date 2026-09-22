@@ -4,6 +4,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { DeferredGoogleTagManager } from "./DeferredGoogleTagManager";
+import { PageViewTracker } from "./PageViewTracker";
+import { ScrollDepthTracker } from "./ScrollDepthTracker";
 import { TrackingParamsCapture } from "./TrackingParamsCapture";
 
 export function ConditionalAnalytics() {
@@ -22,6 +24,9 @@ export function ConditionalAnalytics() {
   return (
     <>
       <TrackingParamsCapture />
+
+      <PageViewTracker />
+      <ScrollDepthTracker />
 
       <DeferredGoogleTagManager />
 

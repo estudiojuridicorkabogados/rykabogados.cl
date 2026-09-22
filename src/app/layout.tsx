@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/JsonLd/JsonLd";
 import { LazyMotionProvider } from "@/components/Motion/LazyMotionProvider";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { SupportChatbot } from "@/components/SupportChatbot/SupportChatbot";
+import { env } from "@/lib/env";
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo/jsonLd";
 import { DEFAULT_DESCRIPTION, SITE_URL } from "@/lib/seo/site";
 import { dmSans } from "@/lib/utils/fonts";
@@ -55,7 +56,7 @@ export default async function RootLayout({
 
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-PC49T6MC"
+            src={`https://www.googletagmanager.com/ns.html?id=${env.NEXT_PUBLIC_GTM_ID}`}
             title="Google Tag Manager"
             height="0"
             width="0"

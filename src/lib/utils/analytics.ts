@@ -1,5 +1,10 @@
 /**
- * Conversion tracking.
+ * The site's whole signal vocabulary.
+ *
+ * Every `rk_*` event the site can send is named here, and every one of them
+ * goes out through `trackEvent`. One file rather than a helper per feature, so
+ * that a new signal has to be added to the union below before it can be fired —
+ * which is what stops a second, inconsistent naming scheme appearing later.
  *
  * These push custom events to the GTM dataLayer; the Google Ads conversion
  * tags themselves live in GTM container GTM-PC49T6MC. `window.gtag` is NOT
@@ -12,6 +17,11 @@
  * rk_conv_whatsapp           -> GhpoCLOFkvIcELGenaUp  (Clic WhatsApp)
  * rk_conv_empresas_booking   -> tfBhCLX2nPMcELGenaUp  (Formulario Empresa)
  * rk_conv_trabajadores_booking -> KGx4CMKMpfMcELGenaUp (Formulario Trabajadores)
+ *
+ * Those four names are load-bearing: the Ads tags in the container trigger on
+ * them, so renaming one silently stops a live conversion. Everything else here
+ * is new and reaches Analytics through the single `rk_.*` forwarding rule built
+ * in phase 4. See docs/tracking-events.md.
  *
  * The form events also carry `user_data` for enhanced conversions. GTM's
  * User-Provided Data tag hashes it before anything leaves the browser; the
@@ -34,14 +44,214 @@
 const CONVERSION_VALUE = 1.0;
 const CONVERSION_CURRENCY = "CLP";
 
-export interface ConversionUserData {
-  email?: string;
-  phone?: string;
-}
+/* -------------------------------------------------------------------------- */
+/* Labels                                                                      */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * What kind of page the visitor is on. Registered as a custom dimension in
+ * Analytics, so the values are a closed set on purpose — a free-form string
+ * here becomes an unusable high-cardinality dimension there.
+ */
+export type PageType =
+  | "home"
+  | "landing_trabajadores"
+  | "landing_empresas"
+  | "asesoria_trabajadores"
+  | "asesoria_empresas"
+  | "otras_areas"
+  | "contacto"
+  | "nosotros"
+  | "faqs"
+  | "blog_index"
+  | "blog_post"
+  | "legal"
+  | "other";
+
+export type FormName = "trabajadores" | "empresas" | "contacto";
+
+/** Where on the page the visitor acted. */
+export type TrackLocation =
+  | "hero"
+  | "slogan"
+  | "navbar"
+  | "footer"
+  | "contact_section"
+  | "contact_page"
+  | "faqs"
+  | "blog_post"
+  | "team_grid"
+  | "chatbot"
+  | "about_section"
+  | "team_section";
+
+export type ScrollDepth = 25 | 50 | 75 | 100;
+
+/* -------------------------------------------------------------------------- */
+/* Events                                                                      */
+/* -------------------------------------------------------------------------- */
+
+export type RkEvent =
+  // Moving around the site
+  | "rk_page_view"
+  | "rk_scroll"
+  // The three forms
+  | "rk_form_view"
+  | "rk_form_start"
+  | "rk_form_step"
+  | "rk_form_error"
+  | "rk_form_submit"
+  | "rk_form_fail"
+  // Finishing — these four are the existing Ads conversions, names frozen
+  | "rk_conv_contact_form"
+  | "rk_conv_trabajadores_booking"
+  | "rk_conv_empresas_booking"
+  | "rk_conv_whatsapp"
+  // Reaching the firm without a form
+  | "rk_contact_click"
+  | "rk_cta_click"
+  // The chatbot
+  | "rk_chat_open"
+  | "rk_chat_first_message"
+  | "rk_chat_message"
+  | "rk_chat_handoff"
+  | "rk_chat_lead"
+  | "rk_chat_lead_fail"
+  | "rk_chat_error";
 
 interface UserDataPayload {
   email?: string;
   phone_number?: string;
+}
+
+export interface TrackPayload {
+  form_name?: FormName;
+  location?: TrackLocation;
+  percent_scrolled?: ScrollDepth;
+  /** rk_page_view: where the visitor came from, and whether this is the entry. */
+  previous_page?: string;
+  previous_page_type?: PageType;
+  is_first_page?: boolean;
+  /** rk_form_step: which step was just completed. */
+  step?: number;
+  /** rk_form_error: comma-separated field names that failed validation. */
+  error_fields?: string;
+  /** rk_form_fail: why the send did not go through. */
+  fail_reason?: string;
+  /** rk_chat_message: 1 for the first, 2 for the second, and so on. */
+  message_number?: number;
+  /** rk_cta_click: the button's own wording, for telling duplicates apart. */
+  cta_label?: string;
+  /** rk_contact_click */
+  contact_method?: "phone" | "email";
+  user_data?: UserDataPayload;
+  conversion_value?: number;
+  conversion_currency?: string;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Page type                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Longest match first, because `/habla-con-nosotros/empresas` and
+ * `/asesoria-empresas` are different pages that a loose `includes("empresas")`
+ * would merge — which is exactly what useTracking does when picking a WhatsApp
+ * message, and is tolerable there but would corrupt a report here.
+ *
+ * `/asesoria-empresas` is currently unreachable (next.config.ts redirects it to
+ * the empresas landing page) but is mapped anyway: the redirect is a business
+ * decision that may be reverted, and an unmapped path silently becomes "other".
+ */
+const PAGE_TYPES: ReadonlyArray<readonly [string, PageType]> = [
+  ["/habla-con-nosotros/trabajadores", "landing_trabajadores"],
+  ["/habla-con-nosotros/empresas", "landing_empresas"],
+  ["/asesoria-trabajadores", "asesoria_trabajadores"],
+  ["/asesoria-empresas", "asesoria_empresas"],
+  ["/politicas-de-privacidad", "legal"],
+  ["/politica-cookies", "legal"],
+  ["/otras-areas", "otras_areas"],
+  ["/contacto", "contacto"],
+  ["/nosotros", "nosotros"],
+  ["/faqs", "faqs"],
+];
+
+export function pageTypeFromPathname(pathname: string): PageType {
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+
+  if (path === "/") return "home";
+  if (path === "/blog") return "blog_index";
+  if (path.startsWith("/blog/")) return "blog_post";
+
+  for (const [prefix, pageType] of PAGE_TYPES) {
+    if (path === prefix || path.startsWith(`${prefix}/`)) {
+      return pageType;
+    }
+  }
+
+  return "other";
+}
+
+function currentPageType(): PageType {
+  if (typeof window === "undefined") return "other";
+
+  return pageTypeFromPathname(window.location.pathname);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Fire-once bookkeeping                                                       */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Signals that mean "the first time this happened on this page" — a scroll
+ * mark, a form coming into view, a form being started. The site never reloads
+ * between pages, so nothing clears these for us; PageViewTracker calls
+ * `resetPageScope` on every navigation instead.
+ */
+let firedOnThisPage = new Set<string>();
+
+export function onceOnThisPage(key: string): boolean {
+  if (firedOnThisPage.has(key)) return false;
+
+  firedOnThisPage.add(key);
+  return true;
+}
+
+export function resetPageScope(): void {
+  firedOnThisPage = new Set<string>();
+}
+
+/* -------------------------------------------------------------------------- */
+/* The push                                                                    */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Safe to call before GTM has loaded. DeferredGoogleTagManager creates
+ * `window.dataLayer` at hydration and the container replays whatever is already
+ * in the array when it initialises, so an early push is queued rather than
+ * dropped — which matters because the container's own load trigger is the
+ * visitor's first scroll, the same gesture that produces our first rk_scroll.
+ */
+export function trackEvent(event: RkEvent, payload?: TrackPayload): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event,
+    page_type: currentPageType(),
+    ...payload,
+  });
+}
+
+/* -------------------------------------------------------------------------- */
+/* Conversions                                                                 */
+/* -------------------------------------------------------------------------- */
+
+export interface ConversionUserData {
+  email?: string;
+  phone?: string;
 }
 
 function normalizeEmail(email?: string) {
@@ -83,7 +293,9 @@ function normalizePhone(phone?: string) {
   return undefined;
 }
 
-function buildUserData(userData?: ConversionUserData) {
+export function buildUserData(
+  userData?: ConversionUserData
+): UserDataPayload | undefined {
   if (!userData) {
     return undefined;
   }
@@ -98,38 +310,46 @@ function buildUserData(userData?: ConversionUserData) {
   return hasValue ? payload : undefined;
 }
 
-function pushConversion(event: string, userData?: ConversionUserData) {
-  if (typeof window === "undefined") {
-    return;
-  }
-
+function pushConversion(
+  event: RkEvent,
+  userData?: ConversionUserData,
+  payload?: TrackPayload
+) {
   const user_data = buildUserData(userData);
 
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event,
+  trackEvent(event, {
     conversion_value: CONVERSION_VALUE,
     conversion_currency: CONVERSION_CURRENCY,
+    ...payload,
     ...(user_data && { user_data }),
   });
 }
 
 export function trackContactFormSubmission(userData?: ConversionUserData) {
-  pushConversion("rk_conv_contact_form", userData);
+  pushConversion("rk_conv_contact_form", userData, { form_name: "contacto" });
 }
 
-export function trackWhatsappConversion() {
-  pushConversion("rk_conv_whatsapp");
+/**
+ * `location` is optional only until every WhatsappLink call site passes one.
+ * Once it is threaded through the component's required prop it becomes
+ * required here too, so an untagged WhatsApp click cannot be added later.
+ */
+export function trackWhatsappConversion(location?: TrackLocation) {
+  pushConversion("rk_conv_whatsapp", undefined, { location });
 }
 
 export function trackEmpresasBookACallFormConversion(
   userData?: ConversionUserData
 ) {
-  pushConversion("rk_conv_empresas_booking", userData);
+  pushConversion("rk_conv_empresas_booking", userData, {
+    form_name: "empresas",
+  });
 }
 
 export function trackTrabajadoresBookACallFormConversion(
   userData?: ConversionUserData
 ) {
-  pushConversion("rk_conv_trabajadores_booking", userData);
+  pushConversion("rk_conv_trabajadores_booking", userData, {
+    form_name: "trabajadores",
+  });
 }
