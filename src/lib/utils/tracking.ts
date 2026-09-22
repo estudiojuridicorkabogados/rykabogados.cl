@@ -5,8 +5,14 @@ import {
 } from "@/lib/utils/campaignParams";
 import { hasAdvertisingConsent } from "@/lib/utils/consent";
 
-const WEBAPP_URL =
-  "https://script.google.com/macros/s/AKfycbwdfIflbl-jPOw5j-ldCl_qumzoEDvC82njzKOf4ZiO6jQwvhnlWa4k1txCLQdzSjrnwA/exec";
+/**
+ * The Apps Script web app in front of the firm's Google Sheet. Set only in
+ * Vercel production, so preview deployments and local runs write nothing to
+ * the live log. Read straight from `process.env` rather than `@/lib/env` for
+ * the same reason as `getCaptchaToken`: that module drags dotenv into the
+ * browser bundle. Next inlines `NEXT_PUBLIC_*` at build time.
+ */
+const WEBAPP_URL = process.env.NEXT_PUBLIC_SHEET_WEBAPP_URL;
 const DEFAULT_PHONE = "56986395780";
 const DEFAULT_MSG =
   "¡Hola! Estaba revisando el sitio web y me gustaría que evalúen mi situación, por favor.";

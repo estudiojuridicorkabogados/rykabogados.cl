@@ -270,11 +270,12 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 - [x] Caso code generated for every visitor
 - [x] First touch stored in a 90-day cookie, for every first visit
 - [x] First touch sent with every Sheet row (`ft_*` parameters)
-- [ ] Apps Script updated to write the `ft_*` columns — **moved to the final
-      sweep** (phase 7). Lives in the client's Google account, not in this
-      repository; the paste-ready change is in `docs/tracking-events.md`
-      under "The Sheet row". Until then the site sends the parameters and
-      the script ignores them, which is harmless.
+- [x] Apps Script updated to write the `ft_*` columns — done 22 September
+      2026 as a new Sheet and script on the firm's own Google account (the
+      original lived on an account the firm had no access to). The site
+      reads the web app URL from `NEXT_PUBLIC_SHEET_WEBAPP_URL`, set in
+      Vercel production only. Script and columns in `docs/tracking-events.md`
+      under "The Sheet row".
 - [x] Labels reset on every dataLayer push
 - [x] Contact form: native validation reported as `rk_form_error`, not as a submit
 - [x] Consent banner reload removed (pulled forward from phase 3)
@@ -514,8 +515,8 @@ Funnels need a few hundred visits per step to say anything reliable. The month i
 Small items deliberately postponed from earlier phases, to be closed in one sitting before the review call rather than one at a time as they came up. None of them blocks the phases in between.
 
 - [ ] Phone walk of the workers form and a WhatsApp tap (from phase 2): confirmed by the Sheet row and Ads diagnostics staying healthy
-- [ ] Apps Script: the eight `ft_*` columns (from phase 2), snippet in `docs/tracking-events.md`
-- [ ] Preview and test traffic kept out of the live Sheet (finding 4 of the 22 September review, left open by choice): env-gate the Apps Script URL or skip `logToSheet` off the production hostname
+- [x] Apps Script: the eight `ft_*` columns (from phase 2) — done 22 September 2026 with the move to the firm's own Sheet, see phase 2 checklist
+- [x] Preview and test traffic kept out of the live Sheet (finding 4 of the 22 September review): the Apps Script URL is now `NEXT_PUBLIC_SHEET_WEBAPP_URL`, set in production only; unset means `logToSheet` is a no-op
 - [ ] Container's non-production exception verified on a preview URL with Tag Assistant: Google tags blocked on load, conversion tag blocked on a WhatsApp click
 - [ ] Old `Click Whatsapp RK` action demoted or removed, and `Cliente convertido` import understood (from the phase 1 open list)
 - [ ] `docs/tracking-events.md` re-read against the code one last time

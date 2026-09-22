@@ -220,8 +220,11 @@ change: nothing about the last-touch path was altered.
 ### The Sheet row
 
 Every row the site writes carries these parameters. The Apps Script behind the
-Sheet reads them by name; **the `ft_*` columns still have to be added to it**,
-and until then they arrive and are ignored.
+Sheet reads them by name. Since 22 September 2026 the Sheet and its script live
+on the firm's own Google account (tab `Registro`); the site reaches the web app
+through `NEXT_PUBLIC_SHEET_WEBAPP_URL`, set in Vercel production only, so a
+preview or local run writes nothing. The earlier Sheet, on an account the firm
+could not access, keeps the history up to that date.
 
 | Parameter | Value |
 | --- | --- |
@@ -238,32 +241,58 @@ arrives with an empty `ft_source` and `google.com` in `ft_referrer`, and a
 formula or the script turns that into "google / organic". Keeping the site to
 raw values means a change of classification is a Sheet edit, not a release.
 
-**Apps Script change.** The web app receives the parameters as
-`e.parameter.<name>` in `doGet`. Whatever the existing row-building line looks
-like, append the eight first-touch values to it in this order, and add eight
-matching header cells to the sheet. Until this is deployed the site's extra
-parameters are ignored, so there is no urgency and nothing breaks.
+**The Apps Script.** The web app receives the parameters as
+`e.parameter.<name>` in `doGet` and appends one row per request, positionally,
+so the header row must stay in this order: `timestamp`, `code`, `channel`,
+`landing`, `gclid`, `phone`, `email`, `ft_source`, `ft_medium`, `ft_campaign`,
+`ft_content`, `ft_term`, `ft_landing`, `ft_referrer`, `ft_ts`. Two further
+columns, `resultado` and `fecha_resultado`, are the firm's to fill by hand and
+are what the offline-conversion import in section 10 of the plan will read.
+This is the deployed script in full:
 
 ```js
-// inside doGet(e), where the row is assembled:
-const p = e.parameter;
-const firstTouch = [
-  p.ft_source   || "",
-  p.ft_medium   || "",
-  p.ft_campaign || "",
-  p.ft_content  || "",
-  p.ft_term     || "",
-  p.ft_landing  || "",
-  p.ft_referrer || "",
-  p.ft_ts       || "",
-];
-sheet.appendRow([...existingColumns, ...firstTouch]);
+const SHEET_NAME = "Registro";
+
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  const v = (name) => (p[name] || "").toString().trim();
+
+  const row = [
+    new Date(),
+    v("code"),
+    v("channel"),
+    v("landing"),
+    v("gclid"),
+    v("phone"),
+    v("email"),
+    v("ft_source"),
+    v("ft_medium"),
+    v("ft_campaign"),
+    v("ft_content"),
+    v("ft_term"),
+    v("ft_landing"),
+    v("ft_referrer"),
+    v("ft_ts"),
+  ];
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    if (!sheet) throw new Error("Tab '" + SHEET_NAME + "' not found.");
+    sheet.appendRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+
+  return ContentService.createTextOutput("ok").setMimeType(ContentService.MimeType.TEXT);
+}
 ```
 
-Header cells, in the same order: `ft_source`, `ft_medium`, `ft_campaign`,
-`ft_content`, `ft_term`, `ft_landing`, `ft_referrer`, `ft_ts`. After editing,
-**Deploy → Manage deployments → edit → New version**, or the running URL keeps
-serving the old code.
+The deployment runs as the firm's account, so only they can deploy. After any
+edit, **Deploy → Manage deployments → edit → New version**: a "New deployment"
+would issue a new URL and need the environment variable changed, and an edit
+without a new version leaves the running URL serving the old code.
 
 `wbraid` and `gbraid` are what Google Ads sends instead of `gclid` from iOS
 when tracking permissions are restricted — the same click under a different
