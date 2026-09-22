@@ -11,6 +11,14 @@ All of them are pushed to `window.dataLayer` from
 file on the site allowed to do so. Nothing calls `gtag` directly — the Google
 tag is loaded inside the container, which keeps that API internal.
 
+Names are never written out at a call site. They live once in the `RK_EVENTS`
+constant, and `trackEvent` is typed per event, so an event carrying the wrong
+label — `rk_scroll` with a `form_name`, or a form event with no `form_name` at
+all — is a compile error rather than a dimension quietly filling with the wrong
+values. If you are adding a signal, add it to `RK_EVENTS` and give it a payload
+shape in `EventPayloads`; the compiler will then find every place that needs
+updating.
+
 Tag Manager forwards the whole family to Analytics with one rule matching
 `rk_.*`, so a signal added here needs no Tag Manager change. The rule is phase 4
 work; until it is published these events reach the dataLayer and no further.

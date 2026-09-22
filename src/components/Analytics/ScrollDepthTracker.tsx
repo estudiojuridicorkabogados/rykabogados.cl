@@ -3,7 +3,12 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import { onceOnThisPage, ScrollDepth, trackEvent } from "@/lib/utils/analytics";
+import {
+  onceOnThisPage,
+  RK_EVENTS,
+  ScrollDepth,
+  trackEvent,
+} from "@/lib/utils/analytics";
 
 const DEPTHS: readonly ScrollDepth[] = [25, 50, 75, 100];
 
@@ -45,7 +50,7 @@ const ScrollDepthListener = () => {
         // `reached` below is only the local bookkeeping for when to stop
         // listening.
         if (onceOnThisPage(`scroll:${depth}`)) {
-          trackEvent("rk_scroll", { percent_scrolled: depth });
+          trackEvent(RK_EVENTS.SCROLL, { percent_scrolled: depth });
         }
 
         reached.add(depth);

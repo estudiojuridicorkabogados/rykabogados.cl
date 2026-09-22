@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Button } from "@/components/ui/Button";
-import { trackEvent } from "@/lib/utils/analytics";
+import { RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 
 export const AboutSection = () => {
@@ -13,7 +13,7 @@ export const AboutSection = () => {
   // Rendered twice, desktop and mobile, so the label alone would double-count
   // a single button. One handler, one signal.
   const navigateToContacto = () => {
-    trackEvent("rk_cta_click", {
+    trackEvent(RK_EVENTS.CTA_CLICK, {
       location: "about_section",
       cta_label: "Contáctanos",
     });

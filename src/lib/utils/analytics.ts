@@ -91,63 +91,121 @@ export type ScrollDepth = 25 | 50 | 75 | 100;
 /* Events                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type RkEvent =
+/**
+ * Every signal the site can send, by name, in one place.
+ *
+ * Call sites reference these rather than spelling the string out. A typo in a
+ * literal is a signal that silently never appears in any report — nothing
+ * throws, nothing fails to build, and the funnel is simply missing a step
+ * nobody notices for weeks. Referencing a constant makes that a compile error
+ * instead, and makes a rename one edit rather than a search.
+ *
+ * The four `CONV_*` values are **load-bearing**: the Google Ads conversion
+ * tags in container GTM-PC49T6MC trigger on these exact strings, so changing
+ * one silently stops a live conversion. The keys can be renamed freely; the
+ * values cannot.
+ */
+export const RK_EVENTS = {
   // Moving around the site
-  | "rk_page_view"
-  | "rk_scroll"
+  PAGE_VIEW: "rk_page_view",
+  SCROLL: "rk_scroll",
+
   // The three forms
-  | "rk_form_view"
-  | "rk_form_start"
-  | "rk_form_step"
-  | "rk_form_error"
-  | "rk_form_submit"
-  | "rk_form_fail"
-  // Finishing — these four are the existing Ads conversions, names frozen
-  | "rk_conv_contact_form"
-  | "rk_conv_trabajadores_booking"
-  | "rk_conv_empresas_booking"
-  | "rk_conv_whatsapp"
+  FORM_VIEW: "rk_form_view",
+  FORM_START: "rk_form_start",
+  FORM_STEP: "rk_form_step",
+  FORM_ERROR: "rk_form_error",
+  FORM_SUBMIT: "rk_form_submit",
+  FORM_FAIL: "rk_form_fail",
+
+  // Finishing — the existing Ads conversions. These four strings are frozen.
+  CONV_CONTACT_FORM: "rk_conv_contact_form",
+  CONV_TRABAJADORES_BOOKING: "rk_conv_trabajadores_booking",
+  CONV_EMPRESAS_BOOKING: "rk_conv_empresas_booking",
+  CONV_WHATSAPP: "rk_conv_whatsapp",
+
   // Reaching the firm without a form
-  | "rk_contact_click"
-  | "rk_cta_click"
+  CONTACT_CLICK: "rk_contact_click",
+  CTA_CLICK: "rk_cta_click",
+
   // The chatbot
-  | "rk_chat_open"
-  | "rk_chat_first_message"
-  | "rk_chat_message"
-  | "rk_chat_handoff"
-  | "rk_chat_lead"
-  | "rk_chat_lead_fail"
-  | "rk_chat_error";
+  CHAT_OPEN: "rk_chat_open",
+  CHAT_FIRST_MESSAGE: "rk_chat_first_message",
+  CHAT_MESSAGE: "rk_chat_message",
+  CHAT_HANDOFF: "rk_chat_handoff",
+  CHAT_LEAD: "rk_chat_lead",
+  CHAT_LEAD_FAIL: "rk_chat_lead_fail",
+  CHAT_ERROR: "rk_chat_error",
+} as const;
+
+export type RkEvent = (typeof RK_EVENTS)[keyof typeof RK_EVENTS];
 
 interface UserDataPayload {
   email?: string;
   phone_number?: string;
 }
 
-export interface TrackPayload {
-  form_name?: FormName;
+/** Labels any event may carry, on top of the automatic `page_type`. */
+interface CommonPayload {
   location?: TrackLocation;
-  percent_scrolled?: ScrollDepth;
-  /** rk_page_view: where the visitor came from, and whether this is the entry. */
-  previous_page?: string;
-  previous_page_type?: PageType;
-  is_first_page?: boolean;
-  /** rk_form_step: which step was just completed. */
-  step?: number;
-  /** rk_form_error: comma-separated field names that failed validation. */
-  error_fields?: string;
-  /** rk_form_fail: why the send did not go through. */
-  fail_reason?: string;
-  /** rk_chat_message: 1 for the first, 2 for the second, and so on. */
-  message_number?: number;
-  /** rk_cta_click: the button's own wording, for telling duplicates apart. */
-  cta_label?: string;
-  /** rk_contact_click */
-  contact_method?: "phone" | "email";
   user_data?: UserDataPayload;
   conversion_value?: number;
   conversion_currency?: string;
 }
+
+/**
+ * What each event is allowed — and required — to carry.
+ *
+ * A closed vocabulary of names only stops half the mistakes. The other half is
+ * a correct name with the wrong labels: `rk_scroll` carrying a `form_name`, or
+ * a form event with no `form_name` at all. Both compile happily against a bag
+ * of optional fields, both arrive in Analytics, and both quietly corrupt the
+ * dimension they land in. Per-event payloads make the compiler the thing that
+ * catches it rather than a person reading a report six weeks later.
+ *
+ * `void` means the event takes no payload beyond the automatic `page_type`,
+ * and `trackEvent` then refuses a second argument.
+ */
+interface EventPayloads {
+  [RK_EVENTS.PAGE_VIEW]: {
+    is_first_page: boolean;
+    previous_page?: string;
+    previous_page_type?: PageType;
+  };
+  [RK_EVENTS.SCROLL]: { percent_scrolled: ScrollDepth };
+
+  [RK_EVENTS.FORM_VIEW]: { form_name: FormName };
+  [RK_EVENTS.FORM_START]: { form_name: FormName };
+  /** `step` is the step just completed, not the one being entered. */
+  [RK_EVENTS.FORM_STEP]: { form_name: FormName; step: number };
+  /** Comma-separated field names, so one event names every failure at once. */
+  [RK_EVENTS.FORM_ERROR]: { form_name: FormName; error_fields: string };
+  [RK_EVENTS.FORM_SUBMIT]: { form_name: FormName };
+  /** Why the send was refused — captcha, calendar, server. */
+  [RK_EVENTS.FORM_FAIL]: { form_name: FormName; fail_reason: string };
+
+  [RK_EVENTS.CONV_CONTACT_FORM]: { form_name: FormName };
+  [RK_EVENTS.CONV_TRABAJADORES_BOOKING]: { form_name: FormName };
+  [RK_EVENTS.CONV_EMPRESAS_BOOKING]: { form_name: FormName };
+  /** Required: ten placements, and without it they are indistinguishable. */
+  [RK_EVENTS.CONV_WHATSAPP]: { location?: TrackLocation };
+
+  [RK_EVENTS.CONTACT_CLICK]: { contact_method: "phone" | "email" };
+  /** The button's own wording, for telling duplicate placements apart. */
+  [RK_EVENTS.CTA_CLICK]: { location: TrackLocation; cta_label: string };
+
+  [RK_EVENTS.CHAT_OPEN]: void;
+  [RK_EVENTS.CHAT_FIRST_MESSAGE]: { message_number: number };
+  [RK_EVENTS.CHAT_MESSAGE]: { message_number: number };
+  [RK_EVENTS.CHAT_HANDOFF]: { location: TrackLocation };
+  [RK_EVENTS.CHAT_LEAD]: { location: TrackLocation };
+  [RK_EVENTS.CHAT_LEAD_FAIL]: void;
+  [RK_EVENTS.CHAT_ERROR]: void;
+}
+
+type PayloadFor<E extends RkEvent> = EventPayloads[E] extends void
+  ? CommonPayload | undefined
+  : EventPayloads[E] & CommonPayload;
 
 /* -------------------------------------------------------------------------- */
 /* Page type                                                                   */
@@ -232,7 +290,12 @@ export function resetPageScope(): void {
  * dropped — which matters because the container's own load trigger is the
  * visitor's first scroll, the same gesture that produces our first rk_scroll.
  */
-export function trackEvent(event: RkEvent, payload?: TrackPayload): void {
+export function trackEvent<E extends RkEvent>(
+  event: E,
+  ...[payload]: EventPayloads[E] extends void
+    ? [payload?: CommonPayload]
+    : [payload: PayloadFor<E>]
+): void {
   if (typeof window === "undefined") {
     return;
   }
@@ -310,10 +373,10 @@ export function buildUserData(
   return hasValue ? payload : undefined;
 }
 
-function pushConversion(
-  event: RkEvent,
-  userData?: ConversionUserData,
-  payload?: TrackPayload
+function pushConversion<E extends RkEvent>(
+  event: E,
+  userData: ConversionUserData | undefined,
+  payload: PayloadFor<E>
 ) {
   const user_data = buildUserData(userData);
 
@@ -322,11 +385,13 @@ function pushConversion(
     conversion_currency: CONVERSION_CURRENCY,
     ...payload,
     ...(user_data && { user_data }),
-  });
+  } as PayloadFor<E>);
 }
 
 export function trackContactFormSubmission(userData?: ConversionUserData) {
-  pushConversion("rk_conv_contact_form", userData, { form_name: "contacto" });
+  pushConversion(RK_EVENTS.CONV_CONTACT_FORM, userData, {
+    form_name: "contacto",
+  });
 }
 
 /**
@@ -335,13 +400,13 @@ export function trackContactFormSubmission(userData?: ConversionUserData) {
  * required here too, so an untagged WhatsApp click cannot be added later.
  */
 export function trackWhatsappConversion(location?: TrackLocation) {
-  pushConversion("rk_conv_whatsapp", undefined, { location });
+  pushConversion(RK_EVENTS.CONV_WHATSAPP, undefined, { location });
 }
 
 export function trackEmpresasBookACallFormConversion(
   userData?: ConversionUserData
 ) {
-  pushConversion("rk_conv_empresas_booking", userData, {
+  pushConversion(RK_EVENTS.CONV_EMPRESAS_BOOKING, userData, {
     form_name: "empresas",
   });
 }
@@ -349,7 +414,7 @@ export function trackEmpresasBookACallFormConversion(
 export function trackTrabajadoresBookACallFormConversion(
   userData?: ConversionUserData
 ) {
-  pushConversion("rk_conv_trabajadores_booking", userData, {
+  pushConversion(RK_EVENTS.CONV_TRABAJADORES_BOOKING, userData, {
     form_name: "trabajadores",
   });
 }

@@ -4,7 +4,7 @@ import * as m from "motion/react-m";
 
 import { Button } from "@/components/ui/Button";
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
-import { trackEvent } from "@/lib/utils/analytics";
+import { RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 
 interface HeroContentProps {
@@ -21,7 +21,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
   const handleScrollToForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
-    trackEvent("rk_cta_click", {
+    trackEvent(RK_EVENTS.CTA_CLICK, {
       location: "hero",
       cta_label: "Agenda una asesoría",
     });

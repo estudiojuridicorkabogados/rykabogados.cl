@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { TrackLocation, trackEvent } from "@/lib/utils/analytics";
+import { RK_EVENTS, trackEvent, TrackLocation } from "@/lib/utils/analytics";
 
 /**
  * Sends `rk_contact_click` when a phone number or email address is clicked.
@@ -46,7 +46,7 @@ export const ContactClickTracker = () => {
       const labelled = link.closest("[data-track-location]");
       const location = labelled?.getAttribute("data-track-location") ?? "";
 
-      trackEvent("rk_contact_click", {
+      trackEvent(RK_EVENTS.CONTACT_CLICK, {
         contact_method: method,
         ...(location && { location: location as TrackLocation }),
       });

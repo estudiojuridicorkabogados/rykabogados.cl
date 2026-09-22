@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 
-import { trackEvent } from "@/lib/utils/analytics";
+import { RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 
 import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
 
@@ -39,7 +39,7 @@ export const SupportChatbot = () => {
     // has to be pure, and React proves it by calling it twice in development —
     // which reported two opens for one click.
     if (!open) {
-      trackEvent("rk_chat_open");
+      trackEvent(RK_EVENTS.CHAT_OPEN);
     }
 
     setOpen((wasOpen) => !wasOpen);

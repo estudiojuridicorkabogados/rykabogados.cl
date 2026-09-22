@@ -10,7 +10,7 @@ import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { TimeSlotStep } from "@/components/ReservaForm/TimeslotStep";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { onceOnThisPage, trackEvent } from "@/lib/utils/analytics";
+import { onceOnThisPage, RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 
 import { PersonalInfoStep } from "./PersonalInfoStep";
@@ -43,12 +43,12 @@ const FORM_NAME = "trabajadores" as const;
  */
 const handleFormStart = () => {
   if (onceOnThisPage(`form_start:${FORM_NAME}`)) {
-    trackEvent("rk_form_start", { form_name: FORM_NAME });
+    trackEvent(RK_EVENTS.FORM_START, { form_name: FORM_NAME });
   }
 };
 
 const handleInvalidSubmit = (submitErrors: FieldErrors<FormData>) => {
-  trackEvent("rk_form_error", {
+  trackEvent(RK_EVENTS.FORM_ERROR, {
     form_name: FORM_NAME,
     error_fields: Object.keys(submitErrors).join(","),
   });
@@ -94,7 +94,7 @@ export const Form: React.FC<FormProps> = ({
       // Read back through getFieldState rather than the destructured `errors`
       // object: that one is the snapshot from the render this callback was
       // created in, and `trigger` has only just written the new state.
-      trackEvent("rk_form_error", {
+      trackEvent(RK_EVENTS.FORM_ERROR, {
         form_name: FORM_NAME,
         error_fields: stepFields
           .filter((field) => getFieldState(field).invalid)
@@ -103,12 +103,15 @@ export const Form: React.FC<FormProps> = ({
       return;
     }
 
-    trackEvent("rk_form_step", { form_name: FORM_NAME, step: currentStep });
+    trackEvent(RK_EVENTS.FORM_STEP, {
+      form_name: FORM_NAME,
+      step: currentStep,
+    });
     onNext();
   };
 
   const handleValidSubmit = (formData: FormData) => {
-    trackEvent("rk_form_submit", { form_name: FORM_NAME });
+    trackEvent(RK_EVENTS.FORM_SUBMIT, { form_name: FORM_NAME });
     onSubmit(formData);
   };
 

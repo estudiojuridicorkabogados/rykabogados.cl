@@ -15,6 +15,7 @@ import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import {
   onceOnThisPage,
+  RK_EVENTS,
   trackContactFormSubmission,
   trackEvent,
 } from "@/lib/utils/analytics";
@@ -35,7 +36,7 @@ const FORM_NAME = "contacto" as const;
  */
 const handleFormStart = () => {
   if (onceOnThisPage(`form_start:${FORM_NAME}`)) {
-    trackEvent("rk_form_start", { form_name: FORM_NAME });
+    trackEvent(RK_EVENTS.FORM_START, { form_name: FORM_NAME });
   }
 };
 
@@ -46,7 +47,7 @@ export const ContactForm = () => {
   const { logToSheet } = useTracking();
 
   useInViewOnce(formRef, () => {
-    trackEvent("rk_form_view", { form_name: FORM_NAME });
+    trackEvent(RK_EVENTS.FORM_VIEW, { form_name: FORM_NAME });
   });
 
   /**
@@ -124,21 +125,21 @@ export const ContactForm = () => {
     }
 
     if (state.errors?.token) {
-      trackEvent("rk_form_fail", {
+      trackEvent(RK_EVENTS.FORM_FAIL, {
         form_name: FORM_NAME,
         fail_reason: "captcha",
       });
       return;
     }
 
-    trackEvent("rk_form_error", {
+    trackEvent(RK_EVENTS.FORM_ERROR, {
       form_name: FORM_NAME,
       error_fields: failedFields.join(","),
     });
   }, [state]);
 
   const handleClick = async () => {
-    trackEvent("rk_form_submit", { form_name: FORM_NAME });
+    trackEvent(RK_EVENTS.FORM_SUBMIT, { form_name: FORM_NAME });
 
     const token = await getCaptchaToken();
 

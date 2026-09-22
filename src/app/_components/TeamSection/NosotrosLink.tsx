@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { Button } from "@/components/ui/Button";
-import { trackEvent } from "@/lib/utils/analytics";
+import { RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 
 export const NosotrosLink = () => {
   const router = useRouter();
 
   const navigateToNosotros = () => {
-    trackEvent("rk_cta_click", {
+    trackEvent(RK_EVENTS.CTA_CLICK, {
       location: "team_section",
       cta_label: "Conoce a nuestro equipo",
     });

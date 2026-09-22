@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { Popover } from "radix-ui";
 
-import { TrackLocation, trackEvent } from "@/lib/utils/analytics";
+import { RK_EVENTS, trackEvent, TrackLocation } from "@/lib/utils/analytics";
 import { classNames } from "@/lib/utils/classNames";
 import { URLS } from "@/lib/utils/constants";
 
@@ -86,7 +86,7 @@ export const AgendaUnaAsesoria: React.FC<AgendaUnaAsesoriaProps> = ({
               href={href}
               className="hover:text-accent-dark flex items-center gap-3 border-b border-black/10 py-3 text-black transition-all last:border-0"
               onClick={() => {
-                trackEvent("rk_cta_click", {
+                trackEvent(RK_EVENTS.CTA_CLICK, {
                   location,
                   cta_label: `Agenda una asesoría — ${label}`,
                 });

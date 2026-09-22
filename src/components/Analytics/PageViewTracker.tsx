@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   pageTypeFromPathname,
   resetPageScope,
+  RK_EVENTS,
   trackEvent,
 } from "@/lib/utils/analytics";
 
@@ -44,7 +45,7 @@ export const PageViewTracker = () => {
     // of the user events that produce everything else.
     resetPageScope();
 
-    trackEvent("rk_page_view", {
+    trackEvent(RK_EVENTS.PAGE_VIEW, {
       is_first_page: previous === null,
       ...(previous && {
         previous_page: previous,

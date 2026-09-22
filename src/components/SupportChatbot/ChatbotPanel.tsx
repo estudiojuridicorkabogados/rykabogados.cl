@@ -7,7 +7,7 @@ import Image from "next/image";
 
 import { useDebounceCallback } from "@/hooks/useDebounceCallback";
 import { useTracking } from "@/hooks/useTracking";
-import { buildUserData, trackEvent } from "@/lib/utils/analytics";
+import { buildUserData, RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 import { classNames } from "@/lib/utils/classNames";
 
 import logoBlack from "../../../public/images/logos/logo-black.png";
@@ -69,7 +69,7 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
     onError: () => {
       // Previously invisible in both directions: the typing dots vanish and
       // nothing is rendered, and nothing was recorded either.
-      trackEvent("rk_chat_error");
+      trackEvent(RK_EVENTS.CHAT_ERROR);
     },
   });
 
@@ -162,9 +162,12 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
     const sent =
       messages.filter((message) => message.role === "user").length + 1;
 
-    trackEvent(sent === 1 ? "rk_chat_first_message" : "rk_chat_message", {
-      message_number: sent,
-    });
+    trackEvent(
+      sent === 1 ? RK_EVENTS.CHAT_FIRST_MESSAGE : RK_EVENTS.CHAT_MESSAGE,
+      {
+        message_number: sent,
+      }
+    );
 
     // The Caso code rides on the request so the studio email for a captured
     // lead quotes the same reference as the Sheet row. The route validates it
@@ -192,20 +195,20 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
         reportedTools.current.add(part.toolCallId);
 
         if (part.type === "tool-provideWhatsappContact") {
-          trackEvent("rk_chat_handoff", { location: "chatbot" });
+          trackEvent(RK_EVENTS.CHAT_HANDOFF, { location: "chatbot" });
           continue;
         }
 
         if (part.type !== "tool-processUserInfo") continue;
 
         if (!leadSucceeded(part)) {
-          trackEvent("rk_chat_lead_fail");
+          trackEvent(RK_EVENTS.CHAT_LEAD_FAIL);
           continue;
         }
 
         const user_data = leadUserData(part);
 
-        trackEvent("rk_chat_lead", {
+        trackEvent(RK_EVENTS.CHAT_LEAD, {
           location: "chatbot",
           ...(user_data && { user_data }),
         });

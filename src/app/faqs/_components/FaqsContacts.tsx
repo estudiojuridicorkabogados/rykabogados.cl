@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
-import { trackEvent } from "@/lib/utils/analytics";
+import { RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 
 export const FaqsContacts = () => {
   const router = useRouter();
 
   const onClickContactUs = () => {
-    trackEvent("rk_cta_click", {
+    trackEvent(RK_EVENTS.CTA_CLICK, {
       location: "faqs",
       cta_label: "Contáctanos",
     });

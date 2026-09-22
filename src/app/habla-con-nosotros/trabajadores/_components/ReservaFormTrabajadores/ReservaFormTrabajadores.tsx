@@ -14,8 +14,9 @@ import { useInViewOnce } from "@/hooks/useInViewOnce";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
 import {
-  trackTrabajadoresBookACallFormConversion,
+  RK_EVENTS,
   trackEvent,
+  trackTrabajadoresBookACallFormConversion,
 } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
@@ -59,7 +60,7 @@ export const ReservaFormTrabajadores = () => {
    * from one who saw it and left.
    */
   useInViewOnce(formRef, () => {
-    trackEvent("rk_form_view", { form_name: FORM_NAME });
+    trackEvent(RK_EVENTS.FORM_VIEW, { form_name: FORM_NAME });
   });
 
   const onNext = () => setCurrentStep(currentStep + 1);
@@ -71,7 +72,7 @@ export const ReservaFormTrabajadores = () => {
       try {
         if (!data.date) {
           setSubmitError("Debe seleccionar una fecha");
-          trackEvent("rk_form_error", {
+          trackEvent(RK_EVENTS.FORM_ERROR, {
             form_name: FORM_NAME,
             error_fields: "date",
           });
@@ -119,14 +120,14 @@ export const ReservaFormTrabajadores = () => {
             result.message ??
               "No pudimos agendar la reunión. Por favor, intenta nuevamente."
           );
-          trackEvent("rk_form_fail", {
+          trackEvent(RK_EVENTS.FORM_FAIL, {
             form_name: FORM_NAME,
             fail_reason: result.message ?? "unknown",
           });
         }
       } catch {
         setSubmitError("Error inesperado. Por favor, intenta nuevamente.");
-        trackEvent("rk_form_fail", {
+        trackEvent(RK_EVENTS.FORM_FAIL, {
           form_name: FORM_NAME,
           fail_reason: "exception",
         });
