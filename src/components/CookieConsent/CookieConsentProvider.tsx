@@ -115,12 +115,30 @@ const SERVER_STATE: CookieConsentState = {
 export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
-  const initialState = useSyncExternalStore(
+  // The state before the visitor has done anything, which on the server and
+  // during hydration is SERVER_STATE and afterwards is what the cookie says.
+  const storedState = useSyncExternalStore(
     subscribe,
     getInitialState,
     () => SERVER_STATE
   );
-  const [state, setState] = useState<CookieConsentState>(initialState);
+
+  // What they have done since, if anything. Null until they act.
+  //
+  // This used to be `useState(initialState)`, and that is why the banner has
+  // not appeared for anyone since 27 August 2026 (b1c0840). useState runs its
+  // initialiser exactly once, during hydration — where useSyncExternalStore
+  // correctly returns the *server* snapshot so the markup matches. The client
+  // snapshot arrives on the very next render and useState, by definition,
+  // ignored it. showBanner was seeded false and stayed false.
+  //
+  // Verified against production before changing it: no consent cookie, no
+  // dismissal flag, no banner. Which means nobody has been able to choose —
+  // and with Consent Mode now reading that choice, shipping this phase on top
+  // of an invisible banner would have denied every visitor permanently.
+  const [choice, setChoice] = useState<CookieConsentState | null>(null);
+
+  const state = choice ?? storedState;
 
   /**
    * The single write path. Every choice — accept, reject, save — stores the
@@ -135,7 +153,7 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
       advertising: preferences.advertising,
     });
 
-    setState({
+    setChoice({
       preferences,
       hasConsent: true,
       hasAnalyticsConsent: preferences.analytics,
@@ -161,25 +179,12 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
   const dismissBanner = () => {
     setBannerDismissed();
 
-    setState((prev) => ({
-      ...prev,
-      showBanner: false,
-    }));
+    setChoice({ ...state, showBanner: false });
   };
 
-  const openSettings = () => {
-    setState((prev) => ({
-      ...prev,
-      showModal: true,
-    }));
-  };
+  const openSettings = () => setChoice({ ...state, showModal: true });
 
-  const closeSettings = () => {
-    setState((prev) => ({
-      ...prev,
-      showModal: false,
-    }));
-  };
+  const closeSettings = () => setChoice({ ...state, showModal: false });
 
   const savePreferences = (newPreferences: Partial<CookieConsentPreferences>) =>
     applyChoice(
