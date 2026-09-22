@@ -129,6 +129,7 @@ One change was published on its own: an exception trigger (`Page Hostname contai
 - **`Solo enlaces`**, a link-click trigger matching `api.whatsapp`, fires no tag. Predecessor of the current WhatsApp conversion. Delete.
 - **`url_passthrough` is off** and all eight tags are `consentStatus: NOT_SET` — both exactly as phase 3 assumed.
 - **Conversion values are a flat 1000 CLP placeholder** on all four tags, ignoring the `conversion_value` the site pushes. Harmless, but it means the code sends a field nobody reads, and the "what is a contact worth" item in section 10 starts from nothing real.
+- **The User-provided Data Event tag reports "Failed" in Tag Assistant, and works anyway.** Seen on 22 September 2026 on a real booking and a real contact form send: the variable resolves to a valid email and E.164 phone, the tag fires on the right three events, and reports "Failed" both times — yet Ads' enhanced-conversions diagnostics rate Formulario Trabajadores "Excellent" the same day. The status is a quirk of that tag type, not a fault. The three conversion tags do not include user-provided data themselves; leave that as it is. Formulario Contacto and Formulario Empresa showed "No recent data" purely for lack of submissions: a test send on 22 September moved Contacto into the healthy group within the hour, so all three forms are confirmed and nothing in the container needs touching. Note that this diagnostic counts pings carrying user data from any visitor, ad click or not — attribution to a campaign is a separate step, and a test send will never appear in the campaign reports.
 
 ### Findings that change what we expected
 
@@ -143,6 +144,8 @@ One change was published on its own: an exception trigger (`Page Hostname contai
 - Two stray Ads conversion actions to clean up: `Enviar formulario de conversion de RK Abogados` (Primary, no data, legacy — demote or remove, since an empty primary action distorts Smart Bidding) and `Envío de formulario para clientes potenciales` (auto-created, never fired, already Secondary — remove as noise).
 - `contacto@digitalizame.cl` holds editor access and last modified the Ads link on 15 September 2026. Establish who they are, whether they are still engaged, and whether their access comes off. Two parties editing tracking configuration independently is how a container acquires thirteen dead linker domains.
 - Primary versus secondary conversions, still to settle with the firm. Recommendation unchanged: the three form conversions primary, the WhatsApp click secondary.
+- **A second WhatsApp action, `Click Whatsapp RK`,** turned up in the enhanced-conversions diagnostics on 22 September 2026: Primary, no data, distinct from the `Clic WhatsApp RK Sept 2026` action the tag actually fires. Confirm its label is not `GhpoCLOFkvIcELGenaUp`, then demote or remove it — an empty Primary action distorts Smart Bidding.
+- **An offline import already exists.** `Cliente convertido`, Secondary, source "Import from clicks", last pinged 22 September 2026. Somebody has set up the section 10 mechanism, or the start of it, without it being in any record. Establish what feeds it before building another. Its "no user-provided data" warning is harmless — imports match on click ID — so untick enhanced conversions on that action to silence it.
 
 ---
 
@@ -383,6 +386,7 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 
 - [ ] Enhanced measurement: form interactions off, scroll off, page views on navigation verified
 - [ ] Tag Manager: `rk_.*` trigger, data layer variables for the labels, one GA4 event tag
+- [x] Ads diagnostics: Formulario Contacto received user-provided data from the 22 September test send within the hour — all three forms confirmed, nothing in the container to change
 - [ ] Analytics: twelve custom dimensions registered (see step 2)
 - [ ] Analytics: four key events marked
 - [ ] Remarketing audiences built and exported to Ads
