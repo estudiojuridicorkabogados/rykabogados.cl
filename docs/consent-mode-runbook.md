@@ -36,14 +36,66 @@ Setting `analytics_storage` as *additional* consent on the GA4 tags is the
 obvious-looking move and it blocks the cookieless ping, which is the one thing
 Consent Mode exists to preserve. So:
 
-| Tag | Additional consent | What it already checks by itself |
-| --- | --- | --- |
-| Google tag, Ads (`AW-11083927345`) | **None** | `ad_storage`, `ad_user_data` |
-| Google tag, Analytics (`G-HE87DHS09F`) | **None** | `analytics_storage` |
-| Formulario RK, Formulario Trabajadores, Formulario Empresa, Clic WhatsApp | **None** | `ad_storage`, `ad_user_data` |
-| User-Provided Data Event | **None** | `ad_user_data` |
-| The phase 4 `rk_.*` GA4 forwarder, when it exists | **None** | `analytics_storage` |
-| Any Custom HTML or non-Google tag | **Set it explicitly** | nothing — they have no built-in checks |
+All eight tags in this container, as reviewed on 22 September 2026:
+
+| Tag | Type | Built-in checks it already does | Additional consent |
+| --- | --- | --- | --- |
+| Etiqueta de Google ads (`AW-11083927345`) | Google Tag | `ad_storage`, `ad_personalization`, `ad_user_data`, `analytics_storage` | **None** |
+| Etiqueta de Google analitics (`G-HE87DHS09F`) | Google Tag | the same four | **None** |
+| Formulario RK, Formulario Trabajadores, Formulario Empresa, Clic WhatsApp | Google Ads Conversion Tracking | `ad_storage`, `ad_user_data` | **None** |
+| Google Ads User-provided Data Event | Google Ads UPD | `ad_storage`, `ad_personalization`, `ad_user_data` | **None** |
+| Vinculación de conversiones | Conversion Linker | `ad_storage`, `ad_personalization`, `ad_user_data` | **None** |
+| The phase 4 `rk_.*` GA4 forwarder, when it exists | GA4 Event | `analytics_storage` | **None** |
+
+The bulk editor calls this "No additional consent required", which is also what
+clears the "Not configured" warning — there is no separate "mark as reviewed".
+"Not set" behaves identically at fire time; it just leaves the warning up.
+
+## 2b. The rule for anything that is not a Google tag
+
+**Read this before adding a Meta Pixel, Hotjar, Clarity, a LinkedIn Insight
+tag, TikTok, an A/B testing snippet, or any Custom HTML.** Step 2 says "leave
+it on none" and that answer is correct *only* because every tag in this
+container today is Google-built and carries its own consent checks. A
+third-party tag carries none. It knows nothing about the visitor's choice and
+will fire, set cookies and phone home regardless — and because the rest of the
+container is configured correctly, nothing will look wrong.
+
+So for any non-Google tag, **"Require additional consent for tag to fire" is
+mandatory**, with the types below. That setting is a blunt gate — the tag does
+not fire at all — which is exactly right for a tag that cannot be trusted to
+restrain itself.
+
+| What you are adding | Require |
+| --- | --- |
+| Meta/Facebook Pixel, TikTok, LinkedIn Insight, X/Twitter, any ad network | `ad_storage`, `ad_user_data`, `ad_personalization` |
+| Hotjar, Microsoft Clarity, heatmaps, session recording | `analytics_storage` |
+| Matomo, Plausible-with-cookies, any second analytics tool | `analytics_storage` |
+| Optimizely, VWO, any A/B or personalisation tool | `analytics_storage`, and `personalization_storage` if it personalises content |
+| A chat widget that persists an identity across visits | `functionality_storage` |
+
+Session recording deserves a flag of its own: Hotjar and Clarity capture form
+contents and mouse movement, so on `/contacto` and the two booking pages they
+would record a visitor typing their name, email, phone and the details of their
+legal problem. That is not an analytics decision, it is a
+professional-confidentiality one, and it goes to the firm before it goes in the
+container.
+
+**Three things have to move together**, every time. Only the first is in Tag
+Manager, and the other two are what actually get forgotten:
+
+1. The tag's additional consent setting, per the table above.
+2. A new row in `docs/cookie-inventory.md` — name, purpose, lifetime,
+   recipient, category — since that file is what the policy pages are written
+   from.
+3. `/politica-cookies` and `/politicas-de-privacidad`, which name every
+   recipient. A new vendor is a new recipient of personal data, and the privacy
+   policy currently says the firm shares data with nobody.
+
+And if the *site* starts setting a cookie of its own for that vendor, it is
+gated in code rather than in the container — `hasAdvertisingConsent()` in
+`src/lib/utils/consent.ts`, the way `rk_caso` and the `rk_ft_*` set already
+are. Consent Mode only reaches Google's tags; it has never reached ours.
 
 ## 3. Confirm the conversion triggers still match
 
@@ -70,7 +122,16 @@ production shows, which is exactly what hid the `_gcl_aw` problem in commit
 - Press **Aceptar todas** → a Consent entry appears with the four mutable types
   flipping to granted.
 - In a second fresh profile, **Personalizar → Rechazar todas** → tags still
-  fire, marked consent-restricted.
+  **fire**, marked consent-restricted. Fired-and-restricted is the correct
+  result, not a fault: the built-in checks strip the identifiers and send a
+  cookieless ping rather than nothing.
+- **The `gcs` parameter is the proof, and it is worth looking at once.** Open a
+  fired tag's outgoing request and read `gcs=G1XY`, where X is `ad_storage` and
+  Y is `analytics_storage`: `G100` both denied, `G111` both granted, `G110` and
+  `G101` the mixed cases. A declining visitor should show a request that exists
+  and carries `G100`. If instead the tag shows as blocked with no request at
+  all, someone has set "Require additional consent" on a Google tag — see
+  step 2.
 
 ## 5. A declined visit sets no Google cookies
 
