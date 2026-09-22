@@ -53,8 +53,9 @@ banner.**
 ### The note on the pre-ticked switches
 
 Inside "Personalizar", both optional categories — analytics and advertising —
-start switched **on**. A visitor who opens that panel and presses "Confirmar
-elecciones" without touching anything grants both.
+start switched **on**. A visitor who opens that panel and presses "Guardar
+preferencias" without touching anything grants both — the same as pressing
+"Aceptar todas".
 
 This one has a clearer answer against it than the reject-button question did,
 and the firm should decide it rather than inherit it. There, no rule existed.
@@ -67,8 +68,9 @@ an agency reading it the same way would not be a surprise.
 Two things that are **not** affected, and that keep this narrower than it
 sounds:
 
-- Nothing is granted until the visitor presses "Confirmar elecciones". Someone
-  who never opens the panel, or who closes it, remains fully denied.
+- Nothing is granted until the visitor presses "Guardar preferencias" or
+  "Aceptar todas". Someone who never opens the panel, or who closes it with the
+  X, remains fully denied.
 - "Aceptar todas" and "Rechazar todas" are unaffected — they mean what they say.
 
 So the exposure is limited to visitors who open the detail panel and confirm
@@ -147,8 +149,9 @@ Three things, and nothing else:
 > 1. El banner de cookies ahora ofrece una tercera opción, **publicidad**,
 >    separada de la de análisis. Quien quiera puede aceptar que midamos el uso
 >    del sitio y aun así rechazar la publicidad personalizada.
-> 2. Dentro de "Personalizar" hay ahora un botón para **rechazar todas** las
->    cookies opcionales de una vez.
+> 2. Dentro de "Personalizar" hay ahora tres opciones claras — **rechazar
+>    todas**, **guardar preferencias** y **aceptar todas** — y una X para
+>    cerrar sin guardar nada.
 > 3. Lo que la persona elija ahora controla de verdad lo que Google puede
 >    guardar. Antes el banner no hacía nada.
 >

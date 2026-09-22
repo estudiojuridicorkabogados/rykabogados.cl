@@ -351,7 +351,9 @@ A visitor can then accept measurement while refusing ad personalisation, which i
       granted until they confirm; the stored and Consent Mode defaults are
       still denied
 - [x] **A way to decline at all** — there was none. `rejectAll` writes a record
-      and the button lives in the settings modal. Not on the banner: nothing in
+      and the button lives in the settings modal, whose footer is now the
+      conventional three — reject all, save preferences, accept all — with
+      cancel demoted to an X in the header. Not on the banner: nothing in
       force requires a first-layer reject here, and the reasoning is in
       `docs/client-brief.md`. Revisit if the firm markets to the EU
 - [x] **The banner made visible again.** It had not rendered for anyone since

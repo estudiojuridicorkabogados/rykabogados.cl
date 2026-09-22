@@ -13,7 +13,7 @@ CookieConsent/
 ├── CookieConsentProvider.tsx   # state, and the single write path
 ├── useCookieConsent.ts         # the hook
 ├── CookieBanner.tsx            # first layer: Personalizar / Aceptar todas
-├── CookieSettingsModal.tsx     # three categories, and Rechazar todas
+├── CookieSettingsModal.tsx     # three categories, three choices, an X
 ├── CookieSettingsModalLoader.tsx  # lazy-loads the modal on first open
 └── index.ts
 ```
@@ -37,7 +37,12 @@ reading. See `docs/cookie-inventory.md`.
 
 ## Where rejecting lives, and why it is not on the banner
 
-The banner has two buttons. "Rechazar todas" is inside "Personalizar".
+The banner has two buttons. The three real choices — **Rechazar todas**,
+**Guardar preferencias**, **Aceptar todas** — are inside "Personalizar", which
+is the layout every consent platform worth copying uses. Cancelling is an X in
+the panel's header, not a fourth button: it is not a decision about cookies, so
+it does not belong in the decision row. Esc and a backdrop click do the same
+thing, and always did — headlessui gives both from `onClose`.
 
 Nothing in force requires a first-layer reject button here: Ley 21.719
 prescribes no banner layout and Chile's agency has published no cookie
@@ -59,8 +64,9 @@ with the argument against it — Ley 21.719 requires consent to be _inequívoca_
 and _Planet49_ (C-673/17) held a pre-ticked box is not consent. If it is ever
 revisited, it is one word per category in `CookieSettingsModal.tsx`.
 
-It does not change what is stored. Nothing is granted until "Confirmar
-elecciones" is pressed: `createDefaultPreferences()` still denies everything,
+It does not change what is stored. Nothing is granted until "Guardar
+preferencias" or "Aceptar todas" is pressed: `createDefaultPreferences()` still
+denies everything,
 and so does the Consent Mode default. A visitor who never opens the panel is
 denied.
 
@@ -110,7 +116,7 @@ this, that is the shape to avoid.
 **The modal re-seeds its switches on open, not on mount.** The loader keeps it
 mounted after the first open, so `useState` alone went stale: accept from the
 banner, reopen from the footer, and the switches showed their first-mount
-values while "Confirmar elecciones" wrote them back — silently revoking what
+values while saving wrote them back — silently revoking what
 had just been granted.
 
 ## Using it

@@ -5,6 +5,7 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 
+import { XIcon } from "../icons/X";
 import { Button } from "../ui/Button";
 
 import { useCookieConsent } from "./useCookieConsent";
@@ -44,6 +45,7 @@ const ConsentToggleRow = ({
             <div className="relative">
               <input
                 type="checkbox"
+                aria-label={label}
                 checked={true}
                 disabled={true}
                 className="bg-primary-600 h-6 w-11 cursor-not-allowed appearance-none rounded-full opacity-60"
@@ -84,8 +86,14 @@ const ConsentToggleRow = ({
 };
 
 export const CookieSettingsModal = () => {
-  const { showModal, closeSettings, savePreferences, rejectAll, preferences } =
-    useCookieConsent();
+  const {
+    showModal,
+    closeSettings,
+    savePreferences,
+    acceptAll,
+    rejectAll,
+    preferences,
+  } = useCookieConsent();
 
   // Both switches start on for a visitor who has not chosen yet.
   //
@@ -97,7 +105,8 @@ export const CookieSettingsModal = () => {
   // the one consent question with an actual answer in the statute.
   //
   // What it does NOT change, and must not: nothing is granted until the
-  // visitor presses "Confirmar elecciones". A visitor who never opens this
+  // visitor presses "Guardar preferencias" or "Aceptar todas". One who never
+  // opens this
   // modal, or who closes it, stays denied — the stored default in
   // createDefaultPreferences and the Consent Mode default are both still
   // denied for everything.
@@ -113,8 +122,8 @@ export const CookieSettingsModal = () => {
   // CookieSettingsModalLoader keeps this mounted after the first open, so
   // useState ran once and never again: accept everything from the banner, then
   // reopen from the footer, and the switches showed their first-mount values
-  // while the stored record said otherwise — pressing "Confirmar elecciones"
-  // then quietly revoked what had just been granted. Derived during render
+  // while the stored record said otherwise — saving then quietly revoked what
+  // had just been granted. Derived during render
   // rather than in an effect, the same way CookieBanner tracks its own
   // transition, so the switches are right in the commit that opens the dialog.
   const [wasOpen, setWasOpen] = useState(showModal);
@@ -159,14 +168,32 @@ export const CookieSettingsModal = () => {
               exit={{ scale: 0.95, opacity: 0 }}
               className="w-full max-w-2xl overflow-hidden rounded-xl bg-white shadow-2xl"
             >
-              {/* Header */}
-              <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
-                <DialogTitle className="!font-sans text-2xl !font-semibold text-gray-900">
-                  Configuración de cookies
-                </DialogTitle>
-                <p className="mt-1 text-sm text-gray-600">
-                  Gestiona tus preferencias de cookies
-                </p>
+              {/*
+                Closing lives here, as an X, rather than as a "Cancelar" button
+                in the footer. Cancelling is not a decision about cookies, it
+                is a way out, and every consent platform worth copying keeps
+                the footer for the three real choices. Esc and a click on the
+                backdrop already closed the dialog — headlessui does both from
+                onClose — so this mainly makes that discoverable on a phone.
+              */}
+              <div className="flex items-start justify-between gap-4 border-b border-gray-200 bg-gray-50 px-6 py-4">
+                <div>
+                  <DialogTitle className="!font-sans text-2xl !font-semibold text-gray-900">
+                    Configuración de cookies
+                  </DialogTitle>
+                  <p className="mt-1 text-sm text-gray-600">
+                    Gestiona tus preferencias de cookies
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={closeSettings}
+                  aria-label="Cerrar sin guardar"
+                  className="focus:ring-primary-500 -mr-2 inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-gray-500 hover:bg-gray-200 hover:text-gray-900 focus:ring-2 focus:outline-none"
+                >
+                  <XIcon className="size-4 stroke-current" />
+                </button>
               </div>
 
               {/* Content */}
@@ -199,28 +226,32 @@ export const CookieSettingsModal = () => {
               </div>
 
               {/*
-                Rejecting lives here rather than on the banner. Nothing in force
-                today obliges a first-layer reject button: Ley 21.719 prescribes
-                no banner layout and Chile's data protection agency has issued
-                no cookie guidance, while the first-layer requirement is EU
-                supervisory-authority doctrine that does not reach a Chilean
-                firm advising Chilean clients. Revisit it if the firm ever
-                markets to the EU. See docs/client-brief.md.
+                The three real choices, and nothing else. Cancelling is the X
+                in the header; it is not a decision about cookies and does not
+                belong in this row.
 
-                Within the modal, reject and confirm are the same component with
-                the same variant, so their weight is not a matter of opinion.
+                Rejecting lives here rather than on the banner. Nothing in
+                force today obliges a first-layer reject button: Ley 21.719
+                prescribes no banner layout and Chile's data protection agency
+                has issued no cookie guidance, while the first-layer
+                requirement is EU supervisory-authority doctrine that does not
+                reach a Chilean firm advising Chilean clients. Revisit it if
+                the firm ever markets to the EU. See docs/client-brief.md.
+
+                Reject and accept are the same component with the same variant,
+                so their relative weight is not a matter of opinion. "Guardar
+                preferencias" is the quieter middle path, which is the one
+                shape of this row nobody argues about.
+
+                Reject comes first in the DOM, so it is also first when the row
+                stacks on a phone and first for a screen reader.
+
+                Note that with both switches starting on, "Guardar
+                preferencias" and "Aceptar todas" do the same thing until the
+                visitor touches a switch. That is a consequence of the
+                pre-tick, not of this layout.
               */}
               <div className="flex flex-col justify-end gap-3 border-t border-gray-200 bg-gray-50 px-6 py-4 md:flex-row">
-                <Button
-                  animateOnClick
-                  variant="default"
-                  className="group w-full md:w-fit"
-                  type="button"
-                  onClick={closeSettings}
-                >
-                  Cancelar
-                </Button>
-
                 <Button
                   animateOnClick
                   variant="dark"
@@ -233,12 +264,22 @@ export const CookieSettingsModal = () => {
 
                 <Button
                   animateOnClick
-                  variant="dark"
+                  variant="default"
                   className="group w-full md:w-fit"
                   type="button"
                   onClick={handleSavePreferences}
                 >
-                  Confirmar elecciones
+                  Guardar preferencias
+                </Button>
+
+                <Button
+                  animateOnClick
+                  variant="dark"
+                  className="group w-full md:w-fit"
+                  type="button"
+                  onClick={acceptAll}
+                >
+                  Aceptar todas
                 </Button>
               </div>
             </DialogPanel>
