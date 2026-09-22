@@ -103,7 +103,7 @@ The assistant is a conversation, not a widget, so one signal cannot describe it.
 | `rk_chat_message` | Every subsequent message, numbered, so it is visible whether conversations go anywhere or die on turn two. | `message_number` |
 | `rk_chat_handoff` | The bot offered the WhatsApp number. The visitor still has to write. | |
 | `rk_chat_lead` | The bot collected name, email, phone and the legal issue and emailed the studio. A finished enquiry — the strongest outcome the chatbot has. | `user_data` |
-| `rk_chat_lead_fail` | The lead was collected but the email did not send. The visitor is not told and the firm never learns the enquiry existed, so this signal is the only trace of it. | |
+| `rk_chat_lead_fail` | The lead was collected but the email did not send. Observed live: the assistant improvises an apology and offers WhatsApp, so the visitor is told something — but the firm never learns the enquiry existed, and this signal is its only trace. | |
 | `rk_chat_error` | The assistant errored out. | |
 
 The bot's two endings are not equal: a handoff passes the visitor to a channel
