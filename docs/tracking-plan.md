@@ -297,7 +297,7 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 
 ---
 
-## Phase 3: Make the cookie banner real — code shipped 22 September 2026
+## Phase 3: Make the cookie banner real — live in production 22 September 2026
 
 | | |
 | --- | --- |
@@ -388,7 +388,9 @@ A visitor can then accept measurement while refusing ad personalisation, which i
       still arrive as cookieless pings
 - [ ] Verified: ad click reference survives navigation for a declining visitor
       — **measure this, do not assume it**; see the runbook, step 6
-- [ ] Go-live date agreed with the client and recorded as the reporting baseline
+- [x] Go-live date recorded as the reporting baseline: **22 September 2026**,
+      set by the deploy rather than agreed in advance. Everything before that
+      date was measured on a different basis; phase 7 counts from it
 - [ ] `/politica-cookies` updated with the advertising category and the real cookie table
 - [ ] `/politicas-de-privacidad` updated
 - [ ] Banner and modal copy reviewed with the client

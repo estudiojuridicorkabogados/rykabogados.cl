@@ -23,7 +23,7 @@ Each blocks something. The recommendation is ours; the decision is theirs.
 
 | Decision | Our recommendation | If they choose otherwise |
 | --- | --- | --- |
-| **Go-live date for the consent banner** | Pick a Monday and note it | It is also the baseline for every report from phase 7 on. Nothing else is blocked by it, but comparing across it is meaningless, so it has to be written down |
+| ~~Go-live date for the consent banner~~ | **Settled: 22 September 2026** | Went live with the deploy rather than on an agreed date. It is the reporting baseline for phase 7 onward; nothing before it is comparable with anything after |
 | **Banner and modal wording** | Ship ours, marked as a draft | Three category descriptions and the button labels. Pure copy — no code changes |
 | **Whether "Personalizar" becomes "Configurar o rechazar"** | Yes | See the legal note below. One string |
 | **Whether to re-ask people who accepted in 2025** | No | They accepted analytics before advertising was a separate question, and now read as having declined advertising. If the firm wants a fresh answer, it is one constant |
@@ -92,17 +92,23 @@ These are the ones that get someone blamed if they arrive as a surprise.
 
 ### 1. Their Google Ads conversion numbers will drop, and that is the work doing its job
 
+**Live in production since 22 September 2026.** This was written to be sent
+*before* go-live and was not — the deploy went out first. Send it now, today,
+rather than letting them find the drop in their own dashboard and ask about it.
+The wording below is already adjusted for that.
+
 Send this, in Spanish:
 
-> **Antes de activar el nuevo banner de cookies**
+> **Sobre el nuevo banner de cookies, que ya está activo**
 >
-> Hoy el sitio mide a todos los visitantes, acepten o no las cookies. Cuando el
-> banner empiece a funcionar de verdad, quienes las rechacen dejarán de contarse.
+> Desde el 22 de septiembre el sitio respeta de verdad lo que cada visitante
+> elige en el banner de cookies. Hasta ahora medía a todos por igual, aceptaran
+> o no.
 >
 > Esto significa que verán una caída en el número de conversiones en Google Ads
-> durante los días siguientes a la activación. **No es que menos personas los
-> estén contactando.** Exactamente la misma cantidad de gente reserva y escribe
-> por WhatsApp; lo que cambia es cuántas de ellas Google alcanza a ver.
+> en los próximos días. **No es que menos personas los estén contactando.**
+> Exactamente la misma cantidad de gente reserva y escribe por WhatsApp; lo que
+> cambia es cuántas de ellas Google alcanza a ver.
 >
 > Si sus campañas usan puja automática, Google tardará una o dos semanas en
 > ajustarse a los nuevos números. Durante ese periodo conviene no hacer cambios
@@ -175,6 +181,7 @@ conversation it happened in.
 | 2026-09-22 | Reject button on the banner itself | No — modal only. Revisit if the firm markets to the EU |
 | 2026-09-22 | Whether the site's own attribution cookies honour the banner | Yes, gated behind the advertising category |
 | 2026-09-22 | Whether the switches in "Personalizar" start on | Yes, both — see the note above. Flagged to the firm rather than decided for them |
+| 2026-09-22 | Go-live date, and therefore the phase 7 reporting baseline | 22 September 2026, set by the deploy rather than chosen |
 
 ---
 
