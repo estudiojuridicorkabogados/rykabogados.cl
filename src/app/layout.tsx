@@ -73,7 +73,9 @@ export default async function RootLayout({
         */}
 
         {/* oxlint-disable-next-line react/no-danger -- static, no user input */}
-        <script dangerouslySetInnerHTML={{ __html: CONSENT_BOOTSTRAP_SNIPPET }} />
+        <script
+          dangerouslySetInnerHTML={{ __html: CONSENT_BOOTSTRAP_SNIPPET }}
+        />
 
         <LazyMotionProvider>
           <CookieConsentProvider>

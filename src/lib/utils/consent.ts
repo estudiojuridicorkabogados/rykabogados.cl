@@ -46,10 +46,7 @@ export interface ConsentChoices {
 /** The subset a visitor's choice can move. The other three never change. */
 type MutableConsentState = Pick<
   ConsentModeState,
-  | "ad_storage"
-  | "ad_user_data"
-  | "ad_personalization"
-  | "analytics_storage"
+  "ad_storage" | "ad_user_data" | "ad_personalization" | "analytics_storage"
 >;
 
 type GtagCommand =
@@ -230,6 +227,13 @@ export function updateConsent(choices: ConsentChoices): void {
  *
  * Every statement here is semicolon-terminated, so collapsing whitespace is
  * safe. The one significant space, in `(?:^|; )`, survives as a single space.
+ *
+ * Two things here look like style and are not. The strings are single-quoted
+ * because this script ships twice: once as itself, and once backslash-escaped
+ * inside the RSC flight payload, where every `"` becomes `\\"` and costs
+ * three extra bytes. JSON does not escape `'`. And the granted/denied values
+ * are hoisted into `a` and `d` rather than repeated as ternaries, which the
+ * second copy would also have paid for four times over.
  */
 function compact(source: string): string {
   return source.replace(/\s+/g, " ").trim();
@@ -242,25 +246,25 @@ export const CONSENT_BOOTSTRAP_SNIPPET = compact(`
   w.${CONSENT_READY_FLAG} = 1;
   w.dataLayer = w.dataLayer || [];
   function g() { w.dataLayer.push(arguments); }
-  var a = false, d = false;
+  var a = 'denied', d = 'denied';
   try {
     var m = document.cookie.match(/(?:^|; )${CONSENT_COOKIE_NAME}=([^;]*)/);
     if (m) {
       var p = JSON.parse(decodeURIComponent(m[1]));
-      a = p.analytics === true;
-      d = p.advertising === true;
+      if (p.analytics === true) a = 'granted';
+      if (p.advertising === true) d = 'granted';
     }
   } catch (e) {}
-  g("consent", "default", {
-    ad_storage: d ? "granted" : "denied",
-    ad_user_data: d ? "granted" : "denied",
-    ad_personalization: d ? "granted" : "denied",
-    analytics_storage: a ? "granted" : "denied",
-    functionality_storage: "granted",
-    personalization_storage: "denied",
-    security_storage: "granted"
+  g('consent', 'default', {
+    ad_storage: d,
+    ad_user_data: d,
+    ad_personalization: d,
+    analytics_storage: a,
+    functionality_storage: 'granted',
+    personalization_storage: 'denied',
+    security_storage: 'granted'
   });
-  g("set", "ads_data_redaction", true);
-  g("set", "url_passthrough", true);
+  g('set', 'ads_data_redaction', true);
+  g('set', 'url_passthrough', true);
 })();
 `);

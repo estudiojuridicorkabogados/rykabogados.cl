@@ -147,7 +147,9 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
   };
 
   const acceptAll = () =>
-    applyChoice(createDefaultPreferences({ analytics: true, advertising: true }));
+    applyChoice(
+      createDefaultPreferences({ analytics: true, advertising: true })
+    );
 
   /**
    * An affirmative no, and the reason it is not dismissBanner: this writes a
@@ -179,9 +181,7 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
     }));
   };
 
-  const savePreferences = (
-    newPreferences: Partial<CookieConsentPreferences>
-  ) =>
+  const savePreferences = (newPreferences: Partial<CookieConsentPreferences>) =>
     applyChoice(
       createDefaultPreferences({
         analytics: newPreferences.analytics,
