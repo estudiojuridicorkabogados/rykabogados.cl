@@ -17,7 +17,14 @@ label — `rk_scroll` with a `form_name`, or a form event with no `form_name` at
 all — is a compile error rather than a dimension quietly filling with the wrong
 values. If you are adding a signal, add it to `RK_EVENTS` and give it a payload
 shape in `EventPayloads`; the compiler will then find every place that needs
-updating.
+updating. If you are adding a label, add it to `RESET_LABELS` too — the
+compiler insists.
+
+Every push carries **every** label, the absent ones as `undefined`. Tag
+Manager folds each push into one persistent model and its variables read from
+that, so a `form_name` set by one event would otherwise still be there when the
+next page view is forwarded. The reset is what keeps a dimension honest to the
+event it arrived on.
 
 Tag Manager forwards the whole family to Analytics with one rule matching
 `rk_.*`, so a signal added here needs no Tag Manager change. The rule is phase 4
@@ -25,9 +32,11 @@ work; until it is published these events reach the dataLayer and no further.
 
 ## Labels
 
-Four labels are registered as custom dimensions in Analytics. A signal carries
-the ones that apply to it; `page_type` is attached to every single one,
-automatically, from the URL at the moment of the push.
+Every label below, plus the per-event ones listed with each signal, is
+registered as an event-scoped custom dimension in Analytics — twelve in all,
+`previous_page` excepted. A signal carries the ones that apply to it;
+`page_type` is attached to every single one, automatically, from the URL at
+the moment of the push.
 
 | Label | Values |
 | --- | --- |
@@ -64,7 +73,7 @@ high-cardinality dimension in Analytics, which its reports collapse into an
 | `rk_form_view` | The visitor scrolled far enough to actually see the form. Separates "never saw it" from "saw it and left". | `form_name` |
 | `rk_form_start` | First interaction — a date picked or any field focused. Once per visit. | `form_name` |
 | `rk_form_step` | A step was completed. On the two booking forms the calendar is step 1, personal details step 2. | `form_name`, `step` |
-| `rk_form_error` | The form refused to continue, and which fields caused it. | `form_name`, `error_fields` |
+| `rk_form_error` | The form refused to continue, and which fields caused it. On the contact form this includes the browser's own `required` and email checks, which stop a send before any request is made. | `form_name`, `error_fields` |
 | `rk_form_submit` | The visitor tried to send. Compared with the success events, this is what exposes technical failures. | `form_name` |
 | `rk_form_fail` | The send did not go through — captcha, calendar or server error. | `form_name`, `fail_reason` |
 
@@ -141,10 +150,32 @@ Campaign markers are recorded **twice**, deliberately:
 | Cookie | Meaning |
 | --- | --- |
 | `gclid`, `wbraid`, `gbraid`, `utm_*` | **Last touch.** Overwritten on every campaign visit, because the click happening now is the one Google Ads should attribute this visit to. |
-| `rk_ft_*`, plus `rk_ft_landing`, `rk_ft_referrer`, `rk_ft_ts` | **First touch.** Written once and then left alone for ninety days, so the credit stays with the campaign that actually found this person rather than the one they happened to click on the way back. |
+| `rk_ft_utm_*`, `rk_ft_gclid` and siblings | **First campaign touch.** Written once and then left alone for ninety days, so the credit stays with the campaign that actually found this person rather than the one they happened to click on the way back. |
+| `rk_ft_landing`, `rk_ft_referrer`, `rk_ft_ts` | **First visit**, campaign or not. An organic or referral first visit records where it came in, so a paid click a week later cannot claim to have been the first. |
 
 Neither is a substitute for the other, which is why both are kept. Ads sees no
 change: nothing about the last-touch path was altered.
+
+### The Sheet row
+
+Every row the site writes carries these parameters. The Apps Script behind the
+Sheet reads them by name; **the `ft_*` columns still have to be added to it**,
+and until then they arrive and are ignored.
+
+| Parameter | Value |
+| --- | --- |
+| `code` | The Caso code |
+| `channel` | `whatsapp`, `contacto-form`, `reserva-form-trabajadores`, `reserva-form-empresas`, `chatbot-lead` |
+| `landing` | The page the action happened on, full URL |
+| `gclid` | Last-touch click reference — `gclid`, `wbraid` or `gbraid`, whichever the most recent ad click carried |
+| `phone`, `email` | As typed, for forms and chatbot leads; empty for WhatsApp |
+| `ft_source`, `ft_medium`, `ft_campaign`, `ft_content`, `ft_term` | First campaign touch, from `utm_*`; empty for a visitor who never arrived on a tagged link |
+| `ft_landing`, `ft_referrer`, `ft_ts` | First visit: entry path, referring site or `direct`, and when |
+
+Classification belongs in the Sheet, not the site: an organic Google visit
+arrives with an empty `ft_source` and `google.com` in `ft_referrer`, and a
+formula or the script turns that into "google / organic". Keeping the site to
+raw values means a change of classification is a Sheet edit, not a release.
 
 `wbraid` and `gbraid` are what Google Ads sends instead of `gclid` from iOS
 when tracking permissions are restricted — the same click under a different

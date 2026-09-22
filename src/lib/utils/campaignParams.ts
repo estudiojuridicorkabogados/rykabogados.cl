@@ -42,6 +42,48 @@ export const ATTRIBUTION_MAX_AGE = 90 * 86400;
 export const FIRST_TOUCH_PREFIX = "rk_ft_";
 
 /**
+ * The first-touch record, as the Google Sheet receives it.
+ *
+ * Read at the moment a row is written rather than at mount: the cookies are
+ * set by an effect after hydration, and a component that mounted before it
+ * would otherwise carry an empty snapshot for the life of the page.
+ *
+ * Nothing is classified here — an organic Google visit arrives as an empty
+ * `ft_source` and a `ft_referrer` of google.com, and the Apps Script behind
+ * the Sheet is where that becomes "google / organic". Keeping the site to raw
+ * values means a change of classification is a Sheet edit, not a release.
+ */
+export interface FirstTouch {
+  ft_source: string;
+  ft_medium: string;
+  ft_campaign: string;
+  ft_content: string;
+  ft_term: string;
+  ft_landing: string;
+  ft_referrer: string;
+  ft_ts: string;
+}
+
+function readFirstTouchCookie(key: string): string {
+  return readCampaignCookie(`${FIRST_TOUCH_PREFIX}${key}`);
+}
+
+export function readFirstTouch(): FirstTouch {
+  const ft = readFirstTouchCookie;
+
+  return {
+    ft_source: ft("utm_source"),
+    ft_medium: ft("utm_medium"),
+    ft_campaign: ft("utm_campaign"),
+    ft_content: ft("utm_content"),
+    ft_term: ft("utm_term"),
+    ft_landing: ft("landing"),
+    ft_referrer: ft("referrer"),
+    ft_ts: ft("ts"),
+  };
+}
+
+/**
  * Whether a landing URL's query string carries any campaign marker.
  *
  * Takes the search string rather than reading `window` so it stays a pure

@@ -7,6 +7,7 @@ import { useSessionCode } from "@/hooks/useSessionCode";
 import {
   CLICK_ID_PARAMS,
   readCampaignCookie,
+  readFirstTouch,
 } from "@/lib/utils/campaignParams";
 import {
   buildWhatsAppUrl,
@@ -19,10 +20,15 @@ const TRABAJADORES_MSG =
 const EMPRESAS_MSG =
   "¡Hola! Soy parte de una empresa y estamos buscando asesoría legal. Me gustaría que nos ayudaran a evaluar la situación, por favor.";
 
+type SheetRow = Pick<
+  LogToSheetParams,
+  "landing" | "channel" | "phone" | "email"
+>;
+
 interface UseTrackingReturn {
   whatsappUrl: string;
   shortCode: string;
-  logToSheet: (params: Omit<LogToSheetParams, "gclid" | "shortCode">) => void;
+  logToSheet: (params: SheetRow) => void;
 }
 
 export function useTracking(): UseTrackingReturn {
@@ -67,15 +73,19 @@ export function useTracking(): UseTrackingReturn {
    */
   const shortCode = useSessionCode();
 
-  // Memoized logToSheet wrapper that includes shortCode and gclid
+  // Memoized logToSheet wrapper that includes shortCode, gclid and first touch
   const logToSheetWrapper = useCallback(
-    (params: Omit<LogToSheetParams, "gclid" | "shortCode">) => {
+    (params: SheetRow) => {
       logToSheet({
         ...params,
         // Wire field stays `gclid` — the Apps Script behind the Sheet expects
         // that name, and a wbraid is still the ad click it is asking for.
         gclid: clickId,
         shortCode,
+        // Read now, not at mount: the cookies are written by an effect after
+        // hydration, and a form that mounted first would carry an empty
+        // snapshot for the rest of the page.
+        ...readFirstTouch(),
       });
     },
     [clickId, shortCode]

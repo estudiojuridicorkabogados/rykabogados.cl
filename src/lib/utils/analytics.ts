@@ -207,6 +207,53 @@ type PayloadFor<E extends RkEvent> = EventPayloads[E] extends void
   ? CommonPayload | undefined
   : EventPayloads[E] & CommonPayload;
 
+/** Every label any event can carry, common or per-event. */
+type LabelKey =
+  | keyof CommonPayload
+  | {
+      [E in RkEvent]: EventPayloads[E] extends void
+        ? never
+        : keyof EventPayloads[E];
+    }[RkEvent];
+
+/**
+ * Tag Manager does not read the dataLayer as a list of separate messages. It
+ * folds every push into one persistent object — its data layer model — and a
+ * Data Layer Variable reads from that object, where a key stays set until a
+ * later push overwrites it. Nothing clears it on the next event, and nothing
+ * clears it on navigation, because the site never reloads.
+ *
+ * So after `rk_form_start` sets `form_name`, every later event — the scroll
+ * marks, the next page view, a WhatsApp click on another page — still
+ * resolves `form_name` to that form when the phase 4 rule forwards it to
+ * Analytics, and the dimension fills with values from the previous event.
+ * The per-event typing above stops the wrong label being *sent*; this stops
+ * the right label from a previous event being *inherited*.
+ *
+ * Spread under every push, so each label is explicitly `undefined` unless the
+ * event sets it. An explicit `undefined` overwrites the key in the model, the
+ * variable resolves to nothing, and the tag omits it. Typed as a Record over
+ * every label key so that adding a label without adding it here is a compile
+ * error rather than a quietly sticky dimension.
+ */
+const RESET_LABELS: Record<LabelKey, undefined> = {
+  location: undefined,
+  user_data: undefined,
+  conversion_value: undefined,
+  conversion_currency: undefined,
+  is_first_page: undefined,
+  previous_page: undefined,
+  previous_page_type: undefined,
+  percent_scrolled: undefined,
+  form_name: undefined,
+  step: undefined,
+  error_fields: undefined,
+  fail_reason: undefined,
+  contact_method: undefined,
+  cta_label: undefined,
+  message_number: undefined,
+};
+
 /* -------------------------------------------------------------------------- */
 /* Page type                                                                   */
 /* -------------------------------------------------------------------------- */
@@ -289,6 +336,9 @@ export function resetPageScope(): void {
  * in the array when it initialises, so an early push is queued rather than
  * dropped — which matters because the container's own load trigger is the
  * visitor's first scroll, the same gesture that produces our first rk_scroll.
+ *
+ * Every push carries every label, the absent ones as `undefined` — see
+ * RESET_LABELS for why.
  */
 export function trackEvent<E extends RkEvent>(
   event: E,
@@ -302,6 +352,7 @@ export function trackEvent<E extends RkEvent>(
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
+    ...RESET_LABELS,
     event,
     page_type: currentPageType(),
     ...payload,

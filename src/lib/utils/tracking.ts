@@ -1,4 +1,5 @@
 import {
+  FirstTouch,
   readCampaignCookie,
   writeAttributionCookie,
 } from "@/lib/utils/campaignParams";
@@ -9,8 +10,13 @@ const DEFAULT_PHONE = "56986395780";
 const DEFAULT_MSG =
   "¡Hola! Estaba revisando el sitio web y me gustaría que evalúen mi situación, por favor.";
 
-export interface LogToSheetParams {
+export interface LogToSheetParams extends Partial<FirstTouch> {
   landing: string;
+  /**
+   * Last touch: the click reference of the most recent ad visit, whichever
+   * name it arrived under. Stays `gclid` on the wire because the Apps Script
+   * reads that name, and it is the one Ads can still attribute.
+   */
   gclid: string;
   shortCode: string;
   channel: string;
@@ -70,7 +76,14 @@ export function getSessionCode(): string {
 }
 
 /**
- * Log tracking data to Google Sheets via WebApp
+ * Writes one row to the Google Sheet through its Apps Script web app.
+ *
+ * The first-touch fields (`ft_*`) are what make a row from an Instagram,
+ * newsletter or organic visitor say anything about where they came from. The
+ * click reference alone only ever described Google Ads visits, so every other
+ * conversation arrived with a Caso code and no campaign next to it. Unknown
+ * parameters are ignored by Apps Script, so sending them ahead of the script
+ * reading them is harmless; docs/tracking-events.md lists the columns.
  */
 export function logToSheet({
   landing,
@@ -79,22 +92,24 @@ export function logToSheet({
   channel,
   phone = "",
   email = "",
+  ...firstTouch
 }: LogToSheetParams): void {
   if (!WEBAPP_URL || typeof window === "undefined") {
     return;
   }
 
-  const url =
-    WEBAPP_URL +
-    `?landing=${encodeURIComponent(landing)}` +
-    `&gclid=${encodeURIComponent(gclid)}` +
-    `&code=${encodeURIComponent(shortCode)}` +
-    `&channel=${encodeURIComponent(channel || "unknown")}` +
-    `&phone=${encodeURIComponent(phone)}` +
-    `&email=${encodeURIComponent(email)}` +
-    `&cb=${Date.now()}`;
+  const params = new URLSearchParams({
+    landing,
+    gclid,
+    code: shortCode,
+    channel: channel || "unknown",
+    phone,
+    email,
+    ...firstTouch,
+    cb: String(Date.now()),
+  });
 
-  fetch(url).catch(() => {
+  fetch(`${WEBAPP_URL}?${params}`).catch(() => {
     console.error("Error logging to sheet");
   });
 }

@@ -226,7 +226,7 @@ Three changes to `src/lib/utils/tracking.ts` and `src/hooks/useTracking.ts`:
 
 1. **Read every campaign marker, not just `gclid`.** Add `wbraid` and `gbraid`, which is what Google sends instead of `gclid` on iOS when tracking permissions are limited, and the standard `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` for Meta, email and anything else. Also keep the referring site and the landing page.
 2. **Generate the Caso code for everyone.** Today it only exists when a `gclid` is present, so an organic or Meta or iOS visitor who writes on WhatsApp arrives with no reference at all and can never be traced. Every visitor gets one.
-3. **Store first touch in a cookie, not `sessionStorage`.** `sessionStorage` is wiped when the tab closes. Someone who clicks an ad on Monday, thinks it over, and books on Wednesday is currently credited to nothing. A ninety-day cookie holding the first campaign seen keeps the original credit, and is what the Sheet logs.
+3. **Store first touch in a cookie, not `sessionStorage`.** `sessionStorage` is wiped when the tab closes. Someone who clicks an ad on Monday, thinks it over, and books on Wednesday is currently credited to nothing. A ninety-day cookie holding the first campaign seen keeps the original credit, and is what the Sheet logs: every row now carries `ft_source`, `ft_medium`, `ft_campaign`, `ft_content`, `ft_term`, `ft_landing`, `ft_referrer` and `ft_ts` beside the last-touch `gclid`. The landing page and referrer are recorded on the very first visit whether or not it carried a campaign marker, so an organic visit that later converts is not claimed by a paid click a week on. **The Apps Script behind the Sheet has to be taught the new columns** — until then the parameters arrive and are ignored, which is harmless.
 
 > **What this deliberately does not do.** The Caso code stays where it is useful — in the WhatsApp message, the booking email and the Google Sheet, next to the campaign that brought the visitor. It is not sent to Analytics, and Analytics' own visitor references are not written back to the Sheet. Joining the two would mean a unique value per visitor in Analytics, which its reports collapse into an "(other)" bucket, so the join would be built and then never usable from the interface. The Sheet answers "which campaign produced this case"; Analytics answers "where do people give up". Keeping them apart is the honest version.
 
@@ -236,6 +236,9 @@ Three changes to `src/lib/utils/tracking.ts` and `src/hooks/useTracking.ts`:
 - `WhatsappLink` gets a **required** `location` prop. The component is used in roughly ten places; a required prop is the only thing that stops an eleventh being added untagged.
 - The Google Sheet channel name for the workers form has a typo (`trabjadores`). Fixing it keeps the sheet clean; the old spelling stays readable in the sheet's history.
 - The Tag Manager ID is written into the code in two places. It moves to a configuration variable so a staging site can use a separate container without touching code.
+- **Every push resets every label.** Tag Manager keeps a persistent model of the dataLayer, so a `form_name` set by one event is still there when the next `rk_page_view` is forwarded to Analytics. `trackEvent` now pushes every label key on every event, `undefined` unless the event sets it, so the phase 4 rule forwards only what the event actually carried.
+- **The contact form asks the browser before counting a send.** Its fields are natively `required`, so `requestSubmit()` can refuse silently; `rk_form_submit` used to fire before that check and every refused attempt looked like a technical failure. It now fires `rk_form_error` with the refused fields instead, and `rk_form_submit` only when the browser lets the send through.
+- **The cookie banner no longer reloads the page on accept.** The reload re-mounted a consent gate that is disabled, and replayed the landing page's signals for every visitor who accepted. Removed here rather than in phase 3, so the data collected in between is not doubled on entry pages.
 
 ### Testing
 
@@ -261,7 +264,13 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
       so the model cannot hallucinate or drop it
 - [x] `wbraid`, `gbraid` and `utm_*` read alongside `gclid`
 - [x] Caso code generated for every visitor
-- [x] First touch stored in a 90-day cookie
+- [x] First touch stored in a 90-day cookie, for every first visit
+- [x] First touch sent with every Sheet row (`ft_*` parameters)
+- [ ] Apps Script updated to write the `ft_*` columns — **outstanding**, lives
+      in the client's Google account, not in this repository
+- [x] Labels reset on every dataLayer push
+- [x] Contact form: native validation reported as `rk_form_error`, not as a submit
+- [x] Consent banner reload removed (pulled forward from phase 3)
 - [x] Sheet channel typo fixed
 - [x] Tag Manager ID moved to an environment variable
 - [ ] Tested on preview, desktop and phone — **outstanding**, needs a deploy
@@ -309,7 +318,7 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 
 1. **Add the advertising category** to `types.ts`, the banner, the settings modal and the stored cookie, defaulting to declined. Existing stored preferences without the field are treated as declined until the visitor chooses again.
 2. **Set the default consent state** in the site before the Tag Manager snippet runs, reading the existing `cookie-consent` cookie so a returning visitor's choice applies immediately.
-3. **Send the update** when the visitor presses accept, decline, or saves preferences in the settings modal. This replaces the current full page reload in `src/components/CookieConsent/CookieConsentProvider.tsx`.
+3. **Send the update** when the visitor presses accept, decline, or saves preferences in the settings modal. The full page reload that used to follow accept and save was already removed in phase 2 — it was doubling the landing page's signals — so this is only the dataLayer update.
 4. **Warn the client before this goes live, not after.** Today the site tracks every visitor regardless of the banner, so switching consent on will cut the recorded Ads conversions by whatever share of visitors decline. The firm will see a step down in their conversion numbers within days of this phase shipping, and automatic bidding will spend a fortnight recalibrating to it. It is a measurement change, not a business change, but it looks alarming on a dashboard and it is the sort of thing that gets blamed on the last person who touched the site. Agree a go-live date and note it, so the before and after are never compared.
 5. **Switch on `url_passthrough` and `ads_data_redaction`.** Without the first, a visitor who declines advertising loses the ad click reference from the address the moment they navigate to a second page, which quietly breaks the Ads conversion counting that works today. These two settings are one line each and are the part of Consent Mode most often left out.
 6. **Keep Tag Manager loading for everyone.** The disabled gate in `ConditionalAnalytics.tsx` is removed rather than re-enabled: with Consent Mode the container itself must load so it can receive the choice. The tags inside it are what get restricted.
@@ -324,7 +333,7 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 - [ ] Advertising category added to types, banner, modal and stored cookie
 - [ ] Go-live date agreed with the client and recorded as the reporting baseline
 - [ ] Default consent state set before Tag Manager loads
-- [ ] Update sent on accept, decline, and preference save; page reload removed
+- [ ] Update sent on accept, decline, and preference save (the reload is already gone)
 - [ ] Categories mapped to the four storage types
 - [ ] `url_passthrough` and `ads_data_redaction` enabled
 - [ ] Gate in `ConditionalAnalytics.tsx` removed, container loads for everyone
@@ -350,7 +359,7 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 | **Result** | Every signal from phase 2 shows up in Analytics with its labels, and the four "finished" actions are marked as conversions there too. |
 
 1. **In Tag Manager:** one rule that forwards every signal whose name starts with `rk_` to Analytics, passing the labels along. One rule instead of twenty means a future signal needs no Tag Manager change.
-2. **In Analytics:** register the labels so they can be used in reports (Google calls this "custom dimensions"; without it the labels arrive but cannot be filtered on). Four are needed: `form_name`, `page_type`, `location` and `percent_scrolled`. Mark the four finishing actions as conversions ("key events" in Google's current wording).
+2. **In Analytics:** register the labels so they can be used in reports (Google calls this "custom dimensions"; without it the labels arrive but cannot be filtered on). The four that every funnel breaks down by — `form_name`, `page_type`, `location`, `percent_scrolled` — and the per-event ones the phase 7 questions depend on: `error_fields` and `fail_reason` (which field fails, why a send is refused), `step`, `cta_label`, `contact_method`, `message_number`, `previous_page_type` and `is_first_page`. Twelve event-scoped dimensions, well inside the property's limit of fifty. `previous_page` is left unregistered — it is a raw path, and the path report reads it from the page view itself. Mark the four finishing actions as conversions ("key events" in Google's current wording).
 3. **Build the audiences.** Once the signals land, "started a form and did not finish" and "reached a landing page and never scrolled to the form" become audiences that can be exported to Google Ads for remarketing. They cost nothing and they are the most valuable list the firm could advertise to.
 4. **Verify:** in Analytics "DebugView", walk through the forms again and watch the signals arrive live. Publish the Tag Manager container.
 5. **Hand-off note:** a one-page list of every signal, its labels and what it means, saved in this repository (`docs/tracking-events.md`), so whoever looks at this in a year can understand the reports.
@@ -374,7 +383,7 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 
 - [ ] Enhanced measurement: form interactions off, scroll off, page views on navigation verified
 - [ ] Tag Manager: `rk_.*` trigger, data layer variables for the labels, one GA4 event tag
-- [ ] Analytics: four custom dimensions registered
+- [ ] Analytics: twelve custom dimensions registered (see step 2)
 - [ ] Analytics: four key events marked
 - [ ] Remarketing audiences built and exported to Ads
 - [ ] Verified in DebugView

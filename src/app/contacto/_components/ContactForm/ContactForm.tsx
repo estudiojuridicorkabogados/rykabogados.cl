@@ -138,7 +138,39 @@ export const ContactForm = () => {
     });
   }, [state]);
 
+  /**
+   * Native validation runs inside `requestSubmit()`: an empty required field,
+   * a malformed email or the unticked consent box stops the submission before
+   * any request is made, with the browser's own tooltip. `rk_form_submit`
+   * used to fire before that check, so every such attempt was recorded as a
+   * send with no error, no failure and no success — exactly the shape the
+   * funnel reads as a technical failure. The booking forms never had this
+   * problem because react-hook-form validates before their submit signal.
+   *
+   * Ask the form first, report a refusal as the validation error it is, and
+   * only count a submit that the browser actually let through.
+   */
   const handleClick = async () => {
+    const form = formRef.current;
+
+    if (!form) return;
+
+    if (!form.checkValidity()) {
+      const invalidFields = Array.from(
+        form.querySelectorAll<
+          HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+        >(":invalid")
+      ).map((field) => field.name);
+
+      trackEvent(RK_EVENTS.FORM_ERROR, {
+        form_name: FORM_NAME,
+        error_fields: [...new Set(invalidFields.filter(Boolean))].join(","),
+      });
+
+      form.reportValidity();
+      return;
+    }
+
     trackEvent(RK_EVENTS.FORM_SUBMIT, { form_name: FORM_NAME });
 
     const token = await getCaptchaToken();
@@ -147,7 +179,7 @@ export const ContactForm = () => {
       tokenRef.current.value = token;
     }
 
-    formRef.current?.requestSubmit();
+    form.requestSubmit();
   };
 
   return (

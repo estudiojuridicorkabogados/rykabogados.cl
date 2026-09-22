@@ -28,31 +28,30 @@ export const TrackingParamsCapture = () => {
     try {
       const search = new URLSearchParams(window.location.search);
 
-      let isCampaignVisit = false;
-
       for (const param of CAMPAIGN_PARAMS) {
         const value = search.get(param);
         if (!value) continue;
-
-        isCampaignVisit = true;
 
         // Last touch: overwritten every time, because the click happening now
         // is the one Google Ads should attribute this visit to.
         writeAttributionCookie(param, value);
 
         // First touch: written once and then left alone for ninety days. This
-        // is what phase 5's funnels read, and what keeps the credit with the
-        // campaign that actually found this person rather than the one they
-        // happened to click on their way back.
+        // is what the Google Sheet row logs, and what keeps the credit with
+        // the campaign that actually found this person rather than the one
+        // they happened to click on their way back.
         const firstTouchKey = `${FIRST_TOUCH_PREFIX}${param}`;
         if (!readCampaignCookie(firstTouchKey)) {
           writeAttributionCookie(firstTouchKey, value);
         }
       }
 
-      // The landing page and referrer of the first campaign visit, recorded
-      // alongside so a first-touch row can say where it came in.
-      if (isCampaignVisit && !readCampaignCookie(`${FIRST_TOUCH_PREFIX}ts`)) {
+      // The landing page and referrer of the very first visit, campaign or
+      // not. It used to be recorded only when a campaign marker was present,
+      // which left an organic or referral first visit with no first touch at
+      // all — and a paid click a week later then claimed to be the first. The
+      // referrer is what lets the Sheet tell "google / organic" from "direct".
+      if (!readCampaignCookie(`${FIRST_TOUCH_PREFIX}ts`)) {
         writeAttributionCookie(
           `${FIRST_TOUCH_PREFIX}landing`,
           window.location.pathname

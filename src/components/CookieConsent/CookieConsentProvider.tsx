@@ -84,6 +84,15 @@ const SERVER_STATE: CookieConsentState = {
   isLoading: true,
 };
 
+/**
+ * Accepting or saving no longer reloads the page. The reload existed to
+ * re-mount the analytics gate, but that gate is disabled and the tags load
+ * for everyone (ConditionalAnalytics), so all it did was replay the landing
+ * page: two `rk_page_view`s marked as the first page, and every scroll mark
+ * and form view twice, for every visitor who accepted — which is most of
+ * them, on the first page of every visit. Phase 3 hands the choice to Google
+ * Consent Mode with a dataLayer update instead, which needs no reload either.
+ */
 export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
@@ -107,9 +116,6 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
       showModal: false,
       isLoading: false,
     });
-
-    // Reload to initialize analytics
-    window.location.reload();
   };
 
   const dismissBanner = () => {
@@ -150,9 +156,6 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
       showModal: false,
       isLoading: false,
     });
-
-    // Reload to initialize/remove analytics
-    window.location.reload();
   };
 
   const value: CookieConsentContextValue = {
