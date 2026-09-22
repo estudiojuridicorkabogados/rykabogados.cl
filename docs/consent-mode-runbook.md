@@ -159,8 +159,21 @@ navigations, and every internal link here is a Next `<Link>` whose router
 intercepts the click and calls `pushState` with a URL of its own. It may well
 strip the decoration.
 
-**Write down what actually happens**, in `docs/tracking-plan.md`. Whichever way
-it goes, `ads_data_redaction` is the load-bearing half of the pair.
+**Measured on production, 22 September 2026, clean incognito: it does not
+survive.** Landing on `/?gclid=TEST123`, declining advertising, then clicking
+through to `/nosotros` left no `gclid` and no `_gl` on the destination. Next's
+`<Link>` intercepts the click and calls `pushState` itself, so Google's link
+decorator never gets to run.
+
+Leave `url_passthrough` switched on regardless — it costs nothing and covers
+the ordinary `<a href>` links that do exist, such as the WhatsApp ones. But do
+not rely on it, and do not repeat the claim that it protects attribution across
+navigation on this site.
+
+`ads_data_redaction` is the load-bearing half of the pair and does work.
+
+Re-test this if the site ever moves off the App Router, or if Next changes how
+`<Link>` handles clicks.
 
 Note that the site's own `gclid` cookie, which used to be the fallback here, is
 now gated on advertising consent — so for a declining visitor there is no

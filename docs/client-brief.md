@@ -30,7 +30,7 @@ Each blocks something. The recommendation is ours; the decision is theirs.
 | **Declining costs them the case reference on that enquiry** | Accept it | Explained below. If they cannot live with it, the fallback is to keep the reference and drop only the campaign cookies — half a day |
 | **Both switches in "Personalizar" start ON** | Their call, and they should make it knowingly — see below | Switching either to start OFF is one word each |
 | **Wording of the cookie and privacy policy pages** | They write, we supply the facts | `docs/cookie-inventory.md` is the technical input. This is their liability, not ours |
-| **Whether rejecting should stop data reaching Google entirely** | Theirs to decide — see below | One Tag Manager setting, no code, reversible in minutes. It decides which sentence they may write in the policy |
+| **Whether rejecting should stop data reaching Google entirely** | **Keep the pings until 1 December 2026, then stop them** — see below, this is the one item with a date on it | One Tag Manager setting, no code, reversible in minutes. It decides which sentence they may write in the policy, and after December it decides more than that |
 
 ### The legal note on the reject button
 
@@ -53,6 +53,11 @@ banner.**
 
 ### What "rechazar" means today, and the sentence they cannot write
 
+**This is the item to flag hardest, because it is the only one with a date on
+it.** Ley 21.719 is in force on 1 December 2026. Until then the current setup
+is a defensible position; after it, it is the part of the site most likely to
+be the wrong side of the line.
+
 The firm will want to write "si rechazas, no se envía ningún dato a Google".
 As the site is configured today that is **false**, and it is the sentence a
 complainant would quote back at them.
@@ -60,42 +65,102 @@ complainant would quote back at them.
 Rejecting stops every cookie — Google's and ours — and stops any link between
 the visit and a person or an ad click. It does not stop the request itself:
 Google still receives the page visited, the referring page, browser details and
-the IP address, with nothing attached that identifies anyone. That is Google's
-"cookieless ping", and it is lawful without consent precisely because it stores
-nothing on the device.
+the IP address. That is Google's "cookieless ping". Nothing is stored on the
+device and nothing persists between visits, which is why Google designed it and
+why it is widely used in Europe.
 
-They can choose the stronger version. Blocking Google's tags outright until
-consent is one setting in Tag Manager, no code change, reversible in minutes —
-and then nothing is sent at all and the sentence becomes true.
+**Why that argument is weaker in Chile than it sounds.** "Stores nothing on the
+device" is the European cookie-law test, and Chile has no cookie law. Ley
+21.719 is a general data protection law: the question it asks is not whether a
+cookie was set but whether personal data is being processed and on what basis.
+Its definition of personal data follows the European one — identifiable
+directly or indirectly, including through online identifiers — and an IP
+address sent to a third party fits that reading. So the ping is, in all
+likelihood, processing of personal data.
 
-The trade, stated honestly: with the tags blocked, a declining visitor is
-completely invisible, so they cannot tell "nobody came" from "everybody
-declined". The usual argument for keeping the pings is that they feed Google's
-statistical modelling — but that only switches on above roughly a thousand
-declining visitors a day, which this site will not reach. So the main benefit
-does not apply here, and what is left is knowing how many people declined.
+The basis it would have to rest on is *interés legítimo*, which the new law
+introduces, subject to a balancing test and to the person's right to object.
+Two things weigh against it here:
+
+- a visitor who has just pressed "Rechazar" has objected about as explicitly as
+  a person can, and continuing on legitimate interest after an explicit
+  objection is the hardest version of that argument to make;
+- the benefit on the firm's side is thin. Google's statistical modelling of
+  declined visitors — the usual reason for keeping the pings — only switches on
+  above roughly a thousand declining visitors a day, which this site will not
+  reach. Declining visitors are therefore absent from the funnels either way:
+  the pings arrive, but with no identifier to attach them to, Analytics does
+  not show them in its reports. What remains is a rough sense of decline
+  volume in Google's diagnostic screens, and that does not weigh much against
+  an objection.
+
+Nobody can call it unlawful today: the agency that will enforce the law does
+not exist until December and has issued no guidance, and European regulators
+are themselves divided on the same question. It is a risk position, and one
+that gets riskier on 1 December.
+
+**Our recommendation, and the reason for it:** keep the pings until the law is
+in force, so the firm has Analytics data for the whole run-up and a baseline
+to compare against, and switch to the stricter mode before 1 December. The
+stricter mode blocks Google's tags outright until consent: one setting in Tag
+Manager, no code change, reversible in minutes, after which nothing is sent at
+all and the sentence becomes true. The trade is small: declining visitors are
+already missing from the funnels, so blocking the tags mostly removes a signal
+the reports were not showing them anyway. At this traffic, that is the whole
+cost.
+
+The same reasoning reaches Vercel's own analytics, which sit outside the banner
+on the same "no cookie" logic and derive a daily hashed visitor identifier from
+IP and browser on Vercel's servers. Whatever the firm decides for Google should
+apply there too, or the privacy policy should name the legitimate interest it
+rests on.
 
 Put to them in Spanish:
 
-> **Una decisión sobre qué significa "rechazar"**
+> **Una decisión con fecha: qué significa "rechazar", antes del 1 de diciembre**
 >
 > Hoy, cuando alguien rechaza las cookies, no se instala ninguna cookie en su
 > dispositivo y no es posible reconocerlo ni vincularlo con ningún anuncio. Sin
-> embargo, Google sí recibe un aviso anónimo de la visita: la página vista, de
-> dónde venía, el navegador y la dirección IP, sin nada que identifique a la
-> persona.
+> embargo, Google sí recibe un aviso de la visita: la página vista, de dónde
+> venía, el navegador y la dirección IP, sin nada que identifique a la persona
+> por su nombre ni que permita reconocerla en una visita posterior.
 >
-> Podemos cambiarlo para que, al rechazar, no se envíe absolutamente nada a
-> Google. Es un ajuste de configuración, no un cambio en el sitio, y se puede
-> revertir en minutos.
+> **Queremos ser claros sobre el riesgo.** Ese aviso incluye la dirección IP, y
+> la Ley 21.719 —que entra en vigencia el 1 de diciembre de 2026— usa una
+> definición de dato personal que muy probablemente la incluye. Como Chile no
+> tiene una ley de cookies, el argumento "no se guarda nada en el dispositivo"
+> no aplica aquí; lo que se necesita es una base legal para tratar ese dato. La
+> única disponible sería el interés legítimo, y sostenerlo frente a una persona
+> que acaba de pulsar "Rechazar" es difícil, sobre todo cuando la firma
+> obtiene muy poco a cambio: quien rechaza no aparece en los embudos de
+> Analytics de todas formas, porque no hay ningún identificador al que asociar
+> su visita. No podemos decir
+> que sea ilegal —la agencia que aplicará la ley aún no existe y no ha
+> publicado criterios—, pero sí que es la parte del sitio con más exposición a
+> partir de diciembre.
 >
-> A cambio, dejarían de saber cuántas personas rechazan: un visitante que
-> rechaza pasaría a ser completamente invisible, y no podrían distinguir "no
-> vino nadie" de "todos rechazaron".
+> **Nuestra recomendación:** mantener la configuración actual hasta que la ley
+> entre en vigencia, para tener datos de Analytics durante todo este período,
+> y cambiarla antes del 1 de diciembre para que, al rechazar, no se envíe
+> absolutamente nada a Google. Es un ajuste de configuración, no un cambio en
+> el sitio, y se puede revertir en minutos. El costo es pequeño: quien rechaza
+> ya no aparece hoy en los informes de Analytics, así que el cambio elimina
+> sobre todo un envío que no les estaba mostrando nada. A este volumen de
+> visitas, ese es todo el costo.
 >
-> **Esta decisión es suya**, porque determina qué pueden afirmar en su política
-> de cookies. Si eligen no enviar nada, pueden escribir "no se envía ningún dato
-> a Google". Con la configuración actual, esa frase no sería correcta.
+> **Mientras tanto, la política de cookies no puede decir "si rechazas, no se
+> envía ningún dato a Google".** Con la configuración actual esa frase no es
+> correcta, y es la que alguien citaría en una reclamación. Puede decir que no
+> se instalan cookies y que Google no puede identificar ni reconocer al
+> visitante, que sí es cierto.
+>
+> Lo mismo aplica a las métricas de Vercel, que tampoco usan cookies pero sí
+> derivan un identificador diario a partir de la IP y el navegador. Lo que
+> decidan para Google conviene aplicarlo también ahí, o mencionar en la
+> política de privacidad el interés legítimo en que se apoya.
+>
+> **La decisión es suya**, y la fecha también: si prefieren el cambio ahora, se
+> hace en minutos.
 
 ### The note on the pre-ticked switches
 

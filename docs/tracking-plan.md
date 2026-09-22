@@ -335,7 +335,13 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 2. **Set the default consent state** in the site before the Tag Manager snippet runs, reading the existing `cookie-consent` cookie so a returning visitor's choice applies immediately.
 3. **Send the update** when the visitor presses accept, decline, or saves preferences in the settings modal. The full page reload that used to follow accept and save was already removed in phase 2 — it was doubling the landing page's signals — so this is only the dataLayer update.
 4. **Warn the client before this goes live, not after.** Today the site tracks every visitor regardless of the banner, so switching consent on will cut the recorded Ads conversions by whatever share of visitors decline. The firm will see a step down in their conversion numbers within days of this phase shipping, and automatic bidding will spend a fortnight recalibrating to it. It is a measurement change, not a business change, but it looks alarming on a dashboard and it is the sort of thing that gets blamed on the last person who touched the site. Agree a go-live date and note it, so the before and after are never compared.
-5. **Switch on `url_passthrough` and `ads_data_redaction`.** Without the first, a visitor who declines advertising loses the ad click reference from the address the moment they navigate to a second page, which quietly breaks the Ads conversion counting that works today. These two settings are one line each and are the part of Consent Mode most often left out.
+5. **Switch on `url_passthrough` and `ads_data_redaction`.** Both are set from the page, one line each, and are the part of Consent Mode most often left out. Done.
+
+   **`url_passthrough` does not work on this site, and that was measured rather than assumed.** This step used to claim it prevented a declining visitor losing the ad click reference on navigating to a second page. Tested on production on 22 September 2026 in a clean incognito session — land on `/?gclid=TEST123`, decline advertising, click through to `/nosotros` — and the parameter was **gone**. It decorates `<a>` clicks, and every internal link here is a Next `<Link>` whose router intercepts the click and calls `pushState` with a URL of its own, so there is nothing left to decorate.
+
+   The practical consequence is smaller than it sounds, and arguably correct. It only ever mattered for visitors who **declined** advertising: everyone who accepts gets a normal `_gcl_aw` cookie, and commit 26d8283 already loads the tag at hydration on campaign visits so that cookie survives a click-through. What is lost is cookieless attribution for a decliner who converts on a later page — and a visitor who declined advertising arguably should not be attributed to an ad click, so the failure aligns with what they chose. It is also moot entirely if the firm takes the option in `docs/cookie-inventory.md` of blocking Google's tags for decliners, since then no conversion ping is sent for them at all.
+
+   `ads_data_redaction` is the half that does work and still matters: it strips identifiers from the ad requests that do go out.
 6. **Keep Tag Manager loading for everyone.** The disabled gate in `ConditionalAnalytics.tsx` is removed rather than re-enabled: with Consent Mode the container itself must load so it can receive the choice. The tags inside it are what get restricted.
 7. **In Tag Manager:** switch on consent checks for the container, confirm each tag declares which storage types it needs, and verify with Tag Assistant that a declined visit sets no cookies.
 8. **Remove the `noscript` Tag Manager iframe** from `src/app/layout.tsx`. It fires the container for visitors with JavaScript disabled, before any choice can exist, and Consent Mode cannot reach it. Nothing on this site works without JavaScript anyway — the forms, the calendar and the chatbot are all client-side — so it is loading a tracker for people who cannot use the site.
@@ -386,8 +392,10 @@ A visitor can then accept measurement while refusing ad personalisation, which i
       — the runbook. Do not publish before the code is live
 - [ ] Verified on a preview: declined visit sets no Google cookies, signals
       still arrive as cookieless pings
-- [ ] Verified: ad click reference survives navigation for a declining visitor
-      — **measure this, do not assume it**; see the runbook, step 6
+- [x] Measured: the ad click reference does **not** survive navigation for a
+      declining visitor. `url_passthrough` decorates `<a>` clicks and Next's
+      `<Link>` router takes the click first. Tested on production, incognito,
+      22 September 2026. Consequence and why it is close to harmless: step 5
 - [x] Go-live date recorded as the reporting baseline: **22 September 2026**,
       set by the deploy rather than agreed in advance. Everything before that
       date was measured on a different basis; phase 7 counts from it
