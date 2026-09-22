@@ -78,7 +78,7 @@
       }
     },
     {
-      "files": ["src/components/SupportChatbot/SupportChatbot.tsx"],
+      "files": ["src/components/SupportChatbot/ChatbotPanel.tsx"],
       "rules": {
         "jsx-a11y/prefer-tag-over-role": "off"
       }

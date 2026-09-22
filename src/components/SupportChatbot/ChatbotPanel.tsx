@@ -246,6 +246,14 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
         },
       ])}
       aria-hidden={!visible}
+      // role="dialog" rather than a real <dialog>, which is what
+      // jsx-a11y/prefer-tag-over-role wants and why that rule is off for this
+      // file in .oxlintrc.json. A <dialog> is display:none until show() or
+      // showModal() is called imperatively, so it cannot be opened by a class
+      // change and display:none cannot be transitioned — this panel stays
+      // mounted and animates opacity and transform. showModal() would also
+      // trap focus and make the rest of the page inert, which is wrong for a
+      // chat the visitor should be able to leave open while they read.
       role="dialog"
       aria-label="Support chat"
     >
