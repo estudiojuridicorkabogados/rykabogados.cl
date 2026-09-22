@@ -297,7 +297,14 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 
 ---
 
-## Phase 3: Make the cookie banner real — live in production 22 September 2026
+## Phase 3: Make the cookie banner real — done 22 September 2026, bar the firm's copy
+
+Code live, container published, all four consent states verified on
+production. What remains is not ours: the banner and modal wording, the two
+policy pages, and two decisions that belong to the firm rather than to us —
+whether rejecting should stop data reaching Google entirely, and whether the
+settings switches keep starting pre-ticked. Both are in `docs/client-brief.md`
+in Spanish, to be sent 23 September.
 
 | | |
 | --- | --- |
@@ -391,9 +398,7 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 - [x] Tag Manager: consent overview on, all eight tags reviewed and left on
       "No additional consent required" — they are all Google-built and carry
       their own checks. The eighth turned out to be the Conversion Linker
-- [ ] **Tag Manager: container published** — the last step. Nothing changes
-      functionally, since "Not set" and "No additional consent required"
-      behave identically at fire time; it records the review
+- [x] Tag Manager: container published, 22 September 2026
 - [x] Verified on production, 22 September 2026, Tag Assistant plus DevTools,
       clean profile for each state:
       - consent default is dataLayer event **1**, ahead of `rk_page_view` at 6
