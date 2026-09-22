@@ -395,10 +395,10 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 ### Checklist
 
 - [ ] Enhanced measurement: form interactions off, scroll off, page views on navigation verified
-- [ ] Tag Manager: non-production exception rebuilt as a Custom Event `.*` trigger on `Page Hostname does not equal www.rkabogados.cl`; verified blocked on a preview URL
-- [ ] Tag Manager: `Solo enlaces` trigger and the `First Name` / `Last Name` variables deleted; cross-domain linking unticked
+- [x] Tag Manager: non-production exception rebuilt as a Custom Event `.*` trigger on `Page Hostname does not equal www.rkabogados.cl`, published 22 September 2026 — preview verification is in the final sweep
+- [x] Tag Manager: `Solo enlaces` trigger and the `First Name` / `Last Name` variables deleted; cross-domain linking unticked; Google tag renamed from `RyO Asociados` to the firm's name in Ads
 - [ ] Tag Manager: `rk_.*` trigger, data layer variables for the labels, one GA4 event tag
-- [ ] Tag Manager: "Include user-provided data from your website" ticked on the three form conversion tags, pointing at the existing variable — Google's recommended shape, and it removes the dependency on the User-provided Data Event tag whose "Failed" status misleads. Verify with one send, then pause that tag a week later if Ads diagnostics stay "Excellent"
+- [x] ~~"Include user-provided data" on the conversion tags~~ — the option no longer exists in this account's Tag Manager, on the conversion tags or the Google tag. The User-provided Data Event tag stays as the mechanism; Ads rates it "Excellent", and its "Failed" status in Tag Assistant is cosmetic
 - [x] Ads diagnostics: Formulario Contacto received user-provided data from the 22 September test send within the hour — all three forms confirmed, nothing in the container to change
 - [ ] Analytics: twelve custom dimensions registered (see step 2)
 - [ ] Analytics: four key events marked
@@ -490,6 +490,7 @@ Small items deliberately postponed from earlier phases, to be closed in one sitt
 - [ ] Phone walk of the workers form and a WhatsApp tap (from phase 2): confirmed by the Sheet row and Ads diagnostics staying healthy
 - [ ] Apps Script: the eight `ft_*` columns (from phase 2), snippet in `docs/tracking-events.md`
 - [ ] Preview and test traffic kept out of the live Sheet (finding 4 of the 22 September review, left open by choice): env-gate the Apps Script URL or skip `logToSheet` off the production hostname
+- [ ] Container's non-production exception verified on a preview URL with Tag Assistant: Google tags blocked on load, conversion tag blocked on a WhatsApp click
 - [ ] Old `Click Whatsapp RK` action demoted or removed, and `Cliente convertido` import understood (from the phase 1 open list)
 - [ ] `docs/tracking-events.md` re-read against the code one last time
 
