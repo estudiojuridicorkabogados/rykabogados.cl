@@ -269,9 +269,11 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 - [x] Caso code generated for every visitor
 - [x] First touch stored in a 90-day cookie, for every first visit
 - [x] First touch sent with every Sheet row (`ft_*` parameters)
-- [ ] Apps Script updated to write the `ft_*` columns — lives in the client's
-      Google account, not in this repository; the paste-ready change is in
-      `docs/tracking-events.md` under "The Sheet row"
+- [ ] Apps Script updated to write the `ft_*` columns — **moved to the final
+      sweep** (phase 7). Lives in the client's Google account, not in this
+      repository; the paste-ready change is in `docs/tracking-events.md`
+      under "The Sheet row". Until then the site sends the parameters and
+      the script ignores them, which is harmless.
 - [x] Labels reset on every dataLayer push
 - [x] Contact form: native validation reported as `rk_form_error`, not as a submit
 - [x] Consent banner reload removed (pulled forward from phase 3)
@@ -282,8 +284,9 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
       fired on their events, enhanced conversions rated "Excellent" in Ads
       for Trabajadores and Contacto the same day, contact form's native
       validation reported as `rk_form_error`, no reload on consent
-- [ ] Phone walk: one form start and one WhatsApp tap from a mobile,
-      confirmed by the Sheet row and the Ads diagnostics staying healthy
+- [ ] Phone walk — **moved to the final sweep** (phase 7): one form start
+      and one WhatsApp tap from a mobile, confirmed by the Sheet row and the
+      Ads diagnostics staying healthy
 - [x] Smoke test — `bun run test:tracking`, an agent-browser walk of the
       trabajadores form asserting the `rk_*` sequence. Not in a pipeline:
       this repo has no CI, and the Playwright spec on `feat/e2e-tests` is
@@ -476,6 +479,16 @@ Build it only after the client has looked at the phase 5 funnels for two or thre
 | **Result** | The first concrete findings and a prioritised list of what to change on the site and in the campaigns. |
 
 Funnels need a few hundred visits per step to say anything reliable. The month is also counted from the consent go-live in phase 3, not from whenever the code shipped: everything before that date was measured on a different basis and mixing the two produces a drop that is not real. After roughly a month we read them together and write down what stands out: the step with the largest loss, the campaign with the worst ratio, the device where the form fails, the field that produces the most errors, the point on the page where readers stop scrolling. Each finding comes with one suggested change. This is where the value of the whole project shows, so it belongs in the offer rather than being left to chance.
+
+### Final sweep
+
+Small items deliberately postponed from earlier phases, to be closed in one sitting before the review call rather than one at a time as they came up. None of them blocks the phases in between.
+
+- [ ] Phone walk of the workers form and a WhatsApp tap (from phase 2): confirmed by the Sheet row and Ads diagnostics staying healthy
+- [ ] Apps Script: the eight `ft_*` columns (from phase 2), snippet in `docs/tracking-events.md`
+- [ ] Preview and test traffic kept out of the live Sheet (finding 4 of the 22 September review, left open by choice): env-gate the Apps Script URL or skip `logToSheet` off the production hostname
+- [ ] Old `Click Whatsapp RK` action demoted or removed, and `Cliente convertido` import understood (from the phase 1 open list)
+- [ ] `docs/tracking-events.md` re-read against the code one last time
 
 ---
 
