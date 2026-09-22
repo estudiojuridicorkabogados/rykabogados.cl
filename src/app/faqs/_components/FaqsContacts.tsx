@@ -4,12 +4,20 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
+import { trackEvent } from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 
 export const FaqsContacts = () => {
   const router = useRouter();
 
-  const onClickContactUs = () => router.push(URLS.contacts());
+  const onClickContactUs = () => {
+    trackEvent("rk_cta_click", {
+      location: "faqs",
+      cta_label: "Contáctanos",
+    });
+
+    router.push(URLS.contacts());
+  };
 
   return (
     <div className="mx-auto mt-12 mb-8 px-6 lg:mt-24 lg:mb-16 lg:max-w-6xl lg:min-w-6xl 2xl:w-7xl 2xl:max-w-7xl">
@@ -29,7 +37,11 @@ export const FaqsContacts = () => {
             Contáctanos
           </Button>
 
-          <WhatsappLink greenButton className="w-full lg:w-fit" />
+          <WhatsappLink
+            location="faqs"
+            greenButton
+            className="w-full lg:w-fit"
+          />
         </div>
       </div>
     </div>

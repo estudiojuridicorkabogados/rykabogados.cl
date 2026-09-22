@@ -5,10 +5,18 @@ import { useSyncExternalStore } from "react";
 import { WhatsappIcon } from "@/components/icons/Whatsapp";
 import { Button } from "@/components/ui/Button";
 import { useTracking } from "@/hooks/useTracking";
-import { trackWhatsappConversion } from "@/lib/utils/analytics";
+import { TrackLocation, trackWhatsappConversion } from "@/lib/utils/analytics";
 import { classNames } from "@/lib/utils/classNames";
 
 interface WhatsappLinkProps {
+  /**
+   * Where on the page this link sits. Required, and deliberately so: the
+   * component is used in ten places and every one of them produced the same
+   * indistinguishable conversion, so a tap won from a chatbot conversation
+   * read exactly like one in the footer. A required prop is the only thing
+   * that stops an eleventh being added untagged.
+   */
+  location: TrackLocation;
   className?: string;
   text?: string;
   showIcon?: boolean;
@@ -18,6 +26,7 @@ interface WhatsappLinkProps {
 }
 
 const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
+  location,
   className,
   text = "Hablemos por Whatsapp",
   showIcon = true,
@@ -28,12 +37,15 @@ const WhatsappLinkInternal: React.FC<WhatsappLinkProps> = ({
   const { whatsappUrl, logToSheet } = useTracking();
 
   const handleClick = () => {
+    // The Sheet row stays as it is: the Apps Script behind it reads a fixed
+    // set of parameters, and `location` belongs in the funnel rather than in
+    // the case log.
     logToSheet({
       landing: window.location.href,
       channel: "whatsapp",
     });
 
-    trackWhatsappConversion();
+    trackWhatsappConversion(location);
   };
 
   if (variant === "free-text") {

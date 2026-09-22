@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/Button";
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
+import { trackEvent } from "@/lib/utils/analytics";
 
 const containerVariants: Variants = {
   hidden: { y: 400 },
@@ -35,6 +36,12 @@ const itemVariants: Variants = {
 export const Slogan = () => {
   const handleScrollToForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+
+    trackEvent("rk_cta_click", {
+      location: "slogan",
+      cta_label: "Agenda una asesoría",
+    });
+
     const element = document.getElementById("reserva-form-section");
     if (element) {
       element.scrollIntoView({
@@ -92,7 +99,7 @@ export const Slogan = () => {
               </a>
             </Button>
 
-            <WhatsappLink text="Contacto directo" />
+            <WhatsappLink location="slogan" text="Contacto directo" />
           </m.div>
         </div>
       </m.div>

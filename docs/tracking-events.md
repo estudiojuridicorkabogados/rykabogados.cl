@@ -28,6 +28,12 @@ automatically, from the URL at the moment of the push.
 | `page_type` | `home`, `landing_trabajadores`, `landing_empresas`, `asesoria_trabajadores`, `asesoria_empresas`, `otras_areas`, `contacto`, `nosotros`, `faqs`, `blog_index`, `blog_post`, `legal`, `other` |
 | `form_name` | `trabajadores`, `empresas`, `contacto` |
 | `location` | `hero`, `slogan`, `navbar`, `footer`, `contact_section`, `contact_page`, `faqs`, `blog_post`, `team_grid`, `chatbot`, `about_section`, `team_section` |
+
+Server-rendered links carry their `location` as a plain `data-track-location`
+attribute on an ancestor — the footer's contact block, each team card, the FAQ
+answer — which one delegated listener reads. That keeps the footer, the contact
+sidebar and the team page as server components instead of converting four of
+them to client components to hang an onClick on twenty-odd anchors.
 | `percent_scrolled` | `25`, `50`, `75`, `100` |
 
 `page_type` is a closed set on purpose. A free-form value here becomes a
@@ -49,12 +55,12 @@ high-cardinality dimension in Analytics, which its reports collapse into an
 
 | Event | Status | Meaning | Extra labels |
 | --- | --- | --- | --- |
-| `rk_form_view` | 🔜 | The visitor scrolled far enough to actually see the form. Separates "never saw it" from "saw it and left". | `form_name` |
-| `rk_form_start` | 🔜 | First interaction — a date picked or any field focused. Once per visit. | `form_name` |
-| `rk_form_step` | 🔜 | A step was completed. On the two booking forms the calendar is step 1, personal details step 2. | `form_name`, `step` |
-| `rk_form_error` | 🔜 | The form refused to continue, and which fields caused it. | `form_name`, `error_fields` |
-| `rk_form_submit` | 🔜 | The visitor tried to send. Compared with the success events, this is what exposes technical failures. | `form_name` |
-| `rk_form_fail` | 🔜 | The send did not go through — captcha, calendar or server error. | `form_name`, `fail_reason` |
+| `rk_form_view` | ✅ | The visitor scrolled far enough to actually see the form. Separates "never saw it" from "saw it and left". | `form_name` |
+| `rk_form_start` | ✅ | First interaction — a date picked or any field focused. Once per visit. | `form_name` |
+| `rk_form_step` | ✅ | A step was completed. On the two booking forms the calendar is step 1, personal details step 2. | `form_name`, `step` |
+| `rk_form_error` | ✅ | The form refused to continue, and which fields caused it. | `form_name`, `error_fields` |
+| `rk_form_submit` | ✅ | The visitor tried to send. Compared with the success events, this is what exposes technical failures. | `form_name` |
+| `rk_form_fail` | ✅ | The send did not go through — captcha, calendar or server error. | `form_name`, `fail_reason` |
 
 There is no `rk_form_success`: the success step is the conversion event below.
 
@@ -70,7 +76,7 @@ added is the labels.
 | `rk_conv_contact_form` | ✅ | Formulario RK | `form_name`, `user_data` |
 | `rk_conv_trabajadores_booking` | ✅ | Formulario Trabajadores | `form_name`, `user_data` |
 | `rk_conv_empresas_booking` | ✅ | Formulario Empresa | `form_name`, `user_data` |
-| `rk_conv_whatsapp` | ✅ | Clic WhatsApp | `location` 🔜 |
+| `rk_conv_whatsapp` | ✅ | Clic WhatsApp | `location` |
 
 `user_data` carries the visitor's email and phone for enhanced conversions.
 Tag Manager's User-Provided Data tag hashes both before anything leaves the
@@ -85,8 +91,8 @@ per-conversion values whenever the firm decides what a contact is worth.
 
 | Event | Status | Meaning | Extra labels |
 | --- | --- | --- | --- |
-| `rk_contact_click` | 🔜 | A phone number or email address was clicked — footer, contact page, team page. Mostly mobile visitors. | `location`, `contact_method` |
-| `rk_cta_click` | 🔜 | An "Agenda una asesoría" or similar button that leads to a form. | `location`, `cta_label` |
+| `rk_contact_click` | ✅ | A phone number or email address was clicked — footer, contact page, team page. Mostly mobile visitors. | `location`, `contact_method` |
+| `rk_cta_click` | ✅ | An "Agenda una asesoría" or similar button that leads to a form. | `location`, `cta_label` |
 
 ## The chatbot
 

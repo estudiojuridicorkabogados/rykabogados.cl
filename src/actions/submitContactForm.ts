@@ -10,6 +10,13 @@ import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
 export interface ActionResponse {
   success: boolean;
   message: string | null;
+  /**
+   * The honeypot was filled, so this was a bot. Reported as a success to the
+   * caller — telling a bot it failed only invites a retry — but flagged so the
+   * client does not count it. Without the flag every honeypot hit fired a
+   * Google Ads conversion and wrote a row to the Sheet.
+   */
+  spam?: boolean;
   errors?: {
     name?: string[];
     email?: string[];
@@ -55,7 +62,7 @@ export async function submitContactForm(
 ): Promise<ActionResponse> {
   const honeypot = (formData.get("company") as string) || "";
   if (honeypot.trim().length > 0) {
-    return { success: true, message: "Form submitted succesfully" };
+    return { success: true, spam: true, message: "Form submitted succesfully" };
   }
 
   const rawData: ContactFormData = {

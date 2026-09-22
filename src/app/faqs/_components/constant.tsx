@@ -401,6 +401,7 @@ export const FAQS: Faq[] = [
           revisarla de manera rápida y directa. Si la situación no se resuelve,
           puedes escribir a{" "}
           <a
+            data-track-location="faqs"
             href="mailto:contacto@rkabogados.cl"
             className="underline underline-offset-2"
           >

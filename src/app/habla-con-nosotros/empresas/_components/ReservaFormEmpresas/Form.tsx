@@ -4,12 +4,13 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 
 import { LongArrowRight } from "@/components/icons/LongArrowRight";
 import { TimeSlotStep } from "@/components/ReservaForm/TimeslotStep";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { onceOnThisPage, trackEvent } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 
 import { EmpresaInfoStep } from "./EmpresaInfoStep";
@@ -34,9 +35,31 @@ const AVAILABLE_TIME_SLOTS = [
   "17:30",
 ];
 
+const FORM_NAME = "empresas" as const;
+
+/**
+ * The first sign of a real attempt. Focus rather than a keystroke, so that
+ * picking a date — the calendar days are buttons, and a click focuses them —
+ * counts as starting the form, which is what it is. Pointer-down as well
+ * because Safari does not focus a button on click.
+ */
+const handleFormStart = () => {
+  if (onceOnThisPage(`form_start:${FORM_NAME}`)) {
+    trackEvent("rk_form_start", { form_name: FORM_NAME });
+  }
+};
+
+const handleInvalidSubmit = (submitErrors: FieldErrors<FormData>) => {
+  trackEvent("rk_form_error", {
+    form_name: FORM_NAME,
+    error_fields: Object.keys(submitErrors).join(","),
+  });
+};
+
 export const Form: React.FC<FormProps> = ({
   currentStep,
   pending,
+  submitError,
   onNext,
   onSubmit,
 }) => {
@@ -47,6 +70,7 @@ export const Form: React.FC<FormProps> = ({
     setValue,
     formState: { errors },
     trigger,
+    getFieldState,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: "onSubmit",
@@ -54,10 +78,10 @@ export const Form: React.FC<FormProps> = ({
 
   const nextStep = async () => {
     // Validate current step fields
-    const isValid = await trigger(
+    const stepFields =
       currentStep === 1
-        ? ["timeSlot", "date"]
-        : [
+        ? (["timeSlot", "date"] as const)
+        : ([
             "name",
             "email",
             "phoneNumber",
@@ -65,17 +89,40 @@ export const Form: React.FC<FormProps> = ({
             "tamanoEmpresa",
             "comoQuieresAvanzar",
             "mensaje",
-          ]
-    );
+          ] as const);
 
-    if (isValid) {
-      onNext();
+    const isValid = await trigger(stepFields);
+
+    if (!isValid) {
+      // Read back through getFieldState rather than the destructured `errors`
+      // object: that one is the snapshot from the render this callback was
+      // created in, and `trigger` has only just written the new state.
+      trackEvent("rk_form_error", {
+        form_name: FORM_NAME,
+        error_fields: stepFields
+          .filter((field) => getFieldState(field).invalid)
+          .join(","),
+      });
+      return;
     }
+
+    trackEvent("rk_form_step", { form_name: FORM_NAME, step: currentStep });
+    onNext();
+  };
+
+  const handleValidSubmit = (formData: FormData) => {
+    trackEvent("rk_form_submit", { form_name: FORM_NAME });
+    onSubmit(formData);
   };
 
   return (
     <m.div variants={itemVariants} className="w-full">
-      <form id="reserva-form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        id="reserva-form"
+        onSubmit={handleSubmit(handleValidSubmit, handleInvalidSubmit)}
+        onFocusCapture={handleFormStart}
+        onPointerDownCapture={handleFormStart}
+      >
         <div className="flex flex-col">
           <m.div
             className="flex flex-col"
@@ -148,6 +195,15 @@ export const Form: React.FC<FormProps> = ({
                       )}
                     </Button>
                   </div>
+
+                  {submitError && (
+                    <p
+                      role="alert"
+                      className="mt-4 text-right text-sm text-red-300"
+                    >
+                      {submitError}
+                    </p>
+                  )}
                 </m.div>
               )}
             </AnimatePresence>

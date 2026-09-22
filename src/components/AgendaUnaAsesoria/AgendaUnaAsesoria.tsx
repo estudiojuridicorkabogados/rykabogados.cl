@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { Popover } from "radix-ui";
 
+import { TrackLocation, trackEvent } from "@/lib/utils/analytics";
 import { classNames } from "@/lib/utils/classNames";
 import { URLS } from "@/lib/utils/constants";
 
@@ -20,11 +21,14 @@ const RESERVA_LINKS = [
 ];
 
 interface AgendaUnaAsesoriaProps {
+  /** The navbar copy appears on every page, so page_type cannot tell them apart. */
+  location: TrackLocation;
   variant?: "white" | "dark";
   className?: string;
 }
 
 export const AgendaUnaAsesoria: React.FC<AgendaUnaAsesoriaProps> = ({
+  location,
   variant = "white",
   className,
 }) => {
@@ -81,7 +85,13 @@ export const AgendaUnaAsesoria: React.FC<AgendaUnaAsesoriaProps> = ({
               key={label}
               href={href}
               className="hover:text-accent-dark flex items-center gap-3 border-b border-black/10 py-3 text-black transition-all last:border-0"
-              onClick={() => setTimeout(() => setOpen(false), 200)}
+              onClick={() => {
+                trackEvent("rk_cta_click", {
+                  location,
+                  cta_label: `Agenda una asesoría — ${label}`,
+                });
+                setTimeout(() => setOpen(false), 200);
+              }}
             >
               <span className="text-sm">{label}</span>
             </Link>

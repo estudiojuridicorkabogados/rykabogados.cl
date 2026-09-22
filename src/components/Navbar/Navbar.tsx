@@ -103,7 +103,7 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden h-full lg:flex lg:w-[220px] lg:items-center lg:justify-center">
-          <AgendaUnaAsesoria variant="white" />
+          <AgendaUnaAsesoria location="navbar" variant="white" />
         </div>
 
         {/* Mobile menu button */}

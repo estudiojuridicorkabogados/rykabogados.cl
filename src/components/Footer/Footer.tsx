@@ -103,7 +103,7 @@ export const Footer = () => {
           <div className="flex flex-col gap-8 text-center text-sm font-medium text-white md:text-left">
             <span>{ADDRESS}</span>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2" data-track-location="footer">
               <span>
                 Tel <a href="tel:+56233808828">2 33808828</a> -{" "}
                 <a href="tel:+56986395780">9 86395780</a>

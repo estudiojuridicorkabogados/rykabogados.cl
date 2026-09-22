@@ -3,6 +3,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import { ContactClickTracker } from "./ContactClickTracker";
 import { DeferredGoogleTagManager } from "./DeferredGoogleTagManager";
 import { PageViewTracker } from "./PageViewTracker";
 import { ScrollDepthTracker } from "./ScrollDepthTracker";
@@ -27,6 +28,7 @@ export function ConditionalAnalytics() {
 
       <PageViewTracker />
       <ScrollDepthTracker />
+      <ContactClickTracker />
 
       <DeferredGoogleTagManager />
 

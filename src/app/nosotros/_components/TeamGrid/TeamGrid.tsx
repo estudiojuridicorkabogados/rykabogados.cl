@@ -55,6 +55,7 @@ export const TeamGrid = () => {
                   </p>
 
                   <a
+                    data-track-location="team_grid"
                     href={`mailto:${person.email}`}
                     target="_blank"
                     className="hover:text-accent cursor-pointer text-sm text-white/80 transition-colors duration-300"
@@ -63,6 +64,7 @@ export const TeamGrid = () => {
                     {person.email}
                   </a>
                   <a
+                    data-track-location="team_grid"
                     href={person.phoneLink}
                     target="_blank"
                     className="hover:text-accent mb-2 cursor-pointer text-sm text-white/80 transition-colors duration-300"

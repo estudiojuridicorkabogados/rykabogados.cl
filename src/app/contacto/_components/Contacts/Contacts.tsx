@@ -7,7 +7,7 @@ import { ADDRESS, URLS } from "@/lib/utils/constants";
 export const Contacts = () => {
   return (
     <div className="flex flex-1 flex-col gap-12 text-white lg:mt-18 lg:h-full lg:justify-end">
-      <div className="flex flex-col">
+      <div className="flex flex-col" data-track-location="contact_page">
         <span className="font-bold">Hablemos</span>
         <span>
           Tel <a href="tel:+56233808828">+56 2 3380 8828</a> -{" "}
@@ -20,7 +20,7 @@ export const Contacts = () => {
           contacto@rkabogados.cl
         </a>
 
-        <WhatsappLink className="mt-4 w-full" />
+        <WhatsappLink location="contact_page" className="mt-4 w-full" />
       </div>
 
       <div className="flex items-center gap-3">

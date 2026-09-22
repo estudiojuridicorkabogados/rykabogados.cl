@@ -13,9 +13,13 @@ export const HablaConNosotros: React.FC = () => {
         la información que necesitas para tomar la mejor decisión.
       </p>
 
-      <AgendaUnaAsesoria variant="dark" className="lg:w-full" />
+      <AgendaUnaAsesoria
+        location="blog_post"
+        variant="dark"
+        className="lg:w-full"
+      />
 
-      <WhatsappLink greenButton className="mt-4 w-full" />
+      <WhatsappLink location="blog_post" greenButton className="mt-4 w-full" />
     </div>
   );
 };

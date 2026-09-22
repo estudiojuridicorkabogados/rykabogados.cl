@@ -43,7 +43,12 @@ export const InitialBotMessage: React.FC<InitialBotMessageProps> = ({
           </m.div>
 
           <m.div className="chatbot-msg agent-msg" variants={itemVariants}>
-            O <WhatsappLink variant="link" text="Hablemos por whatsapp 📲" />
+            O{" "}
+            <WhatsappLink
+              location="chatbot"
+              variant="link"
+              text="Hablemos por whatsapp 📲"
+            />
           </m.div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import * as m from "motion/react-m";
 
 import { Button } from "@/components/ui/Button";
 import { WhatsappLink } from "@/components/WhatsappLink/WhatsappLink";
+import { trackEvent } from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 
 interface HeroContentProps {
@@ -19,6 +20,12 @@ export const HeroContent: React.FC<HeroContentProps> = ({
 }) => {
   const handleScrollToForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+
+    trackEvent("rk_cta_click", {
+      location: "hero",
+      cta_label: "Agenda una asesoría",
+    });
+
     const element = document.getElementById("reserva-form-section");
     if (element) {
       element.scrollIntoView({
@@ -67,7 +74,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
           </a>
         </Button>
 
-        <WhatsappLink />
+        <WhatsappLink location="hero" />
       </m.div>
     </m.div>
   );

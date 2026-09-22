@@ -10,9 +10,13 @@ import { submitBookACallFormTrabajadores } from "@/actions/submitBookACallFormTr
 import { InfoModal } from "@/components/InfoModal/InfoModal";
 import { BookingFormSkeleton } from "@/components/ReservaForm/BookingFormSkeleton";
 import { useDeferredMount } from "@/hooks/useDeferredMount";
+import { useInViewOnce } from "@/hooks/useInViewOnce";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
-import { trackTrabajadoresBookACallFormConversion } from "@/lib/utils/analytics";
+import {
+  trackTrabajadoresBookACallFormConversion,
+  trackEvent,
+} from "@/lib/utils/analytics";
 import { itemVariants } from "@/lib/utils/animations";
 import { classNames } from "@/lib/utils/classNames";
 
@@ -35,6 +39,8 @@ const formatDate = (date: Date) => {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 };
 
+const FORM_NAME = "trabajadores" as const;
+
 export const ReservaFormTrabajadores = () => {
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -46,6 +52,16 @@ export const ReservaFormTrabajadores = () => {
 
   const { ref: formRef, ready: formReady } = useDeferredMount<HTMLDivElement>();
 
+  /**
+   * Shares the element useDeferredMount already watches, but with the plain
+   * reading of "on screen" rather than that hook's deliberate 800px head
+   * start. This is what separates a visitor who never scrolled to the form
+   * from one who saw it and left.
+   */
+  useInViewOnce(formRef, () => {
+    trackEvent("rk_form_view", { form_name: FORM_NAME });
+  });
+
   const onNext = () => setCurrentStep(currentStep + 1);
 
   const onSubmit = async (data: FormData) => {
@@ -55,6 +71,10 @@ export const ReservaFormTrabajadores = () => {
       try {
         if (!data.date) {
           setSubmitError("Debe seleccionar una fecha");
+          trackEvent("rk_form_error", {
+            form_name: FORM_NAME,
+            error_fields: "date",
+          });
           return;
         }
 
@@ -80,7 +100,7 @@ export const ReservaFormTrabajadores = () => {
           // Log to Google Sheets
           logToSheet({
             landing: window.location.href,
-            channel: "reserva-form-trabjadores",
+            channel: "reserva-form-trabajadores",
             phone: data.phoneNumber,
             email: data.email,
           });
@@ -90,9 +110,26 @@ export const ReservaFormTrabajadores = () => {
             timeSlot: data.timeSlot,
           });
           setCurrentStep(1); // Reset to step 1
+        } else {
+          // There was no else here: a rejected captcha or a calendar that
+          // refused the slot returned { success: false } and the visitor was
+          // shown nothing at all, while we recorded nothing at all. Both
+          // halves of that were silent.
+          setSubmitError(
+            result.message ??
+              "No pudimos agendar la reunión. Por favor, intenta nuevamente."
+          );
+          trackEvent("rk_form_fail", {
+            form_name: FORM_NAME,
+            fail_reason: result.message ?? "unknown",
+          });
         }
       } catch {
         setSubmitError("Error inesperado. Por favor, intenta nuevamente.");
+        trackEvent("rk_form_fail", {
+          form_name: FORM_NAME,
+          fail_reason: "exception",
+        });
         // console.error("Submit error:", error);
       }
     });

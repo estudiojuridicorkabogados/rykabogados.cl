@@ -4,12 +4,22 @@ import { useRouter } from "next/navigation";
 
 import { Reveal } from "@/components/Reveal/Reveal";
 import { Button } from "@/components/ui/Button";
+import { trackEvent } from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 
 export const AboutSection = () => {
   const router = useRouter();
 
-  const navigateToContacto = () => router.push(URLS.contacts());
+  // Rendered twice, desktop and mobile, so the label alone would double-count
+  // a single button. One handler, one signal.
+  const navigateToContacto = () => {
+    trackEvent("rk_cta_click", {
+      location: "about_section",
+      cta_label: "Contáctanos",
+    });
+
+    router.push(URLS.contacts());
+  };
 
   return (
     <section className="bg-white py-16 lg:py-24">

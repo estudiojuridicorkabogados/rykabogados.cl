@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
+import { trackEvent } from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 
 interface ContactButtonProps {
@@ -17,6 +18,11 @@ export const ContactButton: React.FC<ContactButtonProps> = ({
   const router = useRouter();
 
   const navigateToContacto = () => {
+    trackEvent("rk_cta_click", {
+      location: "contact_section",
+      cta_label: label,
+    });
+
     if (onClick) {
       onClick();
       return;

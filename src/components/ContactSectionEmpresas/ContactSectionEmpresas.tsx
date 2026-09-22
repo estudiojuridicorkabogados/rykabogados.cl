@@ -54,6 +54,7 @@ export const ContactSectionEmpresas: React.FC<ContactSectionEmpresasProps> = ({
               </p>
 
               <WhatsappLink
+                location="contact_section"
                 variant="free-text"
                 text="O contáctanos directamente por WhatsApp"
               />

@@ -10,9 +10,14 @@ import {
 import { FloatingLabelInput } from "@/components/Input/FloatingLabelInput";
 import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { useInViewOnce } from "@/hooks/useInViewOnce";
 import { useTracking } from "@/hooks/useTracking";
 import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
-import { trackContactFormSubmission } from "@/lib/utils/analytics";
+import {
+  onceOnThisPage,
+  trackContactFormSubmission,
+  trackEvent,
+} from "@/lib/utils/analytics";
 import { URLS } from "@/lib/utils/constants";
 import { getSessionCode } from "@/lib/utils/tracking";
 
@@ -21,11 +26,36 @@ const initialState: ActionResponse = {
   message: "",
 };
 
+const FORM_NAME = "contacto" as const;
+
+/**
+ * The first sign of a real attempt — focus rather than a keystroke, so that
+ * reaching for the select counts. Pointer-down as well, because Safari does
+ * not focus a button on click.
+ */
+const handleFormStart = () => {
+  if (onceOnThisPage(`form_start:${FORM_NAME}`)) {
+    trackEvent("rk_form_start", { form_name: FORM_NAME });
+  }
+};
+
 export const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const tokenRef = useRef<HTMLInputElement>(null);
   const sessionCodeRef = useRef<HTMLInputElement>(null);
   const { logToSheet } = useTracking();
+
+  useInViewOnce(formRef, () => {
+    trackEvent("rk_form_view", { form_name: FORM_NAME });
+  });
+
+  /**
+   * The success effect below re-runs whenever `logToSheet` changes identity,
+   * and it is memoised on the Caso code — which arrives from storage after
+   * mount. Without a latch, a code resolving late would replay a conversion
+   * that had already been counted.
+   */
+  const reportedSuccess = useRef(false);
 
   const [state, action, isPending] = useActionState(
     submitContactForm,
@@ -52,7 +82,11 @@ export const ContactForm = () => {
   }, []);
 
   useEffect(() => {
-    if (state.success) {
+    // `spam` is a honeypot hit: the bot is told it succeeded, and nothing is
+    // counted. Every one of these used to fire a Google Ads conversion.
+    if (state.success && !state.spam && !reportedSuccess.current) {
+      reportedSuccess.current = true;
+
       toast.success("Formulario enviado con éxito", {
         description:
           "Un miembro de nuestro equipo se pondrá en contacto pronto",
@@ -73,9 +107,39 @@ export const ContactForm = () => {
         email,
       });
     }
-  }, [state.success, logToSheet]);
+  }, [state.success, state.spam, logToSheet]);
+
+  /**
+   * Failures were entirely silent: a rejected captcha produces
+   * `errors.token`, which nothing renders, so the visitor sees a form that
+   * simply does nothing and the firm never learns the enquiry was attempted.
+   * Validation errors are their own signal — `rk_form_fail` is reserved for
+   * a send that was technically refused.
+   */
+  useEffect(() => {
+    const failedFields = Object.keys(state.errors ?? {});
+
+    if (state.success || failedFields.length === 0) {
+      return;
+    }
+
+    if (state.errors?.token) {
+      trackEvent("rk_form_fail", {
+        form_name: FORM_NAME,
+        fail_reason: "captcha",
+      });
+      return;
+    }
+
+    trackEvent("rk_form_error", {
+      form_name: FORM_NAME,
+      error_fields: failedFields.join(","),
+    });
+  }, [state]);
 
   const handleClick = async () => {
+    trackEvent("rk_form_submit", { form_name: FORM_NAME });
+
     const token = await getCaptchaToken();
 
     if (token && tokenRef.current) {
@@ -100,6 +164,8 @@ export const ContactForm = () => {
           <form
             ref={formRef}
             action={action}
+            onFocusCapture={handleFormStart}
+            onPointerDownCapture={handleFormStart}
             className="mt-4 flex max-w-[450px] flex-col gap-6"
           >
             {/* Honeypot for bots */}

@@ -23,7 +23,11 @@ export const Message: React.FC<MessageProps> = ({ message }) => {
       <div className="flex justify-start">
         <div className="chatbot-msg agent-msg">
           Si quieres hablar por WhatsApp, puedes usar este número{" "}
-          <WhatsappLink variant="link" text="+56 9 8639 5780 📲" />
+          <WhatsappLink
+            location="chatbot"
+            variant="link"
+            text="+56 9 8639 5780 📲"
+          />
         </div>
       </div>
     );
