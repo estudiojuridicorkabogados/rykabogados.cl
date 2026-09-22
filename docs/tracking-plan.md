@@ -6,6 +6,14 @@ What we will build so RK Abogados can see which campaigns bring people who actua
 
 Prepared 16 September 2026, revised 20 September 2026.
 
+**All dates and times in this document, and in every document beside it, are
+Santiago time** (`America/Santiago`) — the same zone the Analytics property is
+set to, so a date written here lines up with the same date in a report. This
+matters because the work is done from Cyprus, which runs **six hours ahead**:
+anything done between midnight and 06:00 Cyprus time belongs to the *previous*
+day in Santiago, and would otherwise be filed a day late against the data it
+describes. Convert before writing a date down, not after.
+
 Status: draft, under review.
 
 ## Contents
@@ -412,9 +420,10 @@ A visitor can then accept measurement while refusing ad personalisation, which i
       declining visitor. `url_passthrough` decorates `<a>` clicks and Next's
       `<Link>` router takes the click first. Tested on production, incognito,
       22 September 2026. Consequence and why it is close to harmless: step 5
-- [x] Go-live date recorded as the reporting baseline: **22 September 2026**,
-      set by the deploy rather than agreed in advance. Everything before that
-      date was measured on a different basis; phase 7 counts from it
+- [x] Go-live recorded as the reporting baseline: **22 September 2026, about
+      13:00 Santiago** (19:00 Cyprus), set by the deploy rather than agreed in
+      advance. Everything before that moment was measured on a different basis;
+      phase 7 counts from it, and the hour matters when reading the first day
 - [ ] `/politica-cookies` updated with the advertising category and the real cookie table
 - [ ] `/politicas-de-privacidad` updated
 - [ ] Banner and modal copy reviewed with the client
