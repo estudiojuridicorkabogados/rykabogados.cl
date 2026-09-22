@@ -37,15 +37,26 @@ export const CookieBanner = () => {
   if (!mounted) return null;
 
   return (
+    // Not role="dialog": it is non-modal, traps no focus and the page stays
+    // usable behind it.
+    //
+    // Two buttons on purpose. Rejecting lives one click away, inside
+    // "Personalizar" — see the note in CookieSettingsModal for why that is a
+    // defensible position in Chile today and when it stops being one.
     <div
       data-closing={closing}
+      role="region"
+      aria-labelledby="cookie-banner-title"
       className="cookie-banner fixed right-0 bottom-0 left-0 z-50 border-t border-gray-200 bg-white shadow-lg"
     >
       <div className="container mx-auto max-w-7xl px-4 py-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           {/* Content */}
           <div className="flex-1">
-            <h3 className="mb-2 !font-sans text-lg font-semibold text-gray-900">
+            <h3
+              id="cookie-banner-title"
+              className="mb-2 !font-sans text-lg font-semibold text-gray-900"
+            >
               Usamos cookies
             </h3>
             <p className="text-sm text-gray-600">

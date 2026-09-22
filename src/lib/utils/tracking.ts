@@ -3,6 +3,7 @@ import {
   readCampaignCookie,
   writeAttributionCookie,
 } from "@/lib/utils/campaignParams";
+import { hasAdvertisingConsent } from "@/lib/utils/consent";
 
 const WEBAPP_URL =
   "https://script.google.com/macros/s/AKfycbwdfIflbl-jPOw5j-ldCl_qumzoEDvC82njzKOf4ZiO6jQwvhnlWa4k1txCLQdzSjrnwA/exec";
@@ -49,6 +50,14 @@ function mintCode(): string {
  *
  * sessionStorage is still read first so that anyone mid-visit when this ships
  * keeps the code they may already have pasted into WhatsApp.
+ *
+ * Since phase 3 it needs advertising consent, because it is exactly what the
+ * advertising category describes: a ninety-day identifier whose only purpose
+ * is to join a conversation to the campaign that produced it. Without consent
+ * the caller gets an empty string, and everything downstream already copes —
+ * buildWhatsAppUrl drops the "Caso:" line, and the Sheet row is still written,
+ * with no code and no campaign against it. The firm still gets the enquiry;
+ * they just cannot trace it back to an ad.
  */
 export function getSessionCode(): string {
   if (typeof window === "undefined") {
@@ -59,6 +68,12 @@ export function getSessionCode(): string {
   try {
     const fromCookie = readCampaignCookie(CASO_COOKIE);
     if (fromCookie) return fromCookie;
+
+    // Checked after the read, deliberately: a visitor who consented, was
+    // issued a code, and later withdrew keeps quoting the code they may
+    // already have sent on WhatsApp. Withdrawal stops new identifiers; it
+    // does not invalidate a reference the firm is mid-conversation about.
+    if (!hasAdvertisingConsent()) return "";
 
     // Read once, for continuity: a visitor mid-visit when this ships keeps the
     // code they may already have pasted into WhatsApp. Nothing writes back to

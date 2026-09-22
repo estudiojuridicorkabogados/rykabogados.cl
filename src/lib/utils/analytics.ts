@@ -41,6 +41,8 @@
  * the tag.
  */
 
+import { hasAdvertisingConsent } from "@/lib/utils/consent";
+
 const CONVERSION_VALUE = 1.0;
 const CONVERSION_CURRENCY = "CLP";
 
@@ -407,10 +409,26 @@ function normalizePhone(phone?: string) {
   return undefined;
 }
 
+/**
+ * Email and phone for enhanced conversions — or nothing, without advertising
+ * consent.
+ *
+ * GTM's User-Provided Data tag hashes these before anything leaves the
+ * browser, and under `ad_user_data: denied` it will not send them at all. But
+ * suppressing the *send* is not the same as suppressing the *exposure*: until
+ * this check, the raw email and phone of a visitor who had declined were still
+ * pushed into `window.dataLayer`, where every other tag in the container can
+ * read them. That is the same reasoning that took first and last name out of
+ * this payload — PII sitting in a global object in exchange for nothing.
+ *
+ * The consent is read from the cookie rather than from the provider's context
+ * on purpose: this file is framework-free, every other function in it is, and
+ * a React import here would be the beginning of the end of that.
+ */
 export function buildUserData(
   userData?: ConversionUserData
 ): UserDataPayload | undefined {
-  if (!userData) {
+  if (!userData || !hasAdvertisingConsent()) {
     return undefined;
   }
 
