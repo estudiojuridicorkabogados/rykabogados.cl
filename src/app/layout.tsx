@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ConditionalAnalytics } from "@/components/Analytics/ConditionalAnalytics";
+import { SiteAnalytics } from "@/components/Analytics/SiteAnalytics";
 import { CookieBanner } from "@/components/CookieConsent/CookieBanner";
 import { CookieConsentProvider } from "@/components/CookieConsent/CookieConsentProvider";
 import { CookieSettingsModalLoader } from "@/components/CookieConsent/CookieSettingsModalLoader";
@@ -10,9 +10,9 @@ import { JsonLd } from "@/components/JsonLd/JsonLd";
 import { LazyMotionProvider } from "@/components/Motion/LazyMotionProvider";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { SupportChatbot } from "@/components/SupportChatbot/SupportChatbot";
-import { env } from "@/lib/env";
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo/jsonLd";
 import { DEFAULT_DESCRIPTION, SITE_URL } from "@/lib/seo/site";
+import { CONSENT_BOOTSTRAP_SNIPPET } from "@/lib/utils/consent";
 import { dmSans } from "@/lib/utils/fonts";
 
 import "./globals.css";
@@ -52,17 +52,28 @@ export default async function RootLayout({
   return (
     <html lang="es-CL" className={dmSans.variable}>
       <body className="bg-white antialiased">
-        {/* Google Tag Manager (noscript) */}
+        {/*
+          Google Consent Mode defaults, before anything else on the page.
 
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${env.NEXT_PUBLIC_GTM_ID}`}
-            title="Google Tag Manager"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
+          GTM replays the dataLayer in order rather than reading it as state at
+          init, and a consent type it has not been told about behaves as
+          granted. PageViewTracker's effect pushes `rk_page_view` as soon as
+          hydration runs, so a default sent from any component — including the
+          one that injects GTM — can end up behind it and leave that page view
+          to be processed unrestricted. Running here, before hydration exists,
+          is what makes "the default is first" structural rather than a matter
+          of component order.
+
+          A plain inline script rather than next/script beforeInteractive:
+          that one is hoisted by the framework and behaves differently between
+          dev and a production build, while this is emitted verbatim and runs
+          in document order. It replaces the GTM <noscript> iframe that used to
+          sit here, which fired the container before any choice could exist and
+          which Consent Mode could not reach.
+        */}
+
+        {/* oxlint-disable-next-line react/no-danger -- static, no user input */}
+        <script dangerouslySetInnerHTML={{ __html: CONSENT_BOOTSTRAP_SNIPPET }} />
 
         <LazyMotionProvider>
           <CookieConsentProvider>
@@ -80,7 +91,7 @@ export default async function RootLayout({
 
             <CookieSettingsModalLoader />
 
-            <ConditionalAnalytics />
+            <SiteAnalytics />
           </CookieConsentProvider>
         </LazyMotionProvider>
 

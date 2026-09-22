@@ -42,3 +42,6 @@ yarn-error.log*
 
 # bun
 bun.lockb
+
+# Local performance probe output (scripts/perf-probe.ts)
+.perf

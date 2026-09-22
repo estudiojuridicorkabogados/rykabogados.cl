@@ -57,7 +57,6 @@
     },
     {
       "files": [
-        "src/app/layout.tsx",
         "src/app/contacto/_components/Contacts/Contacts.tsx",
         "**/_components/RichText/Blocks.tsx",
         "**/_components/HeroVideo/HeroVideo.tsx",

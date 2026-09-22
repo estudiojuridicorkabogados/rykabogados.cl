@@ -5,6 +5,7 @@ import Script from "next/script";
 
 import { env } from "@/lib/env";
 import { hasCampaignParam } from "@/lib/utils/campaignParams";
+import { ensureConsentDefaults } from "@/lib/utils/consent";
 
 const GOOGLE_TAG_MANAGER_ID = env.NEXT_PUBLIC_GTM_ID;
 
@@ -55,6 +56,15 @@ export const DeferredGoogleTagManager = () => {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
+    // Belt and braces. The inline snippet in the root layout normally sends
+    // the Consent Mode defaults before hydration, which is the only way to
+    // guarantee they precede the page view the trackers above push. This is
+    // the fallback for when that script cannot run — a CSP added without a
+    // hash, an extension that strips inline scripts — so the container at
+    // least has defaults before its own bootstrap below. Idempotent: it is a
+    // no-op whenever the snippet got there first.
+    ensureConsentDefaults();
+
     // Must exist before GTM does, so conversions fired in the gap are queued
     // rather than dropped.
     window.dataLayer = window.dataLayer || [];

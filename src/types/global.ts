@@ -2,14 +2,17 @@ import { Document } from "@contentful/rich-text-types";
 
 import { Maybe } from "./generated/graphql";
 
-// Google Analytics gtag types
+/**
+ * The GTM data layer.
+ *
+ * There is no `gtag` here on purpose. A `Window.gtag` was declared for years
+ * and never assigned or called: the Google tag is loaded through GTM, which
+ * keeps the gtag API internal, so declaring it only advertised an API the site
+ * does not have. Consent commands go through src/lib/utils/consent.ts, which
+ * pushes them onto this array in the shape gtag.js would have.
+ */
 declare global {
   interface Window {
-    gtag: (
-      command: "event" | "config" | "js",
-      targetId: string | Date,
-      config?: Record<string, unknown>
-    ) => void;
     dataLayer: unknown[];
   }
 }
