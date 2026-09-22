@@ -50,7 +50,7 @@ describe("consentStateFrom", () => {
   test("declares all seven types, because an omitted one counts as granted", () => {
     const state = consentStateFrom({ analytics: false, advertising: false });
 
-    expect(Object.keys(state).sort()).toEqual(
+    expect(Object.keys(state).toSorted()).toEqual(
       [
         "ad_personalization",
         "ad_storage",
@@ -59,7 +59,7 @@ describe("consentStateFrom", () => {
         "functionality_storage",
         "personalization_storage",
         "security_storage",
-      ].sort()
+      ].toSorted()
     );
   });
 

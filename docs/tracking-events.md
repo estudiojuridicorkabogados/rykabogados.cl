@@ -30,6 +30,67 @@ Tag Manager forwards the whole family to Analytics with one rule matching
 `rk_.*`, so a signal added here needs no Tag Manager change. The rule is phase 4
 work; until it is published these events reach the dataLayer and no further.
 
+## Who is allowed to touch the dataLayer
+
+Three files, and the rule is narrower than it used to be:
+
+- **`src/lib/utils/analytics.ts`** is the only file that pushes `rk_*` *events*.
+- **`src/lib/utils/consent.ts`** is the only file that issues *gtag commands* —
+  `consent default`, `consent update`, `set`. These are not events: no `event`
+  key, and an `arguments` object rather than a plain one.
+- **The inline snippet in `src/app/layout.tsx`** is the only thing that touches
+  `window.dataLayer` before hydration. It is `CONSENT_BOOTSTRAP_SNIPPET`, and
+  it is a second, ES5 implementation of the same mapping, checked against the
+  first by a test.
+
+Nothing else writes to it.
+
+## Consent
+
+Since phase 3 the visitor's choice reaches Google through Consent Mode v2
+rather than being collected and ignored. Three categories map onto seven
+storage types:
+
+| Banner category | Storage types |
+| --- | --- |
+| Necesarias | `functionality_storage`, `security_storage` — always granted |
+| Análisis | `analytics_storage` |
+| Publicidad | `ad_storage`, `ad_user_data`, `ad_personalization` |
+| — | `personalization_storage` — always denied; this site personalises no content |
+
+All seven are declared rather than only the four a choice moves, because an
+*undeclared* type behaves as granted.
+
+**A declined visit still sends every signal.** The `rk_*` events are pushed
+regardless of consent; what changes is what the tags downstream are allowed to
+store. Google receives a cookieless ping rather than nothing, which is what
+keeps the proportions between funnel steps meaningful even though the absolute
+totals undercount.
+
+Two things *are* withheld without advertising consent:
+
+- **`user_data`.** `buildUserData` returns nothing, so a declining visitor's
+  email and phone never enter the dataLayer at all. GTM's User-Provided Data
+  tag would have suppressed the send anyway — but suppressing the send is not
+  suppressing the exposure, and raw PII in a global object readable by every
+  tag in the container is the same objection that took first and last name out
+  of that payload.
+- **Every attribution cookie the site sets itself** — `rk_caso`, the click
+  references, the `utm_*` pair and the eleven `rk_ft_*`. Consent Mode does not
+  reach these; they are ours. A declining visitor's Sheet row still gets
+  written, with no code and no campaign against it.
+
+The campaign parameters are read from the landing URL at hydration and held in
+memory until the visitor answers, because by the time they press accept the
+router has usually stripped them from the URL. Memory is not storage on their
+device, so holding it pending an answer costs them nothing.
+
+Ordering is the part that can break silently. GTM replays the dataLayer in
+order rather than reading it as state at initialisation, so the consent default
+has to be *first* — ahead of the `rk_page_view` that fires as soon as hydration
+runs. That is why it is an inline script rather than anything in a component,
+and `bun run test:tracking` asserts the position on every run.
+
 ## Labels
 
 Every label below, plus the per-event ones listed with each signal, is

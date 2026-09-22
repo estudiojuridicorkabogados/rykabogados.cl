@@ -207,6 +207,20 @@ async function acceptCookies(): Promise<void> {
 async function main() {
   console.log(`Tracking smoke test against ${BASE_URL}\n`);
 
+  // Start as a visitor who has never been here.
+  //
+  // The session reuses a browser profile, so without this the second run
+  // inherits the consent cookie the first one accepted: the banner never
+  // appears, the click below finds nothing, and the failure points at the
+  // banner rather than at the leftover state actually causing it. It also
+  // makes the consent assertions mean what they say — a default computed from
+  // a stored answer is not the same check as a default for someone new.
+  await agentBrowser(["open", BASE_URL]);
+  await agentBrowser(["cookies", "clear"]);
+  await evaluate(
+    `(() => { try { localStorage.clear(); } catch (e) {} return JSON.stringify("ok"); })()`
+  );
+
   await agentBrowser(["open", `${BASE_URL}/habla-con-nosotros/trabajadores`]);
   await agentBrowser(["wait", "--load", "networkidle"]);
 

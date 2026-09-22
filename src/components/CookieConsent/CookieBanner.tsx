@@ -43,9 +43,8 @@ export const CookieBanner = () => {
     // Two buttons on purpose. Rejecting lives one click away, inside
     // "Personalizar" — see the note in CookieSettingsModal for why that is a
     // defensible position in Chile today and when it stops being one.
-    <div
+    <section
       data-closing={closing}
-      role="region"
       aria-labelledby="cookie-banner-title"
       className="cookie-banner fixed right-0 bottom-0 left-0 z-50 border-t border-gray-200 bg-white shadow-lg"
     >
@@ -96,6 +95,6 @@ export const CookieBanner = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

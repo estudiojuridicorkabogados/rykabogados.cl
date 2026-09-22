@@ -1,228 +1,122 @@
-# Cookie Consent Implementation
+# Cookie consent
 
-This directory contains the complete cookie consent solution for RK Abogados, implementing GDPR-compliant cookie management.
+The banner, the settings modal, and the record of what the visitor chose.
+What that choice then _does_ lives in `src/lib/utils/consent.ts`, which
+translates it into Google's Consent Mode vocabulary.
 
-## 📁 Structure
+## Files
 
 ```
 CookieConsent/
-├── types.ts                      # TypeScript interfaces and types
-├── utils.ts                      # Cookie management utilities
-├── CookieConsentProvider.tsx     # React context provider
-├── useCookieConsent.ts          # React hook for accessing consent
-├── CookieBanner.tsx             # Bottom banner component
-├── CookieSettingsModal.tsx      # Settings modal with switches
-└── index.ts                     # Barrel exports
+├── types.ts                    # the stored record and the context's shape
+├── utils.ts                    # the cookie: read, write, normalise, expire
+├── CookieConsentProvider.tsx   # state, and the single write path
+├── useCookieConsent.ts         # the hook
+├── CookieBanner.tsx            # first layer: Personalizar / Aceptar todas
+├── CookieSettingsModal.tsx     # three categories, and Rechazar todas
+├── CookieSettingsModalLoader.tsx  # lazy-loads the modal on first open
+└── index.ts
 ```
 
-## 🚀 Features
+## Categories
 
-- ✅ GDPR-compliant cookie consent management
-- ✅ Banner with "Accept", "Reject", and "Customize" options
-- ✅ Detailed settings modal with cookie category switches
-- ✅ LocalStorage for dismissed state (no tracking)
-- ✅ Cookie storage for accepted preferences (1 year expiry)
-- ✅ Conditional analytics loading based on consent
-- ✅ Smooth animations with Framer Motion
-- ✅ Accessible with keyboard navigation
-- ✅ Mobile responsive
-- ✅ Spanish language
+| Banner category | Google storage types                                         |
+| --------------- | ------------------------------------------------------------ |
+| Necesarias      | `functionality_storage`, `security_storage` — always granted |
+| Análisis        | `analytics_storage`                                          |
+| Publicidad      | `ad_storage`, `ad_user_data`, `ad_personalization`           |
 
-## 🍪 Cookie Categories
+`personalization_storage` is always denied: this site personalises no content.
+All seven are declared rather than only the four a choice moves, because an
+undeclared type behaves as _granted_.
 
-### 1. Necessary Cookies (Always Active)
+The advertising category also gates the site's own cookies — `rk_caso`, the
+click references, the `utm_*` pair and the `rk_ft_*` set. Consent Mode does not
+reach those; they are ours, and they are marketing cookies by any honest
+reading. See `docs/cookie-inventory.md`.
 
-- Session cookies
-- Cookie consent preferences
-- **Cannot be disabled**
+## Where rejecting lives, and why it is not on the banner
 
-### 2. Analytics Cookies (Optional)
+The banner has two buttons. "Rechazar todas" is inside "Personalizar".
 
-- Google Analytics (when implemented)
-- Vercel Analytics
-- Vercel Speed Insights
-- **Requires user consent**
+Nothing in force requires a first-layer reject button here: Ley 21.719
+prescribes no banner layout and Chile's agency has published no cookie
+guidance, while the first-layer rule is EU supervisory-authority doctrine that
+does not reach a Chilean firm advising Chilean clients. The residual risk is
+the asymmetry — accept in one click, decline in two — and it went to the firm
+as a decision rather than being taken for them. **Revisit if they ever market
+to the EU**; the button then goes on the banner. `docs/client-brief.md` has the
+full note.
 
-## 💾 Storage Strategy
+Within the modal, reject and confirm are the same component with the same
+variant, so their relative weight is not a matter of opinion.
 
-### Cookie: `cookie-consent`
+## Storage
+
+`cookie-consent`, `path=/`, `SameSite=Lax`, `Secure` over https:
 
 ```json
 {
   "necessary": true,
   "analytics": false,
-  "timestamp": "2025-10-17T00:00:00.000Z"
+  "advertising": false,
+  "timestamp": "2026-09-22T15:07:58.003Z",
+  "version": 2
 }
 ```
 
-- **Duration:** 1 year
-- **Purpose:** Store user consent preferences
-- **Domain:** Site-wide
-- **SameSite:** Lax
+**A record that grants nothing lives 30 days; one that grants anything lives a
+year.** Someone who declines is asked again in a month rather than held to one
+click for a year. Deliberately not shorter — a refusal that expires overnight
+turns the banner into a daily toll, which is how consent stops being freely
+given. A partial choice is not a refusal: they answered, so it keeps the year.
 
-### LocalStorage: `cookie-banner-dismissed`
+**`advertising` missing means declined.** Records written before the category
+existed have no such key, and `normalizePreferences` enforces `=== true` rather
+than letting truthiness propagate. The same rule is written a second time, in
+ES5, inside `CONSENT_BOOTSTRAP_SNIPPET` — the two are checked against each
+other by `src/lib/utils/__tests__/consent.test.ts`. Change them together.
 
-```json
-"true"
-```
+`version` is 2. `REPROMPT_BELOW_VERSION` in `utils.ts` is 0, so nothing is
+re-prompted; raise it to 2 if the firm decides people who accepted before the
+advertising category existed must choose again.
 
-- **Purpose:** Track if user dismissed banner without accepting
-- **No expiration** (persists until cleared)
-- **No tracking when dismissed**
+`cookie-banner-dismissed` in localStorage survives from an older design. Only
+`dismissBanner` sets it and nothing in the UI calls that any more.
 
-## 🎯 User Flow
+## Two traps
 
-### First Visit
+**The provider's state is `choice ?? storedState`.** It was
+`useState(initialState)` fed from `useSyncExternalStore`, and that is why the
+banner did not render for anyone between 27 August and 22 September 2026:
+`useState` runs its initialiser once, during hydration, where the store
+correctly returns the _server_ snapshot so the markup matches — and then
+ignores the client snapshot that arrives on the next render. If you refactor
+this, that is the shape to avoid.
 
-1. Banner appears at bottom of screen
-2. User has 3 options:
-   - **Reject**: Dismiss banner, no analytics, stored in localStorage
-   - **Customize**: Open detailed settings modal
-   - **Accept All**: Accept all cookies, enable analytics
+**The modal re-seeds its switches on open, not on mount.** The loader keeps it
+mounted after the first open, so `useState` alone went stale: accept from the
+banner, reopen from the footer, and the switches showed their first-mount
+values while "Confirmar elecciones" wrote them back — silently revoking what
+had just been granted.
 
-### Settings Modal
-
-1. Shows two cookie categories:
-   - **Necessary**: Always ON, disabled switch
-   - **Analytics**: Toggle switch, OFF by default
-2. Three action buttons:
-   - **Cancel**: Close modal without changes
-   - **Accept All**: Enable all optional cookies
-   - **Save Preferences**: Save current switch states
-
-### Return Visits
-
-- If user accepted: Banner doesn't show, analytics active
-- If user dismissed: Banner doesn't show, analytics inactive
-- After 1 year: Consent expires, banner shows again
-
-## 🔧 Usage
-
-### Using the Hook
+## Using it
 
 ```tsx
-import { useCookieConsent } from "@/components/CookieConsent";
-
-function MyComponent() {
-  const { hasAnalyticsConsent, acceptAll, openSettings, dismissBanner } =
-    useCookieConsent();
-
-  return (
-    <div>
-      {hasAnalyticsConsent ? "Analytics active" : "Analytics disabled"}
-      <button onClick={openSettings}>Cookie Settings</button>
-    </div>
-  );
-}
+const { hasAnalyticsConsent, hasAdvertisingConsent, openSettings } =
+  useCookieConsent();
 ```
 
-### Conditional Rendering Based on Consent
+Do not gate rendering on consent. Under Consent Mode the container must load
+for everyone so it can receive the choice; what gets restricted is the tags
+inside it. `SiteAnalytics` used to do the former and the comment there explains
+what it cost.
 
-```tsx
-import { useCookieConsent } from "@/components/CookieConsent";
+## Adding a category
 
-function AnalyticsComponent() {
-  const { hasAnalyticsConsent } = useCookieConsent();
-
-  if (!hasAnalyticsConsent) return null;
-
-  return <GoogleAnalytics />;
-}
-```
-
-## 🎨 Styling
-
-Components use Tailwind CSS with your existing design system:
-
-- Primary color: `primary-600`
-- Animations: Framer Motion
-- Modal: Headless UI Dialog
-- Responsive: Mobile-first approach
-
-## 🧪 Testing Checklist
-
-- [ ] Banner appears on first visit
-- [ ] "Reject" button hides banner and stores in localStorage
-- [ ] "Accept All" button stores consent in cookie
-- [ ] "Customize" button opens modal
-- [ ] Modal switches work correctly
-- [ ] Necessary cookies switch is disabled
-- [ ] Analytics switch can be toggled
-- [ ] "Save Preferences" stores choices
-- [ ] Analytics only loads with consent
-- [ ] Consent expires after 1 year
-- [ ] Footer link reopens settings
-- [ ] Cookie policy page accessible
-- [ ] Mobile responsive
-- [ ] Keyboard navigation works
-- [ ] Screen reader compatible
-
-## 🔐 Privacy Compliance
-
-### GDPR Compliance
-
-- ✅ Opt-in by default (analytics OFF)
-- ✅ Clear information about cookies
-- ✅ Easy to withdraw consent
-- ✅ Granular control over cookie types
-- ✅ Link to detailed cookie policy
-
-### Best Practices
-
-- No analytics until explicit consent
-- Dismissed ≠ Consent (important legal distinction)
-- Re-ask for consent after 1 year
-- Clear categories and descriptions
-- Easy access to settings via footer
-
-## 🛠️ Maintenance
-
-### Adding New Cookie Categories
-
-1. Update `types.ts` to add new property
-2. Add switch in `CookieSettingsModal.tsx`
-3. Update logic in `CookieConsentProvider.tsx`
-4. Document in cookie policy page
-
-### Adding Google Analytics
-
-1. Add `NEXT_PUBLIC_GA_ID` to `env.ts`
-2. Create `GoogleAnalytics.tsx` component
-3. Add to `ConditionalAnalytics.tsx`
-4. Update cookie policy page
-
-## 📝 Legal Notes
-
-- Cookie policy page: `/politica-cookies`
-- Last updated: October 17, 2025
-- Contact email in policy for questions
-- Links to third-party privacy policies included
-
-## 🐛 Troubleshooting
-
-### Banner not appearing
-
-- Check if cookie/localStorage is set
-- Clear site data and refresh
-- Verify provider wraps application
-
-### Analytics not loading
-
-- Check console for errors
-- Verify `hasAnalyticsConsent` is true
-- Check environment is production
-- Verify Vercel/Google IDs configured
-
-### Modal not opening
-
-- Check `openSettings` is called correctly
-- Verify Headless UI Dialog is working
-- Check z-index conflicts
-
-## 🔄 Future Enhancements
-
-- [ ] Add more cookie categories if needed
-- [ ] Implement Google Consent Mode v2
-- [ ] Add cookie audit trail
-- [ ] Multi-language support
-- [ ] Remember user's language preference
+1. `types.ts` — add the field.
+2. `utils.ts` — `normalizePreferences` and `createDefaultPreferences`.
+3. `consent.ts` — `consentStateFrom` **and** `CONSENT_BOOTSTRAP_SNIPPET`.
+4. `CookieSettingsModal.tsx` — one more `ConsentToggleRow`.
+5. `docs/cookie-inventory.md` and both policy pages.
+6. Extend the parity test; it will not fail on its own if you forget step 3.

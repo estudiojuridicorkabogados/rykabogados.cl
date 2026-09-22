@@ -62,7 +62,7 @@ Only the three forms get the form signals in phase 2 — the other surfaces have
 
 ### Open decisions
 
-Everything below is planned out except these. Each is settled with the client rather than by us, and each blocks the phase it sits in.
+Everything below is planned out except these. Each is settled with the client rather than by us, and each blocks the phase it sits in. **What to actually say to them, in Spanish, is `docs/client-brief.md`** — keep the two in step.
 
 | Decision | Whose call | Where it lands |
 | --- | --- | --- |
@@ -80,7 +80,8 @@ Everything below is planned out except these. Each is settled with the client ra
 
 | What | File |
 | --- | --- |
-| Tag Manager loader | `src/components/Analytics/ConditionalAnalytics.tsx` (consent gate commented out) |
+| Tag Manager loader | `src/components/Analytics/SiteAnalytics.tsx` (was `ConditionalAnalytics`; the dead gate is gone) |
+| Consent Mode | `src/lib/utils/consent.ts`, bootstrap snippet inlined in `src/app/layout.tsx` |
 | Conversion signals to Tag Manager | `src/lib/utils/analytics.ts` |
 | Caso code, Google Sheet logging, WhatsApp URL | `src/lib/utils/tracking.ts`, `src/hooks/useTracking.ts` |
 | Shared WhatsApp link | `src/components/WhatsappLink/WhatsappLink.tsx` |
@@ -295,7 +296,7 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 
 ---
 
-## Phase 3: Make the cookie banner real
+## Phase 3: Make the cookie banner real — code shipped 22 September 2026
 
 | | |
 | --- | --- |
@@ -338,28 +339,53 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 7. **In Tag Manager:** switch on consent checks for the container, confirm each tag declares which storage types it needs, and verify with Tag Assistant that a declined visit sets no cookies.
 8. **Remove the `noscript` Tag Manager iframe** from `src/app/layout.tsx`. It fires the container for visitors with JavaScript disabled, before any choice can exist, and Consent Mode cannot reach it. Nothing on this site works without JavaScript anyway — the forms, the calendar and the chatbot are all client-side — so it is loading a tracker for people who cannot use the site.
 9. **Leave Vercel Analytics and Speed Insights outside the banner.** They sit in the same file as the Tag Manager loader (`ConditionalAnalytics.tsx`) and it would be easy to sweep them into the consent gate while rewriting it. They are cookieless and store nothing on the visitor's device, so they do not require consent. This is a deliberate position, not an oversight, and the cookie policy should say so.
-10. **Update the public cookie policy and privacy policy.** This is the part that actually has to hold up. `/politica-cookies` today lists only Vercel Analytics and Speed Insights; Google Tag Manager, Google Analytics, Google Ads and reCAPTCHA all load on every page and appear nowhere on it. `/politicas-de-privacidad` mentions "Google Analytics y Vercel" in passing. Both need the new advertising category, a table of the cookies actually set, who receives the data and for how long. We supply the technical inventory — every cookie, its purpose, its lifetime, the recipient — and the firm writes the wording, since they are the lawyers and it is their liability.
+10. **Update the public cookie policy and privacy policy.** This is the part that actually has to hold up. `/politica-cookies` today lists only Vercel Analytics and Speed Insights; Google Tag Manager, Google Analytics and Google Ads load on every page and appear nowhere on it, and reCAPTCHA appears on the three form pages only — not on every page, as this said until 22 September. The full inventory is `docs/cookie-inventory.md`. `/politicas-de-privacidad` mentions "Google Analytics y Vercel" in passing. Both need the new advertising category, a table of the cookies actually set, who receives the data and for how long. We supply the technical inventory — every cookie, its purpose, its lifetime, the recipient — and the firm writes the wording, since they are the lawyers and it is their liability.
 11. **Review the banner copy** with the client. The wording, the three categories, and whether "decline" is as prominent as "accept" are their legal call, since they are the lawyers. The plan provides the mechanism; they provide the words.
 
 ### Checklist
 
-- [ ] Advertising category added to types, banner, modal and stored cookie
-- [ ] Go-live date agreed with the client and recorded as the reporting baseline
-- [ ] Default consent state set before Tag Manager loads
-- [ ] Update sent on accept, decline, and preference save (the reload is already gone)
-- [ ] Categories mapped to the four storage types
-- [ ] `url_passthrough` and `ads_data_redaction` enabled
-- [ ] Gate in `ConditionalAnalytics.tsx` removed, container loads for everyone
-- [ ] Tag Manager consent settings on, tags checked
-- [ ] Verified: declined visit sets no Google cookies, signals still arrive as cookieless pings
+- [x] Advertising category added to types, modal and stored cookie
+- [x] **A way to decline at all** — there was none. `rejectAll` writes a record
+      and the button lives in the settings modal. Not on the banner: nothing in
+      force requires a first-layer reject here, and the reasoning is in
+      `docs/client-brief.md`. Revisit if the firm markets to the EU
+- [x] **The banner made visible again.** It had not rendered for anyone since
+      27 August 2026 (b1c0840) — verified against production before touching
+      it. Shipping consent on top of an invisible banner would have denied
+      every visitor permanently
+- [x] A refusal lapses after 30 days, an acceptance after a year
+- [x] Default consent state set before Tag Manager loads — and before
+      hydration, which is stricter and is what the ordering actually needs
+- [x] Update sent on accept, reject, and preference save
+- [x] Categories mapped to all **seven** storage types, not four: an
+      undeclared type behaves as granted
+- [x] `url_passthrough` and `ads_data_redaction` enabled from the page
+- [x] Gate in `SiteAnalytics` removed, container loads for everyone
+- [x] `noscript` Tag Manager iframe removed from `layout.tsx`
+- [x] Vercel Analytics and Speed Insights confirmed outside the consent gate
+- [x] The site's own attribution cookies gated on advertising consent, with the
+      landing URL buffered in memory so accepting does not lose the campaign
+- [x] `user_data` withheld without advertising consent — it was putting a
+      declining visitor's raw email and phone in `window.dataLayer`
+- [x] Verified in a browser: accept, reject, partial, returning visitor, and
+      the modal re-sync bug
+- [x] 38 unit tests, including snippet/module parity for all four combinations
+- [x] `bun run test:tracking` asserts the consent default is at index 0
+- [x] Performance measured, not asserted — `docs/consent-performance.md`
+- [x] Cookie inventory written (`docs/cookie-inventory.md`)
+- [x] `docs/consent-mode-runbook.md` written for the container work
+- [x] `docs/client-brief.md` — what the firm has to hear and decide
+- [ ] **Tag Manager: consent settings on, tags reviewed, container published**
+      — the runbook. Do not publish before the code is live
+- [ ] Verified on a preview: declined visit sets no Google cookies, signals
+      still arrive as cookieless pings
 - [ ] Verified: ad click reference survives navigation for a declining visitor
-- [ ] `noscript` Tag Manager iframe removed from `layout.tsx`
-- [ ] Vercel Analytics and Speed Insights confirmed outside the consent gate
-- [ ] Cookie inventory handed to the client
+      — **measure this, do not assume it**; see the runbook, step 6
+- [ ] Go-live date agreed with the client and recorded as the reporting baseline
 - [ ] `/politica-cookies` updated with the advertising category and the real cookie table
 - [ ] `/politicas-de-privacidad` updated
-- [ ] Banner copy reviewed with the client
-- [ ] `COOKIE_CONSENT_SETUP.md` and `src/components/CookieConsent/README.md` updated
+- [ ] Banner and modal copy reviewed with the client
+- [x] `COOKIE_CONSENT_SETUP.md` retired and `src/components/CookieConsent/README.md` rewritten
 
 ---
 

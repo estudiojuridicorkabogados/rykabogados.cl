@@ -54,6 +54,26 @@ src/
 - **Shared components**: Components reused across multiple pages live in `src/components/`.
 - **Library integrations**: Anything that interacts with external libraries (API clients, database, utilities) lives under `src/lib/`.
 
+## Analytics and consent
+
+Tracking and the cookie banner have a fair amount of context behind them, and
+most of it is not derivable from the code:
+
+| Document | What it is for |
+| --- | --- |
+| `docs/tracking-plan.md` | The internal build plan, phase by phase. Not for the client |
+| `docs/client-brief.md` | **What to tell the firm** — decisions we are waiting on and warnings they must hear, written as ready-to-send Spanish |
+| `docs/tracking-events.md` | Every `rk_*` signal, its labels, and who may touch the dataLayer |
+| `docs/cookie-inventory.md` | Every cookie the site sets — the input for the policy pages |
+| `docs/consent-mode-runbook.md` | The Tag Manager half of Consent Mode |
+| `docs/consent-performance.md` | What the inline consent script costs, measured |
+
+Two rules worth knowing before editing anything here. `src/lib/utils/analytics.ts`
+is the only file that pushes `rk_*` events and `src/lib/utils/consent.ts` is the
+only one that issues gtag commands. And run `bun run test:tracking` against a
+production build after touching tracking — `next dev` hides races that
+production shows.
+
 ## Blog
 
 The blog section (`/blog`) uses content authored in **Contentful** (headless CMS). Blog content is queried via **GraphQL** using Apollo Client. GraphQL types are auto-generated with `bun run codegen`.

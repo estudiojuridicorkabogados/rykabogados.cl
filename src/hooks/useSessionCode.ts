@@ -52,12 +52,13 @@ export function useSessionCode(): string {
   const code = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   useEffect(() => {
-    if (sessionCode) {
+    if (sessionCode || !hasAdvertisingConsent) {
       return;
     }
 
-    // Empty means no consent yet. Leave the cache alone and wait to be run
-    // again by the dependency below, rather than caching the refusal.
+    // getSessionCode checks the cookie itself and returns "" without consent,
+    // so this is belt and braces — but reading the flag here rather than only
+    // depending on it is what makes the dependency honest.
     const minted = getSessionCode();
     if (!minted) {
       return;
