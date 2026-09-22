@@ -15,15 +15,26 @@
  *
  * The form events also carry `user_data` for enhanced conversions. GTM's
  * User-Provided Data tag hashes it before anything leaves the browser; the
- * raw values never reach Google. Nothing reads `user_data` until that tag is
- * pointed at these events in GTM.
+ * raw values never reach Google. Verified against production on 22 September
+ * 2026: the conversion ping carries `em.<hash>~pn.<hash>`.
+ *
+ * Email and phone only. Names were sent until that date and silently
+ * discarded — GTM's User-Provided Data variable takes first and last name
+ * under Address, beside street, city, postal code and country, and Google
+ * gets little from a name with nothing to anchor it. These forms collect no
+ * address, so the names were raw PII sitting in `window.dataLayer`, readable
+ * by every other tag in the container, in exchange for nothing.
+ *
+ * `conversion_value` is pushed but not read: all four GTM tags send a flat
+ * 1000 CLP whatever arrives here. Left in place as the hook for real per-
+ * conversion values, which belong in the Ads conversion action rather than
+ * the tag.
  */
 
 const CONVERSION_VALUE = 1.0;
 const CONVERSION_CURRENCY = "CLP";
 
 export interface ConversionUserData {
-  name?: string;
   email?: string;
   phone?: string;
 }
@@ -31,8 +42,6 @@ export interface ConversionUserData {
 interface UserDataPayload {
   email?: string;
   phone_number?: string;
-  first_name?: string;
-  last_name?: string;
 }
 
 function normalizeEmail(email?: string) {
@@ -74,19 +83,6 @@ function normalizePhone(phone?: string) {
   return undefined;
 }
 
-function splitName(name?: string) {
-  const parts = name?.trim().split(/\s+/).filter(Boolean) ?? [];
-
-  if (parts.length === 0) {
-    return {};
-  }
-
-  return {
-    first_name: parts[0],
-    last_name: parts.slice(1).join(" ") || undefined,
-  };
-}
-
 function buildUserData(userData?: ConversionUserData) {
   if (!userData) {
     return undefined;
@@ -95,7 +91,6 @@ function buildUserData(userData?: ConversionUserData) {
   const payload: UserDataPayload = {
     email: normalizeEmail(userData.email),
     phone_number: normalizePhone(userData.phone),
-    ...splitName(userData.name),
   };
 
   const hasValue = Object.values(payload).some(Boolean);

@@ -73,7 +73,6 @@ export const ReservaFormEmpresas = () => {
 
         if (result.success && data.date) {
           trackEmpresasBookACallFormConversion({
-            name: data.name,
             email: data.email,
             phone: data.phoneNumber,
           });
