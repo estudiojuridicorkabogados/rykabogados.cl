@@ -207,9 +207,16 @@ given.
 
 ---
 
-## Warnings — before go-live, not after
+## Warnings — sent 22 September 2026
 
-These are the ones that get someone blamed if they arrive as a surprise.
+All three went to the firm on the evening of 22 September, the same day the
+code went live. Late by the standard this section was written to — they were
+meant to go before go-live — but the same day rather than after they noticed
+the Ads numbers themselves, which was the outcome that actually mattered.
+
+Kept here as the record of what they were told and when. If anyone asks later
+why the conversion count stepped down in late September, this is the answer and
+the date.
 
 ### 1. Their Google Ads conversion numbers will drop, and that is the work doing its job
 
@@ -303,6 +310,7 @@ conversation it happened in.
 | 2026-09-22 | Whether the site's own attribution cookies honour the banner | Yes, gated behind the advertising category |
 | 2026-09-22 | Whether the switches in "Personalizar" start on | Yes, both — see the note above. Flagged to the firm rather than decided for them |
 | 2026-09-22 | Go-live date, and therefore the phase 7 reporting baseline | 22 September 2026, set by the deploy rather than chosen |
+| 2026-09-22 | Warnings 1–3 sent to the firm | Sent the evening of 22 September, same day as go-live |
 
 ---
 
