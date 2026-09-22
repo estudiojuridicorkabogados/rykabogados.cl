@@ -13,10 +13,16 @@
  *   bun run test:tracking
  *   bun run test:tracking https://rykabogados-git-my-branch.vercel.app
  *
- * Against a preview deployment it still passes: phase 1 put a
- * `Page Hostname contains vercel.app` exception on every tag in the container,
- * so nothing reaches Google Ads from a preview — but the pushes still happen,
- * and the pushes are what this checks.
+ * Against a preview deployment it still passes — the pushes happen regardless
+ * of where the container decides to send them, and the pushes are what this
+ * checks.
+ *
+ * Whether those pushes reach Google Ads depends on the container's
+ * non-production exception, which until 22 September 2026 did not actually
+ * block anything (it was a Page View trigger, and exceptions only block on
+ * the event they fire on). Until it is rebuilt and verified, assume a run of
+ * this script against any host counts one WhatsApp conversion in Ads and
+ * writes one row to the live Sheet. See docs/tracking-plan.md, phase 1.
  */
 
 const BASE_URL = process.argv[2] ?? "http://localhost:3000";

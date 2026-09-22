@@ -120,12 +120,12 @@ Internal traffic was **not** excluded: the office IP is dynamic and staff work f
 
 `GTM-PC49T6MC`, 8 tags, 5 triggers, 5 variables. Healthy: the Google tags for Ads (`AW-11083927345`) and Analytics both fire on all pages, all four conversion tags exist, nothing is paused, and **all four conversion labels match `src/lib/utils/analytics.ts` exactly**. Verified against the Ads side — same labels, same conversion ID — so the site's conversions are correctly wired end to end. Two of the four (Trabajadores, WhatsApp) are actively recording; the other two show Google's low-volume warning, which at this traffic is not a fault.
 
-One change was published on its own: an exception trigger (`Page Hostname contains vercel.app`) on all eight tags, so preview deployments stop being measured as real traffic. This had to go live before phase 2 testing begins.
+One change was published on its own: an exception trigger (`Page Hostname contains vercel.app`) on all eight tags, meant to stop preview deployments being measured as real traffic. **It did not work.** Found on 22 September 2026 from the container export: the exception was built as a Page View trigger, and an exception only blocks a tag when it fires on the same event as the tag. The conversion tags fire on `rk_conv_*` events and the Google tags on Initialization, and a Page View trigger fires on neither, so it blocked nothing. Every form send and WhatsApp click from a preview, and from `localhost`, which the condition never covered, reached Google Ads as a real conversion. Fix: make it a Custom Event trigger, regex `.*`, condition `Page Hostname does not equal www.rkabogados.cl`, and verify on a preview URL that every tag shows as blocked.
 
 ### What the inventory turned up, to fix during phase 4
 
 - **The user-provided data variable maps only email and phone.** `First Name` and `Last Name` variables exist, read the right data layer keys, and are wired to nothing — so the names the site has been sending since the 8 September fix are being discarded. Two rows added to that variable, and enhanced-conversion match rates improve for free.
-- **Cross-domain linking lists 13 dead Vercel preview hostnames.** Single-domain site; turn cross-domain off and empty the list.
+- **Cross-domain linking lists 13 dead Vercel preview hostnames.** Single-domain site; turn cross-domain off and empty the list. (22 September: the list is gone from the workspace but cross-domain is still switched on with no domains. Untick it.)
 - **`Solo enlaces`**, a link-click trigger matching `api.whatsapp`, fires no tag. Predecessor of the current WhatsApp conversion. Delete.
 - **`url_passthrough` is off** and all eight tags are `consentStatus: NOT_SET` — both exactly as phase 3 assumed.
 - **Conversion values are a flat 1000 CLP placeholder** on all four tags, ignoring the `conversion_value` the site pushes. Harmless, but it means the code sends a field nobody reads, and the "what is a contact worth" item in section 10 starts from nothing real.
@@ -395,6 +395,8 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 ### Checklist
 
 - [ ] Enhanced measurement: form interactions off, scroll off, page views on navigation verified
+- [ ] Tag Manager: non-production exception rebuilt as a Custom Event `.*` trigger on `Page Hostname does not equal www.rkabogados.cl`; verified blocked on a preview URL
+- [ ] Tag Manager: `Solo enlaces` trigger and the `First Name` / `Last Name` variables deleted; cross-domain linking unticked
 - [ ] Tag Manager: `rk_.*` trigger, data layer variables for the labels, one GA4 event tag
 - [ ] Tag Manager: "Include user-provided data from your website" ticked on the three form conversion tags, pointing at the existing variable — Google's recommended shape, and it removes the dependency on the User-provided Data Event tag whose "Failed" status misleads. Verify with one send, then pause that tag a week later if Ads diagnostics stay "Excellent"
 - [x] Ads diagnostics: Formulario Contacto received user-provided data from the 22 September test send within the hour — all three forms confirmed, nothing in the container to change
