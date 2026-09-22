@@ -41,7 +41,10 @@
  * the tag.
  */
 
-import { hasAdvertisingConsent } from "@/lib/utils/consent";
+import {
+  ensureConsentDefaults,
+  hasAdvertisingConsent,
+} from "@/lib/utils/consent";
 
 const CONVERSION_VALUE = 1.0;
 const CONVERSION_CURRENCY = "CLP";
@@ -339,6 +342,15 @@ export function resetPageScope(): void {
  * dropped — which matters because the container's own load trigger is the
  * visitor's first scroll, the same gesture that produces our first rk_scroll.
  *
+ * The consent default is guaranteed to precede every push from here. The
+ * inline snippet in the root layout normally sends it before hydration; when
+ * that script cannot run — a CSP added without a hash, an extension that
+ * strips inline scripts — ensureConsentDefaults sends it now, ahead of this
+ * event, instead of from DeferredGoogleTagManager's effect, which runs after
+ * PageViewTracker's and so used to let the landing page view into the
+ * dataLayer first. A no-op whenever the snippet got there, which is always in
+ * practice.
+ *
  * Every push carries every label, the absent ones as `undefined` — see
  * RESET_LABELS for why.
  */
@@ -351,6 +363,8 @@ export function trackEvent<E extends RkEvent>(
   if (typeof window === "undefined") {
     return;
   }
+
+  ensureConsentDefaults();
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({

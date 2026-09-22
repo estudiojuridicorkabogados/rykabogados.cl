@@ -120,6 +120,41 @@ export function writeAttributionCookie(name: string, value: string): void {
 }
 
 /**
+ * Every attribution cookie the site writes, so a withdrawal can find them all:
+ * the last-touch campaign parameters, their first-touch copies, and the three
+ * first-visit facts that carry no parameter name.
+ */
+const FIRST_TOUCH_EXTRAS = ["landing", "referrer", "ts"] as const;
+
+export const ATTRIBUTION_COOKIES: readonly string[] = [
+  ...CAMPAIGN_PARAMS,
+  ...CAMPAIGN_PARAMS.map((param) => `${FIRST_TOUCH_PREFIX}${param}`),
+  ...FIRST_TOUCH_EXTRAS.map((key) => `${FIRST_TOUCH_PREFIX}${key}`),
+];
+
+/**
+ * Expires every attribution cookie. Called when advertising consent is
+ * withdrawn, because these are the site's own marketing cookies and nothing
+ * else — not Consent Mode, not the browser — would otherwise remove them
+ * before their ninety days ran out.
+ *
+ * Path matches the write because a cookie is identified by name, domain and
+ * path; Secure and SameSite are repeated for symmetry rather than necessity.
+ * `rk_caso` is not in the list on purpose; see getSessionCode.
+ */
+export function clearAttributionCookies(): void {
+  try {
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+
+    for (const name of ATTRIBUTION_COOKIES) {
+      document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax${secure}`;
+    }
+  } catch {
+    // Storage disabled or blocked — nothing was written, so nothing to clear.
+  }
+}
+
+/**
  * Reads back a parameter TrackingParamsCapture stored.
  *
  * Lives next to the write so the encoding stays symmetrical: the value went in

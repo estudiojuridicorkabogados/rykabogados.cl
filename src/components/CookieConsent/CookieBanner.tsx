@@ -61,7 +61,8 @@ export const CookieBanner = () => {
             <p className="text-sm text-gray-600">
               Utilizamos cookies propias y de terceros para mejorar tu
               experiencia de navegación y analizar el uso de nuestro sitio web.
-              Puedes aceptar todas las cookies, rechazarlas o personalizarlas.{" "}
+              Puedes aceptarlas todas o, desde «Personalizar», elegir cuáles
+              permitir o rechazarlas todas.{" "}
               <Link
                 href={URLS.cookiePolicy()}
                 className="group hover:text-accent-dark items-center gap-2 text-sm font-bold text-black underline transition-colors duration-200"

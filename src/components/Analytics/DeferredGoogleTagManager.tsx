@@ -57,12 +57,12 @@ export const DeferredGoogleTagManager = () => {
 
   useEffect(() => {
     // Belt and braces. The inline snippet in the root layout normally sends
-    // the Consent Mode defaults before hydration, which is the only way to
-    // guarantee they precede the page view the trackers above push. This is
-    // the fallback for when that script cannot run — a CSP added without a
-    // hash, an extension that strips inline scripts — so the container at
-    // least has defaults before its own bootstrap below. Idempotent: it is a
-    // no-op whenever the snippet got there first.
+    // the Consent Mode defaults before hydration, and trackEvent sends them
+    // before its first push if the snippet could not run. This covers the one
+    // remaining gap — a page where nothing has been tracked yet when the
+    // container loads — so it at least has defaults before its own bootstrap
+    // below. Idempotent: a no-op whenever either of the others got there
+    // first.
     ensureConsentDefaults();
 
     // Must exist before GTM does, so conversions fired in the gap are queued

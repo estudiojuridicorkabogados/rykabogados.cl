@@ -32,7 +32,6 @@ export interface LogToSheetParams extends Partial<FirstTouch> {
 }
 
 interface BuildWhatsAppUrlParams {
-  gclid: string;
   shortCode: string;
   message?: string;
 }
@@ -97,6 +96,28 @@ export function getSessionCode(): string {
 }
 
 /**
+ * The landing URL with its query string removed.
+ *
+ * Without advertising consent the row must carry no campaign, and the click
+ * reference is gated upstream — but the caller passes `window.location.href`
+ * as the landing page, and on the landing page itself that still has
+ * `?gclid=` in it. The whole query goes rather than a list of known names:
+ * `fbclid`, `msclkid`, `ttclid` and whatever comes next are click identifiers
+ * too, and a list is only ever as complete as the last time someone looked.
+ * Nothing on this site routes on a query parameter, so the path is the part
+ * the firm reads and the part that survives.
+ */
+function withoutQuery(landing: string): string {
+  try {
+    const url = new URL(landing);
+    url.search = "";
+    return url.toString();
+  } catch {
+    return landing;
+  }
+}
+
+/**
  * Writes one row to the Google Sheet through its Apps Script web app.
  *
  * The first-touch fields (`ft_*`) are what make a row from an Instagram,
@@ -105,6 +126,11 @@ export function getSessionCode(): string {
  * conversation arrived with a Caso code and no campaign next to it. Unknown
  * parameters are ignored by Apps Script, so sending them ahead of the script
  * reading them is harmless; docs/tracking-events.md lists the columns.
+ *
+ * Without advertising consent the row is still written, with the enquiry and
+ * nothing that ties it to a campaign: the click reference and first touch
+ * arrive empty from useTracking, the Caso code from getSessionCode, and the
+ * landing URL is stripped of its query string here.
  */
 export function logToSheet({
   landing,
@@ -120,7 +146,7 @@ export function logToSheet({
   }
 
   const params = new URLSearchParams({
-    landing,
+    landing: hasAdvertisingConsent() ? landing : withoutQuery(landing),
     gclid,
     code: shortCode,
     channel: channel || "unknown",
@@ -136,7 +162,7 @@ export function logToSheet({
 }
 
 /**
- * Build WhatsApp URL with session code and gclid
+ * Build WhatsApp URL with the Caso code in the message, when there is one.
  */
 export function buildWhatsAppUrl({
   shortCode,

@@ -62,6 +62,12 @@ builds on one harness is what transfers.
 **The cost is 594–598 bytes compressed per HTML document**, about 2.5%. That is
 the whole cost, and it is deterministic rather than measured.
 
+> **Since measured:** the snippet gained the `REPROMPT_BELOW_VERSION` gate (a
+> record below that version grants nothing), which took it from 713 to 784
+> bytes before compression — about 70 bytes more, paid twice like everything
+> else here, so roughly 40–50 bytes compressed on top of the figures below.
+> Not re-measured; well inside the noise of the harness.
+
 ## Why the decoded number is 1086 bytes for a 713-byte script
 
 The script ships twice: once as itself, and once backslash-escaped inside the

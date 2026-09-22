@@ -29,7 +29,10 @@
  *
  *   NEXT_PUBLIC_GTM_ID=GTM-NOTREAL bun run build && bun run start
  *
- * The Sheet row is separate and still written; its URL is not configurable.
+ * The Sheet row is separate, and written only where NEXT_PUBLIC_SHEET_WEBAPP_URL
+ * is set at build time — Vercel production, by design. Locally and on previews
+ * the variable is empty (see .env.template) and logToSheet is a no-op, so a
+ * local run never touches the live Sheet.
  */
 
 const BASE_URL = process.argv[2] ?? "http://localhost:3000";

@@ -45,6 +45,8 @@ interface LandingSnapshot {
   params: Array<[string, string]>;
   landing: string;
   referrer: string;
+  /** When they arrived — not when they later pressed accept. */
+  ts: string;
 }
 
 /** What the landing page carried, held until the visitor answers. */
@@ -63,6 +65,7 @@ function captureLanding(): LandingSnapshot {
     params,
     landing: window.location.pathname,
     referrer: document.referrer || "direct",
+    ts: new Date().toISOString(),
   };
 }
 
@@ -90,7 +93,7 @@ function flush(snapshot: LandingSnapshot): void {
   if (!readCampaignCookie(`${FIRST_TOUCH_PREFIX}ts`)) {
     writeAttributionCookie(`${FIRST_TOUCH_PREFIX}landing`, snapshot.landing);
     writeAttributionCookie(`${FIRST_TOUCH_PREFIX}referrer`, snapshot.referrer);
-    writeAttributionCookie(`${FIRST_TOUCH_PREFIX}ts`, new Date().toISOString());
+    writeAttributionCookie(`${FIRST_TOUCH_PREFIX}ts`, snapshot.ts);
   }
 }
 

@@ -7,6 +7,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 
+import { clearAttributionCookies } from "@/lib/utils/campaignParams";
 import { updateConsent } from "@/lib/utils/consent";
 
 import type {
@@ -17,10 +18,7 @@ import type {
 import {
   createDefaultPreferences,
   getCookieConsent,
-  isBannerDismissed,
   isConsentValid,
-  removeBannerDismissed,
-  setBannerDismissed,
   setCookieConsent,
 } from "./utils";
 
@@ -31,9 +29,9 @@ export const CookieConsentContext =
 // component's own actions, so there's nothing to subscribe to.
 const subscribe = () => () => {};
 
-// getCookieConsent/isBannerDismissed read document.cookie / localStorage,
-// which are unavailable during SSR — useSyncExternalStore's getServerSnapshot
-// covers that render, then the client snapshot below applies on hydration.
+// getCookieConsent reads document.cookie, which is unavailable during SSR —
+// useSyncExternalStore's getServerSnapshot covers that render, then the
+// client snapshot below applies on hydration.
 // getSnapshot must return a stable reference across calls (React compares by
 // Object.is), so the result is computed once and cached — nothing else in
 // this module ever mutates cookie/localStorage out from under it.
@@ -47,8 +45,14 @@ function getInitialState(): CookieConsentState {
   if (cachedInitialState) return cachedInitialState;
 
   const existingConsent = getCookieConsent();
-  const dismissed = isBannerDismissed();
 
+  // No "dismissed" state any more. An older design let the banner be closed
+  // without an answer and remembered that in localStorage forever, and under
+  // Consent Mode that flag would have meant a permanent, silent denial for
+  // everyone who once clicked it — with no expiry and no way back. Those
+  // visitors are asked again like anyone else; the stale key is simply
+  // ignored. The only record that counts is the cookie, and only while
+  // isConsentValid says so.
   if (existingConsent && isConsentValid(existingConsent)) {
     // Deliberately no updateConsent() here. This runs during render, where a
     // side effect does not belong and where useSyncExternalStore may call us
@@ -61,16 +65,6 @@ function getInitialState(): CookieConsentState {
       hasConsent: true,
       hasAnalyticsConsent: existingConsent.analytics,
       hasAdvertisingConsent: existingConsent.advertising,
-      showBanner: false,
-      showModal: false,
-      isLoading: false,
-    };
-  } else if (dismissed) {
-    cachedInitialState = {
-      preferences: null,
-      hasConsent: false,
-      hasAnalyticsConsent: false,
-      hasAdvertisingConsent: false,
       showBanner: false,
       showModal: false,
       isLoading: false,
@@ -142,11 +136,22 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
 
   /**
    * The single write path. Every choice — accept, reject, save — stores the
-   * record, tells Google, and updates the UI, in that order and nowhere else.
+   * record, drops what the choice no longer allows, tells Google, and updates
+   * the UI, in that order and nowhere else.
+   *
+   * Withdrawing advertising consent has to reach our own cookies, not only
+   * Google's: Consent Mode does not know about `gclid`, `utm_*` or `rk_ft_*`,
+   * and until this call they stayed for their full ninety days after a
+   * "Rechazar todas" and kept being read into every Sheet row. The Caso code
+   * is deliberately not cleared here — see getSessionCode for why a reference
+   * the firm may be mid-conversation about survives a withdrawal.
    */
   const applyChoice = (preferences: CookieConsentPreferences) => {
     setCookieConsent(preferences);
-    removeBannerDismissed();
+
+    if (!preferences.advertising) {
+      clearAttributionCookies();
+    }
 
     updateConsent({
       analytics: preferences.analytics,
@@ -170,17 +175,11 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
     );
 
   /**
-   * An affirmative no, and the reason it is not dismissBanner: this writes a
-   * record, so the banner stays gone and the next page load sends denied as
-   * the consent *default* rather than leaving it to the deny-by-default.
+   * An affirmative no. It writes a record, so the banner stays gone for the
+   * thirty days a refusal is kept and the next page load sends denied as the
+   * consent *default* rather than leaving it to the deny-by-default.
    */
   const rejectAll = () => applyChoice(createDefaultPreferences());
-
-  const dismissBanner = () => {
-    setBannerDismissed();
-
-    setChoice({ ...state, showBanner: false });
-  };
 
   const openSettings = () => setChoice({ ...state, showModal: true });
 
@@ -198,7 +197,6 @@ export const CookieConsentProvider: React.FC<PropsWithChildren> = ({
     ...state,
     acceptAll,
     rejectAll,
-    dismissBanner,
     openSettings,
     closeSettings,
     savePreferences,

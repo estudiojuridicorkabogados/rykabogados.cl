@@ -1,9 +1,11 @@
 import { describe, expect, test } from "bun:test";
 
 import {
+  buildConsentBootstrapSnippet,
   CONSENT_BOOTSTRAP_SNIPPET,
   consentStateFrom,
   type ConsentChoices,
+  readStoredChoices,
 } from "../consent";
 
 const COMBINATIONS: ConsentChoices[] = [
@@ -14,14 +16,28 @@ const COMBINATIONS: ConsentChoices[] = [
 ];
 
 /** Runs the inline snippet against a stub window, returning what it pushed. */
-function runSnippet(cookie: string): unknown[] {
+function runSnippet(
+  cookie: string,
+  snippet: string = CONSENT_BOOTSTRAP_SNIPPET
+): unknown[] {
   const stubWindow: { dataLayer: unknown[] } = { dataLayer: [] };
 
-  new Function("window", "document", CONSENT_BOOTSTRAP_SNIPPET)(stubWindow, {
-    cookie,
-  });
+  new Function("window", "document", snippet)(stubWindow, { cookie });
 
   return stubWindow.dataLayer;
+}
+
+/** Points the module-level reader at a cookie string. */
+function withDocumentCookie(cookie: string, run: () => void): void {
+  const realDocument = globalThis.document;
+  // @ts-expect-error -- stubbing the one global readStoredChoices touches
+  globalThis.document = { cookie };
+  try {
+    run();
+  } finally {
+    // @ts-expect-error -- restoring whatever was there, including undefined
+    globalThis.document = realDocument;
+  }
 }
 
 function cookieFor(choices: ConsentChoices, extra: object = {}): string {
@@ -185,6 +201,41 @@ describe("CONSENT_BOOTSTRAP_SNIPPET", () => {
     expect(stubWindow.dataLayer).toHaveLength(3);
   });
 
+  /**
+   * REPROMPT_BELOW_VERSION has to bite here too, not only in the banner. When
+   * it did not, raising it brought the banner back for a version 1 record
+   * while this snippet went on sending the record's grants as the default —
+   * Google was told yes by a visitor the UI was treating as un-asked.
+   */
+  test("a record below the re-prompt version grants nothing", () => {
+    const legacy = `cookie-consent=${encodeURIComponent(
+      JSON.stringify({
+        necessary: true,
+        analytics: true,
+        timestamp: "2025-10-17",
+      })
+    )}`;
+
+    const [command] = runSnippet(
+      legacy,
+      buildConsentBootstrapSnippet(2)
+    ) as Array<[string, string, Record<string, string>]>;
+
+    expect({ ...command[2] }).toEqual({
+      ...consentStateFrom({ analytics: false, advertising: false }),
+    });
+  });
+
+  test("a record at the re-prompt version still counts", () => {
+    const [command] = runSnippet(
+      cookieFor({ analytics: true, advertising: true }),
+      buildConsentBootstrapSnippet(2)
+    ) as Array<[string, string, Record<string, string>]>;
+
+    expect(command[2].analytics_storage).toBe("granted");
+    expect(command[2].ad_storage).toBe("granted");
+  });
+
   test("pushes an arguments object, not an array — GTM checks", () => {
     const [command] = runSnippet("");
 
@@ -192,5 +243,65 @@ describe("CONSENT_BOOTSTRAP_SNIPPET", () => {
     // data model and silently ignored as a command.
     expect(Array.isArray(command)).toBe(false);
     expect(Object.prototype.toString.call(command)).toBe("[object Arguments]");
+  });
+});
+
+describe("readStoredChoices", () => {
+  test("reads a current record", () => {
+    withDocumentCookie(
+      cookieFor({ analytics: true, advertising: false }),
+      () => {
+        expect(readStoredChoices()).toEqual({
+          analytics: true,
+          advertising: false,
+        });
+      }
+    );
+  });
+
+  test("no cookie is denied", () => {
+    withDocumentCookie("", () => {
+      expect(readStoredChoices()).toEqual({
+        analytics: false,
+        advertising: false,
+      });
+    });
+  });
+
+  /**
+   * The same gate the snippet applies, in the reader the site's own cookies
+   * and the fallback default go through. Without it, `hasAdvertisingConsent`
+   * kept minting Caso codes for a record the banner had stopped honouring.
+   */
+  test("a record below the re-prompt version is denied", () => {
+    const legacy = `cookie-consent=${encodeURIComponent(
+      JSON.stringify({
+        necessary: true,
+        analytics: true,
+        timestamp: "2025-10-17",
+      })
+    )}`;
+
+    withDocumentCookie(legacy, () => {
+      expect(readStoredChoices(2)).toEqual({
+        analytics: false,
+        advertising: false,
+      });
+      expect(readStoredChoices(0).analytics).toBe(true);
+    });
+  });
+
+  test("agrees with the snippet for every combination", () => {
+    for (const choices of COMBINATIONS) {
+      withDocumentCookie(cookieFor(choices), () => {
+        const [command] = runSnippet(cookieFor(choices)) as Array<
+          [string, string, Record<string, string>]
+        >;
+
+        expect({ ...command[2] }).toEqual({
+          ...consentStateFrom(readStoredChoices()),
+        });
+      });
+    }
   });
 });

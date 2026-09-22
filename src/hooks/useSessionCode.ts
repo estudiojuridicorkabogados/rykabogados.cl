@@ -21,11 +21,18 @@ import { getSessionCode } from "@/lib/utils/tracking";
  * spin. Caching also means every WhatsApp link and form on the page quotes the
  * same code, which is the entire point of it.
  *
- * Since phase 3 the code needs advertising consent. A visitor who has not
+ * Since phase 3 a *new* code needs advertising consent. A visitor who has not
  * answered the banner, or who declined, gets an empty string and their
  * WhatsApp message carries no reference — so the effect re-runs when the
  * choice changes rather than only on mount, and someone who accepts halfway
  * through a visit gets a code from that moment on.
+ *
+ * The consent check itself lives in getSessionCode, not here, and the order
+ * matters: it reads the cookie first and asks about consent only before
+ * minting. A visitor who consented, was issued a code, quoted it on WhatsApp
+ * and later withdrew keeps that reference — rk_caso is exempt from
+ * clearAttributionCookies for exactly this — and an early return on the
+ * context flag here would have hidden the cookie the withdrawal preserved.
  */
 let sessionCode = "";
 
@@ -52,13 +59,12 @@ export function useSessionCode(): string {
   const code = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   useEffect(() => {
-    if (sessionCode || !hasAdvertisingConsent) {
+    if (sessionCode) {
       return;
     }
 
-    // getSessionCode checks the cookie itself and returns "" without consent,
-    // so this is belt and braces — but reading the flag here rather than only
-    // depending on it is what makes the dependency honest.
+    // Returns the stored code if there is one, "" without consent, and mints
+    // only with it. Re-run on the flag so an acceptance mid-visit mints then.
     const minted = getSessionCode();
     if (!minted) {
       return;

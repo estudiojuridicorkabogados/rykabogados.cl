@@ -62,6 +62,29 @@ type GtagCommand =
 export const CONSENT_COOKIE_NAME = "cookie-consent";
 
 /**
+ * Records below this version are treated as no consent at all: the banner
+ * comes back, Google is told nothing was granted, and none of the site's own
+ * advertising cookies are written.
+ *
+ * Set to 0, so nothing is re-prompted: a visitor who accepted "analytics"
+ * before the advertising category existed keeps that, and reads as having
+ * declined advertising. Whether that is enough, or whether they must make a
+ * fresh affirmative choice now that advertising is a separate decision, is a
+ * legal judgement for the firm rather than ours. Raise this to 2 when they
+ * answer; nothing else needs to change.
+ *
+ * It lives here rather than in the CookieConsent component because three
+ * readers have to agree on it: `isConsentValid` (the banner), `readStoredChoices`
+ * below (the site's own cookies and the fallback default), and the bootstrap
+ * snippet (the Consent Mode default). A gate that only the banner applied left
+ * the other two granting what the UI was treating as un-consented.
+ */
+export const REPROMPT_BELOW_VERSION = 0;
+
+/** A record with no `version` predates the advertising category. */
+export const LEGACY_CONSENT_VERSION = 1;
+
+/**
  * Marks the defaults as sent, so the snippet and `ensureConsentDefaults` can
  * both run without double-pushing. Whichever gets there first wins.
  */
@@ -108,8 +131,13 @@ const gtag: (...command: GtagCommand) => void = function () {
  *
  * `analytics.ts` and the snippet are both framework-free and both need this,
  * so it cannot come from the provider's context.
+ *
+ * `repromptBelow` is a parameter only so the version gate can be tested
+ * without editing the constant; callers never pass it.
  */
-export function readStoredChoices(): ConsentChoices {
+export function readStoredChoices(
+  repromptBelow: number = REPROMPT_BELOW_VERSION
+): ConsentChoices {
   const denied: ConsentChoices = { analytics: false, advertising: false };
 
   if (typeof document === "undefined") {
@@ -126,6 +154,14 @@ export function readStoredChoices(): ConsentChoices {
     if (typeof stored !== "object" || stored === null) return denied;
 
     const value = stored as Record<string, unknown>;
+
+    // A record from a shape the firm has decided to ask about again grants
+    // nothing, however it reads. Same rule in isConsentValid and the snippet.
+    const version =
+      typeof value.version === "number"
+        ? value.version
+        : LEGACY_CONSENT_VERSION;
+    if (version < repromptBelow) return denied;
 
     // `=== true`, not truthiness: a record written before the advertising
     // category existed has no such key, and the spec is that it reads as
@@ -239,7 +275,12 @@ function compact(source: string): string {
   return source.replace(/\s+/g, " ").trim();
 }
 
-export const CONSENT_BOOTSTRAP_SNIPPET = compact(`
+/**
+ * Exported as a builder so the version gate can be tested at a threshold
+ * other than the live one. Production uses CONSENT_BOOTSTRAP_SNIPPET.
+ */
+export function buildConsentBootstrapSnippet(repromptBelow: number): string {
+  return compact(`
 (function () {
   var w = window;
   if (w.${CONSENT_READY_FLAG}) return;
@@ -251,8 +292,11 @@ export const CONSENT_BOOTSTRAP_SNIPPET = compact(`
     var m = document.cookie.match(/(?:^|; )${CONSENT_COOKIE_NAME}=([^;]*)/);
     if (m) {
       var p = JSON.parse(decodeURIComponent(m[1]));
-      if (p.analytics === true) a = 'granted';
-      if (p.advertising === true) d = 'granted';
+      var v = typeof p.version === 'number' ? p.version : ${LEGACY_CONSENT_VERSION};
+      if (v >= ${repromptBelow}) {
+        if (p.analytics === true) a = 'granted';
+        if (p.advertising === true) d = 'granted';
+      }
     }
   } catch (e) {}
   g('consent', 'default', {
@@ -268,3 +312,8 @@ export const CONSENT_BOOTSTRAP_SNIPPET = compact(`
   g('set', 'url_passthrough', true);
 })();
 `);
+}
+
+export const CONSENT_BOOTSTRAP_SNIPPET = buildConsentBootstrapSnippet(
+  REPROMPT_BELOW_VERSION
+);

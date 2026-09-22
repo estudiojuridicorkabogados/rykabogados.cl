@@ -13,11 +13,10 @@ Analytics and Vercel and nothing else.
 | Cookie / storage | Set by | What it is for | Lifetime | Who receives it | Category |
 | --- | --- | --- | --- | --- | --- |
 | `cookie-consent` | The site | Remembers the visitor's own choice about cookies | 1 year if they accept anything, **30 days if they refuse everything** | Nobody — never leaves the browser | Necesarias |
-| `cookie-banner-dismissed` (localStorage) | The site | Remembers the banner was closed without an answer | Until cleared | Nobody | Necesarias |
 | `rk_caso` | The site | The case reference quoted in the WhatsApp message, the booking emails and the intake sheet | 90 days | RK Abogados, via the Google Sheet | **Publicidad** |
-| `gclid`, `wbraid`, `gbraid` | The site | Which Google ad click brought this visit | 90 days | RK Abogados, via the Google Sheet | **Publicidad** |
-| `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | The site | Which campaign brought this visit, for anything that is not Google Ads | 90 days | RK Abogados, via the Google Sheet | **Publicidad** |
-| `rk_ft_*` (the same eight, plus `rk_ft_landing`, `rk_ft_referrer`, `rk_ft_ts`) | The site | The *first* campaign that ever brought this visitor, kept so credit is not lost when they think it over for a few days | 90 days | RK Abogados, via the Google Sheet | **Publicidad** |
+| `gclid`, `wbraid`, `gbraid` | The site | Which Google ad click brought this visit | 90 days, or until advertising consent is withdrawn | RK Abogados, via the Google Sheet | **Publicidad** |
+| `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | The site | Which campaign brought this visit, for anything that is not Google Ads | 90 days, or until advertising consent is withdrawn | RK Abogados, via the Google Sheet | **Publicidad** |
+| `rk_ft_*` (the same eight, plus `rk_ft_landing`, `rk_ft_referrer`, `rk_ft_ts`) | The site | The *first* campaign that ever brought this visitor, kept so credit is not lost when they think it over for a few days | 90 days, or until advertising consent is withdrawn | RK Abogados, via the Google Sheet | **Publicidad** |
 | `_ga` | Google Analytics, through Tag Manager | Distinguishes one visitor from another | 2 years | Google LLC | Análisis |
 | `_ga_HE87DHS09F` | Google Analytics | Session state for this property | 2 years | Google LLC | Análisis |
 | `_gcl_au` | Google Ads Conversion Linker | Attributes a conversion to an ad click | 90 days | Google LLC | Publicidad |
@@ -43,9 +42,18 @@ on the device, so still no consent needed — but it *is* processing of personal
 data and deserves a sentence.
 
 **"Rechazar" does not mean zero cookies.** It means no Google cookies and none
-of the site's own advertising cookies. `cookie-consent` itself and reCAPTCHA
-remain, because the first is the record of the refusal and the second protects
-the forms. The banner copy must not promise more than that.
+of the site's own advertising cookies — and, for someone who had accepted
+earlier, the campaign cookies already written are expired on the spot rather
+than left to run out. `cookie-consent` itself and reCAPTCHA remain, because the
+first is the record of the refusal and the second protects the forms. `rk_caso`
+also survives a withdrawal, deliberately: it may already be quoted in a
+WhatsApp conversation the firm is having, and it stops joining anything to a
+campaign once the campaign cookies are gone. The banner copy must not promise
+more than that.
+
+Historic note: older builds stored a `cookie-banner-dismissed` flag in
+localStorage when the banner was closed without an answer. Nothing reads or
+writes it any more; whoever still carries it is asked again like anyone else.
 
 **Google receives more than cookies.** When someone submits a form, a scrambled
 (hashed) version of their email and phone is sent to Google Ads so a booking can

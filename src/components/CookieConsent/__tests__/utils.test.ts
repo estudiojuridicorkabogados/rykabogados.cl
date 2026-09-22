@@ -171,8 +171,9 @@ describe("isConsentValid", () => {
 
   /**
    * REPROMPT_BELOW_VERSION is 0 today, so a version 1 record still counts.
-   * If the firm decides those visitors must choose again, raising it to 2 is
-   * the whole change — and this test is what says so out loud.
+   * If the firm decides those visitors must choose again, raising it — in
+   * src/lib/utils/consent.ts, where the snippet and the framework-free reader
+   * share it — is the whole change, and this test is what says so out loud.
    */
   test("version 1 records are still honoured while the constant is 0", () => {
     const legacy = {

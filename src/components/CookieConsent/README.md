@@ -96,12 +96,26 @@ than letting truthiness propagate. The same rule is written a second time, in
 ES5, inside `CONSENT_BOOTSTRAP_SNIPPET` — the two are checked against each
 other by `src/lib/utils/__tests__/consent.test.ts`. Change them together.
 
-`version` is 2. `REPROMPT_BELOW_VERSION` in `utils.ts` is 0, so nothing is
-re-prompted; raise it to 2 if the firm decides people who accepted before the
-advertising category existed must choose again.
+`version` is 2. `REPROMPT_BELOW_VERSION` in `src/lib/utils/consent.ts` is 0,
+so nothing is re-prompted; raise it to 2 if the firm decides people who
+accepted before the advertising category existed must choose again. It lives
+there rather than here because three readers apply it — `isConsentValid` for
+the banner, `readStoredChoices` for the site's own cookies, and the bootstrap
+snippet for the Consent Mode default — and a gate only the banner applied left
+Google being told "granted" by a record the UI had stopped honouring.
 
-`cookie-banner-dismissed` in localStorage survives from an older design. Only
-`dismissBanner` sets it and nothing in the UI calls that any more.
+**There is no "dismissed" state.** An older design let the banner be closed
+without an answer and remembered that in `cookie-banner-dismissed` in
+localStorage, with no expiry. Under Consent Mode that would have been a
+permanent, silent denial for everyone who once clicked it. Nothing reads or
+writes the key any more; whoever has it is asked again like anyone else.
+
+**Withdrawing advertising consent clears the site's own advertising cookies.**
+`applyChoice` calls `clearAttributionCookies` whenever the stored choice has
+advertising off, so `gclid`/`wbraid`/`gbraid`, the `utm_*` set and every
+`rk_ft_*` copy are expired on the spot rather than left for their ninety days.
+`rk_caso` is deliberately kept — see `getSessionCode` — so a reference the firm
+may already be quoting on WhatsApp does not vanish mid-conversation.
 
 ## Two traps
 
