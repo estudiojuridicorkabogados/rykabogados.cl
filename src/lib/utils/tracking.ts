@@ -1,3 +1,8 @@
+import {
+  readCampaignCookie,
+  writeAttributionCookie,
+} from "@/lib/utils/campaignParams";
+
 const WEBAPP_URL =
   "https://script.google.com/macros/s/AKfycbwdfIflbl-jPOw5j-ldCl_qumzoEDvC82njzKOf4ZiO6jQwvhnlWa4k1txCLQdzSjrnwA/exec";
 const DEFAULT_PHONE = "56986395780";
@@ -19,27 +24,48 @@ interface BuildWhatsAppUrlParams {
   message?: string;
 }
 
+const CASO_COOKIE = "rk_caso";
+const LEGACY_CASO_STORAGE = "am_short_code";
+
+function mintCode(): string {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+}
+
 /**
- * Generate and store unique session code in sessionStorage
- * Returns existing code if already generated, otherwise creates new one
+ * The Caso code for this visitor: the reference quoted in the WhatsApp
+ * message, the booking and chatbot emails, and the Google Sheet row.
+ *
+ * It lived in sessionStorage, which is wiped when the tab closes. Someone who
+ * clicks an ad on Monday, thinks it over and books on Wednesday arrived as a
+ * different person with a different code, and the two halves of that story
+ * could never be joined. A ninety-day cookie — the same window the campaign
+ * cookies use — keeps one visitor to one code.
+ *
+ * sessionStorage is still read first so that anyone mid-visit when this ships
+ * keeps the code they may already have pasted into WhatsApp.
  */
 export function getSessionCode(): string {
   if (typeof window === "undefined") {
     // Fallback for SSR - generate a temporary code
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
+    return mintCode();
   }
 
   try {
-    let code = sessionStorage.getItem("am_short_code");
-    if (!code) {
-      code = Math.random().toString(36).substring(2, 8).toUpperCase();
-      sessionStorage.setItem("am_short_code", code);
-    }
+    const fromCookie = readCampaignCookie(CASO_COOKIE);
+    if (fromCookie) return fromCookie;
+
+    // Read once, for continuity: a visitor mid-visit when this ships keeps the
+    // code they may already have pasted into WhatsApp. Nothing writes back to
+    // sessionStorage — the cookie is the record now.
+    const code = sessionStorage.getItem(LEGACY_CASO_STORAGE) || mintCode();
+
+    writeAttributionCookie(CASO_COOKIE, code);
+
     return code;
   } catch (e) {
     console.error("Error getting session code:", e);
-    // Fallback if sessionStorage is not available
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
+    // Fallback if neither cookies nor sessionStorage are available
+    return mintCode();
   }
 }
 

@@ -4,12 +4,18 @@ import { convertToModelMessages, isStepCount, streamText, UIMessage } from "ai";
 import "server-only";
 
 import { findRelevantContent } from "./embeddings";
-import { processUserInfoTool } from "./tools/processUserInfoTool";
+import { createProcessUserInfoTool } from "./tools/processUserInfoTool";
 import { provideWhatsappContactTool } from "./tools/provideWhatsappContactTool";
 
 export async function runLegalChatBot(
   messages: UIMessage[],
-  systemPrompt: string
+  systemPrompt: string,
+  /**
+   * The visitor's Caso code, threaded through so a lead captured here lands in
+   * the studio email quoting the same reference as the Sheet row. Empty when
+   * the browser had none to send; the email simply omits the line.
+   */
+  sessionCode = ""
 ) {
   // find last user message to query the KB
   const lastUserMessage = messages.toReversed().find((m) => m.role === "user");
@@ -49,7 +55,7 @@ export async function runLegalChatBot(
     instructions: systemWithNoToolMention,
     stopWhen: isStepCount(5),
     tools: {
-      processUserInfo: processUserInfoTool,
+      processUserInfo: createProcessUserInfoTool(sessionCode),
       provideWhatsappContact: provideWhatsappContactTool,
     },
     messages: modelMessages,

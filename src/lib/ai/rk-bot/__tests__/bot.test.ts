@@ -54,7 +54,7 @@ mock.module("@ai-sdk/openai", () => ({
 }));
 
 // Import the modules under test AFTER all mocks are set up
-const { processUserInfo, processUserInfoTool } =
+const { processUserInfo, createProcessUserInfoTool } =
   await import("../tools/processUserInfoTool");
 const { provideWhatsappContactTool } =
   await import("../tools/provideWhatsappContactTool");
@@ -105,9 +105,67 @@ describe("processUserInfo", () => {
 
 // ─── processUserInfoTool ──────────────────────────────────────────────────────
 
-describe("processUserInfoTool", () => {
+describe("createProcessUserInfoTool", () => {
+  const args = {
+    fullName: "Juan Pérez",
+    email: "juan@example.com",
+    phoneNumber: "+56912345678",
+    legalIssue: "Despido injustificado",
+    fullContext: "El usuario fue despedido sin aviso.",
+  };
+
   it("has an execute function", () => {
-    expect(typeof processUserInfoTool.execute).toBe("function");
+    expect(typeof createProcessUserInfoTool("ABC123").execute).toBe("function");
+  });
+
+  /**
+   * The whole point of the factory: the model is never asked for the Caso
+   * code, so it cannot hallucinate or drop it. If this ever regresses, a
+   * chatbot lead stops being traceable to the campaign that paid for it.
+   */
+  it("puts the Caso code in the studio email without asking the model for it", async () => {
+    const sent: { to: string; html: string }[] = [];
+    mock.module("@/lib/google/gmail/sendEmail", () => ({
+      sendEmail: async ({ to, html }: { to: string; html: string }) => {
+        sent.push({ to, html });
+      },
+    }));
+
+    const { createProcessUserInfoTool: createFresh } =
+      await import("../tools/processUserInfoTool");
+
+    const execute = createFresh("ABC123").execute;
+    if (!execute) throw new Error("execute is undefined");
+
+    await execute(args, {
+      messages: [],
+      toolCallId: "test-id",
+      abortSignal: new AbortController().signal,
+    });
+
+    const studioEmail = sent.find((e) => e.to !== args.email);
+    expect(studioEmail?.html).toContain("Caso: ABC123");
+
+    // The visitor's confirmation stays as it was — the code is an internal
+    // reference, not something to hand back to them.
+    const visitorEmail = sent.find((e) => e.to === args.email);
+    expect(visitorEmail?.html).not.toContain("ABC123");
+  });
+
+  it("omits the Caso line when the browser had no code to send", async () => {
+    const sent: { to: string; html: string }[] = [];
+    mock.module("@/lib/google/gmail/sendEmail", () => ({
+      sendEmail: async ({ to, html }: { to: string; html: string }) => {
+        sent.push({ to, html });
+      },
+    }));
+
+    const { processUserInfo: processFresh } =
+      await import("../tools/processUserInfoTool");
+
+    await processFresh(args, "");
+
+    expect(sent.every((e) => !e.html.includes("Caso:"))).toBe(true);
   });
 });
 

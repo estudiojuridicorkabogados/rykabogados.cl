@@ -146,7 +146,7 @@ One change was published on its own: an exception trigger (`Page Hostname contai
 
 ---
 
-## Phase 2: Make the site report every step
+## Phase 2: Make the site report every step — code complete, awaiting preview testing
 
 | | |
 | --- | --- |
@@ -243,24 +243,33 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 
 ### Checklist
 
-- [ ] `trackEvent` helper and signal vocabulary in `src/lib/utils/analytics.ts`
-- [ ] `rk_page_view` on navigation, with page type and previous page
-- [ ] `rk_scroll` at 25/50/75/100, once per page, reset on navigation
-- [ ] Booking forms (both): view, start, step, error, submit, success, fail
-- [ ] Contact form: view, start, error, submit, success, fail
-- [ ] WhatsApp link: labels added, `location` required, team grid routed through it
-- [ ] Phone and email links tracked
-- [ ] CTA buttons tracked
-- [ ] Chatbot: open, first message, message, handoff, lead, lead fail, error
-- [ ] Caso code written into both emails sent by `processUserInfoTool.ts`
-- [ ] `wbraid`, `gbraid` and `utm_*` read alongside `gclid`
-- [ ] Caso code generated for every visitor
-- [ ] First touch stored in a 90-day cookie
-- [ ] Sheet channel typo fixed
-- [ ] Tag Manager ID moved to an environment variable
-- [ ] Tested on preview, desktop and phone
-- [ ] Smoke test in the pipeline
-- [ ] Signal documentation written (see phase 4)
+- [x] `trackEvent` helper and signal vocabulary in `src/lib/utils/analytics.ts`
+- [x] `rk_page_view` on navigation, with page type and previous page
+- [x] `rk_scroll` at 25/50/75/100, once per page, reset on navigation
+- [x] Booking forms (both): view, start, step, error, submit, success, fail
+- [x] Contact form: view, start, error, submit, success, fail
+- [x] WhatsApp link: labels added, `location` required — the team grid's
+      raw link turned out to be commented out entirely, so there was nothing
+      to route; its `tel:` and `mailto:` links are covered instead
+- [x] Phone and email links tracked
+- [x] CTA buttons tracked
+- [x] Chatbot: open, first message, message, handoff, lead, lead fail, error
+- [x] Caso code written into the studio email sent by `processUserInfoTool.ts`
+      — the studio one only, not both: it is an internal reference for
+      matching the Sheet row, and the visitor has no use for it. Closed over
+      by a per-request tool factory rather than added to the input schema,
+      so the model cannot hallucinate or drop it
+- [x] `wbraid`, `gbraid` and `utm_*` read alongside `gclid`
+- [x] Caso code generated for every visitor
+- [x] First touch stored in a 90-day cookie
+- [x] Sheet channel typo fixed
+- [x] Tag Manager ID moved to an environment variable
+- [ ] Tested on preview, desktop and phone — **outstanding**, needs a deploy
+- [x] Smoke test — `bun run test:tracking`, an agent-browser walk of the
+      trabajadores form asserting the `rk_*` sequence. Not in a pipeline:
+      this repo has no CI, and the Playwright spec on `feat/e2e-tests` is
+      where that belongs
+- [x] Signal documentation written (see phase 4)
 
 ---
 

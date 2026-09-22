@@ -23,7 +23,23 @@ export const CAMPAIGN_PARAMS = [
   "utm_source",
   "utm_medium",
   "utm_campaign",
+  "utm_content",
+  "utm_term",
 ] as const;
+
+/** Ninety days, which is also Google Ads' longest standard lookback. */
+export const ATTRIBUTION_MAX_AGE = 90 * 86400;
+
+/**
+ * Prefix for the first-touch copies.
+ *
+ * The unprefixed cookies are last touch and are overwritten on every campaign
+ * visit, because the click happening now is the one Ads should be told about.
+ * These are written once and never again, so the campaign that first brought
+ * someone is still there when they come back on a Wednesday and book. Both
+ * readings are wanted; neither is a substitute for the other.
+ */
+export const FIRST_TOUCH_PREFIX = "rk_ft_";
 
 /**
  * Whether a landing URL's query string carries any campaign marker.
@@ -39,6 +55,25 @@ export function hasCampaignParam(search: string): boolean {
     // Malformed query string — treat as ordinary traffic rather than throwing
     // inside an effect that has tag loading downstream of it.
     return false;
+  }
+}
+
+/**
+ * Writes a cookie that survives a tab closing.
+ *
+ * Not httpOnly and not meant to be: nothing reads these on the server, and the
+ * whole point is that document.cookie can get at them. SameSite=Lax so a click
+ * arriving from an ad still carries them.
+ */
+export function writeAttributionCookie(name: string, value: string): void {
+  try {
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+
+    document.cookie = `${name}=${encodeURIComponent(
+      value
+    )}; Max-Age=${ATTRIBUTION_MAX_AGE}; Path=/; SameSite=Lax${secure}`;
+  } catch {
+    // Storage disabled or blocked — tracking is best-effort, never fatal.
   }
 }
 

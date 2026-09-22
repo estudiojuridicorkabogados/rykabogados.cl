@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "oxlint",
     "test": "bun test",
+    "test:tracking": "bun scripts/tracking-smoke.ts",
     "lint:fix": "oxlint --fix",
     "format:check": "oxfmt --check src",
     "format": "oxfmt src",

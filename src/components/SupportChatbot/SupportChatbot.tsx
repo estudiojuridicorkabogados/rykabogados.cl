@@ -3,6 +3,8 @@
 import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 
+import { trackEvent } from "@/lib/utils/analytics";
+
 import { ChatboatFloatingButton } from "./ChatboatFloatingButton";
 
 /**
@@ -29,7 +31,18 @@ export const SupportChatbot = () => {
 
   const onToggleOpen = () => {
     setActivated(true);
-    setOpen((v) => !v);
+
+    // Only the opening half is a signal: closing the panel is not a step
+    // towards anything, and counting both would double every session.
+    //
+    // Read from `open` rather than from inside the updater. A state updater
+    // has to be pure, and React proves it by calling it twice in development —
+    // which reported two opens for one click.
+    if (!open) {
+      trackEvent("rk_chat_open");
+    }
+
+    setOpen((wasOpen) => !wasOpen);
   };
 
   const handleClose = useCallback(() => setOpen(false), []);

@@ -2,9 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
+import { isToolUIPart, ToolUIPart } from "ai";
 import Image from "next/image";
 
 import { useDebounceCallback } from "@/hooks/useDebounceCallback";
+import { useTracking } from "@/hooks/useTracking";
+import { buildUserData, trackEvent } from "@/lib/utils/analytics";
 import { classNames } from "@/lib/utils/classNames";
 
 import logoBlack from "../../../public/images/logos/logo-black.png";
@@ -22,6 +25,35 @@ interface ChatbotPanelProps {
 }
 
 /**
+ * What `processUserInfo` collected, read off the tool part the stream already
+ * carries. The model produced these values, so nothing here is trusted beyond
+ * "is it a string" — they go to Google's hashing tag, not into the page.
+ */
+function leadUserData(part: ToolUIPart) {
+  const input = part.input;
+
+  if (!input || typeof input !== "object") return undefined;
+
+  const { email, phoneNumber } = input as Record<string, unknown>;
+
+  return buildUserData({
+    email: typeof email === "string" ? email : undefined,
+    phone: typeof phoneNumber === "string" ? phoneNumber : undefined,
+  });
+}
+
+/** `processUserInfo` returns `{ success, message }`; only the flag matters. */
+function leadSucceeded(part: ToolUIPart) {
+  const output = part.output;
+
+  return (
+    !!output &&
+    typeof output === "object" &&
+    (output as Record<string, unknown>).success === true
+  );
+}
+
+/**
  * The chat panel proper. Split out of SupportChatbot so that `useChat` — and
  * with it the AI SDK and Zod, ~130KB gzipped — only reaches the browser once
  * the visitor actually opens the chat. See docs/lcp-performance-plan.md.
@@ -31,7 +63,18 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
   onClose,
   onUnreadChange,
 }) => {
-  const { messages, status, sendMessage } = useChat();
+  const { shortCode, logToSheet } = useTracking();
+
+  const { messages, status, sendMessage } = useChat({
+    onError: () => {
+      // Previously invisible in both directions: the typing dots vanish and
+      // nothing is rendered, and nothing was recorded either.
+      trackEvent("rk_chat_error");
+    },
+  });
+
+  /** Tool calls already reported, by call id, so each fires exactly once. */
+  const reportedTools = useRef(new Set<string>());
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const endRef = useRef<HTMLDivElement | null>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
@@ -115,8 +158,70 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
   }, []);
 
   const onSubmit = (query: string) => {
-    sendMessage({ text: query });
+    // Counted before the send, because `messages` updates asynchronously.
+    const sent =
+      messages.filter((message) => message.role === "user").length + 1;
+
+    trackEvent(sent === 1 ? "rk_chat_first_message" : "rk_chat_message", {
+      message_number: sent,
+    });
+
+    // The Caso code rides on the request so the studio email for a captured
+    // lead quotes the same reference as the Sheet row. The route validates it
+    // before it reaches an email body.
+    sendMessage({ text: query }, { body: { sessionCode: shortCode } });
   };
+
+  /**
+   * The bot has two endings and they are not equal: handing over the WhatsApp
+   * number leaves the visitor with something still to do, while capturing the
+   * lead finishes the job. The funnels have to tell them apart, so each tool
+   * call gets its own signal.
+   *
+   * Read off the message stream rather than from a callback: tool parts arrive
+   * as ordinary parts, carrying both the input the model produced and the
+   * result the server returned.
+   */
+  useEffect(() => {
+    for (const message of messages) {
+      for (const part of message.parts) {
+        if (!isToolUIPart(part)) continue;
+        if (part.state !== "output-available") continue;
+        if (reportedTools.current.has(part.toolCallId)) continue;
+
+        reportedTools.current.add(part.toolCallId);
+
+        if (part.type === "tool-provideWhatsappContact") {
+          trackEvent("rk_chat_handoff", { location: "chatbot" });
+          continue;
+        }
+
+        if (part.type !== "tool-processUserInfo") continue;
+
+        if (!leadSucceeded(part)) {
+          trackEvent("rk_chat_lead_fail");
+          continue;
+        }
+
+        const user_data = leadUserData(part);
+
+        trackEvent("rk_chat_lead", {
+          location: "chatbot",
+          ...(user_data && { user_data }),
+        });
+
+        // A finished enquiry, so it belongs in the case log next to the
+        // campaign that produced it — the same row a booking or a WhatsApp
+        // message would write.
+        logToSheet({
+          landing: window.location.href,
+          channel: "chatbot-lead",
+          email: user_data?.email ?? "",
+          phone: user_data?.phone_number ?? "",
+        });
+      }
+    }
+  }, [messages, logToSheet]);
 
   useEffect(() => {
     if (!open) return;
