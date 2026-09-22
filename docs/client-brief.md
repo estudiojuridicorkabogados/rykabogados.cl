@@ -30,6 +30,7 @@ Each blocks something. The recommendation is ours; the decision is theirs.
 | **Declining costs them the case reference on that enquiry** | Accept it | Explained below. If they cannot live with it, the fallback is to keep the reference and drop only the campaign cookies — half a day |
 | **Both switches in "Personalizar" start ON** | Their call, and they should make it knowingly — see below | Switching either to start OFF is one word each |
 | **Wording of the cookie and privacy policy pages** | They write, we supply the facts | `docs/cookie-inventory.md` is the technical input. This is their liability, not ours |
+| **Whether rejecting should stop data reaching Google entirely** | Theirs to decide — see below | One Tag Manager setting, no code, reversible in minutes. It decides which sentence they may write in the policy |
 
 ### The legal note on the reject button
 
@@ -49,6 +50,52 @@ read art. 12 the same way once it starts issuing guidance. Renaming
 makes the decline path visible from the first screen. **If the firm ever
 markets to Spain or the EU, this has to be revisited and the button goes on the
 banner.**
+
+### What "rechazar" means today, and the sentence they cannot write
+
+The firm will want to write "si rechazas, no se envía ningún dato a Google".
+As the site is configured today that is **false**, and it is the sentence a
+complainant would quote back at them.
+
+Rejecting stops every cookie — Google's and ours — and stops any link between
+the visit and a person or an ad click. It does not stop the request itself:
+Google still receives the page visited, the referring page, browser details and
+the IP address, with nothing attached that identifies anyone. That is Google's
+"cookieless ping", and it is lawful without consent precisely because it stores
+nothing on the device.
+
+They can choose the stronger version. Blocking Google's tags outright until
+consent is one setting in Tag Manager, no code change, reversible in minutes —
+and then nothing is sent at all and the sentence becomes true.
+
+The trade, stated honestly: with the tags blocked, a declining visitor is
+completely invisible, so they cannot tell "nobody came" from "everybody
+declined". The usual argument for keeping the pings is that they feed Google's
+statistical modelling — but that only switches on above roughly a thousand
+declining visitors a day, which this site will not reach. So the main benefit
+does not apply here, and what is left is knowing how many people declined.
+
+Put to them in Spanish:
+
+> **Una decisión sobre qué significa "rechazar"**
+>
+> Hoy, cuando alguien rechaza las cookies, no se instala ninguna cookie en su
+> dispositivo y no es posible reconocerlo ni vincularlo con ningún anuncio. Sin
+> embargo, Google sí recibe un aviso anónimo de la visita: la página vista, de
+> dónde venía, el navegador y la dirección IP, sin nada que identifique a la
+> persona.
+>
+> Podemos cambiarlo para que, al rechazar, no se envíe absolutamente nada a
+> Google. Es un ajuste de configuración, no un cambio en el sitio, y se puede
+> revertir en minutos.
+>
+> A cambio, dejarían de saber cuántas personas rechazan: un visitante que
+> rechaza pasaría a ser completamente invisible, y no podrían distinguir "no
+> vino nadie" de "todos rechazaron".
+>
+> **Esta decisión es suya**, porque determina qué pueden afirmar en su política
+> de cookies. Si eligen no enviar nada, pueden escribir "no se envía ningún dato
+> a Google". Con la configuración actual, esa frase no sería correcta.
 
 ### The note on the pre-ticked switches
 
