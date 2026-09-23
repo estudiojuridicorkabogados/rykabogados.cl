@@ -7,6 +7,7 @@ import { useCookieConsent } from "@/components/CookieConsent/useCookieConsent";
 import { useSessionCode } from "@/hooks/useSessionCode";
 import {
   CLICK_ID_PARAMS,
+  formatClickIdForSheet,
   readCampaignCookie,
   readFirstTouch,
 } from "@/lib/utils/campaignParams";
@@ -47,6 +48,9 @@ interface UseTrackingReturn {
  * same reason readFirstTouch is: the cookie is flushed by an effect when the
  * visitor accepts, and a hook that captured "" during the render that
  * flipped consent would have kept it for the rest of the page.
+ *
+ * Returned in the Sheet's format — see formatClickIdForSheet — so a wbraid
+ * or gbraid keeps its kind on the way to the Ads import.
  */
 function readClickId(): string {
   try {
@@ -54,12 +58,12 @@ function readClickId(): string {
 
     for (const param of CLICK_ID_PARAMS) {
       const fromUrl = search.get(param);
-      if (fromUrl) return fromUrl;
+      if (fromUrl) return formatClickIdForSheet(param, fromUrl);
     }
 
     for (const param of CLICK_ID_PARAMS) {
       const fromCookie = readCampaignCookie(param);
-      if (fromCookie) return fromCookie;
+      if (fromCookie) return formatClickIdForSheet(param, fromCookie);
     }
 
     return "";

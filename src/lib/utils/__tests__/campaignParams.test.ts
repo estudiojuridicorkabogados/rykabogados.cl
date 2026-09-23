@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import {
   ATTRIBUTION_COOKIES,
   clearAttributionCookies,
+  formatClickIdForSheet,
   readCampaignCookie,
   writeAttributionCookie,
 } from "../campaignParams";
@@ -85,5 +86,16 @@ describe("clearAttributionCookies", () => {
     expect(ATTRIBUTION_COOKIES).toContain("rk_ft_referrer");
     expect(ATTRIBUTION_COOKIES).toContain("rk_ft_ts");
     expect(ATTRIBUTION_COOKIES).not.toContain("rk_caso");
+  });
+});
+
+describe("formatClickIdForSheet", () => {
+  test("a gclid stays bare, as every row before the prefix was written", () => {
+    expect(formatClickIdForSheet("gclid", "Cj0KCQjw")).toBe("Cj0KCQjw");
+  });
+
+  test("an iOS click reference carries its kind", () => {
+    expect(formatClickIdForSheet("wbraid", "CjkKCQjw")).toBe("wbraid:CjkKCQjw");
+    expect(formatClickIdForSheet("gbraid", "0AAAAADx")).toBe("gbraid:0AAAAADx");
   });
 });

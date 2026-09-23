@@ -18,6 +18,29 @@
  */
 export const CLICK_ID_PARAMS = ["gclid", "wbraid", "gbraid"] as const;
 
+export type ClickIdParam = (typeof CLICK_ID_PARAMS)[number];
+
+/**
+ * A click reference as the Sheet stores it: a `gclid` bare, a `wbraid` or
+ * `gbraid` prefixed with its kind — `wbraid:…`, `gbraid:…`.
+ *
+ * All three share the Sheet's one `gclid` column, and nothing else in the row
+ * says which one arrived. That did not matter while the column was only read
+ * by people; it does once Google Ads imports case outcomes from it, because
+ * the upload takes each kind in its own column and rejects a wbraid offered
+ * as a gclid — so every iPhone visitor who became a client would fail to
+ * upload. The prefix carries the kind without adding a column, which the
+ * positional Apps Script could not take without a redeploy. The `Ads import`
+ * tab splits on it. A bare value stays a gclid so the rows written before
+ * 23 September 2026 still read correctly.
+ */
+export function formatClickIdForSheet(
+  param: ClickIdParam,
+  value: string
+): string {
+  return param === "gclid" ? value : `${param}:${value}`;
+}
+
 export const CAMPAIGN_PARAMS = [
   ...CLICK_ID_PARAMS,
   "utm_source",

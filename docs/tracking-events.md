@@ -239,7 +239,7 @@ could not access, keeps the history up to that date.
 | `code` | The Caso code |
 | `channel` | `whatsapp`, `contacto-form`, `reserva-form-trabajadores`, `reserva-form-empresas`, `chatbot-lead` |
 | `landing` | The page the action happened on, full URL |
-| `gclid` | Last-touch click reference — `gclid`, `wbraid` or `gbraid`, whichever the most recent ad click carried |
+| `gclid` | Last-touch click reference — whichever the most recent ad click carried. A `gclid` is written bare; a `wbraid` or `gbraid` is prefixed with its kind, `wbraid:…` / `gbraid:…`, since 23 September 2026, because the Ads import takes each in its own column. Earlier rows are all bare |
 | `phone`, `email` | As typed, for forms and chatbot leads; empty for WhatsApp |
 | `ft_source`, `ft_medium`, `ft_campaign`, `ft_content`, `ft_term` | First campaign touch, from `utm_*`; empty for a visitor who never arrived on a tagged link |
 | `ft_landing`, `ft_referrer`, `ft_ts` | First visit: entry path, referring site or `direct`, and when |
