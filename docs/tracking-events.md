@@ -319,7 +319,7 @@ The whole tab is one formula in A1:
   phone, Registro!F2:F,
   email, Registro!G2:G,
   fecha, Registro!Q2:Q,
-  keep, (Registro!P2:P = "cliente") * (fecha <> "") * (((click <> "") + (phone <> "") + (email <> "")) > 0),
+  keep, ARRAYFORMULA((Registro!P2:P = "cliente") * (fecha <> "") * (((click <> "") + (phone <> "") + (email <> "")) > 0)),
   FILTER(
     VSTACK(
       HSTACK("order_id", "gclid", "gbraid", "wbraid", "email", "phone", "conversion_time"),
@@ -362,6 +362,10 @@ What it does, and why:
 - **Conversion time is noon on `fecha_resultado`,** in the Sheet's time zone
   (File → Settings, which must be Santiago). The day is what the firm records;
   the hour only has to fall after the click.
+- **`keep` is wrapped in `ARRAYFORMULA`.** Bound in `LET`, a comparison
+  against a whole column is evaluated as one value, not one per row, and
+  `FILTER` then fails on mismatched sizes. `MAP` needs no wrapper; it is an
+  array function already.
 - **Empty is not an error.** The header sits in the same stack as the data
   and the filter always keeps it, so with no `cliente` rows the tab is the
   header alone. The first version wrapped everything in `IFERROR` for that,
