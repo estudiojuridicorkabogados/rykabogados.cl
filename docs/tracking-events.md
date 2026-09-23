@@ -310,7 +310,10 @@ A–O carry an edit warning: the Apps Script writes them by position, so an edit
 or an inserted column there breaks every row after it.
 
 A second tab, `Ads import`, turns the `cliente` rows into what Google Ads reads.
-The whole tab is one formula in A1:
+**It must stay the first tab of the file.** Data Manager picks a file, not a
+tab, and reads whichever tab is first — moving `Registro` back in front
+silently feeds Ads the raw log instead. The Apps Script is unaffected by the
+order: it finds `Registro` by name. The whole tab is one formula in A1:
 
 ```
 =LET(
