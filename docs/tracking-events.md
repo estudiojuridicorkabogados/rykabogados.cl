@@ -302,6 +302,75 @@ edit, **Deploy → Manage deployments → edit → New version**: a "New deploym
 would issue a new URL and need the environment variable changed, and an edit
 without a new version leaves the running URL serving the old code.
 
+### Case outcomes to Google Ads — the `Ads import` tab
+
+The firm marks `resultado` (`cliente` / `no cliente`, a dropdown) and
+`fecha_resultado` (a validated date) in columns P and Q of `Registro`. Columns
+A–O carry an edit warning: the Apps Script writes them by position, so an edit
+or an inserted column there breaks every row after it.
+
+A second tab, `Ads import`, turns the `cliente` rows into what Google Ads reads.
+The whole tab is one formula in A1:
+
+```
+=IFERROR(LET(
+  d, FILTER(Registro!A2:Q,
+            Registro!P2:P = "cliente",
+            Registro!Q2:Q <> "",
+            (Registro!E2:E <> "") + (Registro!F2:F <> "") + (Registro!G2:G <> "")),
+  click, CHOOSECOLS(d, 5),
+  VSTACK(
+    HSTACK("order_id", "gclid", "gbraid", "wbraid", "email", "phone", "conversion_time"),
+    HSTACK(
+      CHOOSECOLS(d, 2),
+      MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^(wbraid|gbraid):"), "", c & ""))),
+      MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^gbraid:"), MID(c, 8, 999), ""))),
+      MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^wbraid:"), MID(c, 8, 999), ""))),
+      MAP(CHOOSECOLS(d, 7), LAMBDA(e, LOWER(TRIM(e & "")))),
+      MAP(CHOOSECOLS(d, 6), LAMBDA(p, LET(
+        raw, TRIM(p & ""),
+        dig, REGEXREPLACE(raw, "\D", ""),
+        IF(dig = "", "",
+          IF(LEFT(raw, 1) = "+", IF(AND(LEN(dig) >= 8, LEN(dig) <= 15), "+" & dig, ""),
+            IF(LEN(dig) = 9, "+56" & dig,
+              IF(AND(LEN(dig) = 11, LEFT(dig, 2) = "56"), "+" & dig, ""))))))),
+      MAP(CHOOSECOLS(d, 17), LAMBDA(f, TEXT(f, "yyyy-mm-dd") & " 12:00:00"))
+    )
+  )
+), HSTACK("order_id", "gclid", "gbraid", "wbraid", "email", "phone", "conversion_time"))
+```
+
+What it does, and why:
+
+- **Only rows Ads can use.** Marked `cliente`, dated, and carrying at least one
+  of a click reference, a phone or an email. A WhatsApp row from a visitor who
+  arrived organically has none of the three and stays in the Sheet only.
+- **`order_id` is the Caso code.** One visitor can have several rows — a
+  WhatsApp tap and then a booking — and marking both would count one client
+  twice. Ads deduplicates on it.
+- **The click reference is split three ways** on the prefix the site has
+  written since 23 September 2026 (`formatClickIdForSheet`). A bare value is a
+  gclid, which is also what every earlier row holds.
+- **Phone to E.164, email lowercased and trimmed** — the same normalisation as
+  `normalizePhone` in `analytics.ts`, so an uploaded phone matches the hash the
+  User-provided Data tag sent from the form. An implausible number becomes
+  blank rather than a guess.
+- **Conversion time is noon on `fecha_resultado`,** in the Sheet's time zone
+  (File → Settings, which must be Santiago). The day is what the firm records;
+  the hour only has to fall after the click.
+- **Empty is not an error.** With no `cliente` rows the tab is the header alone,
+  which is what Data Manager should see, rather than `#N/A`.
+- **Commas assume an English locale.** Under a Spanish locale (File → Settings)
+  every argument separator is `;` — replace them all; nothing inside the quoted
+  strings contains a comma.
+
+Ads reads the tab through **Data Manager** (Tools → Data manager → Google
+Sheets, direct connection, Conversions), not the legacy template upload,
+mapping each column in its interface and feeding the existing `Cliente
+convertido` action — see section 10 of the plan. Email and phone go as plain
+normalised text: the mapping step decides whether Ads hashes them or expects
+them hashed, and that is checked there rather than assumed here.
+
 `wbraid` and `gbraid` are what Google Ads sends instead of `gclid` from iOS
 when tracking permissions are restricted — the same click under a different
 name. Reading only `gclid`, as the site did until September 2026, made every
