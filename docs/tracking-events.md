@@ -313,31 +313,35 @@ A second tab, `Ads import`, turns the `cliente` rows into what Google Ads reads.
 The whole tab is one formula in A1:
 
 ```
-=IFERROR(LET(
-  d, FILTER(Registro!A2:Q,
-            Registro!P2:P = "cliente",
-            Registro!Q2:Q <> "",
-            (Registro!E2:E <> "") + (Registro!F2:F <> "") + (Registro!G2:G <> "")),
-  click, CHOOSECOLS(d, 5),
-  VSTACK(
-    HSTACK("order_id", "gclid", "gbraid", "wbraid", "email", "phone", "conversion_time"),
-    HSTACK(
-      CHOOSECOLS(d, 2),
-      MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^(wbraid|gbraid):"), "", c & ""))),
-      MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^gbraid:"), MID(c, 8, 999), ""))),
-      MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^wbraid:"), MID(c, 8, 999), ""))),
-      MAP(CHOOSECOLS(d, 7), LAMBDA(e, LOWER(TRIM(e & "")))),
-      MAP(CHOOSECOLS(d, 6), LAMBDA(p, LET(
-        raw, TRIM(p & ""),
-        dig, REGEXREPLACE(raw, "\D", ""),
-        IF(dig = "", "",
-          IF(LEFT(raw, 1) = "+", IF(AND(LEN(dig) >= 8, LEN(dig) <= 15), "+" & dig, ""),
-            IF(LEN(dig) = 9, "+56" & dig,
-              IF(AND(LEN(dig) = 11, LEFT(dig, 2) = "56"), "+" & dig, ""))))))),
-      MAP(CHOOSECOLS(d, 17), LAMBDA(f, TEXT(f, "yyyy-mm-dd") & " 12:00:00"))
-    )
+=LET(
+  code, Registro!B2:B,
+  click, Registro!E2:E,
+  phone, Registro!F2:F,
+  email, Registro!G2:G,
+  fecha, Registro!Q2:Q,
+  keep, (Registro!P2:P = "cliente") * (fecha <> "") * (((click <> "") + (phone <> "") + (email <> "")) > 0),
+  FILTER(
+    VSTACK(
+      HSTACK("order_id", "gclid", "gbraid", "wbraid", "email", "phone", "conversion_time"),
+      HSTACK(
+        code,
+        MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^(wbraid|gbraid):"), "", c & ""))),
+        MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^gbraid:"), MID(c, 8, 999), ""))),
+        MAP(click, LAMBDA(c, IF(REGEXMATCH(c & "", "^wbraid:"), MID(c, 8, 999), ""))),
+        MAP(email, LAMBDA(e, LOWER(TRIM(e & "")))),
+        MAP(phone, LAMBDA(p, LET(
+          raw, TRIM(p & ""),
+          dig, REGEXREPLACE(raw, "\D", ""),
+          IF(dig = "", "",
+            IF(LEFT(raw, 1) = "+", IF(AND(LEN(dig) >= 8, LEN(dig) <= 15), "+" & dig, ""),
+              IF(LEN(dig) = 9, "+56" & dig,
+                IF(AND(LEN(dig) = 11, LEFT(dig, 2) = "56"), "+" & dig, ""))))))),
+        MAP(fecha, LAMBDA(f, IF(f = "", "", TEXT(f, "yyyy-mm-dd") & " 12:00:00")))
+      )
+    ),
+    VSTACK(1, keep)
   )
-), HSTACK("order_id", "gclid", "gbraid", "wbraid", "email", "phone", "conversion_time"))
+)
 ```
 
 What it does, and why:
@@ -358,11 +362,14 @@ What it does, and why:
 - **Conversion time is noon on `fecha_resultado`,** in the Sheet's time zone
   (File → Settings, which must be Santiago). The day is what the firm records;
   the hour only has to fall after the click.
-- **Empty is not an error.** With no `cliente` rows the tab is the header alone,
-  which is what Data Manager should see, rather than `#N/A`.
-- **Commas assume an English locale.** Under a Spanish locale (File → Settings)
+- **Empty is not an error.** The header sits in the same stack as the data
+  and the filter always keeps it, so with no `cliente` rows the tab is the
+  header alone. The first version wrapped everything in `IFERROR` for that,
+  which does not work: over a range, `IFERROR` substitutes cell by cell, so
+  the empty filter's error row came back as a *second* header row.
+- **Commas assume an English locale.** The firm's Sheet is set to Chile, where
   every argument separator is `;` — replace them all; nothing inside the quoted
-  strings contains a comma.
+  strings contains a comma or a semicolon.
 
 Ads reads the tab through **Data Manager** (Tools → Data manager → Google
 Sheets, direct connection, Conversions), not the legacy template upload,
