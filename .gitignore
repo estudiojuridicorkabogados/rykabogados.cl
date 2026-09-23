@@ -45,3 +45,6 @@ bun.lockb
 
 # Local performance probe output (scripts/perf-probe.ts)
 .perf
+
+# Vercel CLI token for the firm's account, used only in this folder
+.vercel-token
