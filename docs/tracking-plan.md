@@ -150,11 +150,11 @@ One change was published on its own: an exception trigger (`Page Hostname contai
 
 ### Left open
 
-- Two stray Ads conversion actions to clean up: `Enviar formulario de conversion de RK Abogados` (Primary, no data, legacy — demote or remove, since an empty primary action distorts Smart Bidding) and `Envío de formulario para clientes potenciales` (auto-created, never fired, already Secondary — remove as noise).
+- **Stray Ads conversion actions — 23 September 2026.** `Enviar formulario de conversion de RK Abogados` (Primary, no data, legacy) **demoted to Secondary**; the removal option was not offered, and Secondary is enough — it no longer touches bidding. `Envío de formulario para clientes potenciales` (auto-created, never fired, already Secondary) to be removed as noise. Removed actions stay listed with status Removed — Ads never deletes one, to keep its history — so filter the table on Status: Enabled.
 - ~~`contacto@digitalizame.cl` holds editor access~~ — **removed 23 September 2026.** They had last modified the Ads link on 15 September 2026; two parties editing tracking configuration independently is how a container acquires thirteen dead linker domains. Configuration changes now have one source: this repository's docs.
 - Primary versus secondary conversions, still to settle with the firm. Recommendation unchanged: the three form conversions primary, the WhatsApp click secondary.
-- **A second WhatsApp action, `Click Whatsapp RK`,** turned up in the enhanced-conversions diagnostics on 22 September 2026: Primary, no data, distinct from the `Clic WhatsApp RK Sept 2026` action the tag actually fires. Confirm its label is not `GhpoCLOFkvIcELGenaUp`, then demote or remove it — an empty Primary action distorts Smart Bidding.
-- **An offline import already exists.** `Cliente convertido`, Secondary, source "Import from clicks", last pinged 22 September 2026. Somebody has set up the section 10 mechanism, or the start of it, without it being in any record. Establish what feeds it before building another. Its "no user-provided data" warning is harmless — imports match on click ID — so untick enhanced conversions on that action to silence it.
+- **A second WhatsApp action, `Click Whatsapp RK`** — Primary, no data. Its label is `SXmKCICe6M4bELGenaUp`, checked 23 September 2026: not the `GhpoCLOFkvIcELGenaUp` the container fires, so nothing sends to it. To remove, or at least demote — an empty Primary action distorts Smart Bidding.
+- **`Cliente convertido` — keep it, and do not touch its enhanced conversions.** Secondary, source "Import from clicks", created 16 April 2026, last recorded conversion 23 March 2026, 90-day window, every conversion. **Uploads is empty** (23 September 2026): no schedule, no file, nothing feeding it. The daily "last ping" is not an upload — it lines up with our own test sends on 22 and 23 September, and is the site's User-provided Data Event tag supplying hashed email and phone for *enhanced conversions for leads*. So this is half of section 10's mechanism already built: the website half works, the upload half was never set up, and its "no attempted imports" warning only says nobody has uploaded outcomes yet. When the firm starts marking cases, the Sheet connects to this action rather than a new one. **Enhanced conversions stays on** — it is what lets an upload match by email and phone instead of click ID alone, the only way to cover leads that arrived without a `gclid`. (This replaces the earlier advice to untick it, written before the ping was understood.)
 
 ---
 
@@ -676,7 +676,8 @@ Small items deliberately postponed from earlier phases, to be closed in one sitt
 - [x] Apps Script: the eight `ft_*` columns (from phase 2) — done 22 September 2026 with the move to the firm's own Sheet, see phase 2 checklist
 - [x] Preview and test traffic kept out of the live Sheet (finding 4 of the 22 September review): the Apps Script URL is now `NEXT_PUBLIC_SHEET_WEBAPP_URL`, set in production only; unset means `logToSheet` is a no-op
 - [ ] Container's non-production exception verified on a preview URL with Tag Assistant: Google tags blocked on load, conversion tag blocked on a WhatsApp click
-- [ ] Old `Click Whatsapp RK` action demoted or removed, and `Cliente convertido` import understood (from the phase 1 open list)
+- [ ] Old `Click Whatsapp RK` action demoted or removed (from the phase 1 open list)
+- [x] `Cliente convertido` understood, 23 September 2026 — nothing uploads to it; kept for section 10, see phase 1
 - [ ] `docs/tracking-events.md` re-read against the code one last time
 
 ---
