@@ -431,7 +431,13 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 
 ---
 
-## Phase 4: Receive those steps in Analytics
+## Phase 4: Receive those steps in Analytics — live since 23 September 2026
+
+Container published **23 September 2026, about 11:45 Santiago** (17:45
+Cyprus). From that moment every `rk_*` signal reaches Analytics with its
+labels; before it, Analytics held page views and enhanced measurement only, so
+no funnel can start earlier. Two items remain: the key events, which Analytics
+will only let you mark once each event has arrived, and the audiences.
 
 | | |
 | --- | --- |
@@ -440,7 +446,9 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 | **Result** | Every signal from phase 2 shows up in Analytics with its labels, and the four "finished" actions are marked as conversions there too. |
 
 1. **In Tag Manager:** one rule that forwards every signal whose name starts with `rk_` to Analytics, passing the labels along. One rule instead of twenty means a future signal needs no Tag Manager change.
-2. **In Analytics:** register the labels so they can be used in reports (Google calls this "custom dimensions"; without it the labels arrive but cannot be filtered on). The four that every funnel breaks down by — `form_name`, `page_type`, `location`, `percent_scrolled` — and the per-event ones the phase 7 questions depend on: `error_fields` and `fail_reason` (which field fails, why a send is refused), `step`, `cta_label`, `contact_method`, `message_number`, `previous_page_type` and `is_first_page`. Twelve event-scoped dimensions, well inside the property's limit of fifty. `previous_page` is left unregistered — it is a raw path, and the path report reads it from the page view itself. Mark the four finishing actions as conversions ("key events" in Google's current wording).
+2. **In Analytics:** register the labels so they can be used in reports (Google calls this "custom dimensions"; without it the labels arrive but cannot be filtered on). The four that every funnel breaks down by — `form_name`, `page_type`, `location`, `percent_scrolled` — and the per-event ones the phase 7 questions depend on: `error_fields` and `fail_reason` (which field fails, why a send is refused), `step`, `cta_label`, `contact_method`, `message_number`, `previous_page_type` and `is_first_page`. Twelve event-scoped dimensions, well inside the property's limit of fifty. `previous_page` is left unregistered — it is a raw path, and the path report reads it from the page view itself. Mark the four finishing actions as conversions ("key events" in Google's current wording), plus `rk_chat_lead` — a finished enquiry, and marking it costs nothing because Analytics key events are not imported into Ads. The Ads-side decision for chatbot leads stays at phase 7. `rk_conv_whatsapp` counts once per session: people tap twice when the app is slow to open.
+
+   **There is no Key events page any more** (September 2026). It was folded into **Data display → Events**, where an event is marked with a toggle on its row — and a row only exists once the event has arrived. So key events cannot be declared ahead of the tag; they are marked after publishing, and `rk_chat_lead` only after the first real chatbot lead. "Create event" on that page is something else — it derives a new event from existing ones — and must not be used for this.
 3. **Build the audiences.** Once the signals land, "started a form and did not finish" and "reached a landing page and never scrolled to the form" become audiences that can be exported to Google Ads for remarketing. They cost nothing and they are the most valuable list the firm could advertise to.
 4. **Verify:** in Analytics "DebugView", walk through the forms again and watch the signals arrive live. Publish the Tag Manager container.
 5. **Hand-off note:** a one-page list of every signal, its labels and what it means, saved in this repository (`docs/tracking-events.md`), so whoever looks at this in a year can understand the reports.
@@ -462,18 +470,19 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 
 ### Checklist
 
-- [ ] Enhanced measurement: form interactions off, scroll off, page views on navigation verified
+- [x] Enhanced measurement: form interactions off, scroll off, page views on navigation verified — one `page_view` per navigation in DebugView, 23 September 2026
 - [x] Tag Manager: non-production exception rebuilt as a Custom Event `.*` trigger on `Page Hostname does not equal www.rkabogados.cl`, published 22 September 2026 — preview verification is in the final sweep
 - [x] Tag Manager: `Solo enlaces` trigger and the `First Name` / `Last Name` variables deleted; cross-domain linking unticked; Google tag renamed from `RyO Asociados` to the firm's name in Ads
-- [ ] Tag Manager: `rk_.*` trigger, data layer variables for the labels, one GA4 event tag
+- [x] Tag Manager: `CE - rk_* events` trigger (Custom Event, regex `^rk_.*`), twelve `DLV - <label>` variables, one `GA4 - rk_* events` tag with event name `{{Event}}` and the twelve labels as parameters, non-production exception attached. `user_data`, `conversion_value` and `previous_page` deliberately not forwarded — the first is email and phone, which must never reach Analytics; the second a placeholder that would read as revenue
 - [x] ~~"Include user-provided data" on the conversion tags~~ — the option no longer exists in this account's Tag Manager, on the conversion tags or the Google tag. The User-provided Data Event tag stays as the mechanism; Ads rates it "Excellent", and its "Failed" status in Tag Assistant is cosmetic
 - [x] Ads diagnostics: Formulario Contacto received user-provided data from the 22 September test send within the hour — all three forms confirmed, nothing in the container to change
-- [ ] Analytics: twelve custom dimensions registered (see step 2)
-- [ ] Analytics: four key events marked
-- [ ] Remarketing audiences built and exported to Ads
-- [ ] Verified in DebugView
-- [ ] Container published
-- [ ] `docs/tracking-events.md` written
+- [x] Analytics: twelve custom dimensions registered (see step 2), dimension name identical to the parameter name
+- [ ] Analytics: key events marked — the four `rk_conv_*`, WhatsApp once per session. Only possible now the events have arrived; see step 2
+- [ ] Analytics: `rk_chat_lead` marked as a key event, once the first real chatbot lead arrives
+- [ ] Remarketing audiences built and exported to Ads. **Check Google's personalised-advertising policy first**: remarketing to people over a dismissal or a labour dispute may fall under its restrictions on personal hardships — unverified, and to be settled before it is offered to the firm
+- [x] Verified in Tag Assistant preview and DebugView on production, 23 September 2026: page views, scroll marks, navigation labels, the forms, and the chatbot's open, first message, numbered messages and handoff. No label carried over to the next event; no `user_data` on any event; the tag blocked on `localhost`. The chatbot lead was not sent — it emails the firm
+- [x] Container published, 23 September 2026, about 11:45 Santiago
+- [x] `docs/tracking-events.md` written, and updated for the published rule
 
 ---
 

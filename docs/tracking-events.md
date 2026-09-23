@@ -27,8 +27,16 @@ next page view is forwarded. The reset is what keeps a dimension honest to the
 event it arrived on.
 
 Tag Manager forwards the whole family to Analytics with one rule matching
-`rk_.*`, so a signal added here needs no Tag Manager change. The rule is phase 4
-work; until it is published these events reach the dataLayer and no further.
+`rk_.*`, so a signal added here needs no Tag Manager change — the tag
+`GA4 - rk_* events`, live since 23 September 2026, about 11:45 Santiago.
+Nothing before that moment reached Analytics. It passes each event on under its
+own name with the twelve labels below as parameters, read by `DLV - <label>`
+variables. A **new label** is the exception: it needs a variable, a parameter
+row on that tag and a custom dimension in Analytics, or it arrives nowhere.
+
+Three keys are deliberately not forwarded: `user_data` (email and phone, which
+must never reach Analytics), `conversion_value` (a placeholder that would read
+as revenue) and `previous_page`.
 
 ## Who is allowed to touch the dataLayer
 

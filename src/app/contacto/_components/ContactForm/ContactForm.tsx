@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Toaster, toast } from "sonner";
 
 import {
@@ -12,7 +12,10 @@ import { Button } from "@/components/ui/Button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { useInViewOnce } from "@/hooks/useInViewOnce";
 import { useTracking } from "@/hooks/useTracking";
-import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
+import {
+  CAPTCHA_FAILED_MESSAGE,
+  getCaptchaToken,
+} from "@/lib/google/re-captcha/getCaptchaToken";
 import {
   onceOnThisPage,
   RK_EVENTS,
@@ -56,6 +59,13 @@ export const ContactForm = () => {
    */
   const reportedSuccess = useRef(false);
 
+  /**
+   * True while the captcha token is being fetched, before the action starts —
+   * `isPending` only covers the action itself, so for up to the captcha's
+   * timeout the button was live and a second click sent a second request.
+   */
+  const [isVerifying, setIsVerifying] = useState(false);
+
   const [state, action, isPending] = useActionState(
     submitContactForm,
     initialState
@@ -90,11 +100,12 @@ export const ContactForm = () => {
   }, [state.success, state.spam, logToSheet]);
 
   /**
-   * Failures were entirely silent: a rejected captcha produces
-   * `errors.token`, which nothing renders, so the visitor sees a form that
-   * simply does nothing and the firm never learns the enquiry was attempted.
-   * Validation errors are their own signal — `rk_form_fail` is reserved for
-   * a send that was technically refused.
+   * A rejected captcha produces `errors.token`, and until 23 September 2026
+   * nothing rendered it: the visitor saw a form that did nothing, with the
+   * select and the consent box reset under them, and the firm never learned
+   * the enquiry was attempted. It is now shown beneath the button — see
+   * `captchaFailed` below. Validation errors are their own signal;
+   * `rk_form_fail` is reserved for a send that was technically refused.
    */
   useEffect(() => {
     const failedFields = Object.keys(state.errors ?? {});
@@ -152,14 +163,21 @@ export const ContactForm = () => {
 
     trackEvent(RK_EVENTS.FORM_SUBMIT, { form_name: FORM_NAME });
 
+    setIsVerifying(true);
     const token = await getCaptchaToken();
+    setIsVerifying(false);
 
-    if (token && tokenRef.current) {
-      tokenRef.current.value = token;
+    // Sent even without a token: the server refuses it with `errors.token`,
+    // which is the one path that reports the failure and shows the message.
+    if (tokenRef.current) {
+      tokenRef.current.value = token ?? "";
     }
 
     form.requestSubmit();
   };
+
+  const captchaFailed = !isPending && Boolean(state.errors?.token);
+  const isBusy = isVerifying || isPending;
 
   return (
     <>
@@ -233,7 +251,13 @@ export const ContactForm = () => {
               <select
                 id="typeOfServices"
                 name="typeOfServices"
-                defaultValue=""
+                // React resets the form after every action, failed or not, back
+                // to these defaults. Without the submitted value here a refused
+                // send cleared the choice the visitor had already made. A select
+                // ignores a changed defaultValue once mounted — measured, the
+                // inputs beside it do not — so the key remounts it instead.
+                key={state.inputs?.typeOfServices ?? "unset"}
+                defaultValue={state.inputs?.typeOfServices ?? ""}
                 className="border-b border-white/60 bg-transparent text-base text-white focus:border-b focus:ring-0 focus:outline-none"
                 required
               >
@@ -274,6 +298,7 @@ export const ContactForm = () => {
                 name="mensaje"
                 className="resize-none border-1 border-white/60 bg-black/30 p-2 text-base transition-colors outline-none focus:border-white focus:ring-0"
                 rows={5}
+                defaultValue={state.inputs?.mensaje}
                 placeholder="Describe brevemente tu caso o indícanos que tipo de asesoría necesitas"
               />
             </div>
@@ -283,6 +308,9 @@ export const ContactForm = () => {
                 type="checkbox"
                 id="dataConsent"
                 name="dataConsent"
+                // `inputs` only comes back from a send the browser let
+                // through, and the browser refuses one without this ticked.
+                defaultChecked={state.inputs !== undefined}
                 required
               />
               <label htmlFor="dataConsent" className="text-xs text-white/80">
@@ -300,15 +328,21 @@ export const ContactForm = () => {
 
             {/* TODO Add loading state, and properly send an email with the data to the team */}
             <Button
-              disabled={isPending || state.success}
+              disabled={isBusy || state.success}
               animateOnClick
               onClick={handleClick}
               className="mt-4 w-full lg:w-40"
               type="button"
               variant="white-outline-on-primary"
             >
-              {!isPending ? "Enviar" : <LoadingSpinner />}
+              {!isBusy ? "Enviar" : <LoadingSpinner />}
             </Button>
+
+            {captchaFailed && (
+              <p role="alert" className="text-sm text-red-300">
+                {CAPTCHA_FAILED_MESSAGE}
+              </p>
+            )}
           </form>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { fromZonedTime } from "date-fns-tz";
 import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
 import { createGoogleCalendarEventTrabajadores } from "@/lib/google/google-calendar/createGoogleCalendarEventTrabajadores";
+import { CAPTCHA_FAILED_MESSAGE } from "@/lib/google/re-captcha/getCaptchaToken";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
 import {
   CAMILA_EMAIL,
@@ -37,7 +38,7 @@ export async function submitBookACallFormTrabajadores(
 
       return {
         success: false,
-        message: "Por favor, completa el CAPTCHA.",
+        message: CAPTCHA_FAILED_MESSAGE,
       };
     }
 

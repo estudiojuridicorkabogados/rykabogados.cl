@@ -12,7 +12,10 @@ import { BookingFormSkeleton } from "@/components/ReservaForm/BookingFormSkeleto
 import { useDeferredMount } from "@/hooks/useDeferredMount";
 import { useInViewOnce } from "@/hooks/useInViewOnce";
 import { useTracking } from "@/hooks/useTracking";
-import { getCaptchaToken } from "@/lib/google/re-captcha/getCaptchaToken";
+import {
+  CAPTCHA_FAILED_MESSAGE,
+  getCaptchaToken,
+} from "@/lib/google/re-captcha/getCaptchaToken";
 import {
   RK_EVENTS,
   trackEvent,
@@ -80,6 +83,18 @@ export const ReservaFormTrabajadores = () => {
         }
 
         const token = await getCaptchaToken();
+
+        // No token means the server would refuse the send anyway. Say so
+        // now rather than after a round trip — this is the path that used
+        // to hang with the button spinning.
+        if (!token) {
+          setSubmitError(CAPTCHA_FAILED_MESSAGE);
+          trackEvent(RK_EVENTS.FORM_FAIL, {
+            form_name: FORM_NAME,
+            fail_reason: "captcha",
+          });
+          return;
+        }
 
         const sendData = {
           ...data,
