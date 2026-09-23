@@ -82,7 +82,7 @@ Everything below is planned out except these. Each is settled with the client ra
 | The consent go-live date, recorded as the reporting baseline | Agreed jointly before phase 3 ships | Phase 3, step 4 |
 | Whether the phase 6 dashboard is wanted | The firm, after two or three weeks of reading the funnels | Phase 6 |
 | Whether phase 7 becomes a monthly retainer | The firm | Section 9 |
-| Whether the firm will mark case outcomes in the Sheet | The firm — and if not, the highest-value item in section 10 cannot happen | Section 10 |
+| ~~Whether the firm will mark case outcomes in the Sheet~~ | Settled 23 September 2026 — **yes** | Section 10 |
 
 ### Where the current code lives
 
@@ -827,7 +827,9 @@ The Caso code already in the Sheet is exactly the join key needed, and after pha
 
 Two constraints to state before promising anything. Ads accepts an outcome only within **90 days of the click**, so a case that qualifies after six months cannot be sent. And an upload needs either a Google click ID or, for form and chatbot leads, hashed email and phone — which phase 2 already sends, so coverage is good for Google traffic and nil for Instagram or organic. For those the Sheet improves the firm's own reporting and nothing else.
 
-The hard part remains the firm actually marking the outcomes. Runs entirely between the Sheet and Google Ads; needs nothing from Analytics. Offer it at the phase 7 review, once it is visible whether the outcome column is being filled in.
+**The firm agreed on 23 September 2026 to mark outcomes.** Three things follow. The upload goes to the existing `Cliente convertido` action (phase 1), whose website half — hashed email and phone through the User-provided Data tag — already works. Marking should start now, not when the upload is built: every outcome is only uploadable within 90 days of its click, so a case marked late is lost to Ads for good. And the columns are the ones already in the Sheet, `resultado` and `fecha_resultado`, beside the rows the site writes.
+
+The hard part remains the firm actually marking the outcomes, week after week. Runs entirely between the Sheet and Google Ads; needs nothing from Analytics. Offer it at the phase 7 review, once it is visible whether the outcome column is being filled in.
 
 ### Tell Ads what a contact is worth
 
