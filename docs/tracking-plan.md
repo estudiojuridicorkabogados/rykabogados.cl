@@ -436,8 +436,8 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 Container published **23 September 2026, about 11:45 Santiago** (17:45
 Cyprus). From that moment every `rk_*` signal reaches Analytics with its
 labels; before it, Analytics held page views and enhanced measurement only, so
-no funnel can start earlier. Two items remain: the key events, which Analytics
-will only let you mark once each event has arrived, and the audiences.
+no funnel can start earlier. What is left is listed under **Outstanding**
+below.
 
 | | |
 | --- | --- |
@@ -468,6 +468,21 @@ Analytics has a set of built-in events ("enhanced measurement"), each with its o
 
 Rule for everything else: the site decides what a signal means and sends it; Tag Manager only forwards. No click-on-selector or form-submission triggers built inside Tag Manager, because they break silently when the site's markup changes and cannot know which step or field the visitor was on.
 
+### Outstanding — as of 23 September 2026
+
+**Blocked on Analytics processing, due 24 September afternoon.** The `rk_*` events reach Realtime and the Events report within minutes, but the Admin **Events** list and the audience builder's event picker only offer an event once it has been through processing — up to 48 hours. On publish day neither listed any `rk_*` event, so both steps below wait. Every conversion was triggered at least once on 23 September, including a test booking on each form, so all four should be listed — and `rk_chat_lead` too, which arrived the same evening. Still missing by Friday 25 September is a real fault, not the lag.
+
+1. **Key events.** Data display → Events → "Mark as key event" on `rk_conv_contact_form`, `rk_conv_trabajadores_booking`, `rk_conv_empresas_booking`, `rk_conv_whatsapp` and `rk_chat_lead`; WhatsApp set to **once per session** from the ⋮ menu, the rest once per event.
+2. **Audience `Formulario iniciado sin enviar`.** Data display → Audiences → New audience → custom. Include: `rk_form_start`, across all sessions. Exclude permanently, joined by **OR** not AND: the four `rk_conv_*` events and `rk_chat_lead` — WhatsApp and the chatbot included, since that visitor has already reached the firm. Membership 30 days, no audience trigger.
+3. **Audience `Landing sin ver formulario`.** Include: `rk_page_view` with `page_type` matching `landing_trabajadores` or `landing_empresas`. Exclude permanently, by OR: `rk_form_view`, the four `rk_conv_*` and `rk_chat_lead`. Membership 30 days. If `page_type` is not offered as a parameter yet, page path containing `/habla-con-nosotros/` is an equivalent condition.
+
+**Blocked on the firm.** Whether to advertise to the audiences at all. Building them is free and they are useful in Analytics without ads, but using them in Ads needs two things settled first: Google's personalised-advertising policy, which may restrict remarketing to people over a dismissal (unverified), and list size — Ads serves a list only once it holds enough active users, in the order of a thousand for most campaign types, which this site's form-starters may take months to reach. A question for `docs/client-brief.md`, not a switch to flip.
+
+**Found during verification, not tracking work.** Walking the forms turned up two faults in the forms themselves:
+
+- **Fixed, not yet deployed:** reCAPTCHA failing mid-request left the booking forms spinning forever with no message and no `rk_form_fail`, and a captcha refused on the contact form showed nothing and reset the service select and consent box. Reproduced against the live build; `getCaptchaToken` now always settles within ten seconds, and all three forms show one message and fire `rk_form_fail` with `fail_reason: captcha`.
+- **Unexplained:** one `rk_form_fail` with `fail_reason: exception` on the **empresas** form during the 23 September test. The server action catches its own errors, the payload is plain data and nothing was deployed that day, so the likeliest cause is the server call itself hanging or failing — which would mean a booking the server completed while the visitor was told nothing. Needs the Vercel production logs; this folder is not yet linked to the project (`vercel link`).
+
 ### Checklist
 
 - [x] Enhanced measurement: form interactions off, scroll off, page views on navigation verified — one `page_view` per navigation in DebugView, 23 September 2026
@@ -477,9 +492,9 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 - [x] ~~"Include user-provided data" on the conversion tags~~ — the option no longer exists in this account's Tag Manager, on the conversion tags or the Google tag. The User-provided Data Event tag stays as the mechanism; Ads rates it "Excellent", and its "Failed" status in Tag Assistant is cosmetic
 - [x] Ads diagnostics: Formulario Contacto received user-provided data from the 22 September test send within the hour — all three forms confirmed, nothing in the container to change
 - [x] Analytics: twelve custom dimensions registered (see step 2), dimension name identical to the parameter name
-- [ ] Analytics: key events marked — the four `rk_conv_*`, WhatsApp once per session. Only possible now the events have arrived; see step 2
-- [ ] Analytics: `rk_chat_lead` marked as a key event, once the first real chatbot lead arrives
-- [ ] Remarketing audiences built and exported to Ads. **Check Google's personalised-advertising policy first**: remarketing to people over a dismissal or a labour dispute may fall under its restrictions on personal hardships — unverified, and to be settled before it is offered to the firm
+- [ ] Analytics: key events marked — the four `rk_conv_*` and `rk_chat_lead`, WhatsApp once per session. Waiting on processing; see Outstanding
+- [ ] Audiences built in Analytics — the two under Outstanding. Waiting on processing
+- [ ] Audiences used in Ads — the firm's call, after the policy check and once the lists are large enough; see Outstanding
 - [x] Verified in Tag Assistant preview and DebugView on production, 23 September 2026: page views, scroll marks, navigation labels, the forms, and the chatbot's open, first message, numbered messages and handoff. No label carried over to the next event; no `user_data` on any event; the tag blocked on `localhost`. The chatbot lead was not sent — it emails the firm
 - [x] Container published, 23 September 2026, about 11:45 Santiago
 - [x] `docs/tracking-events.md` written, and updated for the published rule
