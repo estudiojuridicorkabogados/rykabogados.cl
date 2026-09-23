@@ -184,7 +184,7 @@ to the *previous* day in Santiago. Convert before writing the date down.
 | 2026-09-22 | Whether the switches in "Personalizar" start on | Yes, both, pending the firm's answer to decision 2 above |
 | 2026-09-22 | Whether the case reference survives a withdrawal of consent | Yes — a reference already quoted on WhatsApp keeps working; the campaign cookies are cleared |
 | 2026-09-22 | Go-live date, and therefore the phase 7 reporting baseline | 22 September 2026, ~13:00 Santiago (19:00 Cyprus), set by the deploy rather than chosen |
-| 2026-09-23 | Whether the firm will mark case outcomes in the Sheet | Yes. Unlocks section 10's first item; the upload is quoted separately (half a day) |
+| 2026-09-23 | Whether the firm will mark case outcomes in the Sheet | Yes. Unlocks section 10's first item; the upload is part of the core price, not quoted separately |
 
 ### Where each decision lands in the code
 

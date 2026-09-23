@@ -763,13 +763,13 @@ Effort is in working days; pricing goes on top.
 > 7. **A short guide in Spanish** on how to open and read the reports, with worked examples.
 > 8. **Documentation** of every signal, kept with the website code, so future changes stay consistent.
 > 9. **A review after one month** with the first findings and a prioritised list of improvements for the site and the campaigns.
+> 10. **Telling Google which contacts became real clients.** The join is already built into the work above; what you add is a mark in your sheet against each booking or conversation — client or not — kept up to date within 90 days of the click, and Google Ads reads it every day. The single highest-value step in the whole project, and the only one that depends on a habit rather than on software.
 >
 > **Optional**
 >
 > - **One-page dashboard** combining advertising spend with results: cost per booked call, per campaign, week by week. Shared as a link, no login into Analytics needed.
 > - **A monthly reading of the reports**, done by hand and with AI reading the live data, with suggestions on what to change to get more contacts. The first one is included; continuing every month is a separate arrangement.
 > - **Custom tables in Looker (EUR 200)**, for questions Analytics cannot answer — above all which Google searches bring people who actually make contact. Left for later, since the tables are built around questions that only surface once you have read the reports.
-> - **Telling Google which contacts became real clients.** The join is already built into the work above; what is missing is a column in your sheet where somebody marks each booking as a case or not, kept up to date within 90 days of the click. Half a day on our side, quoted when you decide. The single highest-value step in the whole project, and the only one that depends on a habit rather than on software.
 >
 > **What does not change**
 >
@@ -790,9 +790,10 @@ Effort is in working days; pricing goes on top.
 | 4 | Tag Manager rule, Analytics labels, conversions, audiences, docs | 0.5 |
 | 5 | Five funnels, path report, written guide | 1 |
 | 7 | Review after one month | 0.5 |
-| | **Core remaining** | **6 – 6.5** |
+| 10 | Case outcomes from the Sheet to Google Ads — in the core since 23 September 2026 | 0.5 |
+| | **Core remaining** | **6.5 – 7** |
 | 6 | Optional dashboard | 1 |
-| | **With dashboard** | **7 – 7.5** |
+| | **With dashboard** | **7.5 – 8** |
 
 Consider offering phase 7 as the start of a small monthly retainer (an hour or two per month) rather than a one-off: the reports only pay for themselves if someone reads them and acts. Phase 8 is what makes that retainer cheap enough to be worth selling — one day of setup, then about an hour a month.
 
@@ -802,7 +803,7 @@ Friend price, with the regular price shown alongside on the proposal so the disc
 
 | | Friend price | Regular price |
 | --- | ---: | ---: |
-| Core (phases 1 to 5 and 7) | EUR 1,000 | EUR 2,500 |
+| Core (phases 1 to 5 and 7, plus the case-outcome upload) | EUR 1,000 | EUR 2,500 |
 | Dashboard (phase 6), quoted separately | EUR 300 | EUR 700 |
 | Custom Looker tables (Search Console × Analytics and similar blends), future | EUR 200 | EUR 500 |
 | Monthly follow-up, including phase 8 | EUR 100 | EUR 250 |
@@ -823,13 +824,13 @@ This is the biggest lever by far. Today Ads optimises towards "someone clicked W
 
 The Caso code already in the Sheet is exactly the join key needed, and after phase 2 it exists for every visitor rather than only Google ad clicks. What remains is a place for the firm to mark each booking or conversation as "became a client" or not (the existing Google Sheet is enough), and the upload back to Ads.
 
-**Half a day, not the two days estimated earlier.** Google Ads reads offline conversions on a schedule straight from a Google Sheet, so this is a conversion action plus a correctly shaped sheet plus a scheduled import — no code. It only grows if the sheet's shape has to change.
+**Half a day, not the two days estimated earlier, and part of the core price** — decided 23 September 2026; only the Looker work is priced separately. Google Ads reads offline conversions on a schedule straight from a Google Sheet, so this is a conversion action plus a correctly shaped sheet plus a scheduled import — no code. It only grows if the sheet's shape has to change.
 
 Two constraints to state before promising anything. Ads accepts an outcome only within **90 days of the click**, so a case that qualifies after six months cannot be sent. And an upload needs either a Google click ID or, for form and chatbot leads, hashed email and phone — which phase 2 already sends, so coverage is good for Google traffic and nil for Instagram or organic. For those the Sheet improves the firm's own reporting and nothing else.
 
 **The firm agreed on 23 September 2026 to mark outcomes.** Three things follow. The upload goes to the existing `Cliente convertido` action (phase 1), whose website half — hashed email and phone through the User-provided Data tag — already works. Marking should start now, not when the upload is built: every outcome is only uploadable within 90 days of its click, so a case marked late is lost to Ads for good. And the columns are the ones already in the Sheet, `resultado` and `fecha_resultado`, beside the rows the site writes.
 
-The hard part remains the firm actually marking the outcomes, week after week. Runs entirely between the Sheet and Google Ads; needs nothing from Analytics. Offer it at the phase 7 review, once it is visible whether the outcome column is being filled in.
+The hard part remains the firm actually marking the outcomes, week after week. Runs entirely between the Sheet and Google Ads; needs nothing from Analytics. Build it once the firm has marked a few real outcomes — about two weeks after they start — so the first upload is tested on real rows.
 
 ### Tell Ads what a contact is worth
 
