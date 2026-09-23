@@ -77,7 +77,7 @@ Everything below is planned out except these. Each is settled with the client ra
 | Banner copy, category names, whether "decline" is as prominent as "accept" | The firm — they are the lawyers | Phase 3, step 11 |
 | Wording of `/politica-cookies` and `/politicas-de-privacidad` | The firm writes it, we supply the cookie inventory | Phase 3, step 10 |
 | Which of the four Ads conversions are primary, and which become secondary | The firm, with our recommendation | Phase 1 record |
-| Whether `digitalizame.cl` keeps editor access to Ads and Tag Manager | The firm | Phase 1 record |
+| ~~Whether `digitalizame.cl` keeps editor access to Ads and Tag Manager~~ | Settled 23 September 2026 — access removed | Phase 1 record |
 | Whether chatbot leads get their own Ads conversion action | Revisit at phase 7 once volume is known — agreed it goes primary when created | Phase 2 |
 | The consent go-live date, recorded as the reporting baseline | Agreed jointly before phase 3 ships | Phase 3, step 4 |
 | Whether the phase 6 dashboard is wanted | The firm, after two or three weeks of reading the funnels | Phase 6 |
@@ -151,7 +151,7 @@ One change was published on its own: an exception trigger (`Page Hostname contai
 ### Left open
 
 - Two stray Ads conversion actions to clean up: `Enviar formulario de conversion de RK Abogados` (Primary, no data, legacy — demote or remove, since an empty primary action distorts Smart Bidding) and `Envío de formulario para clientes potenciales` (auto-created, never fired, already Secondary — remove as noise).
-- `contacto@digitalizame.cl` holds editor access and last modified the Ads link on 15 September 2026. Establish who they are, whether they are still engaged, and whether their access comes off. Two parties editing tracking configuration independently is how a container acquires thirteen dead linker domains.
+- ~~`contacto@digitalizame.cl` holds editor access~~ — **removed 23 September 2026.** They had last modified the Ads link on 15 September 2026; two parties editing tracking configuration independently is how a container acquires thirteen dead linker domains. Configuration changes now have one source: this repository's docs.
 - Primary versus secondary conversions, still to settle with the firm. Recommendation unchanged: the three form conversions primary, the WhatsApp click secondary.
 - **A second WhatsApp action, `Click Whatsapp RK`,** turned up in the enhanced-conversions diagnostics on 22 September 2026: Primary, no data, distinct from the `Clic WhatsApp RK Sept 2026` action the tag actually fires. Confirm its label is not `GhpoCLOFkvIcELGenaUp`, then demote or remove it — an empty Primary action distorts Smart Bidding.
 - **An offline import already exists.** `Cliente convertido`, Secondary, source "Import from clicks", last pinged 22 September 2026. Somebody has set up the section 10 mechanism, or the start of it, without it being in any record. Establish what feeds it before building another. Its "no user-provided data" warning is harmless — imports match on click ID — so untick enhanced conversions on that action to silence it.

@@ -205,9 +205,6 @@ Carried from `docs/tracking-plan.md` so nothing is tracked in two places:
 - Which of the four Ads conversions are primary and which become secondary. Our
   recommendation is unchanged: the three form conversions primary, the WhatsApp
   click secondary.
-- Whether `digitalizame.cl` keeps editor access to Ads and Tag Manager. Two
-  parties editing tracking configuration independently is how a container
-  acquires thirteen dead linker domains.
 - Whether the firm will mark case outcomes in the Sheet. Without it, the
   highest-value item in the whole project cannot happen.
 - Whether the phase 6 dashboard is wanted — ask after two or three weeks of
