@@ -532,18 +532,111 @@ The last one is the number the client cares about most: of everyone a campaign b
 
 Alongside the funnels, one "path" report: for visitors who reached a landing page and left without contacting, where did they go instead? With `page_type` and scroll depth attached, this is the report that usually points at a missing piece of information — price, location, who the lawyers are.
 
+### Corrections to the funnels above — 23 September 2026
+
+Written before the signals existed; checked against what the site actually sends, four steps promise more than Analytics can see.
+
+1. **"Wrote on WhatsApp" is not visible.** The chatbot branch can show the bot offering the number (`rk_chat_handoff`) and the visitor tapping it (`rk_conv_whatsapp` with `location = chatbot`). Whether they then wrote happens inside WhatsApp; only the Caso code in the Sheet can tell.
+2. **"Called or emailed" is a click, not a call.** `rk_contact_click` fires when the number or address is tapped. Label it "tapped phone or email" in the report and the guide, or the any-contact number overstates.
+3. **"Gave contact details" and "lead emailed" are one event.** The bot collects and emails in one tool call; the site sees `rk_chat_lead` when the email went, `rk_chat_lead_fail` when it did not. A funnel cannot use the same event for two consecutive steps, so the chatbot funnel ends at `rk_chat_lead`, and the failures are counted beside it rather than inside it.
+4. **The any-contact funnel cannot require half-page scroll.** Funnel steps cannot be skipped, and the WhatsApp button in the landing heroes is tapped without scrolling — the most common contact on the site would drop out at step 2. It is two steps, arrived and contacted; scroll depth is read from the landing funnels instead.
+
+### How to build them
+
+Every report is in **Explore → Blank**, one exploration per report, named as below so the client finds them. Settings shared by all five funnels:
+
+| Setting | Value |
+| --- | --- |
+| Technique | Funnel exploration, standard funnel |
+| Date range | **Start 24 September 2026.** Before it: our own test traffic, and before 11:45 on the 23rd no `rk_*` event reached Analytics at all |
+| Open funnel | **Off.** Everyone counted entered at step 1 |
+| Between steps | "Indirectly followed by" (the default) — other events in between are fine |
+| Breakdown | `Session campaign`, then `Session source / medium`, then `Device category` — one at a time; switch it rather than building three copies |
+| Show elapsed time | On — time between steps is half the diagnosis |
+
+Parameter conditions (`form_name`, `step`, `page_type`…) are added inside a step with **Add parameter**; they are the custom dimensions from phase 4 and match on the exact value. Scroll depth is text: `percent_scrolled` exactly matches `50`.
+
+`session_start` is Google's own event, fired as a visit begins and before its first page view. It is the "arrived" step wherever the next step could be the landing page itself — using `rk_page_view` there would need a *second* page view, and visitors who land straight on the page would vanish.
+
+**`RK · Embudo trabajadores`**
+
+| # | Step | Event | Conditions |
+| --- | --- | --- | --- |
+| 1 | Llegó a la landing | `rk_page_view` | `page_type` = `landing_trabajadores` |
+| 2 | Leyó media página | `rk_scroll` | `percent_scrolled` = `50`, `page_type` = `landing_trabajadores` |
+| 3 | Vio el formulario | `rk_form_view` | `form_name` = `trabajadores` |
+| 4 | Empezó | `rk_form_start` | `form_name` = `trabajadores` |
+| 5 | Eligió fecha y hora | `rk_form_step` | `form_name` = `trabajadores`, `step` = `1` |
+| 6 | Envió sus datos | `rk_form_submit` | `form_name` = `trabajadores` |
+| 7 | Reservó | `rk_conv_trabajadores_booking` | — |
+
+The gap between 6 and 7 is technical failure, not hesitation — read it next to `rk_form_fail` and its `fail_reason`.
+
+**`RK · Embudo empresas`** — identical, with `landing_empresas`, `form_name` = `empresas` and `rk_conv_empresas_booking`.
+
+**`RK · Embudo contacto`**
+
+| # | Step | Event | Conditions |
+| --- | --- | --- | --- |
+| 1 | Llegó al sitio | `session_start` | — |
+| 2 | Abrió /contacto | `rk_page_view` | `page_type` = `contacto` |
+| 3 | Empezó | `rk_form_start` | `form_name` = `contacto` |
+| 4 | Envió | `rk_form_submit` | `form_name` = `contacto` |
+| 5 | Recibido | `rk_conv_contact_form` | — |
+
+No "saw the form" step: on `/contacto` it is on screen at load, so the step would equal step 2.
+
+**`RK · Embudo chatbot`**
+
+| # | Step | Event | Conditions |
+| --- | --- | --- | --- |
+| 1 | Llegó al sitio | `session_start` | — |
+| 2 | Abrió el chat | `rk_chat_open` | — |
+| 3 | Escribió | `rk_chat_first_message` | — |
+| 4 | Dejó sus datos | `rk_chat_lead` | — |
+
+The weaker ending is a second tab in the same exploration, `RK · Chatbot a WhatsApp`: steps 1–3 as above, then `rk_chat_handoff`, then `rk_conv_whatsapp` with `location` = `chatbot`. Beside both, a free-form tab counting `rk_chat_lead_fail` — any non-zero value is an enquiry the firm never received.
+
+**`RK · Cualquier contacto`**
+
+| # | Step | Event | Conditions |
+| --- | --- | --- | --- |
+| 1 | Llegó al sitio | `session_start` | — |
+| 2 | Contactó | any of, joined by **OR**: `rk_conv_trabajadores_booking`, `rk_conv_empresas_booking`, `rk_conv_contact_form`, `rk_conv_whatsapp`, `rk_chat_lead`, `rk_contact_click` | — |
+
+The headline figure is step 2 over step 1, by `Session campaign`. A second tab with `Event name` as the breakdown on step 2 shows which channel the contact came through.
+
+**`RK · Qué hicieron los que no contactaron`** — Path exploration, not a funnel.
+
+| Setting | Value |
+| --- | --- |
+| Starting point | **Page path and screen class** — `/habla-con-nosotros/trabajadores`, then `/habla-con-nosotros/empresas` in a second tab |
+| Node type | Page path and screen class |
+| Segment | Users excluding anyone with any `rk_conv_*` or `rk_chat_lead` event — built in the exploration, so it does not wait for the phase 4 audiences |
+| Date range | From 24 September 2026 |
+
+Path explorations only accept Google's own node types, so `page_type` cannot be a node — the path reads raw URLs, which on this site is readable enough.
+
+### When to read them
+
+Build as soon as the events are selectable in Explore — the same processing lag as the phase 4 audiences, so 24 September afternoon. **Read and write the guide no earlier than two weeks after.** At this traffic a step holds a handful of people for the first days, one visitor moves a percentage by twenty points, and the guide's screenshots need numbers that will not embarrass anyone.
+
+Sharing: an exploration belongs to whoever built it; **Share** makes it read-only for everyone with access to the property. The firm needs its own Google account with at least Viewer on the property — confirm before promising "reports they can open any time".
+
 ### The written guide
 
 Two pages, in Spanish, with screenshots: how to open each report, how to change the date range, how to read the drop-off between two steps, and three example questions with the clicks to answer them ("which campaign loses most people at the details step?").
 
 ### Checklist
 
+- [x] Funnels checked against the signals and turned into step-by-step recipes, 23 September 2026 — four corrections, see above
 - [ ] Workers funnel
 - [ ] Companies funnel
 - [ ] Contact form funnel
 - [ ] Chatbot funnel
 - [ ] Any-contact funnel
 - [ ] Path report
+- [ ] The firm's own Google account confirmed with Viewer on the property
 - [ ] All shared with the client's Analytics user
 - [ ] Guide in Spanish
 
