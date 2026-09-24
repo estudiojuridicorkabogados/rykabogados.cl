@@ -48,8 +48,12 @@ function maxAgeFor(preferences: CookieConsentPreferences): number {
  * The shape records are written in today. Which older shapes still count is
  * REPROMPT_BELOW_VERSION in src/lib/utils/consent.ts, shared with the two
  * framework-free readers so that raising it re-prompts everywhere at once.
+ *
+ * Raised to 3 on 24 September 2026 alongside that constant, so that records
+ * written under the pre-ticked panel stop counting and everyone is asked
+ * again. Version 2 is now a shape nothing writes and nothing honours.
  */
-const CONSENT_VERSION = 2;
+const CONSENT_VERSION = 3;
 
 /**
  * Turns whatever is in the cookie into a record we can trust.

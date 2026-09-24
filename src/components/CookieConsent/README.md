@@ -12,7 +12,7 @@ CookieConsent/
 ├── utils.ts                    # the cookie: read, write, normalise, expire
 ├── CookieConsentProvider.tsx   # state, and the single write path
 ├── useCookieConsent.ts         # the hook
-├── CookieBanner.tsx            # first layer: Personalizar / Aceptar todas
+├── CookieBanner.tsx            # first layer: Rechazar / Personalizar / Aceptar
 ├── CookieSettingsModal.tsx     # three categories, three choices, an X
 ├── CookieSettingsModalLoader.tsx  # lazy-loads the modal on first open
 └── index.ts
@@ -35,40 +35,46 @@ click references, the `utm_*` pair and the `rk_ft_*` set. Consent Mode does not
 reach those; they are ours, and they are marketing cookies by any honest
 reading. See `docs/cookie-inventory.md`.
 
-## Where rejecting lives, and why it is not on the banner
+## Where rejecting lives
 
-The banner has two buttons. The three real choices — **Rechazar todas**,
-**Guardar preferencias**, **Aceptar todas** — are inside "Personalizar", which
-is the layout every consent platform worth copying uses. Cancelling is an X in
-the panel's header, not a fourth button: it is not a decision about cookies, so
-it does not belong in the decision row. Esc and a backdrop click do the same
+**On the banner, since 24 September 2026.** Three buttons — **Rechazar
+todas**, **Personalizar**, **Aceptar todas** — and the same three inside the
+panel, where the middle one becomes "Guardar preferencias". Cancelling is an X
+in the panel's header, not a fourth button: it is not a decision about cookies,
+so it does not belong in the decision row. Esc and a backdrop click do the same
 thing, and always did — headlessui gives both from `onClose`.
 
-Nothing in force requires a first-layer reject button here: Ley 21.719
-prescribes no banner layout and Chile's agency has published no cookie
-guidance, while the first-layer rule is EU supervisory-authority doctrine that
-does not reach a Chilean firm advising Chilean clients. The residual risk is
-the asymmetry — accept in one click, decline in two — and it went to the firm
-as a decision rather than being taken for them. **Revisit if they ever market
-to the EU**; the button then goes on the banner. `docs/client-brief.md` has the
-full note.
+Reject and accept are the same component with the same variant, on the banner
+and in the panel, so their relative weight is not a matter of opinion. Reject
+comes first in the DOM, which is also first when the row stacks on a phone and
+first for a screen reader.
 
-Within the modal, reject and confirm are the same component with the same
-variant, so their relative weight is not a matter of opinion.
+It did not have to be this way, and for two days it was not: rejecting lived
+one click inside "Personalizar". Nothing in force in Chile requires a
+first-layer reject — Ley 21.719 prescribes no banner layout and Chile's agency
+has published no cookie guidance, while the first-layer rule is EU
+supervisory-authority doctrine. The firm asked for it anyway, going past the
+rename we had recommended: they align their own policy with the European rules,
+so accept-in-one-click against reject-in-two was not an asymmetry they wanted
+to defend. Decision 3 of `docs/client-brief.md`.
 
-## The switches start on
+## The switches start off
 
-Both optional categories are pre-ticked for a visitor who has not chosen yet.
-That is a decision the firm made knowingly, recorded in `docs/client-brief.md`
-with the argument against it — Ley 21.719 requires consent to be _inequívoca_
-and _Planet49_ (C-673/17) held a pre-ticked box is not consent. If it is ever
-revisited, it is one word per category in `CookieSettingsModal.tsx`.
+Both optional categories start **off** for a visitor who has not chosen yet, as
+of 24 September 2026. The firm's answer to decision 2 of
+`docs/client-brief.md`, and it agreed with our recommendation: no pre-ticked
+boxes, no implied consent. Ley 21.719 requires consent to be _inequívoca_,
+which is the precise word a pre-ticked box fails, and _Planet49_ (C-673/17)
+settled the same point.
 
-It does not change what is stored. Nothing is granted until "Guardar
-preferencias" or "Aceptar todas" is pressed: `createDefaultPreferences()` still
-denies everything,
-and so does the Consent Mode default. A visitor who never opens the panel is
-denied.
+The consequence to keep in mind: "Guardar preferencias" pressed without
+touching a switch now means the same thing as "Rechazar todas". It used to mean
+the same thing as "Aceptar todas", which was the objection.
+
+It never changed what is stored by default. Nothing is granted until "Guardar
+preferencias" or "Aceptar todas" is pressed: `createDefaultPreferences()`
+denies everything, and so does the Consent Mode default. A visitor who never
+opens the panel is denied.
 
 ## Storage
 
@@ -80,7 +86,7 @@ denied.
   "analytics": false,
   "advertising": false,
   "timestamp": "2026-09-22T15:07:58.003Z",
-  "version": 2
+  "version": 3
 }
 ```
 
@@ -96,13 +102,20 @@ than letting truthiness propagate. The same rule is written a second time, in
 ES5, inside `CONSENT_BOOTSTRAP_SNIPPET` — the two are checked against each
 other by `src/lib/utils/__tests__/consent.test.ts`. Change them together.
 
-`version` is 2. `REPROMPT_BELOW_VERSION` in `src/lib/utils/consent.ts` is 0,
-so nothing is re-prompted; raise it to 2 if the firm decides people who
-accepted before the advertising category existed must choose again. It lives
-there rather than here because three readers apply it — `isConsentValid` for
-the banner, `readStoredChoices` for the site's own cookies, and the bootstrap
-snippet for the Consent Mode default — and a gate only the banner applied left
-Google being told "granted" by a record the UI had stopped honouring.
+`version` is 3, and `REPROMPT_BELOW_VERSION` in `src/lib/utils/consent.ts` is
+3 too, so **everything written before 24 September 2026 is asked again** —
+version 1 records, from before the advertising category, and version 2 records
+alike. The firm's answer to decision 4 of `docs/client-brief.md`: ask again
+even where consent was already given. Version 2 is the part worth pausing on,
+because those were complete, current-shaped records — but they were collected
+through a panel whose switches started ticked and a banner with no first-layer
+reject, which is exactly what the firm has now ruled out.
+
+The constant lives there rather than here because three readers apply it —
+`isConsentValid` for the banner, `readStoredChoices` for the site's own
+cookies, and the bootstrap snippet for the Consent Mode default — and a gate
+only the banner applied left Google being told "granted" by a record the UI had
+stopped honouring.
 
 **There is no "dismissed" state.** An older design let the banner be closed
 without an answer and remembered that in `cookie-banner-dismissed` in

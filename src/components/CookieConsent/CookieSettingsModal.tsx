@@ -95,26 +95,26 @@ export const CookieSettingsModal = () => {
     preferences,
   } = useCookieConsent();
 
-  // Both switches start on for a visitor who has not chosen yet.
+  // Both switches start off for a visitor who has not chosen yet.
   //
-  // This is a pre-ticked box, and it is the firm's decision rather than a
-  // default that fell out of the code — recorded in docs/client-brief.md so
-  // they can revisit it. Worth knowing what it rests on: Ley 21.719 requires
-  // consent to be "inequívoca", which is the precise word a pre-ticked box
-  // fails, and the CJEU settled the same point in Planet49 (C-673/17). It is
-  // the one consent question with an actual answer in the statute.
+  // The firm answered decision 2 of docs/client-brief.md on 24 September 2026:
+  // off by default, activated by hand. Their reasoning matched ours — no
+  // pre-ticked boxes and no implied consent — so the pre-tick is gone. What it
+  // rested on, for anyone reading this later: Ley 21.719 requires consent to be
+  // "inequívoca", which is the precise word a pre-ticked box fails, and the
+  // CJEU settled the same point in Planet49 (C-673/17).
   //
-  // What it does NOT change, and must not: nothing is granted until the
-  // visitor presses "Guardar preferencias" or "Aceptar todas". One who never
-  // opens this
-  // modal, or who closes it, stays denied — the stored default in
-  // createDefaultPreferences and the Consent Mode default are both still
-  // denied for everything.
+  // The consequence to keep in mind when reading the footer: "Guardar
+  // preferencias" pressed without touching a switch now means the same as
+  // "Rechazar todas", which is the right way round.
+  //
+  // A visitor who already chose sees their own record, not these defaults —
+  // `?? false` only applies when `preferences` is null.
   const [analyticsEnabled, setAnalyticsEnabled] = useState(
-    preferences?.analytics ?? true
+    preferences?.analytics ?? false
   );
   const [advertisingEnabled, setAdvertisingEnabled] = useState(
-    preferences?.advertising ?? true
+    preferences?.advertising ?? false
   );
 
   // Re-seed each time the modal opens, not only the first time.
@@ -130,8 +130,8 @@ export const CookieSettingsModal = () => {
   if (wasOpen !== showModal) {
     setWasOpen(showModal);
     if (showModal) {
-      setAnalyticsEnabled(preferences?.analytics ?? true);
-      setAdvertisingEnabled(preferences?.advertising ?? true);
+      setAnalyticsEnabled(preferences?.analytics ?? false);
+      setAdvertisingEnabled(preferences?.advertising ?? false);
     }
   }
 
@@ -230,13 +230,14 @@ export const CookieSettingsModal = () => {
                 in the header; it is not a decision about cookies and does not
                 belong in this row.
 
-                Rejecting lives here rather than on the banner. Nothing in
-                force today obliges a first-layer reject button: Ley 21.719
-                prescribes no banner layout and Chile's data protection agency
-                has issued no cookie guidance, while the first-layer
-                requirement is EU supervisory-authority doctrine that does not
-                reach a Chilean firm advising Chilean clients. Revisit it if
-                the firm ever markets to the EU. See docs/client-brief.md.
+                Rejecting also lives on the banner now, as of 24 September
+                2026 — the firm asked for it on the first layer (decision 3 of
+                docs/client-brief.md), going further than the rename we had
+                recommended. Nothing in force in Chile obliges it; the firm
+                aligns its policy with the European rules by choice, and an
+                explicit reject alongside customise is what those expect. This
+                row keeps its own copy of the three choices for the visitor who
+                arrived here from the footer link rather than from the banner.
 
                 Reject and accept are the same component with the same variant,
                 so their relative weight is not a matter of opinion. "Guardar
@@ -246,10 +247,9 @@ export const CookieSettingsModal = () => {
                 Reject comes first in the DOM, so it is also first when the row
                 stacks on a phone and first for a screen reader.
 
-                Note that with both switches starting on, "Guardar
-                preferencias" and "Aceptar todas" do the same thing until the
-                visitor touches a switch. That is a consequence of the
-                pre-tick, not of this layout.
+                With both switches now starting off, "Guardar preferencias"
+                pressed without touching anything means the same as "Rechazar
+                todas" rather than the same as "Aceptar todas".
               */}
               <div className="flex flex-col justify-end gap-3 border-t border-gray-200 bg-gray-50 px-6 py-4 md:flex-row">
                 <Button

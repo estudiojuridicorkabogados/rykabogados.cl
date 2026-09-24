@@ -46,7 +46,11 @@ function cookieFor(choices: ConsentChoices, extra: object = {}): string {
     analytics: choices.analytics,
     advertising: choices.advertising,
     timestamp: new Date().toISOString(),
-    version: 2,
+    // The current shape. Raised with CONSENT_VERSION and
+    // REPROMPT_BELOW_VERSION on 24 September 2026; a cookie below the gate is
+    // denied, so leaving this at 2 would have quietly turned every test below
+    // into a test of the re-prompt instead of what it says it checks.
+    version: 3,
     ...extra,
   };
 
@@ -139,6 +143,11 @@ describe("CONSENT_BOOTSTRAP_SNIPPET", () => {
   /**
    * A record written before phase 3 has no `advertising` key. It must read as
    * declined rather than as undefined-and-therefore-whatever.
+   *
+   * Read at a threshold of 0 rather than through the live constant, which has
+   * been 3 since 24 September 2026 and denies such a record outright — the
+   * test below. Two separate rules, and this one has to keep working on its
+   * own: the missing key is what protects us if the gate is ever lowered.
    */
   test("a record from before the advertising category reads as declined", () => {
     const legacy = `cookie-consent=${encodeURIComponent(
@@ -149,14 +158,30 @@ describe("CONSENT_BOOTSTRAP_SNIPPET", () => {
       })
     )}`;
 
-    const [command] = runSnippet(legacy) as Array<
-      [string, string, Record<string, string>]
-    >;
+    const [command] = runSnippet(
+      legacy,
+      buildConsentBootstrapSnippet(0)
+    ) as Array<[string, string, Record<string, string>]>;
 
     expect(command[2].analytics_storage).toBe("granted");
     expect(command[2].ad_storage).toBe("denied");
     expect(command[2].ad_user_data).toBe("denied");
     expect(command[2].ad_personalization).toBe("denied");
+  });
+
+  /**
+   * The live gate, as opposed to the parameterised ones below: everything
+   * written before 24 September 2026 is asked again, version 2 records
+   * included. The firm's answer to decision 4 of docs/client-brief.md.
+   */
+  test("the shipped snippet grants nothing for a version 2 record", () => {
+    const [command] = runSnippet(
+      cookieFor({ analytics: true, advertising: true }, { version: 2 })
+    ) as Array<[string, string, Record<string, string>]>;
+
+    expect({ ...command[2] }).toEqual({
+      ...consentStateFrom({ analytics: false, advertising: false }),
+    });
   });
 
   test("a truthy-but-not-true advertising value is still declined", () => {

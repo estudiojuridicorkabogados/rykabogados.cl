@@ -12,7 +12,7 @@ import { useCookieConsent } from "./useCookieConsent";
 const EXIT_MS = 300;
 
 export const CookieBanner = () => {
-  const { showBanner, acceptAll, openSettings } = useCookieConsent();
+  const { showBanner, acceptAll, rejectAll, openSettings } = useCookieConsent();
   // Keep the banner mounted through its exit animation, which is what
   // AnimatePresence used to do.
   // Derive the mount flag during render (a pattern React supports) rather
@@ -40,9 +40,16 @@ export const CookieBanner = () => {
     // Not role="dialog": it is non-modal, traps no focus and the page stays
     // usable behind it.
     //
-    // Two buttons on purpose. Rejecting lives one click away, inside
-    // "Personalizar" — see the note in CookieSettingsModal for why that is a
-    // defensible position in Chile today and when it stops being one.
+    // Three buttons since 24 September 2026. Rejecting used to live one click
+    // away, inside "Personalizar", which nothing in force in Chile forbids —
+    // the first-layer reject is EU supervisory doctrine. The firm asked for it
+    // on the first layer anyway (decision 3 of docs/client-brief.md): they
+    // align their own policy with the European rules, so accepting in one
+    // click while rejecting took two was not a trade they wanted to defend.
+    //
+    // Reject and accept carry the same variant, so neither is the easier
+    // button. "Personalizar" sits between them as the quieter middle path, the
+    // same order and weighting as the modal's footer.
     <section
       data-closing={closing}
       aria-labelledby="cookie-banner-title"
@@ -59,10 +66,15 @@ export const CookieBanner = () => {
               Usamos cookies
             </h3>
             <p className="text-sm text-gray-600">
+              {/* TODO(copy): the firm has asked to rewrite this paragraph —
+                  they consider it not entirely accurate. This wording is ours
+                  and stands only until theirs arrives; the sentence about the
+                  buttons was corrected on 24 September 2026 to match the three
+                  that are now here. See docs/client-brief.md, decision 5. */}
               Utilizamos cookies propias y de terceros para mejorar tu
               experiencia de navegación y analizar el uso de nuestro sitio web.
-              Puedes aceptarlas todas o, desde «Personalizar», elegir cuáles
-              permitir o rechazarlas todas.{" "}
+              Puedes aceptarlas todas, rechazarlas todas o elegir cuáles
+              permitir desde «Personalizar».{" "}
               <Link
                 href={URLS.cookiePolicy()}
                 className="group hover:text-accent-dark items-center gap-2 text-sm font-bold text-black underline transition-colors duration-200"
@@ -74,6 +86,18 @@ export const CookieBanner = () => {
 
           {/* Actions */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            {/* First in the DOM, so it is also first when the row stacks on a
+                phone and first for a screen reader. */}
+            <Button
+              animateOnClick
+              variant="dark"
+              className="group w-full lg:w-fit"
+              type="button"
+              onClick={rejectAll}
+            >
+              Rechazar todas
+            </Button>
+
             <Button
               animateOnClick
               variant="default"

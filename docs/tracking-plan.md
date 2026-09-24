@@ -305,16 +305,73 @@ On a preview deployment with Google's Tag Assistant open, walk through each form
 
 ---
 
-## Phase 3: Make the cookie banner real — done 22 September 2026, bar the firm's copy
+## Phase 3: Make the cookie banner real — done 22 September 2026, the firm's answers built 24 September
 
 Code live, container published, all four consent states verified on
-production. What remains is not ours: the banner and modal wording, the two
-policy pages, and two decisions that belong to the firm rather than to us —
-whether rejecting should stop data reaching Google entirely, and whether the
-settings switches keep starting pre-ticked. Both are in `docs/client-brief.md`
-in Spanish, sent to the firm, and answered; implementing the answers is its own
-piece of work. The cookie inventory followed on 24 September 2026, as a Spanish
-PDF made from `docs/cookie-inventory.md` without the code references.
+production. The firm replied to `docs/client-brief.md` on 24 September 2026:
+three of the five decisions came back answered and are built, one came back
+as a question for us, and one is still open. The cookie inventory went over the
+same day, as a Spanish PDF made from `docs/cookie-inventory.md` without the
+code references.
+
+### The firm's answers — 24 September 2026
+
+They agreed with the document as a whole and read the consent questions
+against European practice on purpose: the firm aligns its own policy with the
+European rules rather than with the Chilean floor, which is why two of the
+three answers go further than what we recommended.
+
+| Decision | Their answer | Status |
+| --- | --- | --- |
+| 1. What "reject" sends to Google | not addressed | **Open**, and the one with a date: 1 December 2026 |
+| 2. Pre-ticked switches | Off by default, activated by hand — no pre-ticked boxes, no implied consent | **Built** |
+| 3. Rename "Personalizar" | Went further: an explicit **reject** on the banner itself, beside "Personalizar" | **Built** |
+| 4. Re-ask those who accepted in 2025 | Yes — ask again even where consent was already given | **Built** |
+| 5. Texts | The banner paragraph is "not entirely accurate" and they will rewrite it | **Open**, waiting on their copy |
+| — | New: cut cookie lifetimes to 6 months on consent, nothing retained on refusal, and *what period is technically necessary for the reports?* | **Open**, and the question is ours to answer |
+
+**What was built, in one place each.** Decision 2 is
+`CookieSettingsModal.tsx`, where both switches now start off; the consequence
+worth saying out loud is that "Guardar preferencias" pressed without touching
+anything now means the same as "Rechazar todas", where it used to mean the same
+as "Aceptar todas" — which was the whole objection. Decision 3 is
+`CookieBanner.tsx`, now three buttons — **Rechazar todas**, **Personalizar**,
+**Aceptar todas** — with reject and accept carrying the same variant and reject
+first in the DOM, so it is also first when the row stacks on a phone and first
+for a screen reader. Decision 4 is `REPROMPT_BELOW_VERSION` in
+`src/lib/utils/consent.ts`, raised from 0 to 3 with `CONSENT_VERSION` alongside
+it.
+
+**Decision 4 was taken literally, and that is a choice worth recording.** The
+question in the brief was about the visitors who accepted before the
+advertising category existed — version 1 records. Their answer says "aunque se
+haya otorgado previamente", so version 2 records go too: everything written
+before 24 September 2026 is asked again. Those version 2 records were complete
+and current-shaped, but they were collected through a panel whose switches
+started ticked and a banner with no first-layer reject, which is precisely what
+the firm has now ruled out. Keeping them would mean relying on consent
+gathered the way they just rejected. The cost is one more banner for anyone who
+answered between 22 and 24 September — two days of traffic.
+
+**What this does to the numbers, and it is the same warning as step 4 below.**
+Three changes that each push consent down, shipping together: the switches no
+longer pre-grant, rejecting is now one click from the banner, and every
+existing acceptance is discarded. Expect the recorded conversion volume to step
+down again within days of this going live, and automatic bidding to recalibrate
+for a fortnight on top of the recalibration it started on 22 September. It is
+still a measurement change, not a business change. Note the go-live date the
+same way phase 7 notes the first one.
+
+**The open items.** Decision 1 is unchanged and still has the 1 December
+deadline. The banner and panel copy stays theirs; our wording remains in the
+components marked `TODO(copy)`, with the one sentence that describes the
+buttons corrected on 24 September so it at least matches what is on screen.
+Their retention proposal — six months where consent is given, nothing retained
+where it is refused — needs our technical answer first, since what a report can
+still say depends on it; the periods in play are the `cookie-consent` record's
+own lifetime (a year on acceptance, 30 days on refusal, `utils.ts`), Analytics'
+own retention setting, and the Ads conversion windows. Answer that, then they
+decide. The two policy pages are still theirs to write from our inventory.
 
 | | |
 | --- | --- |
@@ -369,16 +426,23 @@ A visitor can then accept measurement while refusing ad personalisation, which i
 ### Checklist
 
 - [x] Advertising category added to types, modal and stored cookie
-- [x] Both optional switches start on in the settings modal — the firm's call,
-      with the argument against it in `docs/client-brief.md`. Nothing is
-      granted until they confirm; the stored and Consent Mode defaults are
-      still denied
+- [x] Both optional switches start **off** in the settings modal — 24
+      September 2026, the firm's answer to decision 2, which agreed with our
+      recommendation. They had started on until then, knowingly and recorded;
+      what changed is that "Guardar preferencias" untouched now means reject
+      rather than accept
 - [x] **A way to decline at all** — there was none. `rejectAll` writes a record
-      and the button lives in the settings modal, whose footer is now the
-      conventional three — reject all, save preferences, accept all — with
-      cancel demoted to an X in the header. Not on the banner: nothing in
-      force requires a first-layer reject here, and the reasoning is in
-      `docs/client-brief.md`. Revisit if the firm markets to the EU
+      and the settings modal's footer is the conventional three — reject all,
+      save preferences, accept all — with cancel demoted to an X in the header
+- [x] **Reject on the banner itself** — 24 September 2026, the firm's answer to
+      decision 3, going past the rename we had recommended. Nothing in force in
+      Chile requires a first-layer reject; they align their policy with the
+      European rules by choice. Reject and accept share a variant so neither is
+      the easier button, and reject is first in the DOM
+- [x] **Everyone asked again** — 24 September 2026, the firm's answer to
+      decision 4. `REPROMPT_BELOW_VERSION` raised 0 → 3 with `CONSENT_VERSION`,
+      so every record written before that date is re-prompted, version 2
+      included: those were collected through the pre-ticked panel
 - [x] **The banner made visible again.** It had not rendered for anyone since
       27 August 2026 (b1c0840) — verified against production before touching
       it. Shipping consent on top of an invisible banner would have denied
@@ -428,7 +492,19 @@ A visitor can then accept measurement while refusing ad personalisation, which i
       phase 7 counts from it, and the hour matters when reading the first day
 - [ ] `/politica-cookies` updated with the advertising category and the real cookie table
 - [ ] `/politicas-de-privacidad` updated
-- [ ] Banner and modal copy reviewed with the client
+- [ ] Banner and modal copy — reviewed 24 September 2026 and the firm is
+      rewriting the banner paragraph, which they consider not entirely
+      accurate. Ours stands until theirs arrives, marked `TODO(copy)` in the
+      components; the sentence naming the buttons was corrected the same day
+- [ ] Retention periods — the firm proposes six months on consent and nothing
+      retained on refusal, and has asked what period is technically necessary
+      for the reports. Ours to answer before they decide
+- [ ] Decision 1 — what reaches Google when someone rejects. Still open, still
+      due before **1 December 2026**
+- [ ] Re-verify on production after the 24 September changes: banner reject,
+      switches off, and a version 2 record being asked again
+- [ ] Go-live of the 24 September changes recorded as a second baseline —
+      consent will step down again and bidding will recalibrate
 - [x] `COOKIE_CONSENT_SETUP.md` retired and `src/components/CookieConsent/README.md` rewritten
 
 ---
@@ -472,11 +548,11 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 
 ### Outstanding — as of 23 September 2026
 
-**Blocked on Analytics processing, due 24 September afternoon.** The `rk_*` events reach Realtime and the Events report within minutes, but the Admin **Events** list and the audience builder's event picker only offer an event once it has been through processing — up to 48 hours. On publish day neither listed any `rk_*` event, so both steps below wait. Every conversion was triggered at least once on 23 September, including a test booking on each form, so all four should be listed — and `rk_chat_lead` too, which arrived the same evening. Still missing by Friday 25 September is a real fault, not the lag.
+**Blocked on Analytics processing — cleared 24 September 2026; both steps below done.** The `rk_*` events reach Realtime and the Events report within minutes, but the Admin **Events** list and the audience builder's event picker only offer an event once it has been through processing — up to 48 hours. On publish day neither listed any `rk_*` event, so both steps below wait. Every conversion was triggered at least once on 23 September, including a test booking on each form, so all four should be listed — and `rk_chat_lead` too, which arrived the same evening. Still missing by Friday 25 September is a real fault, not the lag.
 
-1. **Key events.** Data display → Events → "Mark as key event" on `rk_conv_contact_form`, `rk_conv_trabajadores_booking`, `rk_conv_empresas_booking`, `rk_conv_whatsapp` and `rk_chat_lead`; WhatsApp set to **once per session** from the ⋮ menu, the rest once per event.
-2. **Audience `Formulario iniciado sin enviar`.** Data display → Audiences → New audience → custom. Include: `rk_form_start`, across all sessions. Exclude permanently, joined by **OR** not AND: the four `rk_conv_*` events and `rk_chat_lead` — WhatsApp and the chatbot included, since that visitor has already reached the firm. Membership 30 days, no audience trigger.
-3. **Audience `Landing sin ver formulario`.** Include: `rk_page_view` with `page_type` matching `landing_trabajadores` or `landing_empresas`. Exclude permanently, by OR: `rk_form_view`, the four `rk_conv_*` and `rk_chat_lead`. Membership 30 days. If `page_type` is not offered as a parameter yet, page path containing `/habla-con-nosotros/` is an equivalent condition.
+1. ~~**Key events.**~~ **Done 24 September 2026.** Data display → Events → "Mark as key event" on `rk_conv_contact_form`, `rk_conv_trabajadores_booking`, `rk_conv_empresas_booking`, `rk_conv_whatsapp` and `rk_chat_lead`; WhatsApp set to **once per session** from the ⋮ menu, the rest once per event.
+2. ~~**Audience `Formulario iniciado sin enviar`.**~~ **Built 24 September 2026**, exclusion set to *Permanently* (the default, *Temporarily*, would let someone who has since contacted the firm drift back into the list). Data display → Audiences → New audience → custom. Include: `rk_form_start`, across all sessions. Exclude permanently, joined by **OR** not AND: the four `rk_conv_*` events and `rk_chat_lead` — WhatsApp and the chatbot included, since that visitor has already reached the firm. Membership 30 days, no audience trigger.
+3. ~~**Audience `Landing sin ver formulario`.**~~ **Built 24 September 2026** with `page_type` matches regex `landing_(trabajadores|empresas)`, exclusion *Permanently*. Google's preview on saving: 26 landing viewers, 14 excluded, 12 in the audience — mostly our own test traffic, not a baseline. Include: `rk_page_view` with `page_type` matching `landing_trabajadores` or `landing_empresas`. Exclude permanently, by OR: `rk_form_view`, the four `rk_conv_*` and `rk_chat_lead`. Membership 30 days. If `page_type` is not offered as a parameter yet, page path containing `/habla-con-nosotros/` is an equivalent condition.
 
 **Blocked on the firm.** Whether to advertise to the audiences at all. Building them is free and they are useful in Analytics without ads, but using them in Ads needs two things settled first: Google's personalised-advertising policy, which may restrict remarketing to people over a dismissal (unverified), and list size — Ads serves a list only once it holds enough active users, in the order of a thousand for most campaign types, which this site's form-starters may take months to reach. A question for `docs/client-brief.md`, not a switch to flip.
 
@@ -494,8 +570,8 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 - [x] ~~"Include user-provided data" on the conversion tags~~ — the option no longer exists in this account's Tag Manager, on the conversion tags or the Google tag. The User-provided Data Event tag stays as the mechanism; Ads rates it "Excellent", and its "Failed" status in Tag Assistant is cosmetic
 - [x] Ads diagnostics: Formulario Contacto received user-provided data from the 22 September test send within the hour — all three forms confirmed, nothing in the container to change
 - [x] Analytics: twelve custom dimensions registered (see step 2), dimension name identical to the parameter name
-- [ ] Analytics: key events marked — the four `rk_conv_*` and `rk_chat_lead`, WhatsApp once per session. Waiting on processing; see Outstanding
-- [ ] Audiences built in Analytics — the two under Outstanding. Waiting on processing
+- [x] Analytics: key events marked, 24 September 2026 — the four `rk_conv_*` and `rk_chat_lead`, WhatsApp once per session, the rest once per event. Marked with the star on the event's row; `form_start` and `form_submit` still listed from before enhanced measurement's form interactions went off, and deliberately left unstarred
+- [x] Audiences built in Analytics, 24 September 2026 — `Formulario iniciado sin enviar` and `Landing sin ver formulario`, both excluding permanently, 30-day membership
 - [ ] Audiences used in Ads — the firm's call, after the policy check and once the lists are large enough; see Outstanding
 - [x] Verified in Tag Assistant preview and DebugView on production, 23 September 2026: page views, scroll marks, navigation labels, the forms, and the chatbot's open, first message, numbered messages and handoff. No label carried over to the next event; no `user_data` on any event; the tag blocked on `localhost`. The chatbot lead was not sent — it emails the firm
 - [x] Container published, 23 September 2026, about 11:45 Santiago

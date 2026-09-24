@@ -121,8 +121,9 @@ production shows, which is exactly what hid the `_gcl_aw` problem in commit
   event list. `bun run test:tracking` asserts this too.
 - Press **Aceptar todas** → a Consent entry appears with the four mutable types
   flipping to granted.
-- In a second fresh profile, **Personalizar → Rechazar todas** → tags still
-  **fire**, marked consent-restricted. Fired-and-restricted is the correct
+- In a second fresh profile, **Rechazar todas** on the banner — it is a
+  first-layer button since 24 September 2026, not a step inside "Personalizar"
+  — → tags still **fire**, marked consent-restricted. Fired-and-restricted is the correct
   result, not a fault: the built-in checks strip the identifiers and send a
   cookieless ping rather than nothing.
 - **The `gcs` parameter is the proof, and it is worth looking at once.** Open a

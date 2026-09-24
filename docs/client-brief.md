@@ -126,3 +126,41 @@ prefieren que hagan una elección nueva, se cambia en minutos.
 | 3. Renombrar "Personalizar" a "Configurar o rechazar" | Sí | Cuanto antes |
 | 4. Volver a preguntar a quienes aceptaron en 2025 | No | — |
 | 5. Textos del banner y de las políticas | Banner: revisar el borrador. Políticas: las redactan ustedes con nuestro inventario | Antes del 1 de diciembre |
+
+---
+
+## Respuesta del estudio — 24 de septiembre de 2026
+
+Recibida y aplicada. Tres decisiones quedaron resueltas y ya están en el sitio;
+dos siguen abiertas, y una de ellas es una pregunta dirigida a nosotros.
+
+| Decisión | Su respuesta | Estado |
+| --- | --- | --- |
+| 1. Qué se envía a Google al rechazar | sin respuesta | **Abierta** — sigue con fecha: 1 de diciembre de 2026 |
+| 2. Interruptores premarcados | Apagados por defecto, activación manual | **Hecho** |
+| 3. Botón de rechazo | Más de lo propuesto: "Rechazar" explícito en el banner, junto a "Personalizar" | **Hecho** |
+| 4. Volver a pedir el consentimiento | Sí, aunque ya se haya otorgado | **Hecho** |
+| 5. Textos | El texto del banner no es del todo exacto y lo reescriben ustedes | **Abierta** — esperamos su redacción |
+| Nueva | Plazos de conservación: 6 meses con consentimiento, nada si se rechaza. ¿Qué plazo es técnicamente necesario? | **Abierta** — la respuesta es nuestra |
+
+Sobre la decisión 4, conviene dejar constancia de cómo la interpretamos: al
+pie de la letra. La pregunta era por quienes aceptaron antes de que existiera
+la categoría de publicidad, pero "aunque se haya otorgado previamente" alcanza
+también a quienes aceptaron entre el 22 y el 24 de septiembre, con el panel
+premarcado y sin botón de rechazo en el banner —es decir, exactamente de la
+forma que ustedes acaban de descartar—. Se borra todo y se vuelve a preguntar
+a todos.
+
+**Una advertencia que corresponde repetir.** Los tres cambios empujan el
+consentimiento hacia abajo y entran juntos. Las conversiones registradas van a
+bajar otro escalón en los días siguientes, y la puja automática de Google
+tardará unas dos semanas en reajustarse, encima del reajuste que empezó el 22
+de septiembre. Es un cambio de medición, no del negocio, pero conviene saberlo
+antes y no después.
+
+**Lo que les debemos.** La respuesta técnica sobre plazos de conservación
+—qué período hace falta realmente para que los informes sigan sirviendo—,
+antes de que ustedes decidan. Entran tres plazos distintos en la cuenta y no
+son el mismo: la cookie que guarda su propia elección (hoy un año si aceptan,
+30 días si rechazan), el período de retención de Google Analytics, y las
+ventanas de conversión de Google Ads.

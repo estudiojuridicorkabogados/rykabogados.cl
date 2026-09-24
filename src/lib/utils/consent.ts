@@ -66,12 +66,15 @@ export const CONSENT_COOKIE_NAME = "cookie-consent";
  * comes back, Google is told nothing was granted, and none of the site's own
  * advertising cookies are written.
  *
- * Set to 0, so nothing is re-prompted: a visitor who accepted "analytics"
- * before the advertising category existed keeps that, and reads as having
- * declined advertising. Whether that is enough, or whether they must make a
- * fresh affirmative choice now that advertising is a separate decision, is a
- * legal judgement for the firm rather than ours. Raise this to 2 when they
- * answer; nothing else needs to change.
+ * Set to 3 on 24 September 2026, which re-prompts everyone. The firm answered
+ * decision 4 of `docs/client-brief.md` with "es necesario volver a solicitar
+ * el consentimiento, aunque se haya otorgado previamente" — every record, not
+ * only the version 1 ones written before the advertising category existed.
+ * Taken literally on purpose, and the literal reading is also the defensible
+ * one: every version 2 record was collected through a panel whose switches
+ * started ticked and a banner with no first-layer reject, which is precisely
+ * what the firm has now ruled out. Consent gathered that way cannot be the
+ * consent we keep relying on.
  *
  * It lives here rather than in the CookieConsent component because three
  * readers have to agree on it: `isConsentValid` (the banner), `readStoredChoices`
@@ -79,7 +82,7 @@ export const CONSENT_COOKIE_NAME = "cookie-consent";
  * snippet (the Consent Mode default). A gate that only the banner applied left
  * the other two granting what the UI was treating as un-consented.
  */
-export const REPROMPT_BELOW_VERSION = 0;
+export const REPROMPT_BELOW_VERSION = 3;
 
 /** A record with no `version` predates the advertising category. */
 export const LEGACY_CONSENT_VERSION = 1;

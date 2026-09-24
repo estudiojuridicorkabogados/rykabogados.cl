@@ -41,7 +41,7 @@ describe("getCookieConsent", () => {
 
     expect(preferences?.analytics).toBe(true);
     expect(preferences?.advertising).toBe(true);
-    expect(preferences?.version).toBe(2);
+    expect(preferences?.version).toBe(3);
   });
 
   /**
@@ -170,17 +170,28 @@ describe("isConsentValid", () => {
   });
 
   /**
-   * REPROMPT_BELOW_VERSION is 0 today, so a version 1 record still counts.
-   * If the firm decides those visitors must choose again, raising it — in
-   * src/lib/utils/consent.ts, where the snippet and the framework-free reader
-   * share it — is the whole change, and this test is what says so out loud.
+   * REPROMPT_BELOW_VERSION is 3 since 24 September 2026, so everything written
+   * before that date is asked again — the firm's answer to decision 4 of
+   * docs/client-brief.md, taken literally.
+   *
+   * Version 1 predates the advertising category. Version 2 is the one that
+   * matters here and is easy to overlook: it was a complete, current-shaped
+   * record, granted through a panel whose switches started ticked. If someone
+   * later lowers the constant back to 2 to spare those visitors a banner, this
+   * is the test that should stop them.
    */
-  test("version 1 records are still honoured while the constant is 0", () => {
-    const legacy = {
+  test.each([1, 2])("a version %i record no longer counts", (version) => {
+    const stale = {
       ...createDefaultPreferences({ analytics: true }),
-      version: 1,
+      version,
     };
 
-    expect(isConsentValid(legacy)).toBe(true);
+    expect(isConsentValid(stale)).toBe(false);
+  });
+
+  test("a record written today counts", () => {
+    expect(isConsentValid(createDefaultPreferences({ analytics: true }))).toBe(
+      true
+    );
   });
 });
