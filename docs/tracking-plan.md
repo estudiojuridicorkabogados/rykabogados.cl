@@ -744,6 +744,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [ ] Any-contact funnel
 - [ ] Path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
+- [ ] The five funnels saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and the path report cannot be saved this way at all
 - [ ] All shared with the client's Analytics user
 - [ ] Guide in Spanish
 
