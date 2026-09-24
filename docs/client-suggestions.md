@@ -1,0 +1,97 @@
+# Suggestions for the firm
+
+Improvements we think are worth proposing to RK Abogados, each with the
+evidence behind it and what it would take. **Internal, in English** — when one
+is ready to go, it is rewritten in Spanish for the firm, the way
+`docs/client-brief.md` is.
+
+Nothing here is agreed. Each entry says what has to be true in the data before
+it is worth raising, so a proposal arrives with numbers rather than a hunch.
+
+| # | Suggestion | Status |
+| --- | --- | --- |
+| 1 | [Make blog readers a step away from booking](#1-make-blog-readers-a-step-away-from-booking) | Waiting on a baseline — not before mid-October 2026 |
+
+---
+
+## 1. Make blog readers a step away from booking
+
+Noted 24 September 2026.
+
+### Why
+
+The firm pays for traffic to the blog, and the blog is a real way in: **841
+people landed on an article in the 28 days to 24 September**, close to the
+1,269 who landed on the workers' booking page, and about 99% of them were
+first visits. The most-read article, `puedo-demandar-si-trabaje-sin-contrato`
+(118 people), is read by exactly the firm's workers clients.
+
+What happens next is set by the page, and three things in it work against a
+reader moving on:
+
+1. **On a phone, the contact box comes after the whole article.** "Hablemos
+   sobre tu caso" (`src/app/blog/[slug]/_components/HablaConNosotros.tsx`)
+   is a sidebar that stays in view on desktop only (`lg:sticky`); on mobile
+   it sits below the text. Search and paid readers are mostly on phones, so
+   they see it only if they finish.
+2. **The booking button asks what the article already knows.** "Agenda una
+   asesoría" opens a *Trabajadores / Empresas* menu. Someone reading about
+   working without a contract is a worker; the question is an extra step at
+   the moment of intent.
+3. **Nothing invites action partway through.** A reader whose question is
+   answered in the third paragraph leaves without reaching a button.
+
+### What we would propose, cheapest first
+
+- **A contact bar fixed to the bottom of the screen on mobile**, with WhatsApp
+  and booking. Small, and easy to measure.
+- **A booking link that goes straight to the right page**, based on who the
+  article is for — no menu.
+- **A call to action partway through the article.** Best as a block the firm
+  places in Contentful wherever it fits the text, so it reads as part of the
+  article rather than an interruption.
+
+Booking inside the article itself is possible and deliberately not on the
+list: the booking form brings reCAPTCHA (about 354 KB, today loaded only on the
+three form pages) and a second copy of the booking flow to maintain. The three
+above get most of the benefit.
+
+### What the blog needs first: say who each article is for
+
+The direct link cannot be built today, because **an article does not record
+whether it is for workers or companies**. The tags shown on every post —
+*Trabajo*, *Empresa*, *Reforma* — are hardcoded (`BlogPost.tsx`, the `Tags`
+constant) and identical on every article, so they carry no information, and
+they tell every reader the post is about all three.
+
+The change is one field on the Contentful blog post model — for example
+`audiencia`: `trabajadores`, `empresas` or `ambos` — filled in once per
+existing article and then for each new one. The site then:
+
+- links the booking button straight to `/habla-con-nosotros/trabajadores` or
+  `/habla-con-nosotros/empresas`, keeping the menu only for `ambos`;
+- shows a real tag instead of the three fixed ones;
+- can label the article in Analytics, so the blog reports split workers'
+  articles from companies' without reading every URL.
+
+This is the firm's content, so the field is theirs to fill — a few minutes per
+article, and the one thing we cannot do for them.
+
+### When to raise it, and what to show
+
+Not yet. Changing the page now leaves no "before" to compare with, and the
+firm is more easily persuaded by a change that visibly worked than by a
+prediction. Two to three weeks of the current page first — from about
+**15 October 2026**, and ideally after 21 October, when the 28-day window lies
+entirely after the tracking went live. Then read:
+
+| Question | Where |
+| --- | --- |
+| Do blog readers go on to a booking or contact page? | `RK · Embudo blog`, step 1 → 2 |
+| Do they contact at all? | `RK · Embudo blog` step 3, and the `Por artículo` tab |
+| Do they use the box? | `rk_cta_click` and `rk_conv_whatsapp` with `location` = `blog_post` |
+| On a phone, do they reach the end, where the box is? | `rk_scroll` on `page_type` = `blog_post`, by device |
+| Which articles bring contacts, including WhatsApp days later? | `Por artículo`, and the Sheet's `ft_landing` |
+
+If readers rarely reach the end on mobile and rarely contact, the case makes
+itself. After the change, the same five rows are the before-and-after.
