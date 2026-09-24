@@ -501,6 +501,18 @@ A visitor can then accept measurement while refusing ad personalisation, which i
       for the reports. Ours to answer before they decide
 - [ ] Decision 1 — what reaches Google when someone rejects. Still open, still
       due before **1 December 2026**
+- [x] **The way back into the panel unblocked.** "Configurar cookies" in the
+      footer is the only route to the settings panel once someone has chosen,
+      and the chat bubble — fixed to the bottom-right corner — was sitting over
+      it at common desktop widths (blocked at 1024 and 1280, clear at 1152,
+      1400 and 1440; it depends on where the row lands when the page is
+      scrolled to the end). Confirmed on the live site, not only locally. Two
+      changes, both measured: `pointer-events-none` on the bubble's artwork,
+      which is 70px inside a 56px button and was collecting clicks up to 14px
+      outside its own hit area; and `lg:pb-24` on the footer, since the artwork
+      reaches 87px up from the viewport bottom. Not z-index — every overlay
+      here is on one flat `z-50`, so lifting the footer over the bubble would
+      also lift it over the consent banner, which is fixed to the same corner
 - [x] Verified against a production build on localhost, 24 September 2026, one
       clean session throughout: three buttons on the banner; **Rechazar todas**
       from the banner writes `{analytics:false, advertising:false, version:3}`
@@ -603,10 +615,10 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 ### The funnels
 
 **Workers booking**
-Arrived → Scrolled half the page → Saw form → Started → Date and time chosen → Details sent → Booked
+Arrived → Saw form → Started → Date and time chosen → Details sent → Booked
 
 **Companies booking**
-Arrived → Scrolled half the page → Saw form → Started → Date and time chosen → Details sent → Booked
+Arrived → Saw form → Started → Date and time chosen → Details sent → Booked
 
 **Contact form**
 Arrived → Reached `/contacto` → Started → Sent → Received
@@ -623,14 +635,15 @@ The last one is the number the client cares about most: of everyone a campaign b
 
 Alongside the funnels, one "path" report: for visitors who reached a landing page and left without contacting, where did they go instead? With `page_type` and scroll depth attached, this is the report that usually points at a missing piece of information — price, location, who the lawyers are.
 
-### Corrections to the funnels above — 23 September 2026
+### Corrections to the funnels above — 23 and 24 September 2026
 
-Written before the signals existed; checked against what the site actually sends, four steps promise more than Analytics can see.
+Written before the signals existed; checked against what the site actually sends, four steps promise more than Analytics can see, and a fifth broke on building.
 
 1. **"Wrote on WhatsApp" is not visible.** The chatbot branch can show the bot offering the number (`rk_chat_handoff`) and the visitor tapping it (`rk_conv_whatsapp` with `location = chatbot`). Whether they then wrote happens inside WhatsApp; only the Caso code in the Sheet can tell.
 2. **"Called or emailed" is a click, not a call.** `rk_contact_click` fires when the number or address is tapped. Label it "tapped phone or email" in the report and the guide, or the any-contact number overstates.
 3. **"Gave contact details" and "lead emailed" are one event.** The bot collects and emails in one tool call; the site sees `rk_chat_lead` when the email went, `rk_chat_lead_fail` when it did not. A funnel cannot use the same event for two consecutive steps, so the chatbot funnel ends at `rk_chat_lead`, and the failures are counted beside it rather than inside it.
 4. **The any-contact funnel cannot require half-page scroll.** Funnel steps cannot be skipped, and the WhatsApp button in the landing heroes is tapped without scrolling — the most common contact on the site would drop out at step 2. It is two steps, arrived and contacted; scroll depth is read from the landing funnels instead.
+5. **Neither landing funnel can require half-page scroll either** — found 24 September 2026 while building the workers funnel. The form is reachable without passing 50%: it sits above that mark, and the hero's CTA jumps straight to it, so `rk_form_view` can fire before `rk_scroll` 50. A funnel demands its steps in order, so the scroll step dropped people who plainly saw the form and made the result depend on page layout. Both landing funnels start at arrival and go straight to seeing the form; scroll depth is read on its own, as a free-form table of `rk_scroll` by `percent_scrolled` and `page_type`.
 
 ### How to build them
 
@@ -654,14 +667,13 @@ Parameter conditions (`form_name`, `step`, `page_type`…) are added inside a st
 | # | Step | Event | Conditions |
 | --- | --- | --- | --- |
 | 1 | Llegó a la landing | `rk_page_view` | `page_type` = `landing_trabajadores` |
-| 2 | Leyó media página | `rk_scroll` | `percent_scrolled` = `50`, `page_type` = `landing_trabajadores` |
-| 3 | Vio el formulario | `rk_form_view` | `form_name` = `trabajadores` |
-| 4 | Empezó | `rk_form_start` | `form_name` = `trabajadores` |
-| 5 | Eligió fecha y hora | `rk_form_step` | `form_name` = `trabajadores`, `step` = `1` |
-| 6 | Envió sus datos | `rk_form_submit` | `form_name` = `trabajadores` |
-| 7 | Reservó | `rk_conv_trabajadores_booking` | — |
+| 2 | Vio el formulario | `rk_form_view` | `form_name` = `trabajadores` |
+| 3 | Empezó | `rk_form_start` | `form_name` = `trabajadores` |
+| 4 | Eligió fecha y hora | `rk_form_step` | `form_name` = `trabajadores`, `step` = `1` |
+| 5 | Envió sus datos | `rk_form_submit` | `form_name` = `trabajadores` |
+| 6 | Reservó | `rk_conv_trabajadores_booking` | — |
 
-The gap between 6 and 7 is technical failure, not hesitation — read it next to `rk_form_fail` and its `fail_reason`.
+No scroll step — see correction 5. The gap between 5 and 6 is technical failure, not hesitation — read it next to `rk_form_fail` and its `fail_reason`.
 
 **`RK · Embudo empresas`** — identical, with `landing_empresas`, `form_name` = `empresas` and `rk_conv_empresas_booking`.
 

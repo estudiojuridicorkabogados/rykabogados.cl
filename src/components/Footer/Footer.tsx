@@ -52,8 +52,23 @@ const FORMALIDAD_LINKS = [
 ];
 
 export const Footer = () => {
+  // `lg:pb-24` rather than `pb-8` from lg up, so the last row clears the chat
+  // bubble. That bubble is fixed to the bottom-right corner, so it sits over
+  // whatever is at the foot of the page once it is scrolled to the end — and
+  // what it was sitting over is "Configurar cookies", the only way back to the
+  // consent panel after someone has chosen. The wrong control to leave
+  // half-covered.
+  //
+  // Clearance rather than z-index: every overlay here is on one flat `z-50`
+  // layer, so lifting the footer above the bubble would also lift it above the
+  // consent banner, which is fixed to the same corner. 96px is measured rather
+  // than guessed — the bubble's artwork reaches 87px up from the viewport
+  // bottom, its 56px button plus the 16px inset and the overflow.
+  //
+  // Below lg the row stacks and the button goes full width with its label on
+  // the left, far from the corner, so no clearance is needed there.
   return (
-    <footer className="bg-[#252525] pt-16 pb-8 text-white">
+    <footer className="bg-[#252525] pt-16 pb-8 text-white lg:pb-24">
       <div className="container mx-auto px-6">
         <div className="flex flex-col gap-6 md:flex-row md:justify-between md:gap-8 xl:gap-12">
           <div className="flex w-full flex-col gap-8 md:w-auto md:flex-row md:gap-16">

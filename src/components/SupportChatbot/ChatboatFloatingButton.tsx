@@ -36,12 +36,23 @@ export const ChatboatFloatingButton: React.FC<ChatboatFloatingButtonProps> = ({
       ])}
       aria-label={open ? "Cerrar chat de ayuda" : "Abrir chat de ayuda"}
     >
+      {/*
+        70px of artwork in a 56px button, with `max-w-none` and the button's
+        `overflow-visible`, so roughly 14px of picture hangs outside its own
+        hit area on every side — and `mb-4` lifts it higher still. That is a
+        deliberate look, but it was also collecting clicks: the overflow is
+        opaque to hit-testing, so a click aimed at whatever sits underneath the
+        corner landed on this image instead. `pointer-events-none` keeps the
+        spill and gives the clicks back. Nothing is lost — the image is
+        decorative (`alt=""`), and the button underneath still takes the click
+        and the hover preload across its own 56px.
+      */}
       <Image
         src="/images/support_chat.webp"
         alt=""
         width={70}
         height={70}
-        className="mb-4 h-[70px] w-[70px] max-w-none object-cover"
+        className="pointer-events-none mb-4 h-[70px] w-[70px] max-w-none object-cover"
       />
 
       {/* Unread badge */}
