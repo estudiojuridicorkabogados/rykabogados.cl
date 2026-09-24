@@ -501,8 +501,17 @@ A visitor can then accept measurement while refusing ad personalisation, which i
       for the reports. Ours to answer before they decide
 - [ ] Decision 1 — what reaches Google when someone rejects. Still open, still
       due before **1 December 2026**
-- [ ] Re-verify on production after the 24 September changes: banner reject,
-      switches off, and a version 2 record being asked again
+- [x] Verified against a production build on localhost, 24 September 2026, one
+      clean session throughout: three buttons on the banner; **Rechazar todas**
+      from the banner writes `{analytics:false, advertising:false, version:3}`
+      and pushes an update denying all four; both switches open **off**; a
+      returning visitor with a version 3 partial record still sees their own
+      positions, so the new default does not overwrite a stored choice;
+      "Guardar preferencias" untouched now writes a refusal; and a version 2
+      record granting everything is asked again, with the pre-hydration snippet
+      sending denied — the banner and the snippet agreeing is the part that
+      matters. `bun run test:tracking` green on the same build
+- [ ] Re-verify the same five on production once deployed
 - [ ] Go-live of the 24 September changes recorded as a second baseline —
       consent will step down again and bidding will recalibrate
 - [x] `COOKIE_CONSENT_SETUP.md` retired and `src/components/CookieConsent/README.md` rewritten
@@ -557,7 +566,7 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 **Using the audiences in Ads — decided yes, 24 September 2026, with three conditions found checking Google's policy the same day.**
 
 - **The trabajadores side is a policy risk.** Google's personalised-advertising policy lists *negative financial status* as a sensitive category, with "unemployment resources" among its examples, and for sensitive categories *your data segments* — the Analytics audiences — are not supported at all ([policy](https://support.google.com/adspolicy/answer/143465), [category](https://support.google.com/adspolicy/answer/16700443)). Dismissal claims are not named, but ads to recently dismissed workers are exactly what a reviewer could read as that category. Empresas carries no such risk. So: use the lists on the empresas campaign first; on trabajadores add them as **Observation** only, which reports how the list performs without targeting it, and watch the campaign's policy status before switching to Targeting.
-- **The two audiences mix both forms**, so neither is fit to target a single-audience campaign as built. Before targeting, split each by form: `form_name` on audience 1, `page_type` on audience 2.
+- **The two audiences mix both forms**, so neither is fit to target a single campaign. **Split 24 September 2026** into four more, duplicated from the originals with one condition changed (GA4 does not allow editing a saved audience's conditions): `Formulario iniciado sin enviar · Trabajadores` / `· Empresas` (`form_name` exactly matches), and `Landing sin ver formulario · Trabajadores` / `· Empresas` (`page_type` exactly matches `landing_…`). Exclusions unchanged, `rk_form_view` still without a parameter so seeing any form counts. The two combined originals stay for reading in Analytics — they are the only ones that include the `/contacto` form. Only the split ones go to Ads.
 - **List size is 100, not a thousand.** Google lowered the minimum to 100 active users across Search, Display and YouTube, fully rolled out December 2025. Only visitors who accepted advertising are added, so the lists fill slower than the Analytics preview suggests. Twelve on the day they were built, most of it our own testing.
 
 **Found during verification, not tracking work.** Walking the forms turned up two faults in the forms themselves:
@@ -576,7 +585,7 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 - [x] Analytics: twelve custom dimensions registered (see step 2), dimension name identical to the parameter name
 - [x] Analytics: key events marked, 24 September 2026 — the four `rk_conv_*` and `rk_chat_lead`, WhatsApp once per session, the rest once per event. Marked with the star on the event's row; `form_start` and `form_submit` still listed from before enhanced measurement's form interactions went off, and deliberately left unstarred
 - [x] Audiences built in Analytics, 24 September 2026 — `Formulario iniciado sin enviar` and `Landing sin ver formulario`, both excluding permanently, 30-day membership
-- [ ] Audiences used in Ads — decided yes, 24 September 2026. Empresas first; trabajadores in Observation until the policy status is known; split by form before targeting; each list must reach 100. See Outstanding
+- [ ] Audiences used in Ads — decided yes, 24 September 2026. Empresas first; trabajadores in Observation until the policy status is known; lists split by form, 24 September 2026; each list must reach 100 before it can serve. See Outstanding
 - [x] Verified in Tag Assistant preview and DebugView on production, 23 September 2026: page views, scroll marks, navigation labels, the forms, and the chatbot's open, first message, numbered messages and handoff. No label carried over to the next event; no `user_data` on any event; the tag blocked on `localhost`. The chatbot lead was not sent — it emails the firm
 - [x] Container published, 23 September 2026, about 11:45 Santiago
 - [x] `docs/tracking-events.md` written, and updated for the published rule
