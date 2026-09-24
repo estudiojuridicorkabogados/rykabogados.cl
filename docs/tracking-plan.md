@@ -887,7 +887,6 @@ Analytics, Search Console, Google Ads and the Google Sheet can all be connected 
 | Search Console | Community MCP server over the Search Console API | Ready. Queries, impressions, CTR per page. |
 | Google Ads | Community MCP server over the Google Ads API | **Needs a developer token with Basic Access**, approved manually by Google. Days, not hours. Start the request early or the first runs have no spend data. |
 | Google Sheet (Caso codes) | Service account, or a Sheets MCP server | Ready. This is where the case outcomes live once section 10's first item happens. |
-| Tag Manager | Official API | **In scope, read-only** — decided 24 September 2026 with phase 8. Not for reporting: for the monthly line "has the container changed since last month, and who changed it", which is how thirteen dead linker domains got in unnoticed. The API can publish, and the MCP servers for it are built to edit and publish, so whichever is used must be confirmed to request only `tagmanager.readonly`, and the service account gets **Read** in Tag Manager, never Publish — a wrong publish is live on the site at once. Until then, Admin → Export container gives a complete JSON on demand. |
 | Looker Studio | — | No read API, and none needed. It is a presentation layer over the same sources this reads directly. |
 
 ### The skill
