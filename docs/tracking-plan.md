@@ -655,7 +655,7 @@ Every report is in **Explore → Blank**, one exploration per report, named as b
 | Date range | **Last 28 days** (the preset). A custom range keeps its end date, so a report opened in November would still show September, and a shared exploration is read-only to the firm. Before 23 September 11:45 there are no `rk_*` events to distort anything; our own test traffic of the 23rd is inside the window until about 21 October, which is before anyone should read these anyway |
 | Open funnel | **Off.** Everyone counted entered at step 1 |
 | Between steps | "Indirectly followed by" (the default) — other events in between are fine |
-| Breakdown | `Session campaign`, then `Session source / medium`, then `Device category` — one at a time; switch it rather than building three copies |
+| Breakdown | **`Session default channel group`** as the default, decided 24 September 2026 — Paid Search, Organic Search, Direct, Referral, Organic Social — because the firm's first question is organic or paid, and a campaign breakdown files everything unpaid under "(organic)" and "(direct)". Switch to `Session campaign` to compare Ads campaigns, or `Device category`, by dragging it onto the Breakdown slot; one at a time, and the exploration keeps whichever was applied last, so leave the channel one on before sharing. Paid only reads as paid where it is tagged: Google Ads is, by auto-tagging; anything else needs `utm_*` on its links |
 | Show elapsed time | On — time between steps is half the diagnosis |
 
 Parameter conditions (`form_name`, `step`, `page_type`…) are added inside a step with **Add parameter**; they are the custom dimensions from phase 4 and match on the exact value. Scroll depth is text: `percent_scrolled` exactly matches `50`.
@@ -707,7 +707,7 @@ The weaker ending is a second tab in the same exploration, `RK · Chatbot a What
 | 1 | Llegó al sitio | `session_start` | — |
 | 2 | Contactó | any of, joined by **OR**: `rk_conv_trabajadores_booking`, `rk_conv_empresas_booking`, `rk_conv_contact_form`, `rk_conv_whatsapp`, `rk_chat_lead`, `rk_contact_click` | — |
 
-The headline figure is step 2 over step 1, by `Session campaign`. A second tab, `Por canal`, shows which channel the contact came through — as a **free-form** table, not a funnel breakdown, since a funnel breakdown is not reliably taken from the step's own event: rows `Event name`, values `Active users` and `Event count`, filter Event name matching regex `rk_conv_.*|rk_chat_lead|rk_contact_click`.
+The headline figure is step 2 over step 1, by channel. A second tab, `Por canal`, shows which channel the contact came through — as a **free-form** table, not a funnel breakdown, since a funnel breakdown is not reliably taken from the step's own event: rows `Event name`, values `Active users` and `Event count`, filter Event name matching regex `rk_conv_.*|rk_chat_lead|rk_contact_click`.
 
 **`RK · Qué hicieron los que no contactaron`** — Path exploration, not a funnel.
 
