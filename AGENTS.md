@@ -63,7 +63,7 @@ most of it is not derivable from the code:
 | --- | --- |
 | `docs/tracking-plan.md` | The internal build plan, phase by phase. Not for the client |
 | `docs/client-brief.md` | **What to tell the firm** — decisions we are waiting on and warnings they must hear, written as ready-to-send Spanish |
-| `docs/client-suggestions.md` | Improvements we may propose to the firm, each with its evidence and when to raise it. Internal, English; not yet agreed |
+| `docs/client-suggestions/` | Improvements we may propose to the firm, one `month_YYYY_MM.md` per month, indexed with status in its `README.md`. Internal, English; not yet agreed |
 | `docs/tracking-events.md` | Every `rk_*` signal, its labels, and who may touch the dataLayer |
 | `docs/cookie-inventory.md` | Every cookie the site sets — the input for the policy pages |
 | `docs/consent-mode-runbook.md` | The Tag Manager half of Consent Mode |
