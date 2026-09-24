@@ -56,7 +56,7 @@ function createEventData(eventDetails: EventDetails, sessionCode: string) {
     Anos de antigüedad laboral: ${eventDetails.antiguedadLaboral}\n
     Causal de despido: ${eventDetails.causalDespido}\n
     Cuentanos un poco sobre tu caso: ${eventDetails.notes}\n
-    Codigo: ${sessionCode}\n
+    Caso: ${sessionCode}\n
     `,
     start: {
       dateTime: eventDetails.startTime,

@@ -147,7 +147,7 @@ async function dispatchNotificationEmails(
           <p><strong>Tamaño de la empresa:</strong> ${args.tamanoEmpresa}</p>
           <p><strong>Cómo quiere avanzar:</strong> ${args.comoQuieresAvanzar}</p>
           <p><strong>Notas:</strong> ${args.notes}</p>
-          <p><strong>Codigo:</strong> ${sessionCode}</p>
+          <p><strong>Caso:</strong> ${sessionCode}</p>
         `,
       from: CONTACTO_EMAIL,
       replyTo: CONTACTO_EMAIL,

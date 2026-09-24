@@ -141,7 +141,7 @@ async function dispatchNotificationEmails(
         <p><strong>Causal de despido:</strong> ${args.causalDespido}</p>
         <p><strong>Antigüedad laboral:</strong> ${args.antiguedadLaboral}</p>
         <p><strong>Notas:</strong> ${args.notes}</p>
-        <p><strong>Codigo:</strong> ${sessionCode}</p>
+        <p><strong>Caso:</strong> ${sessionCode}</p>
       `,
       from: CONTACTO_EMAIL,
       replyTo: CONTACTO_EMAIL,

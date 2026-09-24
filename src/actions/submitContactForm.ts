@@ -149,5 +149,5 @@ const createStudioEmailHtml = (
   <p><strong>Teléfono:</strong> ${rawData.phone}</p>
   <p><strong>Tipo de servicios:</strong> ${rawData.typeOfServices}</p>
   <p><strong>Notas:</strong> ${rawData.mensaje}</p>
-  <p><strong>Codigo:</strong> ${sessionCode}</p>
+  <p><strong>Caso:</strong> ${sessionCode}</p>
 `;

@@ -58,7 +58,7 @@ function createEventData(eventDetails: EventDetails, sessionCode: string) {
     Tamaño de la empresa: ${eventDetails.tamanoEmpresa}\n
     Cómo quiere avanzar: ${eventDetails.comoQuieresAvanzar}\n
     Cuentanos un poco sobre tu caso: ${eventDetails.notes}\n
-    Codigo: ${sessionCode}\n
+    Caso: ${sessionCode}\n
     `,
     start: {
       dateTime: eventDetails.startTime,
