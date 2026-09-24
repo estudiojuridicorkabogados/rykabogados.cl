@@ -3,9 +3,12 @@ import { describe, expect, test } from "bun:test";
 import {
   buildConsentBootstrapSnippet,
   CONSENT_BOOTSTRAP_SNIPPET,
+  CONSENT_REQUIRED,
   consentStateFrom,
   type ConsentChoices,
   readStoredChoices,
+  REPROMPT_BELOW_VERSION,
+  UNANSWERED_CHOICES,
 } from "../consent";
 
 const COMBINATIONS: ConsentChoices[] = [
@@ -14,6 +17,18 @@ const COMBINATIONS: ConsentChoices[] = [
   { analytics: false, advertising: true },
   { analytics: true, advertising: true },
 ];
+
+/**
+ * The two fallbacks, passed explicitly wherever a test is about a *rule*
+ * rather than about the live switch.
+ *
+ * CONSENT_REQUIRED (src/lib/utils/consent.ts) decides which of them production
+ * uses, and the firm flips it. A rule test that read the live constant would
+ * start testing the switch instead the day it moves — and worse, would have to
+ * be edited to flip it back, which is the one thing reverting must not need.
+ */
+const DENIED: ConsentChoices = { analytics: false, advertising: false };
+const GRANTED: ConsentChoices = { analytics: true, advertising: true };
 
 /** Runs the inline snippet against a stub window, returning what it pushed. */
 function runSnippet(
@@ -130,14 +145,13 @@ describe("CONSENT_BOOTSTRAP_SNIPPET", () => {
     });
   });
 
-  test("denies everything for a visitor who has not answered", () => {
-    const [command] = runSnippet("") as Array<
-      [string, string, Record<string, string>]
-    >;
+  test("denies everything for an unanswered visitor, when consent is required", () => {
+    const [command] = runSnippet(
+      "",
+      buildConsentBootstrapSnippet(REPROMPT_BELOW_VERSION, DENIED)
+    ) as Array<[string, string, Record<string, string>]>;
 
-    expect({ ...command[2] }).toEqual({
-      ...consentStateFrom({ analytics: false, advertising: false }),
-    });
+    expect({ ...command[2] }).toEqual({ ...consentStateFrom(DENIED) });
   });
 
   /**
@@ -174,13 +188,16 @@ describe("CONSENT_BOOTSTRAP_SNIPPET", () => {
    * written before 24 September 2026 is asked again, version 2 records
    * included. The firm's answer to decision 4 of docs/client-brief.md.
    */
-  test("the shipped snippet grants nothing for a version 2 record", () => {
+  test("the shipped snippet ignores a version 2 record entirely", () => {
     const [command] = runSnippet(
       cookieFor({ analytics: true, advertising: true }, { version: 2 })
     ) as Array<[string, string, Record<string, string>]>;
 
+    // Ignored means "as if they had never answered" — which is the fallback,
+    // denied or granted depending on CONSENT_REQUIRED. What matters is that
+    // the record itself buys nothing.
     expect({ ...command[2] }).toEqual({
-      ...consentStateFrom({ analytics: false, advertising: false }),
+      ...consentStateFrom(UNANSWERED_CHOICES),
     });
   });
 
@@ -243,18 +260,16 @@ describe("CONSENT_BOOTSTRAP_SNIPPET", () => {
 
     const [command] = runSnippet(
       legacy,
-      buildConsentBootstrapSnippet(2)
+      buildConsentBootstrapSnippet(2, DENIED)
     ) as Array<[string, string, Record<string, string>]>;
 
-    expect({ ...command[2] }).toEqual({
-      ...consentStateFrom({ analytics: false, advertising: false }),
-    });
+    expect({ ...command[2] }).toEqual({ ...consentStateFrom(DENIED) });
   });
 
   test("a record at the re-prompt version still counts", () => {
     const [command] = runSnippet(
       cookieFor({ analytics: true, advertising: true }),
-      buildConsentBootstrapSnippet(2)
+      buildConsentBootstrapSnippet(2, DENIED)
     ) as Array<[string, string, Record<string, string>]>;
 
     expect(command[2].analytics_storage).toBe("granted");
@@ -284,12 +299,9 @@ describe("readStoredChoices", () => {
     );
   });
 
-  test("no cookie is denied", () => {
+  test("no cookie is denied, when consent is required", () => {
     withDocumentCookie("", () => {
-      expect(readStoredChoices()).toEqual({
-        analytics: false,
-        advertising: false,
-      });
+      expect(readStoredChoices(REPROMPT_BELOW_VERSION, DENIED)).toEqual(DENIED);
     });
   });
 
@@ -308,11 +320,8 @@ describe("readStoredChoices", () => {
     )}`;
 
     withDocumentCookie(legacy, () => {
-      expect(readStoredChoices(2)).toEqual({
-        analytics: false,
-        advertising: false,
-      });
-      expect(readStoredChoices(0).analytics).toBe(true);
+      expect(readStoredChoices(2, DENIED)).toEqual(DENIED);
+      expect(readStoredChoices(0, DENIED).analytics).toBe(true);
     });
   });
 
@@ -328,5 +337,93 @@ describe("readStoredChoices", () => {
         });
       });
     }
+  });
+});
+
+/**
+ * The banner-less mode, tested at both positions of the switch rather than at
+ * whichever one is live — so that flipping CONSENT_REQUIRED back is a one-line
+ * change with no test to edit alongside it.
+ */
+describe("CONSENT_REQUIRED", () => {
+  const grantedSnippet = buildConsentBootstrapSnippet(
+    REPROMPT_BELOW_VERSION,
+    GRANTED
+  );
+
+  test("off: a visitor who has not answered is granted both", () => {
+    const [command] = runSnippet("", grantedSnippet) as Array<
+      [string, string, Record<string, string>]
+    >;
+
+    expect({ ...command[2] }).toEqual({ ...consentStateFrom(GRANTED) });
+
+    withDocumentCookie("", () => {
+      expect(readStoredChoices(REPROMPT_BELOW_VERSION, GRANTED)).toEqual(
+        GRANTED
+      );
+    });
+  });
+
+  /**
+   * The regression this mode exists one bug away from.
+   *
+   * The snippet used to raise `a`/`d` from the fallback — `if (p.analytics ===
+   * true) a = 'granted'` — which reads a stored `false` as "no information"
+   * and leaves the fallback standing. Correct while the fallback was denied,
+   * and silently wrong the moment it is not: someone who rejected through the
+   * footer panel would have been granted anyway, on every page load, with the
+   * UI showing their refusal. A stored record is now read as written.
+   */
+  test("off: an explicit rejection is still honoured", () => {
+    const rejection = cookieFor(DENIED);
+
+    const [command] = runSnippet(rejection, grantedSnippet) as Array<
+      [string, string, Record<string, string>]
+    >;
+
+    expect({ ...command[2] }).toEqual({ ...consentStateFrom(DENIED) });
+
+    withDocumentCookie(rejection, () => {
+      expect(readStoredChoices(REPROMPT_BELOW_VERSION, GRANTED)).toEqual(
+        DENIED
+      );
+    });
+  });
+
+  test("off: a partial choice is read as made, not widened", () => {
+    const partial: ConsentChoices = { analytics: true, advertising: false };
+
+    const [command] = runSnippet(cookieFor(partial), grantedSnippet) as Array<
+      [string, string, Record<string, string>]
+    >;
+
+    expect({ ...command[2] }).toEqual({ ...consentStateFrom(partial) });
+  });
+
+  test("on: the banner's mode is unchanged", () => {
+    const [command] = runSnippet(
+      "",
+      buildConsentBootstrapSnippet(REPROMPT_BELOW_VERSION, DENIED)
+    ) as Array<[string, string, Record<string, string>]>;
+
+    expect({ ...command[2] }).toEqual({ ...consentStateFrom(DENIED) });
+  });
+
+  /**
+   * The snippet ships as a string built at module load, and the provider reads
+   * the same constant at runtime. Nothing else keeps the two in step, so this
+   * is what catches a flag that was flipped in one place only.
+   */
+  test("the shipped snippet matches the live flag", () => {
+    const [command] = runSnippet("") as Array<
+      [string, string, Record<string, string>]
+    >;
+
+    expect({ ...command[2] }).toEqual({
+      ...consentStateFrom(UNANSWERED_CHOICES),
+    });
+
+    expect(UNANSWERED_CHOICES).toEqual(CONSENT_REQUIRED ? DENIED : GRANTED);
   });
 });

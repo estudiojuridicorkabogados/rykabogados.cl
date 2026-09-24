@@ -30,6 +30,7 @@ Status: draft, under review.
 10. [What the client gets, and effort](#9-what-the-client-gets-and-effort)
 11. [After this: getting the most out of it](#10-after-this-getting-the-most-out-of-it)
 12. [Plain-language glossary](#11-plain-language-glossary)
+13. [Banner off, tracking on](#12-banner-off-tracking-on)
 
 ---
 
@@ -1095,3 +1096,46 @@ Small recurring hygiene: exclude the firm's traffic and ours, watch for bot spik
 **URL passthrough.** A Consent Mode setting that keeps the ad click reference in the address for visitors who declined cookies, so the existing conversion counting survives.
 
 **DebugView / Tag Assistant.** Google's live testing screens where you can watch signals arrive as you click through the site.
+
+---
+
+## 12. Banner off, tracking on
+
+**24 September 2026.** The firm audited comparable legal practices in Chile and found none of them showing a cookie banner or publishing a cookie policy. They decided not to be the only site in their market asking, and to carry the same risk the rest of the market is carrying until the December launch. So: no banner, everyone tracked.
+
+Phase 3 is not undone. Everything it built is still in the codebase and still works — Consent Mode still runs, the panel still opens from the footer, a recorded choice is still honoured to the letter. What changed is only what happens to a visitor who has *not* chosen.
+
+### The switch
+
+One constant, `CONSENT_REQUIRED` in `src/lib/utils/consent.ts`, next to `REPROMPT_BELOW_VERSION`. It is `false`. It feeds exactly one other export, `UNANSWERED_CHOICES`, which is what all three readers fall back to when there is no cookie to read:
+
+| Reader | Where | With the flag off |
+| --- | --- | --- |
+| Bootstrap snippet | `consent.ts`, inlined by the root layout | Consent Mode default goes out `granted` for all four types, before hydration |
+| `readStoredChoices` | `consent.ts` | `hasAdvertisingConsent()` is true, so `gclid`, `utm_*` and `rk_ft_*` are written and read into the Sheet |
+| `getInitialState` | `CookieConsentProvider.tsx` | `showBanner: false`, so the banner never mounts; the context reports both categories granted |
+
+Two surfaces follow the same constant so nothing on the page contradicts it: the **"Banner de cookies"** bullet on `/politica-cookies` is not rendered while there is no banner, and the footer's **"Configurar cookies"** stays — it is the live route to the same preferences, and it keeps that page honest.
+
+### A recorded choice still wins
+
+Both readers check the cookie *first* and fall back only when it is absent, unparsable, or below the re-prompt version. So a visitor who opens the footer panel and rejects is denied, flag or no flag, on every page load thereafter.
+
+This is worth stating because it was one line away from not being true. The snippet used to *raise* its values from the fallback — `if (p.analytics === true) a = 'granted'` — which reads a stored `false` as "no information". Correct for as long as the fallback was denied; silently wrong the moment it is not, and it would have granted everyone who had explicitly refused. The snippet now reads a record as written (`a = p.analytics === true ? G : N`), and `src/lib/utils/__tests__/consent.test.ts` has a test named for that regression.
+
+### How to revert
+
+Set `CONSENT_REQUIRED = true` in `src/lib/utils/consent.ts` and deploy. That is the whole revert.
+
+The banner comes back for everyone who has not answered, the Consent Mode default returns to denied, the site stops writing its own attribution cookies without permission, and the cookie-policy bullet reappears. Because `REPROMPT_BELOW_VERSION` was raised to 3 on the same day, nobody is carrying a stale acceptance: every visitor is asked fresh.
+
+Two things make the revert stay one line, and both are worth not breaking:
+
+- **The tests pass in both positions.** Rule tests pin their fallback explicitly (`DENIED` / `GRANTED` in `consent.test.ts`) instead of reading the live constant, and a `CONSENT_REQUIRED` block tests both modes. Verified by running `bun test` with the flag each way. A test that had to be edited alongside the flag would have made the revert a code review.
+- **Nothing else branches on it.** No environment variable, no Vercel dashboard setting, no GTM change. The Tag Manager side of Consent Mode (`docs/consent-mode-runbook.md`) is unaffected — it reacts to the default it is sent, and it is sent `granted` now instead of `denied`.
+
+After reverting, run `bun run test:tracking` against a production build, as always.
+
+### What this costs
+
+The December launch is also when **Ley 21.719** comes into force. The bet is dated, and the firm made it knowingly; the flag exists so that acting on it later is a deploy rather than a project. `docs/client-brief.md` is not updated for this — the decision came from the firm rather than going to them.

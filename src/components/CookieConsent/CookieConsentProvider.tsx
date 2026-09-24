@@ -8,7 +8,11 @@ import React, {
 } from "react";
 
 import { clearAttributionCookies } from "@/lib/utils/campaignParams";
-import { updateConsent } from "@/lib/utils/consent";
+import {
+  CONSENT_REQUIRED,
+  UNANSWERED_CHOICES,
+  updateConsent,
+} from "@/lib/utils/consent";
 
 import type {
   CookieConsentContextValue,
@@ -70,12 +74,18 @@ function getInitialState(): CookieConsentState {
       isLoading: false,
     };
   } else {
+    // Nobody has answered. What that means is CONSENT_REQUIRED's to say
+    // (src/lib/utils/consent.ts): with it off the banner never mounts and the
+    // visitor is treated as having granted both, which is the same fallback
+    // the bootstrap snippet sent to Google a moment earlier. `hasConsent`
+    // stays false either way — it means "there is a record", and there is
+    // not; nothing reads it as permission.
     cachedInitialState = {
       preferences: null,
       hasConsent: false,
-      hasAnalyticsConsent: false,
-      hasAdvertisingConsent: false,
-      showBanner: true,
+      hasAnalyticsConsent: UNANSWERED_CHOICES.analytics,
+      hasAdvertisingConsent: UNANSWERED_CHOICES.advertising,
+      showBanner: CONSENT_REQUIRED,
       showModal: false,
       isLoading: false,
     };

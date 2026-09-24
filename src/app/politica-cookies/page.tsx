@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { buildPageMetadata } from "@/lib/seo/site";
+import { CONSENT_REQUIRED } from "@/lib/utils/consent";
 import { URLS } from "@/lib/utils/constants";
 
 export const metadata = buildPageMetadata({
@@ -119,11 +120,19 @@ export default function PoliticaCookiesPage() {
               siguientes opciones:
             </p>
             <ul className="mb-4 list-inside list-disc space-y-2 text-gray-700">
-              <li>
-                <strong>Banner de cookies:</strong> Al visitar nuestro sitio por
-                primera vez, puedes aceptar o rechazar las cookies mediante
-                nuestro banner.
-              </li>
+              {/* The banner is the first thing this list offers, so it only
+                  appears while there is one. CONSENT_REQUIRED is off
+                  (src/lib/utils/consent.ts) and the page has to stay true to
+                  what a visitor actually sees; the footer panel below is the
+                  live route to the same preferences. Turning the flag back on
+                  restores this bullet with it. */}
+              {CONSENT_REQUIRED && (
+                <li>
+                  <strong>Banner de cookies:</strong> Al visitar nuestro sitio
+                  por primera vez, puedes aceptar o rechazar las cookies
+                  mediante nuestro banner.
+                </li>
+              )}
               <li>
                 <strong>Configuración personalizada:</strong> Puedes
                 personalizar tus preferencias de cookies en cualquier momento

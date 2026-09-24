@@ -35,6 +35,8 @@
  * local run never touches the live Sheet.
  */
 
+import { CONSENT_REQUIRED } from "../src/lib/utils/consent";
+
 const BASE_URL = process.argv[2] ?? "http://localhost:3000";
 const SESSION = "rk-tracking-smoke";
 
@@ -186,8 +188,34 @@ async function expectConsentDefaultsFirst(): Promise<void> {
   console.log("  ✓ consent default first in the dataLayer");
 }
 
-/** Accepts everything, and checks Google was actually told. */
-async function acceptCookies(): Promise<void> {
+/**
+ * Gets the visitor to a granted state, by whichever route the site offers.
+ *
+ * With CONSENT_REQUIRED off there is no banner to answer: the default sent
+ * before hydration is already granted, and asserting that is the equivalent
+ * check. The script follows the flag rather than the flag needing the script
+ * edited, so that flipping it back stays a one-line change.
+ */
+async function reachGrantedState(): Promise<void> {
+  if (!CONSENT_REQUIRED) {
+    const granted = await evaluate<Record<string, string> | null>(
+      `(() => JSON.stringify(((window.dataLayer||[]).find(
+         e => e && e[0] === "consent" && e[1] === "default") || [])[2] || null))()`
+    );
+
+    if (
+      granted?.ad_storage !== "granted" ||
+      granted.analytics_storage !== "granted"
+    ) {
+      failures.push("consent default did not grant for an unanswered visitor");
+      console.error(`  ✗ consent default was ${JSON.stringify(granted)}`);
+      return;
+    }
+
+    console.log("  ✓ consent default granted all four types, with no banner");
+    return;
+  }
+
   // text-transform: uppercase applies to the accessible name, so the button
   // answers to "ACEPTAR TODAS" rather than the text in the source.
   await clickByName("button", "ACEPTAR TODAS");
@@ -243,13 +271,15 @@ async function main() {
   console.log("\nConsent Mode defaults:");
   await expectConsentDefaultsFirst();
 
-  // Answer the banner before touching the form. It is fixed to the bottom of
-  // the viewport at z-50 and will sit over anything down there, so a run that
-  // skipped this would fail on a click with no obvious reason why. Accepting
-  // is also the path most visitors take, which makes it the right one to
-  // measure the funnel on.
-  console.log("\nAccepting cookies:");
-  await acceptCookies();
+  // Answer the banner before touching the form, when there is one. It is
+  // fixed to the bottom of the viewport at z-50 and will sit over anything
+  // down there, so a run that skipped this would fail on a click with no
+  // obvious reason why. Accepting is also the path most visitors take, which
+  // makes it the right one to measure the funnel on.
+  console.log(
+    CONSENT_REQUIRED ? "\nAccepting cookies:" : "\nConsent, with no banner:"
+  );
+  await reachGrantedState();
 
   // Scroll to the form: rk_form_view, and scroll marks along the way.
   await evaluate(

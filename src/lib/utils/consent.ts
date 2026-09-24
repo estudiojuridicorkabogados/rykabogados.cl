@@ -88,6 +88,43 @@ export const REPROMPT_BELOW_VERSION = 3;
 export const LEGACY_CONSENT_VERSION = 1;
 
 /**
+ * Whether a visitor has to answer before anything may be stored.
+ *
+ * `false` since 24 September 2026, at the firm's instruction. They audited
+ * comparable Chilean firms, found none showing a banner or a cookie policy,
+ * and decided to carry the same risk until launch rather than be the only
+ * site in their market asking. Everything the banner built stays in the
+ * codebase and keeps working — this switch only changes what happens to a
+ * visitor who has not answered.
+ *
+ * Off, an unanswered visitor is treated as having granted both categories:
+ * the Consent Mode default goes out granted, the site's own `gclid`, `utm_*`
+ * and `rk_ft_*` cookies are written, and the banner never mounts. A visitor
+ * who *has* answered is unaffected either way — both readers below check the
+ * cookie first and fall back to this only when there is nothing to read — so
+ * the footer's "Configurar cookies" remains a real opt-out.
+ *
+ * To revert: set this to `true` and deploy. Nothing else. The banner returns,
+ * defaults go back to denied, and the cookie-policy page starts describing
+ * the banner again. Because REPROMPT_BELOW_VERSION was raised to 3 on the
+ * same day, every visitor is asked fresh on the way back.
+ *
+ * Ley 21.719 comes into force in December 2026. This is a dated bet.
+ */
+export const CONSENT_REQUIRED = false;
+
+/**
+ * What a visitor who has not answered is taken to have said.
+ *
+ * The single place the flag turns into consent. All three readers — the
+ * snippet, readStoredChoices, and the provider's initial state — fall back to
+ * this and to nothing else, which is what keeps them from disagreeing.
+ */
+export const UNANSWERED_CHOICES: ConsentChoices = CONSENT_REQUIRED
+  ? { analytics: false, advertising: false }
+  : { analytics: true, advertising: true };
+
+/**
  * Marks the defaults as sent, so the snippet and `ensureConsentDefaults` can
  * both run without double-pushing. Whichever gets there first wins.
  */
@@ -135,26 +172,26 @@ const gtag: (...command: GtagCommand) => void = function () {
  * `analytics.ts` and the snippet are both framework-free and both need this,
  * so it cannot come from the provider's context.
  *
- * `repromptBelow` is a parameter only so the version gate can be tested
- * without editing the constant; callers never pass it.
+ * `repromptBelow` and `unanswered` are parameters only so the version gate
+ * and the banner-less mode can be tested without editing the constants;
+ * callers never pass either.
  */
 export function readStoredChoices(
-  repromptBelow: number = REPROMPT_BELOW_VERSION
+  repromptBelow: number = REPROMPT_BELOW_VERSION,
+  unanswered: ConsentChoices = UNANSWERED_CHOICES
 ): ConsentChoices {
-  const denied: ConsentChoices = { analytics: false, advertising: false };
-
   if (typeof document === "undefined") {
-    return denied;
+    return unanswered;
   }
 
   try {
     const match = document.cookie.match(
       new RegExp(`(?:^|; )${CONSENT_COOKIE_NAME}=([^;]*)`)
     );
-    if (!match) return denied;
+    if (!match) return unanswered;
 
     const stored: unknown = JSON.parse(decodeURIComponent(match[1]));
-    if (typeof stored !== "object" || stored === null) return denied;
+    if (typeof stored !== "object" || stored === null) return unanswered;
 
     const value = stored as Record<string, unknown>;
 
@@ -164,7 +201,7 @@ export function readStoredChoices(
       typeof value.version === "number"
         ? value.version
         : LEGACY_CONSENT_VERSION;
-    if (version < repromptBelow) return denied;
+    if (version < repromptBelow) return unanswered;
 
     // `=== true`, not truthiness: a record written before the advertising
     // category existed has no such key, and the spec is that it reads as
@@ -176,8 +213,10 @@ export function readStoredChoices(
       advertising: value.advertising === true,
     };
   } catch {
-    // Storage blocked, or a cookie we did not write. Denied is the safe read.
-    return denied;
+    // Storage blocked, or a cookie we did not write. Same fallback as a
+    // visitor who has not answered, which is what the snippet does with an
+    // unparsable cookie too.
+    return unanswered;
   }
 }
 
@@ -270,19 +309,30 @@ export function updateConsent(choices: ConsentChoices): void {
  * Two things here look like style and are not. The strings are single-quoted
  * because this script ships twice: once as itself, and once backslash-escaped
  * inside the RSC flight payload, where every `"` becomes `\\"` and costs
- * three extra bytes. JSON does not escape `'`. And the granted/denied values
- * are hoisted into `a` and `d` rather than repeated as ternaries, which the
- * second copy would also have paid for four times over.
+ * three extra bytes. JSON does not escape `'`. And the two literals are
+ * hoisted into `G` and `N` rather than written out at each of the seven
+ * storage types, which the second copy would also have paid for.
+ *
+ * A stored record is read as written — `a = ... ? G : N`, not `if (...) a = G`.
+ * Upgrading from the fallback was correct only while the fallback was denied;
+ * with CONSENT_REQUIRED off it would have left someone who rejected through
+ * the footer panel granted anyway, which is the one thing the opt-out has to
+ * survive.
  */
 function compact(source: string): string {
   return source.replace(/\s+/g, " ").trim();
 }
 
 /**
- * Exported as a builder so the version gate can be tested at a threshold
- * other than the live one. Production uses CONSENT_BOOTSTRAP_SNIPPET.
+ * Exported as a builder so the version gate and the unanswered fallback can be
+ * tested at values other than the live ones — which is what keeps `bun test`
+ * green whichever way CONSENT_REQUIRED is set, so that flipping it back stays
+ * a one-line change. Production uses CONSENT_BOOTSTRAP_SNIPPET.
  */
-export function buildConsentBootstrapSnippet(repromptBelow: number): string {
+export function buildConsentBootstrapSnippet(
+  repromptBelow: number,
+  unanswered: ConsentChoices = UNANSWERED_CHOICES
+): string {
   return compact(`
 (function () {
   var w = window;
@@ -290,15 +340,16 @@ export function buildConsentBootstrapSnippet(repromptBelow: number): string {
   w.${CONSENT_READY_FLAG} = 1;
   w.dataLayer = w.dataLayer || [];
   function g() { w.dataLayer.push(arguments); }
-  var a = 'denied', d = 'denied';
+  var G = 'granted', N = 'denied';
+  var a = ${unanswered.analytics ? "G" : "N"}, d = ${unanswered.advertising ? "G" : "N"};
   try {
     var m = document.cookie.match(/(?:^|; )${CONSENT_COOKIE_NAME}=([^;]*)/);
     if (m) {
       var p = JSON.parse(decodeURIComponent(m[1]));
       var v = typeof p.version === 'number' ? p.version : ${LEGACY_CONSENT_VERSION};
       if (v >= ${repromptBelow}) {
-        if (p.analytics === true) a = 'granted';
-        if (p.advertising === true) d = 'granted';
+        a = p.analytics === true ? G : N;
+        d = p.advertising === true ? G : N;
       }
     }
   } catch (e) {}
@@ -307,9 +358,9 @@ export function buildConsentBootstrapSnippet(repromptBelow: number): string {
     ad_user_data: d,
     ad_personalization: d,
     analytics_storage: a,
-    functionality_storage: 'granted',
-    personalization_storage: 'denied',
-    security_storage: 'granted'
+    functionality_storage: G,
+    personalization_storage: N,
+    security_storage: G
   });
   g('set', 'ads_data_redaction', true);
   g('set', 'url_passthrough', true);
