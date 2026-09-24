@@ -9,6 +9,7 @@ import { useDebounceCallback } from "@/hooks/useDebounceCallback";
 import { useTracking } from "@/hooks/useTracking";
 import { buildUserData, RK_EVENTS, trackEvent } from "@/lib/utils/analytics";
 import { classNames } from "@/lib/utils/classNames";
+import { CONTACTO_EMAIL } from "@/lib/utils/constants";
 
 import logoBlack from "../../../public/images/logos/logo-black.png";
 import { PlusIcon } from "../icons/Plus";
@@ -72,6 +73,30 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
       trackEvent(RK_EVENTS.CHAT_ERROR);
     },
   });
+
+  /**
+   * Whether the most recent capture attempt failed. Tracked as CHAT_LEAD_FAIL
+   * since the tool was written but never shown, so the visitor was left
+   * believing the firm had their details when nothing had been sent.
+   *
+   * Derived from the stream rather than held in state: the parts already carry
+   * the answer, and "the latest attempt" is then true by construction — a
+   * retry that lands clears the warning on its own.
+   */
+  const leadFailed = useMemo(() => {
+    const attempts = messages
+      .flatMap((message) => message.parts)
+      .filter(
+        (part): part is ToolUIPart =>
+          isToolUIPart(part) &&
+          part.type === "tool-processUserInfo" &&
+          part.state === "output-available"
+      );
+
+    const latest = attempts.at(-1);
+
+    return !!latest && !leadSucceeded(latest);
+  }, [messages]);
 
   /** Tool calls already reported, by call id, so each fires exactly once. */
   const reportedTools = useRef(new Set<string>());
@@ -299,6 +324,19 @@ export const ChatbotPanel: React.FC<ChatbotPanelProps> = ({
             {messages.map((message) => (
               <Message key={message.id} message={message} />
             ))}
+
+            {leadFailed && (
+              <p
+                role="alert"
+                className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-900"
+              >
+                No pudimos registrar tus datos. Escríbenos a{" "}
+                <a className="underline" href={`mailto:${CONTACTO_EMAIL}`}>
+                  {CONTACTO_EMAIL}
+                </a>{" "}
+                y te respondemos a la brevedad.
+              </p>
+            )}
 
             {status === "submitted" && <MessageLoading />}
 
