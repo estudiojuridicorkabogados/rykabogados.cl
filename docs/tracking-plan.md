@@ -1123,6 +1123,38 @@ Both readers check the cookie *first* and fall back only when it is absent, unpa
 
 This is worth stating because it was one line away from not being true. The snippet used to *raise* its values from the fallback — `if (p.analytics === true) a = 'granted'` — which reads a stored `false` as "no information". Correct for as long as the fallback was denied; silently wrong the moment it is not, and it would have granted everyone who had explicitly refused. The snippet now reads a record as written (`a = p.analytics === true ? G : N`), and `src/lib/utils/__tests__/consent.test.ts` has a test named for that regression.
 
+### Verified in production
+
+Deployed 24 September 2026. On a cleared profile that did nothing but load the
+home page:
+
+- `dataLayer[0]` is the `consent default`, granted on all four mutable types,
+  ahead of the first `rk_page_view`.
+- Container `GTM-PC49T6MC` loads with `AW-11083927345` and `G-HE87DHS09F`
+  active, and Google writes `_ga`, `_ga_HE87DHS09F` and `_gcl_au`.
+- The site writes `rk_ft_landing`, `rk_ft_referrer`, `rk_ft_ts`, and `gclid` /
+  `rk_ft_gclid` on a `?gclid=` landing.
+- No `cookie-consent` cookie exists, which is the point: there is nothing to
+  record, because nothing was asked.
+
+Declining through the footer panel was checked separately and holds — the
+record is written, the update goes out denied, and the *default* on the next
+page load is denied rather than granted.
+
+Worth knowing for anyone testing locally: there is no `NEXT_PUBLIC_GTM_ID` in
+`.env`, so the container never loads on localhost and Google's cookies never
+appear there whatever the consent state. Only the granted default and the
+site's own cookies are observable locally; the rest needs a deployment.
+
+### What else was updated
+
+The docs that described a banner as the live first layer now say it is off, and
+say what changes when it returns: `docs/cookie-inventory.md`,
+`docs/consent-mode-runbook.md`, `docs/tracking-events.md`,
+`docs/consent-performance.md` and `src/components/CookieConsent/README.md`.
+`docs/client-brief.md` is deliberately untouched — it is the record of what we
+asked the firm, and this decision came from them.
+
 ### How to revert
 
 Set `CONSENT_REQUIRED = true` in `src/lib/utils/consent.ts` and deploy. That is the whole revert.

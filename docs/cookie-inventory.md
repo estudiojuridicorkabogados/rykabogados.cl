@@ -4,9 +4,19 @@ The technical input for `/politica-cookies` and `/politicas-de-privacidad`. We
 supply the facts; the firm writes the wording, since they are the lawyers and
 it is their liability.
 
-Accurate as of 22 September 2026, against the code rather than against what the
+Accurate as of 24 September 2026, against the code rather than against what the
 current policy pages claim — which is the point, since those pages list Google
 Analytics and Vercel and nothing else.
+
+**Read the Category column with one thing in mind.** Since 24 September 2026
+the banner is off (`CONSENT_REQUIRED`, `src/lib/utils/consent.ts`), so every
+cookie below is written for a visitor who has not answered — which is now
+almost everyone. The categories are not fiction: the gates still exist and a
+visitor who declines through the footer's "Configurar cookies" gets exactly
+what the column says. But nobody is being *asked* any more, so the honest
+description of the live site is "all of these, unless they go and refuse".
+That distinction belongs in whatever the firm publishes. See
+`docs/tracking-plan.md` section 12.
 
 ## The table
 
@@ -101,6 +111,10 @@ hashed visitor identifier server-side from IP and user agent. Still not storage
 on the device, so still no consent needed — but it *is* processing of personal
 data and deserves a sentence.
 
+**Nobody is asked, so almost nobody refuses.** The paragraph below describes
+what refusing does, and it still works exactly as written — it is simply now
+reached from the footer rather than from a banner, by whoever goes looking.
+
 **"Rechazar" does not mean zero cookies.** It means no Google cookies and none
 of the site's own advertising cookies — and, for someone who had accepted
 earlier, the campaign cookies already written are expired on the spot rather
@@ -118,8 +132,9 @@ writes it any more; whoever still carries it is asked again like anyone else.
 **Google receives more than cookies.** When someone submits a form, a scrambled
 (hashed) version of their email and phone is sent to Google Ads so a booking can
 be matched to the ad click. It is hashed in the browser and the raw values never
-leave it — but Google is still a recipient of personal data, and since phase 3
-this only happens with advertising consent. `/politicas-de-privacidad` §9
+leave it — but Google is still a recipient of personal data. Since phase 3 it
+happens only with advertising consent — which, with the banner off, means
+everyone who has not actively refused. `/politicas-de-privacidad` §9
 currently says the firm shares no data with third parties, which does not sit
 well beside it. Worth raising with them directly.
 
@@ -138,3 +153,7 @@ For whoever maintains this rather than for the client.
 The site's own advertising cookies are gated on the advertising category; see
 `src/lib/utils/consent.ts`. Google's are gated by Consent Mode, which is the
 same choice expressed in Google's own vocabulary.
+
+Both gates read the same fallback for a visitor with no stored record, and
+since 24 September 2026 that fallback is `granted`. One constant,
+`CONSENT_REQUIRED`, moves both.

@@ -67,6 +67,14 @@ the whole cost, and it is deterministic rather than measured.
 > bytes before compression — about 70 bytes more, paid twice like everything
 > else here, so roughly 40–50 bytes compressed on top of the figures below.
 > Not re-measured; well inside the noise of the harness.
+>
+> **24 September 2026:** the unanswered fallback became a build-time value
+> (`CONSENT_REQUIRED`) and the stored record is now read with a ternary rather
+> than raised from that fallback. Net **766 bytes**, 18 *fewer* than before:
+> the two ternaries cost less than hoisting `'granted'`/`'denied'` into `G` and
+> `N` across all seven storage types saved. Measured with
+> `bun -e 'import {CONSENT_BOOTSTRAP_SNIPPET as s} …; s.length'`, not
+> re-probed — it is smaller than the figure the probe already accepted.
 
 ## Why the decoded number is 1086 bytes for a 713-byte script
 
@@ -82,8 +90,10 @@ bytes to 1086:
 - **Single-quoted strings inside the snippet.** JSON escapes `"` and not `'`,
   so every double quote was costing three extra bytes in the second copy.
   Escaping overhead went from substantial to 2 bytes.
-- **Hoisting `granted`/`denied` into two variables** instead of repeating the
-  ternary four times — paid for twice, like everything else here.
+- **Hoisting `granted`/`denied` into two variables** instead of writing them
+  out at each of the seven storage types — paid for twice, like everything
+  else here. The two ternaries that read the stored record are the exception
+  that pays for itself; see the note above.
 
 If the snippet ever grows, those two rules are why it is written the way it is.
 

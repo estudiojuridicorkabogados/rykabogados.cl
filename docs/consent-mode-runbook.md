@@ -13,6 +13,14 @@ silently denied.
 
 Work in a workspace, preview, then publish.
 
+**Since 24 September 2026 there is no banner.** `CONSENT_REQUIRED` in
+`src/lib/utils/consent.ts` is `false`, so a visitor who has not answered is
+sent `granted` as the *default* and the banner never mounts. None of the
+container work below changes — the container reacts to whatever default it is
+sent, and is indifferent to which one — but several of the expected readings
+do, and each step now says which mode it describes. `docs/tracking-plan.md`
+section 12 has the reasoning and the one-line revert.
+
 ## 1. Turn on the consent overview
 
 Admin → Container Settings → Additional Settings → **Enable consent overview**.
@@ -111,21 +119,30 @@ Tag Assistant, fresh incognito profile, and a **production build** — not
 production shows, which is exactly what hid the `_gcl_aw` problem in commit
 26d8283.
 
-- **Consent tab → on-page default** must read:
-  `ad_storage: denied`, `ad_user_data: denied`, `ad_personalization: denied`,
-  `analytics_storage: denied`, `functionality_storage: granted`,
-  `personalization_storage: denied`, `security_storage: granted`.
-  If it says there is no default consent, the `arguments` form is broken — see
-  the header of `src/lib/utils/consent.ts` for why that fails silently.
+- **Consent tab → on-page default** must read, for a profile that has never
+  answered:
+
+  | | `ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage` |
+  | --- | --- |
+  | `CONSENT_REQUIRED` off (today) | `granted` |
+  | `CONSENT_REQUIRED` on | `denied` |
+
+  `functionality_storage: granted`, `personalization_storage: denied`,
+  `security_storage: granted` in both modes — a choice never moves those three.
+  If it says there is no default consent at all, the `arguments` form is broken
+  — see the header of `src/lib/utils/consent.ts` for why that fails silently.
 - The consent default must appear **above** the first `rk_page_view` in the
   event list. `bun run test:tracking` asserts this too.
-- Press **Aceptar todas** → a Consent entry appears with the four mutable types
-  flipping to granted.
-- In a second fresh profile, **Rechazar todas** on the banner — it is a
-  first-layer button since 24 September 2026, not a step inside "Personalizar"
-  — → tags still **fire**, marked consent-restricted. Fired-and-restricted is the correct
-  result, not a fault: the built-in checks strip the identifiers and send a
-  cookieless ping rather than nothing.
+- With the flag **on**: press **Aceptar todas** → a Consent entry appears with
+  the four mutable types flipping to granted. With it **off** there is no
+  banner and no update to watch: the default already granted them, which is the
+  reading above. Nothing is wrong when no `consent update` appears.
+- In a second fresh profile, decline everything — **Rechazar todas**, on the
+  banner with the flag on, or from the footer's **"Configurar cookies"** with
+  it off, which is then the only route — → tags still **fire**, marked
+  consent-restricted. Fired-and-restricted is the correct result, not a fault:
+  the built-in checks strip the identifiers and send a cookieless ping rather
+  than nothing.
 - **The `gcs` parameter is the proof, and it is worth looking at once.** Open a
   fired tag's outgoing request and read `gcs=G1XY`, where X is `ad_storage` and
   Y is `analytics_storage`: `G100` both denied, `G111` both granted, `G110` and
@@ -136,8 +153,8 @@ production shows, which is exactly what hid the `_gcl_aw` problem in commit
 
 ## 5. A declined visit sets no Google cookies
 
-Fresh profile → reject → make GTM load (scroll, or land with `?gclid=TEST123`)
-→ DevTools → Application → Cookies.
+Fresh profile → decline (the footer panel, with the banner off) → make GTM load
+(scroll, or land with `?gclid=TEST123`) → DevTools → Application → Cookies.
 
 **Absent:** `_ga`, `_ga_HE87DHS09F`, `_gcl_au`, `_gcl_aw`, `_gcl_dc`.
 **Present:** `cookie-consent`, containing `"advertising":false`, and
@@ -147,6 +164,18 @@ Fresh profile → reject → make GTM load (scroll, or land with `?gclid=TEST123
 The site's own advertising cookies are gated in the code now, so a declining
 visitor should have none of them. If they appear, that is a code bug, not a
 container one.
+
+### The opposite check, which is now the common case
+
+A profile that has never answered should get **all** of them. Verified against
+production on 24 September 2026, on a cleared profile that did nothing but load
+the home page: `_ga`, `_ga_HE87DHS09F`, `_gcl_au`, `rk_ft_landing`,
+`rk_ft_referrer`, `rk_ft_ts`, and no `cookie-consent` at all — that last
+absence being the point, since there is no choice to record.
+
+If those are missing while `CONSENT_REQUIRED` is `false`, suspect the default
+rather than the container: read `dataLayer[0]` and confirm it is the granted
+`consent default` described in step 4.
 
 ## 6. `url_passthrough` across a navigation — measure it, do not assume
 
@@ -177,9 +206,11 @@ Re-test this if the site ever moves off the App Router, or if Next changes how
 `<Link>` handles clicks.
 
 Note that the site's own `gclid` cookie, which used to be the fallback here, is
-now gated on advertising consent — so for a declining visitor there is no
+gated on the advertising category — so for a declining visitor there is no
 fallback by design. That is coherent with declining; it is worth knowing it is
-a second effect rather than the same one.
+a second effect rather than the same one. With the banner off the gate reads
+granted for everyone who has not declined, so the fallback is back for
+essentially all traffic.
 
 ## 7. Publish
 

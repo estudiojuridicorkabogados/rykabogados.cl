@@ -4,6 +4,14 @@ The banner, the settings modal, and the record of what the visitor chose.
 What that choice then _does_ lives in `src/lib/utils/consent.ts`, which
 translates it into Google's Consent Mode vocabulary.
 
+> **The banner is off in production, since 24 September 2026.**
+> `CONSENT_REQUIRED` in `src/lib/utils/consent.ts` is `false`, so a visitor who
+> has not chosen is treated as having granted both categories and the banner
+> never mounts. Everything documented below still works and is still wired up
+> — it describes the component as it behaves with the flag **on**, which is one
+> line away. Where the flag changes what this file says, it says so.
+> `docs/tracking-plan.md` section 12 has the reasoning and the revert.
+
 ## Files
 
 ```
@@ -35,7 +43,19 @@ click references, the `utm_*` pair and the `rk_ft_*` set. Consent Mode does not
 reach those; they are ours, and they are marketing cookies by any honest
 reading. See `docs/cookie-inventory.md`.
 
+The gate is still there with the banner off. What changed is what it reads for
+someone who has not answered: `granted`, so those cookies are written for
+everyone except a visitor who declines through the footer panel.
+
 ## Where rejecting lives
+
+With the banner off, it lives in one place only: **"Configurar cookies"** in
+the footer, which opens the panel below. That is the whole opt-out, and it is
+why the footer link must not be removed while `CONSENT_REQUIRED` is `false` —
+`/politica-cookies` points at it, and without it the page would describe a
+choice the site does not offer.
+
+The rest of this section describes the banner, for when it comes back.
 
 **On the banner, since 24 September 2026.** Three buttons — **Rechazar
 todas**, **Personalizar**, **Aceptar todas** — and the same three inside the
@@ -73,8 +93,14 @@ the same thing as "Aceptar todas", which was the objection.
 
 It never changed what is stored by default. Nothing is granted until "Guardar
 preferencias" or "Aceptar todas" is pressed: `createDefaultPreferences()`
-denies everything, and so does the Consent Mode default. A visitor who never
-opens the panel is denied.
+denies everything, and — with `CONSENT_REQUIRED` on — so does the Consent Mode
+default, leaving a visitor who never opens the panel denied.
+
+**With the flag off, that last sentence inverts.** `createDefaultPreferences()`
+is unchanged, so the switches still start off and an untouched "Guardar
+preferencias" still stores a refusal; but a visitor who never opens the panel
+is _granted_, because the Consent Mode default is granted and no record is
+written. The panel is how you say no, not how you say yes.
 
 ## Storage
 

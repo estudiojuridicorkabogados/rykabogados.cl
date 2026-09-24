@@ -59,6 +59,13 @@ Since phase 3 the visitor's choice reaches Google through Consent Mode v2
 rather than being collected and ignored. Three categories map onto seven
 storage types:
 
+Since 24 September 2026 there is no banner and the choice is not asked for:
+`CONSENT_REQUIRED` is `false`, so an unanswered visitor is granted both
+optional categories by default. Everything in this section still describes the
+machinery accurately — it is what a visitor who declines through the footer
+panel gets, and what everyone gets again the day the flag goes back on. See
+`docs/tracking-plan.md` section 12.
+
 | Banner category | Storage types |
 | --- | --- |
 | Necesarias | `functionality_storage`, `security_storage` — always granted |
@@ -89,9 +96,12 @@ Two things *are* withheld without advertising consent:
   written, with no code and no campaign against it.
 
 The campaign parameters are read from the landing URL at hydration and held in
-memory until the visitor answers, because by the time they press accept the
-router has usually stripped them from the URL. Memory is not storage on their
-device, so holding it pending an answer costs them nothing.
+memory until consent allows writing them, because by the time a visitor presses
+accept the router has usually stripped them from the URL. Memory is not storage
+on their device, so holding it pending an answer costs them nothing. With the
+banner off the hold is momentary — the first effect already sees a granted
+state — but the mechanism is unchanged and still covers the visitor who
+declines and later changes their mind.
 
 Ordering is the part that can break silently. GTM replays the dataLayer in
 order rather than reading it as state at initialisation, so the consent default
