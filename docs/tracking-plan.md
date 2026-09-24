@@ -722,6 +722,8 @@ Path explorations only accept Google's own node types, so `page_type` cannot be 
 
 Two things found building it, 24 September 2026. **Values must be `Active users`** — the default counts events: 1,636 on the workers page, against 1,269 people once switched. That is not comparable with the funnel's 11 either: the path reads Google's `page_view` across all 28 days, the funnel `rk_page_view`, which exists only from 23 September 11:45. The window also straddles the consent go-live of 22 September — before it every visitor counted, after it a decliner does not — so the path mixes two measurement regimes until about 21 October. And **the segment is weaker than the path until about 21 October**: the path reads Google's own `page_view` across the full 28 days, but `Sin contacto` can only exclude people whose contact reached Analytics, which is from 23 September 11:45. Anyone who booked before then is counted as not having contacted. Read it as indicative until the window lies entirely after the 23rd.
 
+**A third tab, `Desde el inicio`** — added 24 September 2026. Starting point `/`, Values `Active users`, and **no segment**: on the home page the question is not where non-contacts went but whether visitors find their way at all — to the two booking pages, or off to `/nosotros`, `/faqs`, the blog, or out. Excluding people who contacted would hide exactly the ones who navigated well. It is also where visitors first choose between workers and companies, so it is the place to look for the crossover below. Same caveat as the other tabs until about 21 October.
+
 **A question for phase 7, from the first look.** The largest exit from `/habla-con-nosotros/trabajadores` was to `/habla-con-nosotros/empresas` — 95 events against 44 to the home page. Either visitors are unsure which page is theirs, or something on the page sends them across. Re-read on Active users after 21 October before drawing anything from it.
 
 ### The blog — added 24 September 2026
@@ -769,6 +771,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] Path report, 24 September 2026 — segment `Sin contacto` (user segment, permanent exclusion), one tab per booking page
 - [ ] Blog funnel, with the `Por artículo` tab
 - [ ] Blog path report
+- [ ] Home page tab `Desde el inicio` in the path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
 - [ ] The five funnels saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and the path report cannot be saved this way at all
 - [ ] All shared with the client's Analytics user
