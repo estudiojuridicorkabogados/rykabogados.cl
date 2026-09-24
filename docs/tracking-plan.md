@@ -882,7 +882,7 @@ Analytics, Search Console, Google Ads and the Google Sheet can all be connected 
 
 | Source | How | Status |
 | --- | --- | --- |
-| Analytics (GA4) | Google's own MCP server over the Data API | Ready. The important one: every phase 2 signal, its labels and the funnels live here. |
+| Analytics (GA4) | Google's own MCP server over the Data API (`analytics-mcp`, which includes `run_funnel_report`) | **Connected 24 September 2026.** Logs in as a service account in our own Google Cloud project, added to the property as **Viewer** — no OAuth screen and nothing that expires, and the firm revokes it by removing one user. Registered in Claude Code at user scope rather than in `.mcp.json`, because the key file is machine-specific and never enters the repository. |
 | Search Console | Community MCP server over the Search Console API | Ready. Queries, impressions, CTR per page. |
 | Google Ads | Community MCP server over the Google Ads API | **Needs a developer token with Basic Access**, approved manually by Google. Days, not hours. Start the request early or the first runs have no spend data. |
 | Google Sheet (Caso codes) | Service account, or a Sheets MCP server | Ready. This is where the case outcomes live once section 10's first item happens. |
@@ -913,7 +913,7 @@ Run it with `/loop` locally, or as a scheduled cloud agent. Output is a draft, a
 ### Checklist
 
 - [ ] Google Ads developer token requested (do this first — approval is the long pole)
-- [ ] MCP servers configured in `.mcp.json`, read-only credentials
+- [ ] MCP servers configured with read-only credentials — Analytics done 24 September 2026 (user scope, service account as Viewer); Search Console, Ads and the Sheet still to do
 - [ ] Skill written with the fixed question set and the consent caveat
 - [ ] Two runs compared by hand against the Analytics interface before anything is sent to the client
 - [ ] Cadence and delivery format agreed with the firm
