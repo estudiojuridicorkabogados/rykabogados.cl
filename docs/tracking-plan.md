@@ -720,6 +720,10 @@ The headline figure is step 2 over step 1, by `Session campaign`. A second tab, 
 
 Path explorations only accept Google's own node types, so `page_type` cannot be a node — the path reads raw URLs, which on this site is readable enough.
 
+Two things found building it, 24 September 2026. **Values must be `Active users`** — the default counts events, and read 1,636 on the workers page where the funnel counts 11 people. And **the segment is weaker than the path until about 21 October**: the path reads Google's own `page_view` across the full 28 days, but `Sin contacto` can only exclude people whose contact reached Analytics, which is from 23 September 11:45. Anyone who booked before then is counted as not having contacted. Read it as indicative until the window lies entirely after the 23rd.
+
+**A question for phase 7, from the first look.** The largest exit from `/habla-con-nosotros/trabajadores` was to `/habla-con-nosotros/empresas` — 95 events against 44 to the home page. Either visitors are unsure which page is theirs, or something on the page sends them across. Re-read on Active users after 21 October before drawing anything from it.
+
 ### Testing a funnel: not with Tag Assistant open
 
 Found 24 September 2026 building the workers funnel. A test booking made on 23 September with Tag Assistant open reached step 5 and never showed as booked — not even with the funnel opened — although the event was in the Admin events list. A booking made the next day in a plain window, cookies accepted, showed in Realtime within the minute. Preview mode marks every event as debug traffic: DebugView and the Admin list show it, reports and Explore may not. So a funnel is checked with a real walk in a normal window and read the next day, when Explore has processed it; Tag Assistant is for checking what the container fires, not for filling a funnel. A real walk is a real booking — the firm gets the email, the Sheet a row, Ads a conversion — so name it `PRUEBA – no contactar` and delete the Sheet row after.
@@ -742,7 +746,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] Contact form funnel, 24 September 2026
 - [x] Chatbot funnel, 24 September 2026 — three tabs: `Chatbot`, `Chatbot a WhatsApp`, and `Leads fallidos` (free-form, empty on the day it was built, as it should be)
 - [x] Any-contact funnel, 24 September 2026, with the free-form `Por canal` tab
-- [ ] Path report
+- [x] Path report, 24 September 2026 — segment `Sin contacto` (user segment, permanent exclusion), one tab per booking page
 - [ ] The firm's own Google account confirmed with Viewer on the property
 - [ ] The five funnels saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and the path report cannot be saved this way at all
 - [ ] All shared with the client's Analytics user
