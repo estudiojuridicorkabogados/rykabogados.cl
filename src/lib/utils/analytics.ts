@@ -132,6 +132,7 @@ export const RK_EVENTS = {
   // Reaching the firm without a form
   CONTACT_CLICK: "rk_contact_click",
   CTA_CLICK: "rk_cta_click",
+  CTA_VIEW: "rk_cta_view",
 
   // The chatbot
   CHAT_OPEN: "rk_chat_open",
@@ -198,6 +199,12 @@ interface EventPayloads {
   [RK_EVENTS.CONTACT_CLICK]: { contact_method: "phone" | "email" };
   /** The button's own wording, for telling duplicate placements apart. */
   [RK_EVENTS.CTA_CLICK]: { location: TrackLocation; cta_label: string };
+  /**
+   * A contact box came on screen. The denominator for `rk_cta_click` in the
+   * same place — and on a phone, where the blog's box sits below the article,
+   * the only exact answer to "did they get far enough to see it".
+   */
+  [RK_EVENTS.CTA_VIEW]: { location: TrackLocation };
 
   [RK_EVENTS.CHAT_OPEN]: void;
   [RK_EVENTS.CHAT_FIRST_MESSAGE]: { message_number: number };

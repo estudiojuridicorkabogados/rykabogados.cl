@@ -177,6 +177,7 @@ per-conversion values whenever the firm decides what a contact is worth.
 | --- | --- | --- |
 | `rk_contact_click` | A phone number or email address was clicked — footer, contact page, team page. Mostly mobile visitors. | `location`, `contact_method` |
 | `rk_cta_click` | An "Agenda una asesoría" or similar button that leads to a form. | `location`, `cta_label` |
+| `rk_cta_view` | A contact box came on screen — the denominator for `rk_cta_click` in the same place. Only the blog's "Hablemos sobre tu caso" box so far. On desktop it is a sticky sidebar, on screen from arrival, so it fires for nearly everyone; on a phone it sits below the article, and this is the exact count of readers who got that far. Added 24 September 2026. | `location` |
 
 ## The chatbot
 

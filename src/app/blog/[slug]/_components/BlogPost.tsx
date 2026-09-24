@@ -55,7 +55,8 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           <RichText richtext={post.content} />
         </div>
 
-        <HablaConNosotros />
+        {/* Keyed so a jump to a related post starts a fresh view signal. */}
+        <HablaConNosotros key={post.slug} />
       </div>
 
       <blockquote className="mt-10 border-t border-slate-300 pt-10 text-black/50 sm:text-xl">
