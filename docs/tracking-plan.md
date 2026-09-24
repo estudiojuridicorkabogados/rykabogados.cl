@@ -652,7 +652,7 @@ Every report is in **Explore → Blank**, one exploration per report, named as b
 | Setting | Value |
 | --- | --- |
 | Technique | Funnel exploration, standard funnel |
-| Date range | **Start 24 September 2026.** Before it: our own test traffic, and before 11:45 on the 23rd no `rk_*` event reached Analytics at all |
+| Date range | **Last 28 days** (the preset). A custom range keeps its end date, so a report opened in November would still show September, and a shared exploration is read-only to the firm. Before 23 September 11:45 there are no `rk_*` events to distort anything; our own test traffic of the 23rd is inside the window until about 21 October, which is before anyone should read these anyway |
 | Open funnel | **Off.** Everyone counted entered at step 1 |
 | Between steps | "Indirectly followed by" (the default) — other events in between are fine |
 | Breakdown | `Session campaign`, then `Session source / medium`, then `Device category` — one at a time; switch it rather than building three copies |
@@ -716,7 +716,7 @@ The headline figure is step 2 over step 1, by `Session campaign`. A second tab w
 | Starting point | **Page path and screen class** — `/habla-con-nosotros/trabajadores`, then `/habla-con-nosotros/empresas` in a second tab |
 | Node type | Page path and screen class |
 | Segment | Users excluding anyone with any `rk_conv_*` or `rk_chat_lead` event — built in the exploration, so it does not wait for the phase 4 audiences |
-| Date range | From 24 September 2026 |
+| Date range | Last 28 days, as for the funnels |
 
 Path explorations only accept Google's own node types, so `page_type` cannot be a node — the path reads raw URLs, which on this site is readable enough.
 
@@ -744,7 +744,6 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [ ] Any-contact funnel
 - [ ] Path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
-- [ ] From about 22 October 2026, every exploration switched from the fixed 24 September start to the **Last 28 days** preset — a custom range keeps its end date, so a report opened in November would still show September
 - [ ] All shared with the client's Analytics user
 - [ ] Guide in Spanish
 
