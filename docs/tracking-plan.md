@@ -783,7 +783,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] `Session default channel group` as the breakdown on every funnel tab, 24 September 2026 — seven tabs across the six funnel explorations. None had one before: the Session campaign breakdown in the recipe had never been applied. `Session campaign` is imported per exploration only when comparing Ads campaigns; the funnel shows 5 rows per breakdown by default, raised under Rows per dimension
 - [x] The firm's own Google account has access to the property — confirmed 24 September 2026: they granted ours, so they hold at least administrator
 - [ ] The six funnels (the five above and `RK · Embudo blog`) saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and neither path report (`Qué hicieron los que no contactaron`, `Recorrido desde el blog`) can be saved this way at all, nor the free-form tabs
-- [ ] All shared with the client's Analytics user
+- [x] All eight explorations shared, 24 September 2026. GA4 offers no per-user choice: sharing makes an exploration read-only for everyone with access to the property, so check Admin → Property access management for anyone who should not be on that list
 - [ ] Guide in Spanish
 
 ---
