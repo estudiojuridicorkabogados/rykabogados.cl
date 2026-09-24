@@ -3,7 +3,11 @@ import { z } from "zod";
 
 import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
-import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
+import {
+  CAMILA_EMAIL,
+  CONTACTO_EMAIL,
+  NOTIFICACIONES_EMAIL,
+} from "@/lib/utils/constants";
 
 import "server-only";
 
@@ -74,18 +78,18 @@ export async function processUserInfo(
         oauth2Client: gmailOAuth2Client,
       }),
       sendEmail({
-        to: CAMILA_EMAIL,
+        to: [CAMILA_EMAIL, CONTACTO_EMAIL, NOTIFICACIONES_EMAIL],
         subject: "Nuevo mensaje de usuario",
         from: CONTACTO_EMAIL,
         replyTo: CONTACTO_EMAIL,
         html: `
         <h2>Nuevo mensaje de usuario</h2>
-        <p>Nombre: ${fullName}</p>
-        <p>Email: ${email}</p>
-        <p>Teléfono: ${phoneNumber}</p>
-        ${sessionCode ? `<p>Caso: ${sessionCode}</p>` : ""}
-        <p>Causal de despido: ${legalIssue}</p>
-        <p>Contexto: ${fullContext}</p>
+        <p><strong>Nombre:</strong> ${fullName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Teléfono:</strong> ${phoneNumber}</p>
+        ${sessionCode ? `<p><strong>Caso:</strong> ${sessionCode}</p>` : ""}
+        <p><strong>Motivo de la consulta:</strong> ${legalIssue}</p>
+        <p><strong>Contexto:</strong> ${fullContext}</p>
       `,
         oauth2Client: gmailOAuth2Client,
       }),

@@ -1,6 +1,12 @@
 import { MockLanguageModelV4 } from "ai/test";
 import { describe, expect, it, mock, spyOn } from "bun:test";
 
+import {
+  CAMILA_EMAIL,
+  CONTACTO_EMAIL,
+  NOTIFICACIONES_EMAIL,
+} from "@/lib/utils/constants";
+
 // Mock server-only (throws in non-Next.js environments)
 mock.module("server-only", () => ({}));
 
@@ -124,9 +130,15 @@ describe("createProcessUserInfoTool", () => {
    * chatbot lead stops being traceable to the campaign that paid for it.
    */
   it("puts the Caso code in the studio email without asking the model for it", async () => {
-    const sent: { to: string; html: string }[] = [];
+    const sent: { to: string | string[]; html: string }[] = [];
     mock.module("@/lib/google/gmail/sendEmail", () => ({
-      sendEmail: async ({ to, html }: { to: string; html: string }) => {
+      sendEmail: async ({
+        to,
+        html,
+      }: {
+        to: string | string[];
+        html: string;
+      }) => {
         sent.push({ to, html });
       },
     }));
@@ -143,8 +155,17 @@ describe("createProcessUserInfoTool", () => {
       abortSignal: new AbortController().signal,
     });
 
-    const studioEmail = sent.find((e) => e.to !== args.email);
-    expect(studioEmail?.html).toContain("Caso: ABC123");
+    const studioEmail = sent.find((e) => Array.isArray(e.to));
+    expect(studioEmail?.html).toContain("<strong>Caso:</strong> ABC123");
+
+    // Found by elimination before, which stayed green through two changes
+    // of this list. A dropped address is how a lead silently stops
+    // arriving, so the recipients are the assertion.
+    expect(studioEmail?.to).toEqual([
+      CAMILA_EMAIL,
+      CONTACTO_EMAIL,
+      NOTIFICACIONES_EMAIL,
+    ]);
 
     // The visitor's confirmation stays as it was — the code is an internal
     // reference, not something to hand back to them.
@@ -153,9 +174,15 @@ describe("createProcessUserInfoTool", () => {
   });
 
   it("omits the Caso line when the browser had no code to send", async () => {
-    const sent: { to: string; html: string }[] = [];
+    const sent: { to: string | string[]; html: string }[] = [];
     mock.module("@/lib/google/gmail/sendEmail", () => ({
-      sendEmail: async ({ to, html }: { to: string; html: string }) => {
+      sendEmail: async ({
+        to,
+        html,
+      }: {
+        to: string | string[];
+        html: string;
+      }) => {
         sent.push({ to, html });
       },
     }));
