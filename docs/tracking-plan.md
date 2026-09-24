@@ -720,6 +720,10 @@ The headline figure is step 2 over step 1, by `Session campaign`. A second tab w
 
 Path explorations only accept Google's own node types, so `page_type` cannot be a node — the path reads raw URLs, which on this site is readable enough.
 
+### Testing a funnel: not with Tag Assistant open
+
+Found 24 September 2026 building the workers funnel. A test booking made on 23 September with Tag Assistant open reached step 5 and never showed as booked — not even with the funnel opened — although the event was in the Admin events list. A booking made the next day in a plain window, cookies accepted, showed in Realtime within the minute. Preview mode marks every event as debug traffic: DebugView and the Admin list show it, reports and Explore may not. So a funnel is checked with a real walk in a normal window and read the next day, when Explore has processed it; Tag Assistant is for checking what the container fires, not for filling a funnel. A real walk is a real booking — the firm gets the email, the Sheet a row, Ads a conversion — so name it `PRUEBA – no contactar` and delete the Sheet row after.
+
 ### When to read them
 
 Build as soon as the events are selectable in Explore — the same processing lag as the phase 4 audiences, so 24 September afternoon. **Read and write the guide no earlier than two weeks after.** At this traffic a step holds a handful of people for the first days, one visitor moves a percentage by twenty points, and the guide's screenshots need numbers that will not embarrass anyone.
@@ -733,7 +737,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 ### Checklist
 
 - [x] Funnels checked against the signals and turned into step-by-step recipes, 23 September 2026 — four corrections, see above
-- [ ] Workers funnel
+- [x] Workers funnel, 24 September 2026 — six steps, no scroll step (correction 5); a real test booking the same day to confirm the last step, since the 23 September test was made in preview mode
 - [ ] Companies funnel
 - [ ] Contact form funnel
 - [ ] Chatbot funnel
