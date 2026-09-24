@@ -770,6 +770,9 @@ Small items deliberately postponed from earlier phases, to be closed in one sitt
 - [x] Old `Click Whatsapp RK` action removed, 24 September 2026 (from the phase 1 open list)
 - [x] `Cliente convertido` understood, 23 September 2026 — nothing uploads to it; kept for section 10, see phase 1
 - [ ] `docs/tracking-events.md` re-read against the code one last time
+- [ ] The four split audiences (phase 4) listed in Google Ads → Audience manager → Your data segments, source Google Analytics. Expected within a day or two of 24 September 2026; missing by then means checking the Analytics link's personalised advertising (Enabled, seen 24 September) and Admin → Data collection → ads personalisation for Chile
+- [ ] Each split audience at 100 or more: the empresas pair added to the empresas campaign as Targeting, the trabajadores pair to theirs as Observation, and the trabajadores campaign's policy status checked a week later before any move to Targeting
+- [ ] The Analytics → Ads link still shows the account as `RyO Asociados` although the Ads account was renamed. Analytics appears to keep the name from when the link was made; cosmetic, not worth relinking. Check whether it has caught up
 
 ---
 
