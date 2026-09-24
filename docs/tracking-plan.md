@@ -769,8 +769,8 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] Chatbot funnel, 24 September 2026 — three tabs: `Chatbot`, `Chatbot a WhatsApp`, and `Leads fallidos` (free-form, empty on the day it was built, as it should be)
 - [x] Any-contact funnel, 24 September 2026, with the free-form `Por canal` tab
 - [x] Path report, 24 September 2026 — segment `Sin contacto` (user segment, permanent exclusion), one tab per booking page
-- [ ] Blog funnel, with the `Por artículo` tab
-- [ ] Blog path report
+- [x] Blog funnel, with the `Por artículo` tab, 24 September 2026. `rk_contact_click` not yet in step 3 — see the final sweep
+- [x] Blog path report, 24 September 2026 — first reading in `docs/client-suggestions/month_2026_09.md`, entry 2026-09-1
 - [ ] Home page tab `Desde el inicio` in the path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
 - [ ] The five funnels saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and the path report cannot be saved this way at all
