@@ -726,6 +726,8 @@ Two things found building it, 24 September 2026. **Values must be `Active users`
 
 **A question for phase 7, from the first look.** The largest exit from `/habla-con-nosotros/trabajadores` was to `/habla-con-nosotros/empresas` — 95 events against 44 to the home page. Either visitors are unsure which page is theirs, or something on the page sends them across. Re-read on Active users after 21 October before drawing anything from it.
 
+**And from the home page, the same day** (`Desde el inicio`, 28 days, Active users, all visitors). Of 250 people on `/`, the next page was `/nosotros` for 44, the workers' booking page for 22, `/blog` and `/contacto` for 14 each, the companies' booking page for 13 — about 14% straight to a booking page, and "who are the lawyers" the most common move. That is the missing-information pattern this report was built to find. The crossover shows here too: 4 of the 22 who reached the workers' page went on to the companies' page. Same caveat — indicative until about 21 October.
+
 ### The blog — added 24 September 2026
 
 The firm pays for traffic to the blog, so "do blog readers become clients" needs its own answer; the any-contact funnel folds them in with everyone. Two explorations.
@@ -777,7 +779,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] Path report, 24 September 2026 — segment `Sin contacto` (user segment, permanent exclusion), one tab per booking page
 - [x] Blog funnel, with the `Por artículo` tab, 24 September 2026. `rk_contact_click` not yet in step 3 — see the final sweep
 - [x] Blog path report, 24 September 2026 — first reading in `docs/client-suggestions/month_2026_09.md`, entry 2026-09-1
-- [ ] Home page tab `Desde el inicio` in the path report
+- [x] Home page tab `Desde el inicio` in the path report, 24 September 2026 — first reading under the path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
 - [ ] The five funnels saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and the path report cannot be saved this way at all
 - [ ] All shared with the client's Analytics user
