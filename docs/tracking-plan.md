@@ -724,6 +724,26 @@ Two things found building it, 24 September 2026. **Values must be `Active users`
 
 **A question for phase 7, from the first look.** The largest exit from `/habla-con-nosotros/trabajadores` was to `/habla-con-nosotros/empresas` — 95 events against 44 to the home page. Either visitors are unsure which page is theirs, or something on the page sends them across. Re-read on Active users after 21 October before drawing anything from it.
 
+### The blog — added 24 September 2026
+
+The firm pays for traffic to the blog, so "do blog readers become clients" needs its own answer; the any-contact funnel folds them in with everyone. Two explorations.
+
+**`RK · Embudo blog`** — funnel, settings as for the others.
+
+| # | Step | Event | Conditions |
+| --- | --- | --- | --- |
+| 1 | Leyó un artículo | `rk_page_view` | `page_type` = `blog_post` |
+| 2 | Pasó a una página de contacto | `rk_page_view` | `page_type` matches regex `landing_trabajadores\|landing_empresas\|contacto` |
+| 3 | Contactó | any of, by **OR**: the six events of `RK · Cualquier contacto` step 2 | — |
+
+A reader who taps WhatsApp straight from the post skips step 2 and drops out, so a second tab, `Por artículo`, is free form: rows `Landing page + query string`, values `Active users` and `Key events`, filter Landing page + query string **begins with** `/blog/`. Each article people *arrived on*, how many came, how many contacted — independent of the steps in between, and the table that answers the money question.
+
+**`RK · Recorrido desde el blog`** — path exploration. A path's starting point takes one page and no wildcard, so it starts from the **event** `session_start`, with every later step on `Page path and screen class`, and a **session** segment `Entró por el blog`: Landing page + query string begins with `/blog/`. Step +1 is then the article landed on, step +2 where they went from it. Covers visits that *began* on the blog, which is what paid blog traffic is; not someone who reads a post mid-visit. Values `Active users`.
+
+Step +1 splits into one branch per article, thin at this volume. If it is unreadable, the tidier version is to send `page_type` as the Google tag's `content_group` in Tag Manager — one field, value already in the dataLayer — so every article collapses into one `blog_post` node. Not retroactive, and a container change, so only if the per-article version fails.
+
+For a WhatsApp contact, the Sheet's `ft_landing` is the stronger evidence than either: it records the first page a person ever landed on, a blog post read days earlier included.
+
 ### Testing a funnel: not with Tag Assistant open
 
 Found 24 September 2026 building the workers funnel. A test booking made on 23 September with Tag Assistant open reached step 5 and never showed as booked — not even with the funnel opened — although the event was in the Admin events list. A booking made the next day in a plain window, cookies accepted, showed in Realtime within the minute. Preview mode marks every event as debug traffic: DebugView and the Admin list show it, reports and Explore may not. So a funnel is checked with a real walk in a normal window and read the next day, when Explore has processed it; Tag Assistant is for checking what the container fires, not for filling a funnel. A real walk is a real booking — the firm gets the email, the Sheet a row, Ads a conversion — so name it `PRUEBA – no contactar` and delete the Sheet row after.
@@ -747,6 +767,8 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] Chatbot funnel, 24 September 2026 — three tabs: `Chatbot`, `Chatbot a WhatsApp`, and `Leads fallidos` (free-form, empty on the day it was built, as it should be)
 - [x] Any-contact funnel, 24 September 2026, with the free-form `Por canal` tab
 - [x] Path report, 24 September 2026 — segment `Sin contacto` (user segment, permanent exclusion), one tab per booking page
+- [ ] Blog funnel, with the `Por artículo` tab
+- [ ] Blog path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
 - [ ] The five funnels saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and the path report cannot be saved this way at all
 - [ ] All shared with the client's Analytics user
