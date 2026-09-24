@@ -48,8 +48,22 @@ export const CookieBanner = () => {
     // click while rejecting took two was not a trade they wanted to defend.
     //
     // Reject and accept carry the same variant, so neither is the easier
-    // button. "Personalizar" sits between them as the quieter middle path, the
-    // same order and weighting as the modal's footer.
+    // button. That is the part to leave alone: same component, same size, same
+    // fill, so their relative prominence is not a matter of opinion. The
+    // EDPB's 2023 cookie-banner taskforce went after banners that styled
+    // rejection to be markedly less visible than acceptance, and making this
+    // one white would walk straight back into the asymmetry the firm asked us
+    // to remove.
+    //
+    // Order is free, though — no guidance speaks to it — and "Personalizar"
+    // leads rather than sits in the middle. Reject led the row until later on
+    // 24 September 2026, which read as the banner's headline action; moving it
+    // costs nothing and fixes that. Accept keeps the rightmost slot, which is
+    // where a right-aligned group's primary action conventionally sits.
+    //
+    // The modal's footer keeps its own order — reject, save, accept — because
+    // its middle button is a third decision rather than a way out to another
+    // surface. The two rows are not meant to be identical.
     <section
       data-closing={closing}
       aria-labelledby="cookie-banner-title"
@@ -86,18 +100,8 @@ export const CookieBanner = () => {
 
           {/* Actions */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-            {/* First in the DOM, so it is also first when the row stacks on a
-                phone and first for a screen reader. */}
-            <Button
-              animateOnClick
-              variant="dark"
-              className="group w-full lg:w-fit"
-              type="button"
-              onClick={rejectAll}
-            >
-              Rechazar todas
-            </Button>
-
+            {/* The quiet way out, and first in the DOM so it is the top
+                button when the row stacks on a phone. */}
             <Button
               animateOnClick
               variant="default"
@@ -106,6 +110,16 @@ export const CookieBanner = () => {
               onClick={openSettings}
             >
               Personalizar
+            </Button>
+
+            <Button
+              animateOnClick
+              variant="dark"
+              className="group w-full lg:w-fit"
+              type="button"
+              onClick={rejectAll}
+            >
+              Rechazar todas
             </Button>
 
             <Button
