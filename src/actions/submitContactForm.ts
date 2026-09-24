@@ -116,7 +116,7 @@ export async function submitContactForm(
       oauth2Client: gmailOAuth2Client,
     }),
     sendEmail({
-      to: [CAMILA_EMAIL, NOTIFICACIONES_EMAIL],
+      to: [CAMILA_EMAIL, CONTACTO_EMAIL, NOTIFICACIONES_EMAIL],
       subject: "Nueva consulta de contacto",
       html: createStudioEmailHtml(rawData, sessionCode),
       from: CONTACTO_EMAIL,
