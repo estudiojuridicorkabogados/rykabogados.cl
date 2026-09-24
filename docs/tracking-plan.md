@@ -744,6 +744,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [ ] Any-contact funnel
 - [ ] Path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
+- [ ] From about 22 October 2026, every exploration switched from the fixed 24 September start to the **Last 28 days** preset — a custom range keeps its end date, so a report opened in November would still show September
 - [ ] All shared with the client's Analytics user
 - [ ] Guide in Spanish
 
