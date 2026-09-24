@@ -707,7 +707,7 @@ The weaker ending is a second tab in the same exploration, `RK · Chatbot a What
 | 1 | Llegó al sitio | `session_start` | — |
 | 2 | Contactó | any of, joined by **OR**: `rk_conv_trabajadores_booking`, `rk_conv_empresas_booking`, `rk_conv_contact_form`, `rk_conv_whatsapp`, `rk_chat_lead`, `rk_contact_click` | — |
 
-The headline figure is step 2 over step 1, by `Session campaign`. A second tab with `Event name` as the breakdown on step 2 shows which channel the contact came through.
+The headline figure is step 2 over step 1, by `Session campaign`. A second tab, `Por canal`, shows which channel the contact came through — as a **free-form** table, not a funnel breakdown, since a funnel breakdown is not reliably taken from the step's own event: rows `Event name`, values `Active users` and `Event count`, filter Event name matching regex `rk_conv_.*|rk_chat_lead|rk_contact_click`.
 
 **`RK · Qué hicieron los que no contactaron`** — Path exploration, not a funnel.
 
@@ -741,7 +741,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] Companies funnel, 24 September 2026 — duplicated from the workers funnel, values switched to `empresas`
 - [x] Contact form funnel, 24 September 2026
 - [x] Chatbot funnel, 24 September 2026 — three tabs: `Chatbot`, `Chatbot a WhatsApp`, and `Leads fallidos` (free-form, empty on the day it was built, as it should be)
-- [ ] Any-contact funnel
+- [x] Any-contact funnel, 24 September 2026, with the free-form `Por canal` tab
 - [ ] Path report
 - [ ] The firm's own Google account confirmed with Viewer on the property
 - [ ] The five funnels saved as reports and published in a Reports → Library collection (`RK Abogados`), so the firm finds them in the left-hand Reports menu, not in Explore. Needs Editor to set up, Viewer to see. Elapsed time between steps does not carry over into the saved report — it stays in the Explore version — and the path report cannot be saved this way at all
