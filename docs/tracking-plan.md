@@ -604,12 +604,21 @@ Rule for everything else: the site decides what a signal means and sends it; Tag
 
 ---
 
-## Phase 5: Build the funnel reports
+## Phase 5: Build the funnel reports — done 24 September 2026
+
+Eight explorations built and shared, every funnel broken down by channel, and
+the six funnels plus `Artículos del blog` published in the firm's Reports menu
+as the `RK Abogados` collection. Two blog explorations and a home page path
+were added on the day, beyond the original five funnels and one path. The
+written guide was dropped the same day in favour of a recorded walkthrough at
+the end of phase 7. What the reports showed on day one is recorded under the
+path report and in `docs/client-suggestions/`; none of it is to be read as a
+finding before about 21 October.
 
 | | |
 | --- | --- |
 | **Where** | Analytics, "Explore" section. Shared with the client's login. |
-| **Effort** | About one day, including a short written guide for the client |
+| **Effort** | About one day. The written guide first planned here became a recorded walkthrough at phase 7 |
 | **Result** | Five reports the client can open any time, each showing how many people reach each step and where they leave, broken down by campaign, by source (ads, Google search, direct, social), and by device. |
 
 ### The funnels
@@ -640,7 +649,7 @@ Alongside the funnels, one "path" report: for visitors who reached a landing pag
 Written before the signals existed; checked against what the site actually sends, four steps promise more than Analytics can see, and a fifth broke on building.
 
 1. **"Wrote on WhatsApp" is not visible.** The chatbot branch can show the bot offering the number (`rk_chat_handoff`) and the visitor tapping it (`rk_conv_whatsapp` with `location = chatbot`). Whether they then wrote happens inside WhatsApp; only the Caso code in the Sheet can tell.
-2. **"Called or emailed" is a click, not a call.** `rk_contact_click` fires when the number or address is tapped. Label it "tapped phone or email" in the report and the guide, or the any-contact number overstates.
+2. **"Called or emailed" is a click, not a call.** `rk_contact_click` fires when the number or address is tapped. Label it "tapped phone or email" in the report and the walkthrough, or the any-contact number overstates.
 3. **"Gave contact details" and "lead emailed" are one event.** The bot collects and emails in one tool call; the site sees `rk_chat_lead` when the email went, `rk_chat_lead_fail` when it did not. A funnel cannot use the same event for two consecutive steps, so the chatbot funnel ends at `rk_chat_lead`, and the failures are counted beside it rather than inside it.
 4. **The any-contact funnel cannot require half-page scroll.** Funnel steps cannot be skipped, and the WhatsApp button in the landing heroes is tapped without scrolling — the most common contact on the site would drop out at step 2. It is two steps, arrived and contacted; scroll depth is read from the landing funnels instead.
 5. **Neither landing funnel can require half-page scroll either** — found 24 September 2026 while building the workers funnel. The form is reachable without passing 50%: it sits above that mark, and the hero's CTA jumps straight to it, so `rk_form_view` can fire before `rk_scroll` 50. A funnel demands its steps in order, so the scroll step dropped people who plainly saw the form and made the result depend on page layout. Both landing funnels start at arrival and go straight to seeing the form; scroll depth is read on its own, as a free-form table of `rk_scroll` by `percent_scrolled` and `page_type`.
@@ -760,13 +769,13 @@ Found 24 September 2026 building the workers funnel. A test booking made on 23 S
 
 ### When to read them
 
-Build as soon as the events are selectable in Explore — the same processing lag as the phase 4 audiences, so 24 September afternoon. **Read and write the guide no earlier than two weeks after.** At this traffic a step holds a handful of people for the first days, one visitor moves a percentage by twenty points, and the guide's screenshots need numbers that will not embarrass anyone.
+Build as soon as the events are selectable in Explore — the same processing lag as the phase 4 audiences, so 24 September afternoon. **Read them no earlier than two weeks after.** At this traffic a step holds a handful of people for the first days, and one visitor moves a percentage by twenty points.
 
 Sharing: an exploration belongs to whoever built it; **Share** makes it read-only for everyone with access to the property. The firm needs its own Google account with at least Viewer on the property — confirm before promising "reports they can open any time".
 
-### The written guide
+### The written guide — dropped
 
-Two pages, in Spanish, with screenshots: how to open each report, how to change the date range, how to read the drop-off between two steps, and three example questions with the clicks to answer them ("which campaign loses most people at the details step?").
+Replaced on 24 September 2026 by a recorded walkthrough, made at the end of phase 7 when the reports hold a month of real numbers. See phase 7, **Handover**.
 
 ### Checklist
 
@@ -784,7 +793,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 - [x] The firm's own Google account has access to the property — confirmed 24 September 2026: they granted ours, so they hold at least administrator
 - [x] Reports menu, 24 September 2026: collection `RK Abogados`, published, in the left-hand Reports menu for everyone on the property. Topic `Embudos` holds the six funnels saved as reports (names without "RK ·", Spanish one-line descriptions); topic `Blog` holds `Artículos del blog`, a detail report from the Landing page template — filter landing page begins with `/blog/`, metrics Active users, Key events and Average engagement time per active user, bar chart only (a line per article is noise at this volume). Everything else stays in Explore: path reports have no menu equivalent, column-spread tables like `Lectura` do not survive the move, and the diagnostic tabs are ours rather than the firm's. Elapsed time between steps is also Explore-only
 - [x] All eight explorations shared, 24 September 2026. GA4 offers no per-user choice: sharing makes an exploration read-only for everyone with access to the property, so check Admin → Property access management for anyone who should not be on that list
-- [ ] Guide in Spanish
+- [x] ~~Guide in Spanish~~ — dropped 24 September 2026, replaced by the recorded walkthrough in phase 7
 
 ---
 
@@ -829,6 +838,31 @@ Small items deliberately postponed from earlier phases, to be closed in one sitt
 - [ ] The four split audiences (phase 4) listed in Google Ads → Audience manager → Your data segments, source Google Analytics. Expected within a day or two of 24 September 2026; both prerequisites confirmed 24 September 2026: the Analytics link's personalised advertising is Enabled, and ads personalisation is on for Chile under Admin → Data collection. Missing by then is a fault to raise with Google, not a setting
 - [ ] Each split audience at 100 or more: the empresas pair added to the empresas campaign as Targeting, the trabajadores pair to theirs as Observation, and the trabajadores campaign's policy status checked a week later before any move to Targeting
 - [ ] The Analytics → Ads link still shows the account as `RyO Asociados` although the Ads account was renamed. Analytics appears to keep the name from when the link was made; cosmetic, not worth relinking. Check whether it has caught up
+
+### Handover: a recorded walkthrough
+
+The last step of the plan. After the review call, a screen recording in Spanish
+that the firm can replay whenever they open Analytics, in place of the written
+guide first planned for phase 5. Recorded at this point on purpose: the reports
+then hold a month of numbers from after both the consent go-live and the
+tracking go-live, so the examples on screen are real.
+
+What it covers, in about ten minutes:
+
+- Where the reports are: Reports → **RK Abogados** in the left menu — `Embudos`
+  and `Blog` — and Explore → *Shared with me* for the deeper ones.
+- How to change the date range, and why a funnel reads as people, not visits.
+- How to read one funnel end to end — the drop between two steps, and
+  switching the breakdown between channel and campaign.
+- Three questions answered on screen, with the clicks: which channel brings
+  contacts, where the most people give up, which blog articles bring clients.
+- What the numbers cannot show: visitors who reject cookies, and a WhatsApp
+  conversation after the tap. The Sheet's Caso code is where those live.
+
+Sent as a link, not an attachment, so it can be re-recorded when the reports
+change without the firm keeping an old copy.
+
+- [ ] Walkthrough recorded in Spanish and the link sent to the firm
 
 ---
 
@@ -910,7 +944,7 @@ Effort is in working days; pricing goes on top.
 > 4. **A cookie banner that works, with a separate advertising choice.** What a visitor chooses actually controls what Google stores, and measurement and advertising become separate decisions rather than one checkbox — which is what the data protection law coming into force in December 2026 is aimed at. Your published cookie policy is brought in line with what the site actually loads, which today it is not.
 > 5. **Five funnel reports in Analytics.** Workers booking, companies booking, contact form, chatbot, and "any contact". Each shows how many people reach each step and where they leave, broken down by campaign, traffic source and device. Plus a report showing where people go instead of contacting you.
 > 6. **Remarketing lists.** Everyone who started a form and did not finish, ready to advertise to. Built once, refreshed automatically, no extra cost.
-> 7. **A short guide in Spanish** on how to open and read the reports, with worked examples.
+> 7. **A recorded walkthrough in Spanish** of how to open and read the reports, with worked examples on your own numbers, after the one-month review.
 > 8. **Documentation** of every signal, kept with the website code, so future changes stay consistent.
 > 9. **A review after one month** with the first findings and a prioritised list of improvements for the site and the campaigns.
 > 10. **Telling Google which contacts became real clients.** The join is already built into the work above; what you add is a mark in your sheet against each booking or conversation — client or not — kept up to date within 90 days of the click, and Google Ads reads it every day. The single highest-value step in the whole project, and the only one that depends on a habit rather than on software.
@@ -938,7 +972,7 @@ Effort is in working days; pricing goes on top.
 | 2 | Site tracking, all signals, scroll, attribution, chatbot leads, testing on preview | 2.5 – 3 |
 | 3 | Advertising consent category, Consent Mode, policy pages, verification | 1.5 |
 | 4 | Tag Manager rule, Analytics labels, conversions, audiences, docs | 0.5 |
-| 5 | Five funnels, path report, written guide | 1 |
+| 5 | Funnels, path reports, Reports menu collection | 1 |
 | 7 | Review after one month | 0.5 |
 | 10 | Case outcomes from the Sheet to Google Ads — in the core since 23 September 2026 | 0.5 |
 | | **Core remaining** | **6.5 – 7** |
