@@ -738,7 +738,7 @@ Two pages, in Spanish, with screenshots: how to open each report, how to change 
 
 - [x] Funnels checked against the signals and turned into step-by-step recipes, 23 September 2026 — four corrections, see above
 - [x] Workers funnel, 24 September 2026 — six steps, no scroll step (correction 5); a real test booking the same day to confirm the last step, since the 23 September test was made in preview mode
-- [ ] Companies funnel
+- [x] Companies funnel, 24 September 2026 — duplicated from the workers funnel, values switched to `empresas`
 - [ ] Contact form funnel
 - [ ] Chatbot funnel
 - [ ] Any-contact funnel
