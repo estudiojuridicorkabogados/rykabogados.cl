@@ -5,7 +5,11 @@ import { z } from "zod";
 import { getGmailOAuth2Client } from "@/lib/google/gmail/getGmailOAuth2Client";
 import { sendEmail } from "@/lib/google/gmail/sendEmail";
 import { verifyCaptcha } from "@/lib/google/re-captcha/verifyCaptcha";
-import { CAMILA_EMAIL, CONTACTO_EMAIL } from "@/lib/utils/constants";
+import {
+  CAMILA_EMAIL,
+  CONTACTO_EMAIL,
+  NOTIFICACIONES_EMAIL,
+} from "@/lib/utils/constants";
 
 export interface ActionResponse {
   success: boolean;
@@ -112,11 +116,11 @@ export async function submitContactForm(
       oauth2Client: gmailOAuth2Client,
     }),
     sendEmail({
-      to: CONTACTO_EMAIL,
+      to: [CAMILA_EMAIL, NOTIFICACIONES_EMAIL],
       subject: "Nueva consulta de contacto",
       html: createStudioEmailHtml(rawData, sessionCode),
-      from: CAMILA_EMAIL,
-      replyTo: CAMILA_EMAIL,
+      from: CONTACTO_EMAIL,
+      replyTo: CONTACTO_EMAIL,
       oauth2Client: gmailOAuth2Client,
     }),
   ]);
