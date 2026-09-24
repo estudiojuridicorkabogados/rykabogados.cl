@@ -75,8 +75,8 @@ Everything below is planned out except these. Each is settled with the client ra
 | Decision | Whose call | Where it lands |
 | --- | --- | --- |
 | Banner copy, category names, whether "decline" is as prominent as "accept" | The firm — they are the lawyers | Phase 3, step 11 |
-| Wording of `/politica-cookies` and `/politicas-de-privacidad` | The firm writes it, we supply the cookie inventory | Phase 3, step 10 |
-| Which of the four Ads conversions are primary, and which become secondary | The firm, with our recommendation | Phase 1 record |
+| Wording of `/politica-cookies` and `/politicas-de-privacidad` | The firm writes it; the cookie inventory was sent to them 24 September 2026 | Phase 3, step 10 |
+| ~~Which of the four Ads conversions are primary, and which become secondary~~ | Settled 24 September 2026 — as recommended: the three forms primary, WhatsApp secondary | Phase 1 record |
 | ~~Whether `digitalizame.cl` keeps editor access to Ads and Tag Manager~~ | Settled 23 September 2026 — access removed | Phase 1 record |
 | Whether chatbot leads get their own Ads conversion action | Revisit at phase 7 once volume is known — agreed it goes primary when created | Phase 2 |
 | The consent go-live date, recorded as the reporting baseline | Agreed jointly before phase 3 ships | Phase 3, step 4 |
@@ -150,10 +150,10 @@ One change was published on its own: an exception trigger (`Page Hostname contai
 
 ### Left open
 
-- **Stray Ads conversion actions — 23 September 2026.** `Enviar formulario de conversion de RK Abogados` (Primary, no data, legacy) **demoted to Secondary**; the removal option was not offered, and Secondary is enough — it no longer touches bidding. `Envío de formulario para clientes potenciales` (auto-created, never fired, already Secondary) to be removed as noise. Removed actions stay listed with status Removed — Ads never deletes one, to keep its history — so filter the table on Status: Enabled.
+- **Stray Ads conversion actions — 23 September 2026.** `Enviar formulario de conversion de RK Abogados` (Primary, no data, legacy) **demoted to Secondary**; the removal option was not offered, and Secondary is enough — it no longer touches bidding. `Envío de formulario para clientes potenciales` (auto-created, never fired, already Secondary) **removed 24 September 2026** as noise. Removed actions stay listed with status Removed — Ads never deletes one, to keep its history — so filter the table on Status: Enabled.
 - ~~`contacto@digitalizame.cl` holds editor access~~ — **removed 23 September 2026.** They had last modified the Ads link on 15 September 2026; two parties editing tracking configuration independently is how a container acquires thirteen dead linker domains. Configuration changes now have one source: this repository's docs.
-- Primary versus secondary conversions, still to settle with the firm. Recommendation unchanged: the three form conversions primary, the WhatsApp click secondary.
-- **A second WhatsApp action, `Click Whatsapp RK`** — Primary, no data. Its label is `SXmKCICe6M4bELGenaUp`, checked 23 September 2026: not the `GhpoCLOFkvIcELGenaUp` the container fires, so nothing sends to it. To remove, or at least demote — an empty Primary action distorts Smart Bidding.
+- ~~Primary versus secondary conversions~~ — **settled 24 September 2026, as recommended, and applied in Ads:** the three form conversions primary, the WhatsApp click secondary. A WhatsApp tap is a lead that still has to write; bidding on it would chase the cheapest action rather than the one that becomes a case.
+- ~~**A second WhatsApp action, `Click Whatsapp RK`**~~ — **removed 24 September 2026.** It was Primary with no data: its label `SXmKCICe6M4bELGenaUp` was not the `GhpoCLOFkvIcELGenaUp` the container fires, so nothing sent to it, and an empty Primary action distorts Smart Bidding.
 - **`Cliente convertido` — keep it, and do not touch its enhanced conversions.** Secondary, source "Import from clicks", created 16 April 2026, last recorded conversion 23 March 2026, 90-day window, every conversion. **Uploads is empty** (23 September 2026): no schedule, no file, nothing feeding it. The daily "last ping" is not an upload — it lines up with our own test sends on 22 and 23 September, and is the site's User-provided Data Event tag supplying hashed email and phone for *enhanced conversions for leads*. So this is half of section 10's mechanism already built: the website half works, the upload half was never set up, and its "no attempted imports" warning only says nobody has uploaded outcomes yet. **Connected 23 September 2026:** the Sheet's `Ads import` tab feeds this action daily through Data Manager (see section 10). It had been removed in the clean-up the same day and was re-enabled — a removed action records nothing. **Enhanced conversions stays on** — it is what lets an upload match by email and phone instead of click ID alone, the only way to cover leads that arrived without a `gclid`. (This replaces the earlier advice to untick it, written before the ping was understood.)
 
 ---
@@ -312,7 +312,9 @@ production. What remains is not ours: the banner and modal wording, the two
 policy pages, and two decisions that belong to the firm rather than to us —
 whether rejecting should stop data reaching Google entirely, and whether the
 settings switches keep starting pre-ticked. Both are in `docs/client-brief.md`
-in Spanish, to be sent 23 September.
+in Spanish, sent to the firm, and answered; implementing the answers is its own
+piece of work. The cookie inventory followed on 24 September 2026, as a Spanish
+PDF made from `docs/cookie-inventory.md` without the code references.
 
 | | |
 | --- | --- |
@@ -676,7 +678,7 @@ Small items deliberately postponed from earlier phases, to be closed in one sitt
 - [x] Apps Script: the eight `ft_*` columns (from phase 2) — done 22 September 2026 with the move to the firm's own Sheet, see phase 2 checklist
 - [x] Preview and test traffic kept out of the live Sheet (finding 4 of the 22 September review): the Apps Script URL is now `NEXT_PUBLIC_SHEET_WEBAPP_URL`, set in production only; unset means `logToSheet` is a no-op
 - [ ] Container's non-production exception verified on a preview URL with Tag Assistant: Google tags blocked on load, conversion tag blocked on a WhatsApp click
-- [ ] Old `Click Whatsapp RK` action demoted or removed (from the phase 1 open list)
+- [x] Old `Click Whatsapp RK` action removed, 24 September 2026 (from the phase 1 open list)
 - [x] `Cliente convertido` understood, 23 September 2026 — nothing uploads to it; kept for section 10, see phase 1
 - [ ] `docs/tracking-events.md` re-read against the code one last time
 

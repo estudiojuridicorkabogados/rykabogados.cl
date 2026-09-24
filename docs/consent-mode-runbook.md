@@ -195,8 +195,8 @@ why they must hear it before rather than after.
 
 - The non-production exception, rebuilt on 22 September as a Custom Event `.*`
   trigger, has not been verified on a preview URL.
-- `Click Whatsapp RK` — Primary, no data, distinct from the action the tag
-  actually fires. Demote or remove; an empty Primary action distorts Smart
-  Bidding.
-- `Cliente convertido` — an offline import nobody has a record of setting up.
-  Establish what feeds it before building another.
+- ~~`Click Whatsapp RK`~~ — removed 24 September 2026. It was Primary with no
+  data, distinct from the action the tag actually fires.
+- ~~`Cliente convertido`~~ — understood 23 September 2026: nothing uploaded to
+  it until the Sheet's `Ads import` tab was connected the same day. See
+  `docs/tracking-plan.md`, phase 1 and section 10.
